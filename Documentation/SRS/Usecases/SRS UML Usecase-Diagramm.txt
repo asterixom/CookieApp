@@ -1,0 +1,16 @@
+UML CODE, falls jemand was hinzufügen/verbessern möchte (http://yuml.me/diagram/scruffy/usecase/draw)
+
+[Unregistered user]-(Register)[Unregistered user]-(Search for recipes)
+
+[Registered user]-(Send idea of improvement)
+[Registered user]-(Comment on recipe)
+[Registered user]-(Create and submit recipe)
+[Registered user]-(Sign in)
+[Registered user]-(Delete own recipe)
+[Registered user]-(Modify own user account)
+
+[Administrator]-(Delete recipe)
+[Administrator]-(Delete user)
+[Administrator]-(Create categorie)
+[Administrator]-(Modify categorie)
+[Administrator]-(Delete categorie)
