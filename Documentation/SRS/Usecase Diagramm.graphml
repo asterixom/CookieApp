@@ -85,7 +85,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="610.0" width="529.0" x="377.0" y="122.0"/>
-          <y:Fill color="#D0D0D0" transparent="false"/>
+          <y:Fill color="#999999" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" modelName="custom" textColor="#000000" visible="true" width="4.0" x="262.5" y="303.0">
             <y:LabelModel>
@@ -104,7 +104,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="278.0" width="505.0" x="389.0" y="140.0"/>
-          <y:Fill color="#C0C0C0" transparent="false"/>
+          <y:Fill color="#F0F0F0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="internal" modelPosition="tr" textColor="#000000" visible="true" width="55.322265625" x="445.677734375" y="4.0">Userdata</y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -116,7 +116,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="278.0" width="505.0" x="389.0" y="442.0"/>
-          <y:Fill color="#C0C0C0" transparent="false"/>
+          <y:Fill color="#F0F0F0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="internal" modelPosition="tr" textColor="#000000" visible="true" width="67.421875" x="433.578125" y="4.0">Recipedata</y:NodeLabel>
           <y:Shape type="rectangle"/>
@@ -167,7 +167,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="81.25" width="141.5" x="724.7499999999998" y="324.0"/>
-          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="76.39501953125" x="32.552490234375" y="30.9697265625">Delete User<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -186,7 +186,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="62.5" width="155.0" x="604.25" y="580.25"/>
-          <y:Fill color="#00FF00" transparent="false"/>
+          <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="63.09033203125" x="45.954833984375" y="21.5947265625">comment<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -205,7 +205,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="68.75" width="155.0" x="423.625" y="557.75"/>
-          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="73.44970703125" x="40.775146484375" y="24.7197265625">suggestion<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -224,7 +224,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="68.74999999999994" width="155.0" x="516.0" y="281.49999999999994"/>
-          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="108.09521484375" x="23.452392578125" y="24.7197265625">change userdata<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -262,7 +262,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="62.5" width="167.75" x="713.4999999999998" y="642.75"/>
-          <y:Fill color="#FFCC00" transparent="false"/>
+          <y:Fill color="#00FF00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="120.33349609375" x="23.708251953125" y="21.5947265625">modify own recipe<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -349,20 +349,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e3" source="n1" target="n3">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="-219.80225555555637" ty="180.75">
-            <y:Point x="318.9444444444447" y="607.75"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="none"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e4" source="n12" target="n5">
+    <edge id="e3" source="n12" target="n5">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -373,7 +360,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e5" source="n2" target="n1">
+    <edge id="e4" source="n2" target="n1">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -395,7 +382,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e6" source="n10" target="n5">
+    <edge id="e5" source="n10" target="n5">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -406,7 +393,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e7" source="n0" target="n6">
+    <edge id="e6" source="n0" target="n6">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -420,7 +407,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e8" source="n0" target="n7">
+    <edge id="e7" source="n0" target="n7">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -434,7 +421,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e9" source="n0" target="n15">
+    <edge id="e8" source="n0" target="n15">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -448,7 +435,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e10" source="n0" target="n14">
+    <edge id="e9" source="n0" target="n14">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -462,13 +449,35 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e11" source="n8" target="n4">
+    <edge id="e10" source="n8" target="n4">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e11" source="n5" target="n3">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e12" source="n1" target="n5">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.6977444444434013" ty="26.75"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="none"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
