@@ -8,7 +8,7 @@
 *.war
 *.ear
 
-./working-directory/de.cookieapp.gui/de.cookieap.gui.launch
+/working-directory/de.cookieapp.gui/de.cookieap.gui.launch
 
 
 
