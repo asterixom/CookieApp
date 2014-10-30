@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<bundle bundleID="114" localization="OSGI-INF/l10n/bundle" name="TextImpl" project="de.cjt.verdion.osgi.calculator.text.impl"/>
+	<bundle bundleID="115" localization="OSGI-INF/l10n/bundle" name="Calculate" project="de.cjt.verdion.osgi.calculator.calculate"/>
+	<bundle bundleID="116" localization="OSGI-INF/l10n/bundle" name="OperantMinusImpl" project="de.cjt.verdion.osgi.calculator.operator.minus.impl"/>
+	<bundle bundleID="117" localization="OSGI-INF/l10n/bundle" name="HexImpl" project="de.cjt.verdion.osgi.calculator.hex.impl"/>
+	<bundle bundleID="118" localization="OSGI-INF/l10n/bundle" name="OperatorTimesImpl" project="de.cjt.verdion.osgi.calculator.operator.times.impl"/>
+	<bundle bundleID="119" localization="OSGI-INF/l10n/bundle" name="DeciImpl" project="de.cjt.verdion.osgi.calculator.deci.impl"/>
+	<bundle bundleID="120" localization="OSGI-INF/l10n/bundle" name="Operator" project="de.cjt.verdion.osgi.calculator.operator"/>
+	<bundle bundleID="121" localization="OSGI-INF/l10n/bundle" name="Text" project="de.cjt.verdion.osgi.calculator.text"/>
+	<bundle bundleID="122" localization="OSGI-INF/l10n/bundle" name="NumeralSystem" project="de.cjt.verdion.osgi.calculator.numeralSystem"/>
+	<bundle bundleID="123" localization="OSGI-INF/l10n/bundle" name="Bin" project="de.cjt.verdion.osgi.calculator.bin"/>
+	<bundle bundleID="124" localization="OSGI-INF/l10n/bundle" name="GUIImpl" project="de.cjt.verdion.osgi.calculator.gui.impl"/>
+	<bundle bundleID="125" localization="OSGI-INF/l10n/bundle" name="OperatorPlusImpl" project="de.cjt.verdion.osgi.calculator.operator.plus.impl"/>
+	<bundle bundleID="126" localization="OSGI-INF/l10n/bundle" name="CalculatorImpl" project="de.cjt.verdion.osgi.calculator.calculate.impl"/>
+	<bundle bundleID="127" localization="OSGI-INF/l10n/bundle" name="OperatorPartImpl" project="de.cjt.verdion.osgi.calculator.operator.part.impl"/>
+	<bundle bundleID="128" localization="OSGI-INF/l10n/bundle" name="BinImpl" project="de.cjt.verdion.osgi.calculator.bin.impl"/>
+	<bundle bundleID="129" localization="OSGI-INF/l10n/bundle" name="OperatorpowerImpl" project="de.cjt.verdion.osgi.calculator.operator.power.impl"/>
+</map>

@@ -1,0 +1,92 @@
+!SESSION 2013-10-23 19:15:35.711 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_07
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Command-line arguments:  -dev file:/Users/christianverdion/Documents/workspace/OSGI-Calculator/.metadata/.plugins/org.eclipse.pde.core/Calculator/dev.properties -os macosx -ws cocoa -arch x86_64 -consoleLog -console
+
+!ENTRY org.eclipse.rap.rwt.osgi 4 0 2013-10-23 19:15:38.641
+!MESSAGE Unable to start RWT application.
+!STACK 0
+java.lang.RuntimeException: org.osgi.service.http.NamespaceException: The alias '/rwt-resources' is already in use.
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.registerResourceDirectory(ApplicationReferenceImpl.java:194)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.startRWTApplication(ApplicationReferenceImpl.java:79)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.start(ApplicationReferenceImpl.java:63)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.doLaunch(ApplicationLauncherImpl.java:105)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.launch(ApplicationLauncherImpl.java:87)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.launch(ApplicationLauncherImpl.java:164)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.launchWithConfiguration(ApplicationLauncherImpl.java:151)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.addConfiguration(ApplicationLauncherImpl.java:66)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationConfigurationTracker.addingService(ApplicationConfigurationTracker.java:35)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationConfigurationTracker.addingService(ApplicationConfigurationTracker.java:1)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:932)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:1)
+	at org.osgi.util.tracker.AbstractTracked.trackAdding(AbstractTracked.java:256)
+	at org.osgi.util.tracker.AbstractTracked.track(AbstractTracked.java:229)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.serviceChanged(ServiceTracker.java:894)
+	at org.eclipse.osgi.internal.serviceregistry.FilteredServiceListener.serviceChanged(FilteredServiceListener.java:107)
+	at org.eclipse.osgi.framework.internal.core.BundleContextImpl.dispatchEvent(BundleContextImpl.java:861)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:148)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistry.publishServiceEventPrivileged(ServiceRegistry.java:819)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistry.publishServiceEvent(ServiceRegistry.java:771)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistrationImpl.register(ServiceRegistrationImpl.java:130)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistry.registerService(ServiceRegistry.java:214)
+	at org.eclipse.osgi.framework.internal.core.BundleContextImpl.registerService(BundleContextImpl.java:433)
+	at org.eclipse.equinox.internal.ds.InstanceProcess.registerService(InstanceProcess.java:536)
+	at org.eclipse.equinox.internal.ds.InstanceProcess.buildComponents(InstanceProcess.java:260)
+	at org.eclipse.equinox.internal.ds.Resolver.buildNewlySatisfied(Resolver.java:473)
+	at org.eclipse.equinox.internal.ds.Resolver.enableComponents(Resolver.java:217)
+	at org.eclipse.equinox.internal.ds.SCRManager.performWork(SCRManager.java:816)
+	at org.eclipse.equinox.internal.ds.SCRManager$QueuedJob.dispatch(SCRManager.java:783)
+	at org.eclipse.equinox.internal.ds.WorkThread.run(WorkThread.java:89)
+	at org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor.run(Executor.java:70)
+Caused by: org.osgi.service.http.NamespaceException: The alias '/rwt-resources' is already in use.
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.registerServlet(ProxyServlet.java:169)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.registerResources(ProxyServlet.java:199)
+	at org.eclipse.equinox.http.servlet.internal.HttpServiceImpl.registerResources(HttpServiceImpl.java:78)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.registerResourceDirectory(ApplicationReferenceImpl.java:190)
+	... 31 more
+
+!ENTRY org.eclipse.rap.rwt.osgi 4 0 2013-10-23 19:15:39.284
+!MESSAGE Unable to start RWT application.
+!STACK 0
+java.lang.RuntimeException: org.osgi.service.http.NamespaceException: The alias '/rwt-resources' is already in use.
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.registerResourceDirectory(ApplicationReferenceImpl.java:194)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.startRWTApplication(ApplicationReferenceImpl.java:79)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.start(ApplicationReferenceImpl.java:63)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.doLaunch(ApplicationLauncherImpl.java:105)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.launch(ApplicationLauncherImpl.java:87)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.launch(ApplicationLauncherImpl.java:164)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.launchWithConfiguration(ApplicationLauncherImpl.java:151)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationLauncherImpl.addConfiguration(ApplicationLauncherImpl.java:66)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationConfigurationTracker.addingService(ApplicationConfigurationTracker.java:35)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationConfigurationTracker.addingService(ApplicationConfigurationTracker.java:1)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:932)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:1)
+	at org.osgi.util.tracker.AbstractTracked.trackAdding(AbstractTracked.java:256)
+	at org.osgi.util.tracker.AbstractTracked.track(AbstractTracked.java:229)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.serviceChanged(ServiceTracker.java:894)
+	at org.eclipse.osgi.internal.serviceregistry.FilteredServiceListener.serviceChanged(FilteredServiceListener.java:107)
+	at org.eclipse.osgi.framework.internal.core.BundleContextImpl.dispatchEvent(BundleContextImpl.java:861)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:148)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistry.publishServiceEventPrivileged(ServiceRegistry.java:819)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistry.publishServiceEvent(ServiceRegistry.java:771)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistrationImpl.register(ServiceRegistrationImpl.java:130)
+	at org.eclipse.osgi.internal.serviceregistry.ServiceRegistry.registerService(ServiceRegistry.java:214)
+	at org.eclipse.osgi.framework.internal.core.BundleContextImpl.registerService(BundleContextImpl.java:433)
+	at org.eclipse.equinox.internal.ds.InstanceProcess.registerService(InstanceProcess.java:536)
+	at org.eclipse.equinox.internal.ds.InstanceProcess.buildComponents(InstanceProcess.java:260)
+	at org.eclipse.equinox.internal.ds.Resolver.buildNewlySatisfied(Resolver.java:473)
+	at org.eclipse.equinox.internal.ds.Resolver.enableComponents(Resolver.java:217)
+	at org.eclipse.equinox.internal.ds.SCRManager.performWork(SCRManager.java:816)
+	at org.eclipse.equinox.internal.ds.SCRManager$QueuedJob.dispatch(SCRManager.java:783)
+	at org.eclipse.equinox.internal.ds.WorkThread.run(WorkThread.java:89)
+	at org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor.run(Executor.java:70)
+Caused by: org.osgi.service.http.NamespaceException: The alias '/rwt-resources' is already in use.
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.registerServlet(ProxyServlet.java:169)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.registerResources(ProxyServlet.java:199)
+	at org.eclipse.equinox.http.servlet.internal.HttpServiceImpl.registerResources(HttpServiceImpl.java:78)
+	at org.eclipse.rap.rwt.osgi.internal.ApplicationReferenceImpl.registerResourceDirectory(ApplicationReferenceImpl.java:190)
+	... 31 more

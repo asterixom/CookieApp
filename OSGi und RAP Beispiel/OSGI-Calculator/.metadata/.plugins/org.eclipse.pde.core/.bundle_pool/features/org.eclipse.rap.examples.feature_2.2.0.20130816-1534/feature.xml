@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.rap.examples.feature"
+      label="RAP Examples"
+      version="2.2.0.20130816-1534"
+      provider-name="Eclipse.org - RAP">
+
+   <description url="http://www.eclipse.org/rap/">
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="RAP 2.2 Repository" url="http://download.eclipse.org/rt/rap/2.2/"/>
+   </url>
+
+   <requires>
+      <import feature="org.eclipse.rap.feature" version="2.2.0" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.rap.demo"
+         download-size="149"
+         install-size="348"
+         version="2.2.0.20130702-1310"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.demo.source"
+         download-size="92"
+         install-size="257"
+         version="2.2.0.20130702-1310"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.demo.databinding"
+         download-size="39"
+         install-size="72"
+         version="2.2.0.20130702-1310"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.demo.databinding.source"
+         download-size="25"
+         install-size="63"
+         version="2.2.0.20130702-1310"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.demo.controls"
+         download-size="589"
+         install-size="1105"
+         version="2.2.0.20130816-1534"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.demo.controls.source"
+         download-size="168"
+         install-size="558"
+         version="2.2.0.20130816-1534"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.design.example"
+         download-size="883"
+         install-size="1113"
+         version="2.2.0.20130723-1120"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.design.example.source"
+         download-size="76"
+         install-size="242"
+         version="2.2.0.20130723-1120"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.examples"
+         download-size="54"
+         install-size="92"
+         version="2.2.0.20130702-1310"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.examples.source"
+         download-size="30"
+         install-size="62"
+         version="2.2.0.20130702-1310"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.examples.pages"
+         download-size="242"
+         install-size="411"
+         version="2.2.0.20130806-0955"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.rap.examples.pages.source"
+         download-size="129"
+         install-size="277"
+         version="2.2.0.20130806-0955"
+         unpack="false"/>
+
+</feature>
