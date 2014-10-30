@@ -1,0 +1,2 @@
+- Bei Login: „Kennwort vergessen“ link
+- Bei Login: „Registrieren“ Link
