@@ -20,18 +20,7 @@ Scenario: username and password correct
   When I enter my "username" in the field "Benutzername" 
   And I enter my "password" in the field "Kennwort"
   And I press the "enter" button
-  And both are stored in the database
-  Then my "userdata" will be loaded
-  And I am still on the Page
-  
- Scenario: username and password are entered but don´t press enter
-  Given I am not logged in yet
-  And I have the webpage open
-  When I enter my "username" in the field "Benutzername" 
-  And I enter my "password" in the field "Kennwort"
-  And I press the "enter" button
-  And both are stored in the database
-  Then my "userdata" will be loaded
-  And I am still on the Page
-  
+  And one of them is wrong
+  Then ma dialog will open, telling the user he made an error
+   
  
