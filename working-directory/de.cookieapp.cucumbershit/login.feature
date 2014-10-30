@@ -1,12 +1,11 @@
-Feature: log in
+Feature: login
 
 As a user not logged in
-I want log in
+I want log into my useraccount
 so that I have full access to all the features
 
 Scenario: username and password correct
   Given I am not logged in yet
-  And I have the webpage open
   When I enter my "username" in the field "Benutzername" 
   And I enter my "password" in the field "Kennwort"
   And I press the "enter" button
@@ -16,11 +15,9 @@ Scenario: username and password correct
   
  Scenario: username or password is wrong
   Given I am not logged in yet
-  And I have the webpage open
   When I enter my "username" in the field "Benutzername" 
   And I enter my "password" in the field "Kennwort"
   And I press the "enter" button
   And one of them is wrong
   Then ma dialog will open, telling the user he made an error
    
- 
