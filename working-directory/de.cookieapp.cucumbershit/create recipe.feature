@@ -33,5 +33,5 @@ Scenario: recipe data incomplete and pressed on save
   And I enter the "instruction" in the field "Zubereitung"
   And I press the "speichern" button
   Then I am still on the same page
-  And the pages shows a notification that a field is missing
+  And the page shows a notification that a field is missing
   
