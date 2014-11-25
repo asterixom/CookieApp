@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="target" sequenceNumber="2">
+<?pde version="3.8"?><target name="target" sequenceNumber="4">
 <locations>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<location includeAllPlatforms="true" includeConfigurePhase="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.0.0.20140927-1523"/>
 <unit id="org.eclipse.rap.feature.feature.group" version="3.0.0.20140930-0953"/>
 <unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.0.0.20140930-0953"/>
