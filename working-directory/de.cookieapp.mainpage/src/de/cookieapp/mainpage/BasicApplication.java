@@ -1,4 +1,4 @@
-package de.cookieapp.gui;
+package de.cookieapp.mainpage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ public class BasicApplication implements ApplicationConfiguration {
     public void configure(Application application) {
         Map<String, String> properties = new HashMap<String, String>();
         properties.put(WebClient.PAGE_TITLE, "CookieApp");
-        application.addEntryPoint("/hello", BasicEntryPoint.class, properties);
+        application.addEntryPoint("/cookieapp", MainPage.class, properties);
     }
 
 }
