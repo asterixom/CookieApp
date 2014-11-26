@@ -2,7 +2,6 @@ package de.cookieapp.mainpage;
 
 import java.util.Hashtable;
 
-import org.apache.log4j.Logger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceEvent;
