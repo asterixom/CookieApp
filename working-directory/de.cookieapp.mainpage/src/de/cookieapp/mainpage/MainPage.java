@@ -15,6 +15,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
+import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 import de.cookieapp.folderitem.FolderItem;
 
@@ -26,11 +31,17 @@ public class MainPage extends AbstractEntryPoint {
 	private TabFolder tabFolder;
 	private Composite operatorArea;
 	private List<FolderItem> folderItems = new ArrayList<FolderItem>();
-	protected List<Composite> folderItemComposites;
+	protected List<Composite> folderItemComposites = new ArrayList<Composite>();
 	private List<TabItem> tabItems = new ArrayList<TabItem>();
+	private BundleContext context = FrameworkUtil.getBundle(getClass()).getBundleContext();
+	private ServiceTracker serviceTrackerTabItem;
+
 
 	@Override
 	protected void createContents(Composite parent) {
+		
+		System.out.println("Main Page started");
+		
 		this.parent = parent;
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
@@ -47,6 +58,7 @@ public class MainPage extends AbstractEntryPoint {
 		buttonArea = new Composite(parent, SWT.NONE);
 		buttonArea.setLayout(new GridLayout(2, true));
 		tabFolder = new TabFolder(buttonArea, SWT.NONE);
+		checkTabfolderItems();
 		tabFolder.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				/*
@@ -87,8 +99,29 @@ public class MainPage extends AbstractEntryPoint {
 			}
 		});
 		revertButton.setText("<--");
-
 		
+		startTabItemSeviceTracker();
+
+		int numberOfTabItems = tabFolder.getItems().length;
+		System.out.println("There are " + numberOfTabItems + " tabitems");
+	}
+	
+	private void checkTabfolderItems() {
+		System.out.println(folderItems.size());
+		/*
+		folderItems.add(folderItem);
+		System.out.println("added " + folderItem.getTabItemName());
+		//General Composite for the Tab and the NumberArea
+		Composite folderItemComposite = folderItem.getContent();
+		folderItemComposite.setParent(tabFolder);
+		folderItemComposites.add(folderItemComposite);		
+
+		//The New Tab for the Composite
+		TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+		tabItem.setText(folderItem.getTabItemName());
+		tabItem.setControl(folderItemComposite);
+		tabItems.add(tabItem);	
+		*/
 	}
 
 	/*
@@ -97,15 +130,17 @@ public class MainPage extends AbstractEntryPoint {
 	 */
 
 	public void setFolderItem(FolderItem folderItem) {
+		System.out.println("Called setFolderItem");
 		if (folderItem != null && !(folderItems.contains(folderItem))) {
 			updateContent(new Runnable() {
 
 				@Override
 				public void run() {					
 					folderItems.add(folderItem);
+					System.out.println("added " + folderItem.getTabItemName());
 					//General Composite for the Tab and the NumberArea
-					Composite folderItemComposite = folderItem.getContent();
-					folderItemComposite.setParent(tabFolder);
+					Composite folderItemComposite = folderItem.getContent(tabFolder);
+//					folderItemComposite.setParent(tabFolder);
 					folderItemComposites.add(folderItemComposite);		
 
 					//The New Tab for the Composite
@@ -153,6 +188,42 @@ public class MainPage extends AbstractEntryPoint {
 				}
 			});
 		}
+	}
+	
+	public void startTabItemSeviceTracker() {
+		serviceTrackerTabItem = new ServiceTracker(context, FolderItem.class,
+				new ServiceTrackerCustomizer() {
+
+			public Object addingService(final ServiceReference reference) {
+				final FolderItem folderItem = (FolderItem) context.getService(reference);
+				if(folderItem != null)
+					setFolderItem(folderItem);
+				System.out.println("pong");
+				return folderItem;
+			}
+
+			public void modifiedService(final ServiceReference reference, final Object service ) {/*ok*/}
+
+			public void removedService(final ServiceReference reference, final Object service) {
+				final FolderItem folderItem = (FolderItem) context.getService(reference);
+				if(folderItem != null) {
+					unsetFolderItem(folderItem);
+				}
+			}
+		});
+		Object[] services = serviceTrackerTabItem.getServices();
+		if (services != null) {
+			for (int i = 0; i < services.length; i++) {
+				setFolderItem((FolderItem) services[i]);
+			}
+		}		
+		serviceTrackerTabItem.open();
+
+	}
+
+	public void stopNumeralSystem() {
+		if(serviceTrackerTabItem != null)
+			serviceTrackerTabItem.close();
 	}
 
 	public void updateContent(final Runnable runnable) {

@@ -8,7 +8,7 @@ public interface FolderItem {
 	 * Getter Method for the Content this Tab prints
 	 * @return a Composite with the Content
 	 */
-	public Composite getContent();
+	public Composite getContent(Composite tabFolder);
 	
 	/**
 	 * Getter Method for the Text, that should stand on the TabItem from the TabFolder

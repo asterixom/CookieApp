@@ -2,6 +2,7 @@ package de.cookieapp.mainpage;
 
 import java.util.Hashtable;
 
+import org.apache.log4j.Logger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceEvent;
@@ -12,8 +13,14 @@ import org.osgi.util.tracker.ServiceTracker;
 public class activator implements BundleActivator, ServiceListener {
 
 	private BasicApplication service;
+	@SuppressWarnings("rawtypes")
 	private ServiceTracker serviceTracker;
 	private BundleContext context;
+	
+	public static final int LOG_ERROR   = 1;
+	public static final int LOG_WARNING = 2;
+	public static final int LOG_INFO    = 3;
+	public static final int LOG_DEBUG   = 4;
 	
 	/*
 	 * (non-Javadoc)
@@ -23,6 +30,8 @@ public class activator implements BundleActivator, ServiceListener {
 		this.context = context;
 		service = new BasicApplication();
 
+		System.out.println("Activator of Main Page started");
+		
 		Hashtable<String, String> properties = new Hashtable<String, String>();
 		// register the service
 		context.registerService(BasicApplication.class.getName(), service, properties);
