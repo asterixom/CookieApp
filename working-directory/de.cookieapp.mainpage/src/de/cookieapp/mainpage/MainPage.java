@@ -96,11 +96,10 @@ public class MainPage extends AbstractEntryPoint {
 	 * tabs zeichne methode muss angepasst werden!
 	 */
 
-	public void setFolderItem(FolderItem folderItem) {
+	public void setFolderItem(final FolderItem folderItem) {
 		if (folderItem != null && !(folderItems.contains(folderItem))) {
 			updateContent(new Runnable() {
 
-				@Override
 				public void run() {					
 					folderItems.add(folderItem);
 					//General Composite for the Tab and the NumberArea
@@ -136,10 +135,9 @@ public class MainPage extends AbstractEntryPoint {
 
 	}
 
-	public void unsetFolderItem(FolderItem folderItem) {
+	public void unsetFolderItem(final FolderItem folderItem) {
 		if (folderItem != null) {
 			updateContent(new Runnable() {
-				@Override
 				public void run() {					
 					final int x = folderItems.indexOf(folderItem);
 					if (x > -1) {
@@ -157,7 +155,6 @@ public class MainPage extends AbstractEntryPoint {
 
 	public void updateContent(final Runnable runnable) {
 		Runnable bgRunnable = new Runnable() {
-			@Override
 			public void run() {
 				if (parent != null) { 
 					parent.getDisplay().asyncExec(runnable);
