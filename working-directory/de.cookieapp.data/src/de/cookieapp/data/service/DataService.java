@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import de.cookieapp.data.model.*;
 
-public interface Service {
-
+public interface DataService {
+	
+	
+	
 	public User getUser(String username);
 	public User getUserByMail(String mail);
 	
