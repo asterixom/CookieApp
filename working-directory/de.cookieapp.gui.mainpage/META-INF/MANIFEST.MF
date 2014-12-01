@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: MainPage
 Bundle-SymbolicName: de.cookieapp.gui.mainpage
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Service-Component: OSGI-INF/*.xml
 Import-Package: de.cookieapp.gui.folderitem,
  org.eclipse.osgi.framework.console;version="1.0.0",

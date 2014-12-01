@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Control
 Bundle-SymbolicName: de.cookieapp.control
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: de.cookieapp.data.model,
  de.cookieapp.data.service
 Export-Package: de.cookieapp.control,
