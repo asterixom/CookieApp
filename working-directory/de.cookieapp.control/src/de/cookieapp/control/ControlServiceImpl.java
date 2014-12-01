@@ -90,6 +90,12 @@ public class ControlServiceImpl implements ControlService {
 			return SecurityClearance.GUEST;
 		}
 		return user.getSecurityClearance();
+	}
+
+	@Override
+	public boolean test() {
+		//TODO: remove this function
+		return false;
 	}	
 	
 }
