@@ -8,10 +8,10 @@
   <name>de.cookieapp.parent</name>
   <modules>
   	<module>
-  		../../../../../root/git/CookieApp/working-directory/de.cookieapp.control
+  		../de.cookieapp.control
   	</module>
   	<module>
-  		../../../../../root/git/CookieApp/working-directory/de.cookieapp.data
+  		../de.cookieapp.data
   	</module>
   </modules>
 </project>

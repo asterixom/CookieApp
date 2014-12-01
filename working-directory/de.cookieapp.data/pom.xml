@@ -20,6 +20,6 @@
   	<groupId>de.cookieapp.parent</groupId>
   	<artifactId>de.cookieapp.parent</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
-  	<relativePath>../../../../../home/oliver/workspaces/CookieApp/de.cookieapp.parent</relativePath>
+  	<relativePath>../de.cookieapp.parent</relativePath>
   </parent>
 </project>
