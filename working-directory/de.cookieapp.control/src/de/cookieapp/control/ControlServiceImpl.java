@@ -3,9 +3,7 @@ package de.cookieapp.control;
 import java.util.HashMap;
 import java.util.Random;
 
-import de.cookieapp.control.exceptions.CookieAppException;
-import de.cookieapp.control.exceptions.NoSessionException;
-import de.cookieapp.control.exceptions.NotLoggedInException;
+import de.cookieapp.control.exceptions.*;
 import de.cookieapp.data.model.*;
 import de.cookieapp.data.service.*;
 
