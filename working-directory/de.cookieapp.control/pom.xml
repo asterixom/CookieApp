@@ -2,7 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.cookieapp.control</groupId>
   <artifactId>de.cookieapp.control</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>Control</name>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -17,4 +16,10 @@
       </plugin>
     </plugins>
   </build>
+  <parent>
+  	<groupId>de.cookieapp.parent</groupId>
+  	<artifactId>de.cookieapp.parent</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<relativePath>../../../../../home/oliver/workspaces/CookieApp/de.cookieapp.parent</relativePath>
+  </parent>
 </project>
