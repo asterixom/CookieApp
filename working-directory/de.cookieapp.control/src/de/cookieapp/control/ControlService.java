@@ -14,6 +14,4 @@ public interface ControlService {
 	
 	public SecurityClearance getSecurityClearance(Long sessionId) throws CookieAppException;
 	
-	public boolean test();
-	
 }
