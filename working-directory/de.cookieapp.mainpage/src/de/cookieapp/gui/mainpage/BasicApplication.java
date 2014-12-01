@@ -1,4 +1,4 @@
-package de.cookieapp.mainpage;
+package de.cookieapp.gui.mainpage;
 
 import java.util.HashMap;
 import java.util.Map;
