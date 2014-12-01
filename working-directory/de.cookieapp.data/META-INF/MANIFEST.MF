@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Data
-Bundle-SymbolicName: de.cookieapp.data
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: de.cookieapp.data.model,
- de.cookieapp.data.service
