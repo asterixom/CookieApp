@@ -3,6 +3,14 @@
 	<name>working-directory</name>
 	<comment></comment>
 	<projects>
+		<project>de.cookieapp.control</project>
+		<project>de.cookieapp.cucumber</project>
+		<project>de.cookieapp.data</project>
+		<project>de.cookieapp.gui.folderitem</project>
+		<project>de.cookieapp.gui.home</project>
+		<project>de.cookieapp.gui.mainpage</project>
+		<project>de.cookieapp.gui.recipesearch</project>
+		<project>working directory</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
