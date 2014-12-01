@@ -3,6 +3,7 @@
 	<name>de.cookieapp.control</name>
 	<comment></comment>
 	<projects>
+		<project>de.cookieapp.data</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
