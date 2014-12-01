@@ -21,7 +21,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
-import de.cookieapp.folderitem.FolderItem;
+import de.cookieapp.gui.folderitem.FolderItem;
 
 public class MainPage extends AbstractEntryPoint {
 

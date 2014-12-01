@@ -1,4 +1,4 @@
-package de.cookieapp.folderitem;
+package de.cookieapp.gui.folderitem;
 
 import org.eclipse.swt.widgets.Composite;
 

@@ -1,9 +1,9 @@
-package de.cookieapp.home;
+package de.cookieapp.gui.home;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-import de.cookieapp.folderitem.FolderItem;
+import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Home implements FolderItem {
 

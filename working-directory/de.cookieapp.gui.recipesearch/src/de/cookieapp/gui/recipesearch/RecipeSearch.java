@@ -2,7 +2,7 @@ package de.cookieapp.gui.recipesearch;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.cookieapp.folderitem.FolderItem;
+import de.cookieapp.gui.folderitem.FolderItem;
 
 public class RecipeSearch implements FolderItem{
 

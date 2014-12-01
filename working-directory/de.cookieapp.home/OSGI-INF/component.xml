@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="de.cookieapp.home">
-   <implementation class="de.cookieapp.home.Home"/>
+   <implementation class="de.cookieapp.gui.home.Home"/>
    <service>
       <provide interface="de.cookieapp.folderitem.FolderItem"/>
    </service>
