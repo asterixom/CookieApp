@@ -11,12 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import de.cookieapp.data.model.SecurityClearance;
+import de.cookieapp.data.model.Recipe;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 // für jede Klasse wird eine neue Tabelle erstellt
-public class User {
+public class User implements de.cookieapp.data.model.User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "USERID")
@@ -33,6 +35,9 @@ public class User {
 
 	@Column(name = "CREATED")
 	private Date created;
+	
+	@Column(name = "CLEARENCE")
+	private String clearence;
 
 	@OneToMany
 	private ArrayList<Recipe> recipe;
@@ -76,11 +81,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String geteMail() {
+	public String getMail() {
 		return eMail;
 	}
 
-	public void seteMail(String eMail) {
+	public void setMail(String eMail) {
 		this.eMail = eMail;
 	}
 
@@ -110,6 +115,27 @@ public class User {
 
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public SecurityClearance getSecurityClearance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setSecurityClearance(SecurityClearance i) {
+		
+	}
+
+	@Override
+	public void addFavorite(Recipe recipe) {
+		favorites.add(recipe);
+	}
+
+	@Override
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
 	}
 
 }

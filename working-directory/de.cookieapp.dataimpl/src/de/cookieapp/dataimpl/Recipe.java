@@ -14,9 +14,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import de.cookieapp.data.model.Comment;
+import de.cookieapp.data.model.Recommendation;
+import de.cookieapp.data.model.Ingredient;
+
+
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class Recipe {
+public class Recipe implements de.cookieapp.data.model.Recipe {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
@@ -40,6 +46,9 @@ public class Recipe {
 	
 	@OneToMany
 	private ArrayList<Ingredient> ingredients;
+	
+	@OneToMany
+	private ArrayList<Recommendation> recommendation;
 	
 	/**
 	 * 
@@ -69,6 +78,9 @@ public class Recipe {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Long getId() {
+		return id;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -94,17 +106,28 @@ public class Recipe {
 	public void addComment(Comment comment) {
 		this.comments.add(comment);
 	}
+	public void removeComment(Comment comment) {
+		this.comments.add(comment);
+	}
 	public ArrayList<Ingredient> getIngredients() {
 		return ingredients;
 	}
-	public void setIngredients(ArrayList<Ingredient> ingredients) {
-		this.ingredients = ingredients;
+	public void removeIngredient(Ingredient ingredient) {
+		this.ingredients.remove(ingredient);
 	}
-	public void addIngredients(Ingredient ingredient) {
+	public void addIngredient(Ingredient ingredient) {
 		this.ingredients.add(ingredient);
 	}
-	public Long getId() {
-		return id;
+	public void setRecommendation(ArrayList<Recommendation> recommendation) {
+		this.recommendation = recommendation;
 	}
-
+	public void addRecommendation(Recommendation recommendation) {
+		this.recommendation.add(recommendation);
+	}
+	public ArrayList<Recommendation> getRecommendations() {
+		return recommendation;
+	}
+	public void removeRecommendation(Recommendation recommendation) {
+		this.recommendation.remove(recommendation);	
+	}
 }

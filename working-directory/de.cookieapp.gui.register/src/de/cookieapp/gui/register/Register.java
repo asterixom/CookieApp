@@ -10,9 +10,18 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import de.cookieapp.control.ControlService;
+import de.cookieapp.control.ControlServiceImpl;
+import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Register implements FolderItem{
+	
+	private ControlService controlService;
+	private Text usernameT;
+	private Text passwordT;
+	private Text mailT;
+	
 
 	@Override
 	public Composite getContent(Composite tabFolder) {
@@ -42,13 +51,13 @@ public class Register implements FolderItem{
 		content.setLayout(new GridLayout(2, false));
 		Label usernameL = new Label(content, SWT.NONE);
 		usernameL.setText("Username");
-		Text usernameT = new Text(content, SWT.BORDER);
+		usernameT = new Text(content, SWT.BORDER);
 		Label passwordL = new Label(content, SWT.NONE);
 		passwordL.setText("Passwort");
-		Text passwordT = new Text(content, SWT.BORDER | SWT.PASSWORD);
+		passwordT = new Text(content, SWT.BORDER | SWT.PASSWORD);
 		Label mailL = new Label(content, SWT.NONE);
 		mailL.setText("eMail Adresse");
-		Text mailT = new Text(content, SWT.BORDER);
+		mailT = new Text(content, SWT.BORDER);
 		
 		Button register = new Button(content, SWT.NONE);
 		register.addSelectionListener(new SelectionAdapter() {
@@ -56,17 +65,43 @@ public class Register implements FolderItem{
 			 * Actionlistener for register button
 			 */
 			public void widgetSelected(SelectionEvent e) {
-				//TODO register implementieren
+				if(controlService != null) {
+					Long sessionID = null;
+					try {
+						sessionID = controlService.createSession();
+					} catch (CookieAppException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					String userName = usernameT.getText();
+					String password = passwordT.getText();
+					String eMail = mailT.getText();
+					try {
+						controlService.register(sessionID, userName, password, eMail);
+					} catch (CookieAppException exception) {
+						
+					}
+				}
 			}
 		});
 		register.setText("Registrieren");
+	}
+	
+	public void setControlService(ControlService controlService) {
+		if (controlService != null) {
+			this.controlService = controlService;
+		}
+	}
+	
+	public void unsetControlService(ControlService controlService) {
+		if (this.controlService.equals(controlService)) {
+			this.controlService = null;
+		}
 	}
 
 	@Override
 	public String getTabItemName() {
 		return "Registrieren";
 	}
-
-
 
 }

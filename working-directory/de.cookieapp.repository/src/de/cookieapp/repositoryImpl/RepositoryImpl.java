@@ -35,7 +35,7 @@ public class RepositoryImpl {
 			}
 		} else if (mail != null) {
 			for (User userFromRepo : userRepository) {
-				if (userFromRepo.geteMail().equals(mail)) {
+				if (userFromRepo.getMail().equals(mail)) {
 					user = userFromRepo;
 				}
 			}
@@ -61,10 +61,23 @@ public class RepositoryImpl {
 		if (name != null && description != null && created != null && creator != null) {
 			Date date = new Date();
 			date.setTime(System.currentTimeMillis());
-			long id = recipeRepository.size() + 1;
+			Long id = (long) (recipeRepository.size() + 1);
 			recipe = new Recipe(id, name, description, date, null, null, null);
 			recipeRepository.add(recipe);
 		}
 		return recipe;
 	}
+	
+	public Recipe getRecipe(Long recipeId) {
+		Recipe recipe = null;
+		for (Recipe recipeFromRepo : recipeRepository) {
+			if (recipeFromRepo.getId().equals(recipeId)) {
+				recipe = recipeFromRepo;
+				break;
+			}
+		}
+		return recipe;
+	}
+	
+	
 }

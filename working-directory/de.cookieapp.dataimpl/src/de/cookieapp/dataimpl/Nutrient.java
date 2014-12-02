@@ -1,7 +1,5 @@
 package de.cookieapp.dataimpl;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class Nutrient {
+public class Nutrient implements de.cookieapp.data.model.Nutrient {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
@@ -22,59 +18,58 @@ public class Nutrient {
 	private Long id;
 	
 	@Column(name="CALORIFICVALUE")
-	private double calorificValue;
+	private Double calorificValue;
 	
-	@Column(name="CARBOHYDRATES")
-	private double carbohydrates;
+	@Column(name="CARBON")
+	private Double carbon;
 	
 	@Column(name="SUGAR")
-	private double sugar;
+	private Double sugar;
 	
 	@Column(name="PROTEIN")
-	private double protein;
+	private Double protein;
 	
 	@Column(name="FAT")
-	private double fat;
+	private Double fat;
 	
-	public Nutrient(Long id, double calorificValue, double carbohydrates,
-			double sugar, double protein, double fat) {
+	public Nutrient(Long id, Double calorificValue, Double carbon,
+			Double sugar, Double protein, Double fat) {
 		this.id = id;
 		this.calorificValue = calorificValue;
-		this.carbohydrates = carbohydrates;
+		this.carbon = carbon;
 		this.sugar = sugar;
 		this.protein = protein;
 		this.fat = fat;
 	}
 	
-	public double getCalorificValue() {
+	public Double getCalorificValue() {
 		return calorificValue;
 	}
-	public void setCalorificValue(double calorificValue) {
+	public void setCalorificValue(Double calorificValue) {
 		this.calorificValue = calorificValue;
 	}
-	public double getCarbohydrates() {
-		return carbohydrates;
+	public Double getCarbon() {
+		return carbon;
 	}
-	public void setCarbohydrates(double carbohydrates) {
-		this.carbohydrates = carbohydrates;
+	public void setCarbon(Double carbon) {
+		this.carbon = carbon;
 	}
-	public double getSugar() {
+	public Double getSugar() {
 		return sugar;
 	}
-	public void setSugar(double sugar) {
+	public void setSugar(Double sugar) {
 		this.sugar = sugar;
 	}
-	public double getProtein() {
+	public Double getProtein() {
 		return protein;
 	}
-	public void setProtein(double protein) {
+	public void setProtein(Double protein) {
 		this.protein = protein;
 	}
-	public double getFat() {
+	public Double getFat() {
 		return fat;
 	}
-	public void setFat(double fat) {
+	public void setFat(Double fat) {
 		this.fat = fat;
 	}
-
 }

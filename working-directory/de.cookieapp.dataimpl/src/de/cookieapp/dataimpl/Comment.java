@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 
 /*@Entity			Jede Klasse wird beim Generieren der Tabelle zu einer eigenen Entität
@@ -32,15 +31,15 @@ import javax.persistence.OneToOne;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 // für jede Klasse wird eine neue Tabelle erstellt
-public class Comment {
+public class Comment implements de.cookieapp.data.model.Comment {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "COMMENTID")
 	private Long id;
 	
-	@Column(name="CONTENT", length=1000)
-	private String content;
+	@Column(name="TEXT", length=1000)
+	private String text;
 	
 	@OneToMany
 	private User creator;
@@ -48,15 +47,15 @@ public class Comment {
 	@Column(name="CREATED", nullable=false)
 	private Date created;
 	
-	public Comment(Long id, String content, User creator, Date created) {
+	public Comment(Long id, String text, User creator, Date created) {
 		this.id = id;
-		this.content = content;
+		this.text = text;
 		this.creator = creator;
 		this.created = created;
 	}
 	
-	 public void setContent(String content) {
-		this.content = content;
+	 public void setText(String text) {
+		this.text = text;
 	}
 	 public void setCreated(Date created) {
 		this.created = created;
@@ -67,8 +66,8 @@ public class Comment {
 	 public void setId(Long id) {
 		this.id = id;
 	}
-	 public String getContent() {
-		return content;
+	 public String getText() {
+		return text;
 	}
 	 public Date getCreated() {
 		return created;
@@ -78,6 +77,12 @@ public class Comment {
 	}
 	 public Long getId() {
 		return id;
+	}
+
+	@Override
+	public void setCreator(de.cookieapp.data.model.User user) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
