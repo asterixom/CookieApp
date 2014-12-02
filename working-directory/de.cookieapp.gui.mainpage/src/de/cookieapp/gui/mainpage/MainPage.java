@@ -72,13 +72,10 @@ public class MainPage extends AbstractEntryPoint {
 		operatorArea = new Composite(buttonArea, SWT.NONE);
 		operatorArea.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1));
 		operatorArea.setLayout(new GridLayout());
-
+		/*
 		Button deleteButton = new Button(operatorArea, SWT.NONE);
 		deleteButton.setLayoutData(new GridData(GridData.FILL_BOTH));
 		deleteButton.addSelectionListener(new SelectionAdapter() {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
@@ -99,6 +96,8 @@ public class MainPage extends AbstractEntryPoint {
 			}
 		});
 		revertButton.setText("<--");
+		*/
+		
 		
 		startTabItemSeviceTracker();
 
@@ -197,7 +196,6 @@ public class MainPage extends AbstractEntryPoint {
 				final FolderItem folderItem = (FolderItem) context.getService(reference);
 				if(folderItem != null)
 					setFolderItem(folderItem);
-				System.out.println("pong");
 				return folderItem;
 			}
 
