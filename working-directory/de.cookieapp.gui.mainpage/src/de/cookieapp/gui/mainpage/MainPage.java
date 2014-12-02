@@ -26,15 +26,16 @@ import de.cookieapp.gui.folderitem.FolderItem;
 public class MainPage extends AbstractEntryPoint {
 
 	private Composite parent;
-	private Text lower_textfield;
-	private Composite buttonArea;
 	private TabFolder tabFolder;
-	private Composite operatorArea;
 	private List<FolderItem> folderItems = new ArrayList<FolderItem>();
 	protected List<Composite> folderItemComposites = new ArrayList<Composite>();
 	private List<TabItem> tabItems = new ArrayList<TabItem>();
 	private BundleContext context = FrameworkUtil.getBundle(getClass()).getBundleContext();
+	@SuppressWarnings("rawtypes")
 	private ServiceTracker serviceTrackerTabItem;
+	private boolean started = false;
+	final String defaultTab = "Registrieren";
+
 
 
 	@Override
@@ -48,17 +49,20 @@ public class MainPage extends AbstractEntryPoint {
 
 		parent.setLayout(new GridLayout(1,false));
 
+		
+		/*
+		 * Hier soll der Header Stehen
+		 */
+		
+		/*
 		Composite textArea = new Composite(parent, SWT.NONE);
-
 		lower_textfield = new Text(textArea, SWT.BORDER);
 		lower_textfield.setEditable(false);
 		lower_textfield.setTouchEnabled(true);
 		lower_textfield.setBounds(10, 0, 318, 60);
-
-		buttonArea = new Composite(parent, SWT.NONE);
-		buttonArea.setLayout(new GridLayout(2, true));
-		tabFolder = new TabFolder(buttonArea, SWT.NONE);
-		checkTabfolderItems();
+		*/
+		
+		tabFolder = new TabFolder(parent, SWT.NONE);
 		tabFolder.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				/*
@@ -68,59 +72,12 @@ public class MainPage extends AbstractEntryPoint {
 				 */
 			}
 		});
-
-		operatorArea = new Composite(buttonArea, SWT.NONE);
-		operatorArea.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1));
-		operatorArea.setLayout(new GridLayout());
-		/*
-		Button deleteButton = new Button(operatorArea, SWT.NONE);
-		deleteButton.setLayoutData(new GridData(GridData.FILL_BOTH));
-		deleteButton.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-
-			public void widgetSelected(SelectionEvent e) {
-				lower_textfield.setText("");
-			}
-		});
-		deleteButton.setText("delete");
-
-		Button revertButton = new Button(operatorArea, SWT.NONE);
-		revertButton.setLayoutData(new GridData(GridData.FILL_BOTH));
-		revertButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				if (lower_textfield.getText().endsWith(" ")) {
-					lower_textfield.setText(lower_textfield.getText().substring(0, lower_textfield.getText().length() - 3));
-				} else if (lower_textfield.getText().length() < 0){
-					lower_textfield.setText(lower_textfield.getText().substring(0, lower_textfield.getText().length() - 1));
-				}
-			}
-		});
-		revertButton.setText("<--");
-		*/
-		
 		
 		startTabItemSeviceTracker();
 
+		/*
 		int numberOfTabItems = tabFolder.getItems().length;
 		System.out.println("There are " + numberOfTabItems + " tabitems");
-	}
-	
-	private void checkTabfolderItems() {
-		System.out.println(folderItems.size());
-		
-		/*
-		folderItems.add(folderItem);
-		System.out.println("added " + folderItem.getTabItemName());
-		//General Composite for the Tab and the NumberArea
-		Composite folderItemComposite = folderItem.getContent();
-		folderItemComposite.setParent(tabFolder);
-		folderItemComposites.add(folderItemComposite);		
-
-		//The New Tab for the Composite
-		TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-		tabItem.setText(folderItem.getTabItemName());
-		tabItem.setControl(folderItemComposite);
-		tabItems.add(tabItem);	
 		*/
 	}
 
@@ -150,19 +107,20 @@ public class MainPage extends AbstractEntryPoint {
 
 					/*
 					 * Default TabItem has to be Selected!!!
-					 * 
-					 * 
-					int max = 0;
-					if (numeralSystems.size() > 1 && !started) {
-						for ( int i = 1;  i < numeralSystems.size();  i = i + 1){
-							if (numeralSystems.get(max).getPriority() < numeralSystems.get(i).getPriority()){
-									max = i;	
-							}
+					 */ 
+					int defaultTabNumber = 0;
+					if (folderItems.size() > 1 && !started) {
+						for ( int i = 1;  i < folderItems.size();  i = i + 1){
+							if (folderItems.get(i).getTabItemName().equals(defaultTab)){
+								defaultTabNumber = i;
+								started = true;		
+							} 
+							//TODO set Profile inivible and after login to visible
 						}
-						tabFolder.setSelection(max);
 					}
-					buttonArea.layout();
-					 */
+					tabFolder.setSelection(defaultTabNumber);
+					parent.layout();
+					
 
 				}
 			});
@@ -182,7 +140,7 @@ public class MainPage extends AbstractEntryPoint {
 						folderItemComposites.remove(x);
 						folderItems.remove(folderItem);
 					}
-					buttonArea.layout();
+					parent.layout();
 				}
 			});
 		}
@@ -215,7 +173,7 @@ public class MainPage extends AbstractEntryPoint {
 			}
 		}		
 		serviceTrackerTabItem.open();
-
+		//started = true;
 	}
 
 	public void stopNumeralSystem() {

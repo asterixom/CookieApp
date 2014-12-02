@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Repository
+Bundle-SymbolicName: de.cookieapp.repository
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Service-Component: OSGI-INF/component.xml
+Import-Package: de.cookieapp.data.model,
+ de.cookieapp.dataimpl
