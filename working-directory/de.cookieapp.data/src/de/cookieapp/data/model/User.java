@@ -20,7 +20,7 @@ public interface User {
 	public String getMail();
 	public void setMail(String mail);
 	
-	public String getName(String name);
+	public String getName();
 	public void setName(String name); 
 	
 	public Date getCreated();
