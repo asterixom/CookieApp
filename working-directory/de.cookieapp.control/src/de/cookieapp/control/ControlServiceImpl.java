@@ -8,6 +8,7 @@ import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.control.exceptions.NoSessionException;
 import de.cookieapp.control.exceptions.NoSuchRecipeException;
 import de.cookieapp.control.exceptions.NotLoggedInException;
+import de.cookieapp.control.model.RecipeInfo;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;

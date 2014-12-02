@@ -3,6 +3,7 @@ package de.cookieapp.control;
 import java.util.TreeMap;
 
 import de.cookieapp.control.exceptions.CookieAppException;
+import de.cookieapp.control.model.RecipeInfo;
 import de.cookieapp.data.model.SecurityClearance;
 
 public interface ControlService {
