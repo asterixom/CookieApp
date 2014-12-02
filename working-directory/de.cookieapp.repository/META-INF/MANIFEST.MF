@@ -7,3 +7,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Service-Component: OSGI-INF/component.xml
 Import-Package: de.cookieapp.data.model,
  de.cookieapp.dataimpl
+Export-Package: de.cookieapp.repository,
+ de.cookieapp.repositoryImpl
