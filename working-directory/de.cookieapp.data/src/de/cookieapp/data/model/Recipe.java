@@ -5,6 +5,8 @@ import java.util.Date;
 
 public interface Recipe {
 
+	public Long getId();
+	
 	public String getName();
 	public void setName(String name);
 	

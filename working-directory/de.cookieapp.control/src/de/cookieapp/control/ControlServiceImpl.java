@@ -2,10 +2,17 @@ package de.cookieapp.control;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.TreeMap;
 
-import de.cookieapp.control.exceptions.*;
-import de.cookieapp.data.model.*;
-import de.cookieapp.data.service.*;
+import de.cookieapp.control.exceptions.CookieAppException;
+import de.cookieapp.control.exceptions.NoSessionException;
+import de.cookieapp.control.exceptions.NoSuchRecipeException;
+import de.cookieapp.control.exceptions.NotLoggedInException;
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.SecurityClearance;
+import de.cookieapp.data.model.User;
+import de.cookieapp.data.service.DataService;
+import de.cookieapp.data.service.DataServiceImpl;
 
 public class ControlServiceImpl implements ControlService {
 	
@@ -90,6 +97,55 @@ public class ControlServiceImpl implements ControlService {
 			return SecurityClearance.GUEST;
 		}
 		return user.getSecurityClearance();
+	}
+
+	@Override
+	public String getCurrentUserName(Long sessionId) throws CookieAppException {
+		if(sessionMap.get(sessionId) == null){
+			throw  new NotLoggedInException();
+		}
+		return null;
+	}
+
+	@Override
+	public TreeMap<Long, String> getRecipesOfCurrentUser(Long sessionId)
+			throws CookieAppException {
+		User user = sessionMap.get(sessionId);
+		if(user == null){
+			throw  new NotLoggedInException();
+		}
+		TreeMap<Long, String> list = new TreeMap<Long, String>();
+		for(Recipe r : user.getRecipes()){
+			list.put(r.getId(), r.getName());
+		}
+		return list;
+	}
+
+	@Override
+	public TreeMap<Long, String> getFavorites(Long sessionId)
+			throws CookieAppException {
+		User user = sessionMap.get(sessionId);
+		if(user == null){
+			throw  new NotLoggedInException();
+		}
+		TreeMap<Long, String> list = new TreeMap<Long, String>();
+		for(Recipe r : user.getFavorites()){
+			list.put(r.getId(), r.getName());
+		}
+		return list;
+	}
+	
+	@Override
+	public RecipeInfo getRecipe(Long sessionId, Long recipeID)
+			throws CookieAppException {
+		if(!sessionMap.containsKey(sessionId)){
+			throw new NoSessionException();
+		}
+		Recipe recipe = dataService.getRecipe(recipeID);
+		if(recipe == null){
+			throw new NoSuchRecipeException();
+		}
+		return new RecipeInfo(recipe);
 	}
 	
 }
