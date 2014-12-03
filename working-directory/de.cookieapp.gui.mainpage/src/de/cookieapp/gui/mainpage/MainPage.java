@@ -299,5 +299,9 @@ public class MainPage extends AbstractEntryPoint {
 		bgThread.setDaemon(true);
 		bgThread.start();
 	}
+	
+	public void getControlService() {
+		
+	}
 
 }

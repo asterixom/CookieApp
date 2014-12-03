@@ -26,10 +26,7 @@ public class ControlServiceImpl implements ControlService {
 	}
 
 	@Override
-	/*
-	 * Wirft Exception? Wann? Warum?
-	 */
-	public Long createSession() throws CookieAppException {
+	public Long createSession() {
 		Long session;
 		do {
 			session = random.nextLong();
@@ -42,7 +39,7 @@ public class ControlServiceImpl implements ControlService {
 	}
 
 	@Override
-	public boolean createSession(Long sessionId) throws CookieAppException {
+	public boolean createSession(Long sessionId) {
 		if (sessionMap.containsKey(sessionId)) {
 			return false;
 		}
@@ -51,7 +48,7 @@ public class ControlServiceImpl implements ControlService {
 	}
 	
 	@Override
-	public boolean hasSession(Long sessionId) throws CookieAppException {
+	public boolean hasSession(Long sessionId) {
 		return sessionMap.containsKey(sessionId);
 	}
 	

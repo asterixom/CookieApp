@@ -2,8 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.cookieapp.mainpage</groupId>
   <artifactId>de.cookieapp.mainpage</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
   </build>
+  <parent>
+  	<groupId>de.cookieapp.parent</groupId>
+  	<artifactId>de.cookieapp.parent</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<relativePath>../de.cookieapp.parent</relativePath>
+  </parent>
 </project>

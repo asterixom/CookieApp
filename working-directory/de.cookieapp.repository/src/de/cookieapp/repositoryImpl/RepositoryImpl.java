@@ -78,5 +78,10 @@ public class RepositoryImpl implements Repository {
 		return recipe;
 	}
 	
+	public ArrayList<Recipe> getAllRecipe() {
+		return recipeRepository;
+	}
+	
+	
 	
 }

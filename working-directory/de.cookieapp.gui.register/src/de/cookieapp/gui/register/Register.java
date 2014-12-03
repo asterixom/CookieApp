@@ -11,7 +11,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
-import de.cookieapp.control.ControlServiceImpl;
 import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.gui.folderitem.FolderItem;
 
@@ -61,18 +60,14 @@ public class Register implements FolderItem{
 		
 		Button register = new Button(content, SWT.NONE);
 		register.addSelectionListener(new SelectionAdapter() {
+			private static final long serialVersionUID = 4028437061777994602L;
 			/**
 			 * Actionlistener for register button
 			 */
 			public void widgetSelected(SelectionEvent e) {
 				if(controlService != null) {
 					Long sessionID = null;
-					try {
-						sessionID = controlService.createSession();
-					} catch (CookieAppException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					sessionID = controlService.createSession();
 					String userName = usernameT.getText();
 					String password = passwordT.getText();
 					String eMail = mailT.getText();
