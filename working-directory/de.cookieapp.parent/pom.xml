@@ -30,11 +30,9 @@
   		<version>3.0.0-M3</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.ow2.util.maven</groupId>
-  		<artifactId>
-  			maven-osgi-plugin-launcher-framework-equinox
-  		</artifactId>
-  		<version>1.0.21</version>
+  		<groupId>org.osgi</groupId>
+  		<artifactId>org.osgi.core</artifactId>
+  		<version>6.0.0</version>
   	</dependency>
   </dependencies>
 </project>
