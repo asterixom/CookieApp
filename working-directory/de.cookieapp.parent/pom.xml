@@ -23,4 +23,11 @@
   	<module>../de.cookieapp.gui.recipe</module>
   	<module>../de.cookieapp.repository</module>
   </modules>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.eclipse.equinox</groupId>
+  		<artifactId>osgi</artifactId>
+  		<version>3.1.1</version>
+  	</dependency>
+  </dependencies>
 </project>
