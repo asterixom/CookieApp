@@ -12,7 +12,6 @@ import de.cookieapp.control.model.RecipeInfo;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
-import de.cookieapp.data.service.DataServiceImpl;
 
 public class ControlServiceImpl implements ControlService {
 	

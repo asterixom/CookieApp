@@ -3,13 +3,12 @@ package de.cookieapp.repositoryImpl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.cookieapp.data.model.Comment;
-import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.dataimpl.User;
 import de.cookieapp.dataimpl.Recipe;
+import de.cookieapp.repository.Repository;
 
 
-public class RepositoryImpl {
+public class RepositoryImpl implements Repository {
 
 	ArrayList<User> userRepository;
 	ArrayList<Recipe> recipeRepository;

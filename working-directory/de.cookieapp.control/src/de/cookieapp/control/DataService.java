@@ -17,11 +17,13 @@ public class DataService {
 	private Repository repository;
 
 	public DataService() {
+		/*
 		try {
 			md = MessageDigest.getInstance("SHA512");
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	public User login(String userORmail, String password) {
