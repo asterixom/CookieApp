@@ -22,4 +22,11 @@
   	<version>0.0.1-SNAPSHOT</version>
   	<relativePath>../de.cookieapp.parent</relativePath>
   </parent>
+  <dependencies>
+  	<dependency>
+  		<groupId>de.cookieapp.gui.folderitem</groupId>
+  		<artifactId>de.cookieapp.gui.folderitem</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

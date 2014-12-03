@@ -11,4 +11,12 @@
   	<version>0.0.1-SNAPSHOT</version>
   	<relativePath>../de.cookieapp.parent</relativePath>
   </parent>
+  <name>GUI.Mainpage</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>de.cookieapp.gui.folderitem</groupId>
+  		<artifactId>de.cookieapp.gui.folderitem</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
