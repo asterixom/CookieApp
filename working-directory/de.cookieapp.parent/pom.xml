@@ -25,14 +25,16 @@
   </modules>
   <dependencies>
   	<dependency>
-  		<groupId>org.eclipse.equinox</groupId>
-  		<artifactId>osgi</artifactId>
-  		<version>3.1.1</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.eclipse.rap</groupId>
   		<artifactId>org.eclipse.rap.rwt</artifactId>
   		<version>3.0.0-M3</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.ow2.util.maven</groupId>
+  		<artifactId>
+  			maven-osgi-plugin-launcher-framework-equinox
+  		</artifactId>
+  		<version>1.0.21</version>
   	</dependency>
   </dependencies>
 </project>
