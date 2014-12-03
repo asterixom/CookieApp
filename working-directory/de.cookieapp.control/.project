@@ -4,6 +4,8 @@
 	<comment></comment>
 	<projects>
 		<project>de.cookieapp.data</project>
+		<project>de.cookieapp.dataimpl</project>
+		<project>de.cookieapp.repository</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -23,6 +25,11 @@
 		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.pde.ds.core.builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>

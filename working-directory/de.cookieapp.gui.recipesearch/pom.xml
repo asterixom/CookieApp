@@ -2,7 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.cookieapp.gui.recipesearch</groupId>
   <artifactId>de.cookieapp.gui.recipesearch</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -16,4 +15,17 @@
       </plugin>
     </plugins>
   </build>
+  <parent>
+  	<groupId>de.cookieapp.parent</groupId>
+  	<artifactId>de.cookieapp.parent</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<relativePath>../de.cookieapp.parent</relativePath>
+  </parent>
+  <dependencies>
+  	<dependency>
+  		<groupId>de.cookieapp.gui.folderitem</groupId>
+  		<artifactId>de.cookieapp.gui.folderitem</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

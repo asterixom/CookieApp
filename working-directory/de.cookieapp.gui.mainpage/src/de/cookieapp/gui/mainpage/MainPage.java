@@ -1,17 +1,28 @@
 package de.cookieapp.gui.mainpage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
+import org.eclipse.rap.rwt.service.ResourceLoader;
 import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
@@ -26,39 +37,58 @@ import de.cookieapp.gui.folderitem.FolderItem;
 public class MainPage extends AbstractEntryPoint {
 
 	private Composite parent;
-	private Text lower_textfield;
-	private Composite buttonArea;
 	private TabFolder tabFolder;
-	private Composite operatorArea;
 	private List<FolderItem> folderItems = new ArrayList<FolderItem>();
 	protected List<Composite> folderItemComposites = new ArrayList<Composite>();
 	private List<TabItem> tabItems = new ArrayList<TabItem>();
 	private BundleContext context = FrameworkUtil.getBundle(getClass()).getBundleContext();
+	@SuppressWarnings("rawtypes")
 	private ServiceTracker serviceTrackerTabItem;
+	private boolean started = false;
+	final String defaultTab = "Registrieren";
+	private static final int HEADER_HEIGHT = 140;
+	private static final int CENTER_AREA_WIDTH = 998;
+
+
+
 
 
 	@Override
 	protected void createContents(Composite parent) {
-		
+
 		System.out.println("Main Page started");
-		
+
 		this.parent = parent;
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
 
+		InputStream is = new InputStream() {
+
+			@Override
+			public int read() throws IOException {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+		};
+
+		createHeader(parent);
+		
 		parent.setLayout(new GridLayout(1,false));
 
-		Composite textArea = new Composite(parent, SWT.NONE);
 
+		/*
+		 * Hier soll der Header Stehen
+		 */
+
+		/*
+		Composite textArea = new Composite(parent, SWT.NONE);
 		lower_textfield = new Text(textArea, SWT.BORDER);
 		lower_textfield.setEditable(false);
 		lower_textfield.setTouchEnabled(true);
 		lower_textfield.setBounds(10, 0, 318, 60);
+		 */
 
-		buttonArea = new Composite(parent, SWT.NONE);
-		buttonArea.setLayout(new GridLayout(2, true));
-		tabFolder = new TabFolder(buttonArea, SWT.NONE);
-		checkTabfolderItems();
+		tabFolder = new TabFolder(parent, SWT.NONE);
 		tabFolder.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				/*
@@ -69,60 +99,91 @@ public class MainPage extends AbstractEntryPoint {
 			}
 		});
 
-		operatorArea = new Composite(buttonArea, SWT.NONE);
-		operatorArea.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1));
-		operatorArea.setLayout(new GridLayout());
-		/*
-		Button deleteButton = new Button(operatorArea, SWT.NONE);
-		deleteButton.setLayoutData(new GridData(GridData.FILL_BOTH));
-		deleteButton.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-
-			public void widgetSelected(SelectionEvent e) {
-				lower_textfield.setText("");
-			}
-		});
-		deleteButton.setText("delete");
-
-		Button revertButton = new Button(operatorArea, SWT.NONE);
-		revertButton.setLayoutData(new GridData(GridData.FILL_BOTH));
-		revertButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				if (lower_textfield.getText().endsWith(" ")) {
-					lower_textfield.setText(lower_textfield.getText().substring(0, lower_textfield.getText().length() - 3));
-				} else if (lower_textfield.getText().length() < 0){
-					lower_textfield.setText(lower_textfield.getText().substring(0, lower_textfield.getText().length() - 1));
-				}
-			}
-		});
-		revertButton.setText("<--");
-		*/
-		
-		
 		startTabItemSeviceTracker();
 
+		/*
 		int numberOfTabItems = tabFolder.getItems().length;
 		System.out.println("There are " + numberOfTabItems + " tabitems");
+		 */
+	}
+
+	private static ResourceLoader createResourceLoader( final String resourceName ) {
+		return new ResourceLoader() {
+			public InputStream getResourceAsStream( String resourceName ) throws IOException {
+				return getClass().getClassLoader().getResourceAsStream( resourceName );
+			}
+		};
 	}
 	
-	private void checkTabfolderItems() {
-		System.out.println(folderItems.size());
-		
-		/*
-		folderItems.add(folderItem);
-		System.out.println("added " + folderItem.getTabItemName());
-		//General Composite for the Tab and the NumberArea
-		Composite folderItemComposite = folderItem.getContent();
-		folderItemComposite.setParent(tabFolder);
-		folderItemComposites.add(folderItemComposite);		
+	 private Composite createHeader( Composite parent ) {
+		    Composite comp = new Composite( parent, SWT.NONE );
+		    comp.setData( RWT.CUSTOM_VARIANT, "header" );
+		    comp.setBackgroundMode( SWT.INHERIT_DEFAULT );
+		    comp.setLayout( new FormLayout() );
+		    Composite headerCenterArea = createHeaderCenterArea( comp );
+		    createLogo( headerCenterArea );
+		    return comp;
+		  }
 
-		//The New Tab for the Composite
-		TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
-		tabItem.setText(folderItem.getTabItemName());
-		tabItem.setControl(folderItemComposite);
-		tabItems.add(tabItem);	
-		*/
+		  private FormData createHeaderFormData() {
+		    FormData data = new FormData();
+		    data.top = new FormAttachment( 0 );
+		    data.left = new FormAttachment( 0 );
+		    data.right = new FormAttachment( 100 );
+		    data.height = HEADER_HEIGHT;
+		    return data;
+		  }
+
+		  private Composite createHeaderCenterArea( Composite parent ) {
+		    Composite headerCenterArea = new Composite( parent, SWT.NONE );
+		    headerCenterArea.setLayout( new FormLayout() );
+		    headerCenterArea.setLayoutData( createHeaderCenterAreaFormData() );
+		    return headerCenterArea;
+		  }
+
+		  private FormData createHeaderCenterAreaFormData() {
+		    FormData data = new FormData();
+		    data.left = new FormAttachment( 50, -CENTER_AREA_WIDTH / 2 );
+		    data.top = new FormAttachment( 0 );
+		    data.bottom = new FormAttachment( 100 );
+		    data.width = CENTER_AREA_WIDTH;
+		    return data;
+		  }
+
+	private void createLogo( Composite headerComp ) {
+		Label logoLabel = new Label( headerComp, SWT.NONE );
+		Image cookieLogo = getImage( headerComp.getDisplay(), "CookieApp.png" );
+		logoLabel.setImage( cookieLogo );
+		logoLabel.setLayoutData( createLogoFormData( cookieLogo ) );
+		//makeLink( logoLabel, RAP_PAGE_URL );
 	}
+
+	private static FormData createLogoFormData( Image cookieLogo ) {
+		FormData data = new FormData();
+		data.left = new FormAttachment( 0 );
+		int logoHeight = cookieLogo.getBounds().height;
+		data.top = new FormAttachment( 50, -( logoHeight / 2 ) );
+		return data;
+	}
+
+	public static Image getImage( Display display, String path ) {
+		ClassLoader classLoader = MainPage.class.getClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream( "resources/" + path );
+		Image result = null;
+		if( inputStream != null ) {
+			try {
+				result = new Image( display, inputStream );
+			} finally {
+				try {
+					inputStream.close();
+				} catch( IOException e ) {
+					// ignore
+				}
+			}
+		}
+		return result;
+	}
+
 
 	/*
 	 * wird vor dem create Content aufgerufen...
@@ -139,7 +200,7 @@ public class MainPage extends AbstractEntryPoint {
 					System.out.println("added " + folderItem.getTabItemName());
 					//General Composite for the Tab and the NumberArea
 					Composite folderItemComposite = folderItem.getContent(tabFolder);
-//					folderItemComposite.setParent(tabFolder);
+					//					folderItemComposite.setParent(tabFolder);
 					folderItemComposites.add(folderItemComposite);		
 
 					//The New Tab for the Composite
@@ -150,19 +211,20 @@ public class MainPage extends AbstractEntryPoint {
 
 					/*
 					 * Default TabItem has to be Selected!!!
-					 * 
-					 * 
-					int max = 0;
-					if (numeralSystems.size() > 1 && !started) {
-						for ( int i = 1;  i < numeralSystems.size();  i = i + 1){
-							if (numeralSystems.get(max).getPriority() < numeralSystems.get(i).getPriority()){
-									max = i;	
-							}
+					 */ 
+					int defaultTabNumber = 0;
+					if (folderItems.size() > 1 && !started) {
+						for ( int i = 1;  i < folderItems.size();  i = i + 1){
+							if (folderItems.get(i).getTabItemName().equals(defaultTab)){
+								defaultTabNumber = i;
+								started = true;		
+							} 
+							//TODO set Profile inivible and after login to visible
 						}
-						tabFolder.setSelection(max);
 					}
-					buttonArea.layout();
-					 */
+					tabFolder.setSelection(defaultTabNumber);
+					parent.layout();
+
 
 				}
 			});
@@ -182,12 +244,12 @@ public class MainPage extends AbstractEntryPoint {
 						folderItemComposites.remove(x);
 						folderItems.remove(folderItem);
 					}
-					buttonArea.layout();
+					parent.layout();
 				}
 			});
 		}
 	}
-	
+
 	public void startTabItemSeviceTracker() {
 		serviceTrackerTabItem = new ServiceTracker(context, FolderItem.class,
 				new ServiceTrackerCustomizer() {
@@ -215,7 +277,7 @@ public class MainPage extends AbstractEntryPoint {
 			}
 		}		
 		serviceTrackerTabItem.open();
-
+		//started = true;
 	}
 
 	public void stopNumeralSystem() {
@@ -236,6 +298,10 @@ public class MainPage extends AbstractEntryPoint {
 		Thread bgThread = new Thread(bgRunnable);
 		bgThread.setDaemon(true);
 		bgThread.start();
+	}
+	
+	public void getControlService() {
+		
 	}
 
 }

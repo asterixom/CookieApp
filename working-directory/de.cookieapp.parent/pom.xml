@@ -13,5 +13,28 @@
   	<module>
   		../de.cookieapp.data
   	</module>
+  	<module>../de.cookieapp.gui.mainpage</module>
+  	<module>../de.cookieapp.gui.recipesearch</module>
+  	<module>../de.cookieapp.gui.register</module>
+  	<module>../de.cookieapp.dataimpl</module>
+  	<module>../de.cookieapp.gui.folderitem</module>
+  	<module>../de.cookieapp.gui.home</module>
+  	<module>../de.cookieapp.gui.profile</module>
+  	<module>../de.cookieapp.gui.recipe</module>
+  	<module>../de.cookieapp.repository</module>
   </modules>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.eclipse.rap</groupId>
+  		<artifactId>org.eclipse.rap.rwt</artifactId>
+  		<version>3.0.0-M3</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.ow2.util.maven</groupId>
+  		<artifactId>
+  			maven-osgi-plugin-launcher-framework-equinox
+  		</artifactId>
+  		<version>1.0.21</version>
+  	</dependency>
+  </dependencies>
 </project>

@@ -24,8 +24,6 @@ public interface Recipe {
 	public void addComment(Comment comment);
 	public void removeComment(Comment comment);
 	
-	
-	//No Implementation right now!
 	public ArrayList<Recommendation> getRecommendations();
 	public void addRecommendation(Recommendation recommendation);
 	public void removeRecommendation(Recommendation recommendation);
