@@ -4,8 +4,8 @@ Bundle-Name: Register
 Bundle-SymbolicName: de.cookieapp.gui.register
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.eclipse.rap.rwt;bundle-version="3.0.0",
- de.cookieapp.control
+Require-Bundle: org.eclipse.rap.rwt;bundle-version="3.0.0"
 Import-Package: de.cookieapp.control,
+ de.cookieapp.control.exceptions,
  de.cookieapp.gui.folderitem
 Service-Component: OSGI-INF/component.xml
