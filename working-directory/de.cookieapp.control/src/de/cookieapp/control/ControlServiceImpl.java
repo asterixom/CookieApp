@@ -148,5 +148,18 @@ public class ControlServiceImpl implements ControlService {
 		}
 		return new RecipeInfo(recipe);
 	}
+
+	@Override
+	public boolean changePassword(Long sessionId, String currentPassword,
+			String newPassword) throws CookieAppException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getCurrentUserMail(Long sessionId) throws CookieAppException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
