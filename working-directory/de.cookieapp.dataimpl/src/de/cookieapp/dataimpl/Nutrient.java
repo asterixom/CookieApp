@@ -1,5 +1,8 @@
 package de.cookieapp.dataimpl;
 
+import java.util.HashMap;
+import java.util.Random;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +20,9 @@ public class Nutrient implements de.cookieapp.data.model.Nutrient {
 	@Column(name="NUTRIENTID")
 	private Long id;
 	
+	@Column(name="NAMES")
+	private HashMap<Long, String> names;
+	
 	@Column(name="CALORIFICVALUE")
 	private Double calorificValue;
 	
@@ -32,9 +38,10 @@ public class Nutrient implements de.cookieapp.data.model.Nutrient {
 	@Column(name="FAT")
 	private Double fat;
 	
-	public Nutrient(Long id, Double calorificValue, Double carbon,
+	public Nutrient(Long id, HashMap<Long, String> names, Double calorificValue, Double carbon,
 			Double sugar, Double protein, Double fat) {
 		this.id = id;
+		this.names = names;
 		this.calorificValue = calorificValue;
 		this.carbon = carbon;
 		this.sugar = sugar;
@@ -71,5 +78,25 @@ public class Nutrient implements de.cookieapp.data.model.Nutrient {
 	}
 	public void setFat(Double fat) {
 		this.fat = fat;
+	}
+	@Override
+	public HashMap<Long, String> getNames() {
+		return names;
+	}
+
+	@Override
+	public Long addName(String name) {
+		Long key;
+		do{
+			key = new Random().nextLong();
+		}while(names.containsKey(key));
+		names.put(key,name);
+		return key;
+		
+	}
+
+	@Override
+	public void removeName(Long id) {
+		names.remove(id);
 	}
 }

@@ -1,7 +1,5 @@
 package de.cookieapp.dataimpl;
 
-import java.util.ArrayList;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +10,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import de.cookieapp.data.model.Nutrient;
+import de.cookieapp.data.model.Units;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -22,21 +21,21 @@ public class Ingredient implements de.cookieapp.data.model.Ingredient {
 	@Column(name="INGREDIENTID")
 	private Long id;
 	
-	@Column(name="NAMES")
-	private ArrayList<String> names;
-	
 	@Column(name="QUANTITY")
 	private Double quantity;
 	
 	@Column(name="UNIT")
-	private String unit;
+	private Units unit;
+	
+	@Column(name="NAMEID")
+	private Long nameID;
 	
 	@OneToMany
 	private Nutrient nutrient;
 	
-	public Ingredient(Long id, ArrayList<String> names, Double quantity, String unit, Nutrient nutrient) {
+	public Ingredient(Long id, Double quantity, Units unit, Nutrient nutrient) {
 		this.id = id;
-		this.names = names;
+		
 		this.quantity = quantity;
 		this.unit = unit;
 		this.nutrient = nutrient;
@@ -48,10 +47,10 @@ public class Ingredient implements de.cookieapp.data.model.Ingredient {
 	public void setQuantity(Double quantity) {
 		this.quantity = quantity;
 	}
-	public String getUnit() {
+	public Units getUnit() {
 		return unit;
 	}
-	public void setUnit(String unit) {
+	public void setUnit(Units unit) {
 		this.unit = unit;
 	}
 	public Nutrient getNutrient() {
@@ -68,19 +67,13 @@ public class Ingredient implements de.cookieapp.data.model.Ingredient {
 	}
 
 	@Override
-	public ArrayList<String> getNames() {
-		return names;
+	public Long getNameId() {
+		return nameID;
 	}
 
 	@Override
-	public void addName(String name) {
-		names.add(name);
-		
-	}
-
-	@Override
-	public void removeName(String name) {
-		names.remove(name);		
+	public void setNameId(Long id) {
+		nameID = id;
 	}
 	
 }

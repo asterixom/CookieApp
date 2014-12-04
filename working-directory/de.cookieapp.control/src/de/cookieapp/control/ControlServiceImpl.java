@@ -30,9 +30,6 @@ public class ControlServiceImpl implements ControlService {
 		Long session;
 		do {
 			session = random.nextLong();
-			/*
-			 * Solange der Key nicht drin ist, sollte ein neuer erstellt werden
-			 */
 		} while(sessionMap.containsKey(session));
 		sessionMap.put(session, null);
 		return session;
@@ -151,14 +148,24 @@ public class ControlServiceImpl implements ControlService {
 	@Override
 	public boolean changePassword(Long sessionId, String currentPassword,
 			String newPassword) throws CookieAppException {
-		// TODO Auto-generated method stub
+		User user = sessionMap.get(sessionId);
+		if(user==null){
+			throw new NoSessionException();
+		}
+		if(user.checkPassword(dataService.makeHash(currentPassword))){
+			user.setPassword(dataService.makeHash(newPassword));
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public String getCurrentUserMail(Long sessionId) throws CookieAppException {
-		// TODO Auto-generated method stub
-		return null;
+		User user = sessionMap.get(sessionId);
+		if(user==null){
+			throw new NoSessionException();
+		}
+		return user.getMail();
 	}
 	
 }
