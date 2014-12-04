@@ -79,6 +79,12 @@ public class Recipe implements FolderItem{
 		method.setText("method"); //TODO getMethod() einf�gen
 		
 	}
+	
+	@Override
+	public void setSpecificProperty(Object property) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public String getTabItemName() {

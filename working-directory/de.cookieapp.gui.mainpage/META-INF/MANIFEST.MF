@@ -5,9 +5,11 @@ Bundle-SymbolicName: de.cookieapp.gui.mainpage
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Service-Component: OSGI-INF/*
-Import-Package: de.cookieapp.gui.folderitem,
+Import-Package: de.cookieapp.control,
+ de.cookieapp.control.exceptions,
+ de.cookieapp.gui.folderitem,
  org.eclipse.osgi.framework.console;version="1.0.0",
  org.osgi.framework;version="1.3.0",
  org.osgi.util.tracker;version="1.3.1"
-Require-Bundle: org.eclipse.rap.rwt;bundle-version="3.0.0"
+Require-Bundle: org.eclipse.rap.rwt;bundle-version="2.3.1"
 Bundle-Activator: de.cookieapp.gui.mainpage.activator

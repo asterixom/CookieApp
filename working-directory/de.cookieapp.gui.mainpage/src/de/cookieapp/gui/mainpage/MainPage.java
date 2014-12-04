@@ -7,22 +7,25 @@ import java.util.List;
 
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
-import org.eclipse.rap.rwt.service.ResourceLoader;
 import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Drawable;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
@@ -32,6 +35,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
+import de.cookieapp.control.ControlService;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class MainPage extends AbstractEntryPoint {
@@ -42,54 +46,35 @@ public class MainPage extends AbstractEntryPoint {
 	protected List<Composite> folderItemComposites = new ArrayList<Composite>();
 	private List<TabItem> tabItems = new ArrayList<TabItem>();
 	private BundleContext context = FrameworkUtil.getBundle(getClass()).getBundleContext();
+	private ControlService controlService;
 	@SuppressWarnings("rawtypes")
 	private ServiceTracker serviceTrackerTabItem;
 	private boolean started = false;
 	final String defaultTab = "Registrieren";
 	private static final int HEADER_HEIGHT = 140;
-	private static final int CENTER_AREA_WIDTH = 998;
-
-
+	private static final int CENTER_AREA_WIDTH = 998;		
+	private Display display;
+	private static final String BACKGROUNDIMAGE = "resources/greenbackground.jpg";
+	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
+	private static final String LOGO = "resources/Logo.png";
 
 
 
 	@Override
 	protected void createContents(Composite parent) {
-
 		System.out.println("Main Page started");
 
 		this.parent = parent;
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
 
-		InputStream is = new InputStream() {
+		setBackgroundImage(parent);
+		createLoginComposite(parent);
 
-			@Override
-			public int read() throws IOException {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-		};
-
-		createHeader(parent);
-		
-		parent.setLayout(new GridLayout(1,false));
-
-
-		/*
-		 * Hier soll der Header Stehen
-		 */
-
-		/*
-		Composite textArea = new Composite(parent, SWT.NONE);
-		lower_textfield = new Text(textArea, SWT.BORDER);
-		lower_textfield.setEditable(false);
-		lower_textfield.setTouchEnabled(true);
-		lower_textfield.setBounds(10, 0, 318, 60);
-		 */
 
 		tabFolder = new TabFolder(parent, SWT.NONE);
 		tabFolder.addSelectionListener(new SelectionAdapter() {
+			private static final long serialVersionUID = 1L;
 			public void widgetSelected(SelectionEvent e) {
 				/*
 				int i = tabFolder.getSelectionIndex();
@@ -100,84 +85,94 @@ public class MainPage extends AbstractEntryPoint {
 		});
 
 		startTabItemSeviceTracker();
-
-		/*
-		int numberOfTabItems = tabFolder.getItems().length;
-		System.out.println("There are " + numberOfTabItems + " tabitems");
-		 */
 	}
 
-	private static ResourceLoader createResourceLoader( final String resourceName ) {
-		return new ResourceLoader() {
-			public InputStream getResourceAsStream( String resourceName ) throws IOException {
-				return getClass().getClassLoader().getResourceAsStream( resourceName );
+
+	private void createLoginComposite(Composite parent) {
+		Composite homeControlComposite = new Composite(parent, SWT.FILL | SWT.RIGHT);
+		homeControlComposite.setLayout(new GridLayout(2, false));
+		Image controlImage = loadImage(CONTROLBACKGROUNDIMAGE);
+		homeControlComposite.setBackgroundImage(controlImage);		
+		Image headerImage = loadImage(LOGO);
+		final int width = headerImage.getBounds().width;
+		final int height = headerImage.getBounds().height;
+		headerImage = new Image(display, headerImage.getImageData().scaledTo((int)(width*0.5),(int)(height*0.5)));
+		Label headerLabel = new Label( homeControlComposite, SWT.LEFT );
+		headerLabel.setImage( headerImage );
+		Composite loginComposite = new Composite(homeControlComposite, SWT.RIGHT);
+		loginComposite.setLayout(new GridLayout(2, true));
+		Label nameLabel = new Label(loginComposite, SWT.NONE);
+		nameLabel.setText("Benutzername oder eMail");
+		Text nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
+		nameText.addKeyListener(new KeyListener() {			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			if (e.keyCode == SWT.CR) {
+				//TODO Login
 			}
-		};
-	}
-	
-	 private Composite createHeader( Composite parent ) {
-		    Composite comp = new Composite( parent, SWT.NONE );
-		    comp.setData( RWT.CUSTOM_VARIANT, "header" );
-		    comp.setBackgroundMode( SWT.INHERIT_DEFAULT );
-		    comp.setLayout( new FormLayout() );
-		    Composite headerCenterArea = createHeaderCenterArea( comp );
-		    createLogo( headerCenterArea );
-		    return comp;
-		  }
+				
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				//do nothing, wait for release
+			}
+		});
+		Label passwordLabel = new Label(loginComposite, SWT.NONE);
+		passwordLabel.setText("Passwort");
+		Text passwortText = new Text(loginComposite, SWT.BORDER | SWT.PASSWORD | SWT.FILL);
+		passwortText.addKeyListener(new KeyListener() {			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			if (e.keyCode == SWT.CR) {
+				//TODO Login
+			}
+				
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				//do nothing, wait for release
+			}
 
-		  private FormData createHeaderFormData() {
-		    FormData data = new FormData();
-		    data.top = new FormAttachment( 0 );
-		    data.left = new FormAttachment( 0 );
-		    data.right = new FormAttachment( 100 );
-		    data.height = HEADER_HEIGHT;
-		    return data;
-		  }
+		});
+		Label emptyLabel = new Label(loginComposite, SWT.NONE);
+		emptyLabel.setVisible(false);
+		Button loginButton = new Button(loginComposite, SWT.CENTER);
+		loginButton.setText("Login");
+		loginButton.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				//TODO Login
 
-		  private Composite createHeaderCenterArea( Composite parent ) {
-		    Composite headerCenterArea = new Composite( parent, SWT.NONE );
-		    headerCenterArea.setLayout( new FormLayout() );
-		    headerCenterArea.setLayoutData( createHeaderCenterAreaFormData() );
-		    return headerCenterArea;
-		  }
-
-		  private FormData createHeaderCenterAreaFormData() {
-		    FormData data = new FormData();
-		    data.left = new FormAttachment( 50, -CENTER_AREA_WIDTH / 2 );
-		    data.top = new FormAttachment( 0 );
-		    data.bottom = new FormAttachment( 100 );
-		    data.width = CENTER_AREA_WIDTH;
-		    return data;
-		  }
-
-	private void createLogo( Composite headerComp ) {
-		Label logoLabel = new Label( headerComp, SWT.NONE );
-		Image cookieLogo = getImage( headerComp.getDisplay(), "CookieApp.png" );
-		logoLabel.setImage( cookieLogo );
-		logoLabel.setLayoutData( createLogoFormData( cookieLogo ) );
-		//makeLink( logoLabel, RAP_PAGE_URL );
+			}
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				//do nothing here				
+			}
+		});
 	}
 
-	private static FormData createLogoFormData( Image cookieLogo ) {
-		FormData data = new FormData();
-		data.left = new FormAttachment( 0 );
-		int logoHeight = cookieLogo.getBounds().height;
-		data.top = new FormAttachment( 50, -( logoHeight / 2 ) );
-		return data;
+
+	private void setBackgroundImage(Composite parent) {
+		Image backgroundImage = loadImage(BACKGROUNDIMAGE);
+		final int width = backgroundImage.getBounds().width;
+		final int height = backgroundImage.getBounds().height;
+		backgroundImage = new Image(display, backgroundImage.getImageData().scaledTo((int)(width*0.7),(int)(height*0.7)));
+		parent.setBackgroundImage(backgroundImage);
+		parent.setBackgroundMode(SWT.INHERIT_DEFAULT);
 	}
 
-	public static Image getImage( Display display, String path ) {
-		ClassLoader classLoader = MainPage.class.getClassLoader();
-		InputStream inputStream = classLoader.getResourceAsStream( "resources/" + path );
+
+	public Image loadImage(String name) {
 		Image result = null;
-		if( inputStream != null ) {
+		InputStream stream = MainPage.class.getClassLoader().getResourceAsStream( name );
+		if( stream != null ) {
 			try {
-				result = new Image( display, inputStream );
+				result = new Image(display, stream);
 			} finally {
 				try {
-					inputStream.close();
-				} catch( IOException e ) {
-					// ignore
+					stream.close();
+				} catch( IOException unexpected ) {
+					throw new RuntimeException( "Failed to close image input stream", unexpected );
 				}
 			}
 		}
@@ -185,12 +180,12 @@ public class MainPage extends AbstractEntryPoint {
 	}
 
 
+
+
 	/*
 	 * wird vor dem create Content aufgerufen...
 	 * tabs zeichne methode muss angepasst werden!
 	 */
-
-
 	public void setFolderItem(final FolderItem folderItem) {
 		if (folderItem != null && !(folderItems.contains(folderItem))) {
 			updateContent(new Runnable() {
@@ -250,6 +245,7 @@ public class MainPage extends AbstractEntryPoint {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void startTabItemSeviceTracker() {
 		serviceTrackerTabItem = new ServiceTracker(context, FolderItem.class,
 				new ServiceTrackerCustomizer() {
@@ -299,9 +295,16 @@ public class MainPage extends AbstractEntryPoint {
 		bgThread.setDaemon(true);
 		bgThread.start();
 	}
-	
-	public void getControlService() {
-		
-	}
 
+	public void setControlService(ControlService controlService) {
+		if (controlService != null) {
+			this.controlService = controlService;
+		}
+	}
+	
+	public void unsetControlService(ControlService controlService) {
+		if (this.controlService.equals(controlService)) {
+			this.controlService = null;
+		}
+	}
 }

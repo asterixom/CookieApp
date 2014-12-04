@@ -15,4 +15,10 @@ public interface FolderItem {
 	 * @return the TabItemName as String
 	 */
 	public String getTabItemName();
+	
+	/**
+	 * Sets a Property specific for the implementaton
+	 * @param property
+	 */
+	public void setSpecificProperty(Object property);
 }

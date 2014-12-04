@@ -20,6 +20,7 @@ public class Register implements FolderItem{
 	private Text usernameT;
 	private Text passwordT;
 	private Text mailT;
+	private final int padding = 20;
 	
 
 	@Override
@@ -27,7 +28,7 @@ public class Register implements FolderItem{
 		
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new FillLayout(SWT.FILL));
-		
+		completeComposite.setLocation(padding, padding);
 //		Composite headerComposite = new Composite(completeComposite, SWT.NONE);		
 		createHeader(completeComposite);
 		
@@ -97,6 +98,12 @@ public class Register implements FolderItem{
 	@Override
 	public String getTabItemName() {
 		return "Registrieren";
+	}
+	
+	@Override
+	public void setSpecificProperty(Object property) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

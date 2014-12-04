@@ -79,6 +79,12 @@ public class Profile implements FolderItem{
 		
 	}
 	
+	@Override
+	public void setSpecificProperty(Object property) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 
 	@Override

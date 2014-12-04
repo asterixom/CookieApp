@@ -18,4 +18,10 @@ public class Home implements FolderItem {
 		return "Home";
 	}
 
+	@Override
+	public void setSpecificProperty(Object property) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

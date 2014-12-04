@@ -4,6 +4,9 @@ Bundle-Name: Recipesearch
 Bundle-SymbolicName: de.cookieapp.gui.recipesearch
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.eclipse.rap.rwt;bundle-version="3.0.0"
 Service-Component: OSGI-INF/component.xml
-Import-Package: de.cookieapp.gui.folderitem
+Import-Package: de.cookieapp.control,
+ de.cookieapp.control.exceptions,
+ de.cookieapp.data.model,
+ de.cookieapp.gui.folderitem
+Require-Bundle: org.eclipse.rap.rwt;bundle-version="2.3.1"
