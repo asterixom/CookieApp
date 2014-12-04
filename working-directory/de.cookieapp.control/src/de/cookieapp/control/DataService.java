@@ -2,7 +2,6 @@ package de.cookieapp.control;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
