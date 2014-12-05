@@ -35,7 +35,7 @@ public class Recipe implements FolderItem{
 		Label owner = new Label(header, SWT.NONE);
 		owner.setText("Dieses Rezept ist von owner"); //TODO noch dynamisch anpassen
 		Button favorite = new Button(header, SWT.NONE);
-		//TODO ggf. �berpr�fen, ob schon Favorit und noch if-selection f�r unterschiedliche Buttons
+		//TODO ggf. ueberpruefen, ob schon Favorit und noch if-selection fuer unterschiedliche Buttons
 		favorite.addSelectionListener(new SelectionAdapter() {
 			/**
 			 * Actionlistener for favorite-button
@@ -44,7 +44,7 @@ public class Recipe implements FolderItem{
 				//TODO Favoriten implementieren
 			}
 		});
-		favorite.setText("Zu Favoriten hinzuf�gen");
+		favorite.setText("Zu Favoriten hinzufuegen");
 	}
 	
 	/**
