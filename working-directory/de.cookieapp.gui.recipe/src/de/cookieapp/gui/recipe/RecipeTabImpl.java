@@ -10,9 +10,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import de.cookieapp.data.model.Recipe;
 import de.cookieapp.gui.folderitem.FolderItem;
 
-public class Recipe implements FolderItem{
+public class RecipeTabImpl implements RecipeTab {
+	
+	private Recipe recipe;
+	
+	
+	public RecipeTabImpl(Recipe recipe) {
+		this.recipe = recipe;
+	}
+	
+	
 
 	@Override
 	public Composite getContent(Composite tabFolder) {
@@ -79,12 +89,7 @@ public class Recipe implements FolderItem{
 		method.setText("method"); //TODO getMethod() einf�gen
 		
 	}
-	
-	@Override
-	public void setSpecificProperty(Object property) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public String getTabItemName() {

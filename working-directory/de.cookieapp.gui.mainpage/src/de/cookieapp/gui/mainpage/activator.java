@@ -6,7 +6,6 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
-import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
 public class activator implements BundleActivator, ServiceListener {
@@ -14,6 +13,7 @@ public class activator implements BundleActivator, ServiceListener {
 	private BasicApplication service;
 	@SuppressWarnings("rawtypes")
 	private ServiceTracker serviceTracker;
+	@SuppressWarnings("unused")
 	private BundleContext context;
 	
 	public static final int LOG_ERROR   = 1;
@@ -25,6 +25,7 @@ public class activator implements BundleActivator, ServiceListener {
 	 * (non-Javadoc)
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void start(BundleContext context) throws Exception {
 		this.context = context;
 		service = new BasicApplication();

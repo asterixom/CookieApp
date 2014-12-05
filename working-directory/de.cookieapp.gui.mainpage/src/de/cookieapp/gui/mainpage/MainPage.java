@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.SWT;
@@ -14,18 +13,12 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Drawable;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
@@ -36,6 +29,7 @@ import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 import de.cookieapp.control.ControlService;
+import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class MainPage extends AbstractEntryPoint {
@@ -49,24 +43,33 @@ public class MainPage extends AbstractEntryPoint {
 	private ControlService controlService;
 	@SuppressWarnings("rawtypes")
 	private ServiceTracker serviceTrackerTabItem;
+	@SuppressWarnings("rawtypes")
+	private ServiceTracker serviceTrackerControlService;
 	private boolean started = false;
-	final String defaultTab = "Registrieren";
-	private static final int HEADER_HEIGHT = 140;
-	private static final int CENTER_AREA_WIDTH = 998;		
+	final String defaultTab = "Home";
+	//	private static final int HEADER_HEIGHT = 140;
+	//	private static final int CENTER_AREA_WIDTH = 998;		
 	private Display display;
 	private static final String BACKGROUNDIMAGE = "resources/greenbackground.jpg";
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
 	private static final String LOGO = "resources/Logo.png";
-
+	private Long sessionId;
+	private Text nameText;
+	private Text passwortText;
 
 
 	@Override
 	protected void createContents(Composite parent) {
 		System.out.println("Main Page started");
-
+		startControlServiceSeviceTracker();
 		this.parent = parent;
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
+		if (controlService != null) {
+			sessionId = controlService.createSession();
+		} else {
+			System.err.println("ControlSerive Not Found!");
+		}
 
 		setBackgroundImage(parent);
 		createLoginComposite(parent);
@@ -90,7 +93,7 @@ public class MainPage extends AbstractEntryPoint {
 
 	private void createLoginComposite(Composite parent) {
 		Composite homeControlComposite = new Composite(parent, SWT.FILL | SWT.RIGHT);
-		homeControlComposite.setLayout(new GridLayout(2, false));
+		homeControlComposite.setLayout(new GridLayout(2, true));
 		Image controlImage = loadImage(CONTROLBACKGROUNDIMAGE);
 		homeControlComposite.setBackgroundImage(controlImage);		
 		Image headerImage = loadImage(LOGO);
@@ -103,14 +106,14 @@ public class MainPage extends AbstractEntryPoint {
 		loginComposite.setLayout(new GridLayout(2, true));
 		Label nameLabel = new Label(loginComposite, SWT.NONE);
 		nameLabel.setText("Benutzername oder eMail");
-		Text nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
+		nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
 		nameText.addKeyListener(new KeyListener() {			
+			private static final long serialVersionUID = 6511802604250486237L;
 			@Override
 			public void keyReleased(KeyEvent e) {
-			if (e.keyCode == SWT.CR) {
-				//TODO Login
-			}
-				
+				if (e.keyCode == SWT.CR) {
+					login();
+				}
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -119,14 +122,15 @@ public class MainPage extends AbstractEntryPoint {
 		});
 		Label passwordLabel = new Label(loginComposite, SWT.NONE);
 		passwordLabel.setText("Passwort");
-		Text passwortText = new Text(loginComposite, SWT.BORDER | SWT.PASSWORD | SWT.FILL);
+		passwortText = new Text(loginComposite, SWT.BORDER | SWT.PASSWORD | SWT.FILL);
 		passwortText.addKeyListener(new KeyListener() {			
+			private static final long serialVersionUID = 6277769989802841352L;
 			@Override
 			public void keyReleased(KeyEvent e) {
-			if (e.keyCode == SWT.CR) {
-				//TODO Login
-			}
-				
+				if (e.keyCode == SWT.CR) {
+					login();
+				}
+
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -139,16 +143,30 @@ public class MainPage extends AbstractEntryPoint {
 		Button loginButton = new Button(loginComposite, SWT.CENTER);
 		loginButton.setText("Login");
 		loginButton.addSelectionListener(new SelectionListener() {
+			private static final long serialVersionUID = 1925540608622081691L;
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				//TODO Login
-
+				login();
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				//do nothing here				
 			}
 		});
+	}
+
+
+	private void login() {
+		if (controlService != null) {
+			try {
+				controlService.login(sessionId, nameText.getText(), passwortText.getText());
+				System.out.println("logged in as " +  controlService.getCurrentUserName(sessionId));
+			} catch (CookieAppException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.err.println("Login Exception");
+			}
+		}
 	}
 
 
@@ -178,8 +196,6 @@ public class MainPage extends AbstractEntryPoint {
 		}
 		return result;
 	}
-
-
 
 
 	/*
@@ -296,15 +312,50 @@ public class MainPage extends AbstractEntryPoint {
 		bgThread.start();
 	}
 
-	public void setControlService(ControlService controlService) {
-		if (controlService != null) {
-			this.controlService = controlService;
-		}
-	}
-	
-	public void unsetControlService(ControlService controlService) {
-		if (this.controlService.equals(controlService)) {
-			this.controlService = null;
-		}
+//	public void setControlService(ControlService controlService) {
+//		if (controlService != null) {
+//			this.controlService = controlService;
+//		}
+//	}
+//
+//	public void unsetControlService(ControlService controlService) {
+//		if (this.controlService.equals(controlService)) {
+//			this.controlService = null;
+//		}
+//	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void startControlServiceSeviceTracker() {
+		serviceTrackerControlService = new ServiceTracker(context, ControlService.class,
+				new ServiceTrackerCustomizer() {
+
+			public Object addingService(final ServiceReference reference) {
+				final ControlService controlService = (ControlService) context.getService(reference);
+				if(controlService != null) {
+					MainPage.this.controlService = controlService;
+				}
+				return controlService;
+			}
+
+			public void modifiedService(final ServiceReference reference, final Object service ) {/*ok*/}
+
+			public void removedService(final ServiceReference reference, final Object service) {
+				final ControlService controlService = (ControlService) context.getService(reference);
+				if(controlService != null) {
+					MainPage.this.controlService = null;
+				}
+			}
+		});
+		Object[] services = serviceTrackerControlService.getServices();
+		if (services != null) {
+			for (int i = 0; i < services.length; i++) {
+				if(services[i] != null) {
+					MainPage.this.controlService = (ControlService) services[i];
+
+				}
+			}
+		}		
+		serviceTrackerControlService.open();
+		//started = true;
 	}
 }

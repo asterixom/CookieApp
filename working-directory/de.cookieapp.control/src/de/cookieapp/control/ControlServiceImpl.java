@@ -12,18 +12,22 @@ import de.cookieapp.control.model.RecipeInfo;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
+import de.cookieapp.repository.Repository;
 
 public class ControlServiceImpl implements ControlService {
 	
 	private DataService dataService = null;
 	private Random random = null;
 	private HashMap<Long,User> sessionMap = null;
+	private Repository repository;
 	
 	public ControlServiceImpl() {
 		random = new Random();
-		dataService = new DataService();
+		dataService = new DataService(repository);
 		sessionMap = new HashMap<Long,User>();
 	}
+	
+	
 
 	@Override
 	public Long createSession() {
@@ -168,4 +172,16 @@ public class ControlServiceImpl implements ControlService {
 		return user.getMail();
 	}
 	
+	public void setRepository(Repository repository) {
+		if (repository != null) {
+			this.repository = repository;
+			dataService.setRepository(repository);
+		}
+	}
+
+	public void unsetRepsoitory(Repository repository) {
+		if (repository != null && this.repository.equals(repository)) {
+			this.repository = null;
+		}
+	}
 }

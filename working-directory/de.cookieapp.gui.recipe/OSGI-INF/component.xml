@@ -2,6 +2,6 @@
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="de.cookieapp.gui.recipe">
    <implementation class="de.cookieapp.gui.recipe.Recipe"/>
    <service>
-      <provide interface="de.cookieapp.gui.folderitem.FolderItem"/>
+      <provide interface="de.cookieapp.gui.recipe.RecipeTab"/>
    </service>
 </scr:component>

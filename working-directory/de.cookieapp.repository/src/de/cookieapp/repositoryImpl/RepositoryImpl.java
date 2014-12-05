@@ -15,7 +15,9 @@ public class RepositoryImpl implements Repository {
 	
 	public RepositoryImpl() {
 		userRepository = new ArrayList<User>();
-		recipeRepository = new ArrayList<Recipe>();	
+		recipeRepository = new ArrayList<Recipe>();
+		TestData testDataProvider = new TestData();
+		testDataProvider.createTestData(userRepository, recipeRepository);
 	}
 	
 	/**
@@ -30,12 +32,14 @@ public class RepositoryImpl implements Repository {
 			for (User userFromRepo : userRepository) {
 				if (userFromRepo.getName().equals(name)) {
 					user = userFromRepo;
+					break;
 				}
 			}
 		} else if (mail != null) {
 			for (User userFromRepo : userRepository) {
 				if (userFromRepo.getMail().equals(mail)) {
 					user = userFromRepo;
+					break;
 				}
 			}
 		}

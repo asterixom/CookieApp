@@ -23,7 +23,7 @@ public class User implements de.cookieapp.data.model.User{
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "USERID")
 	private Long id;
-	
+
 	@Column(name = "NAME")
 	private String name;
 
@@ -35,7 +35,7 @@ public class User implements de.cookieapp.data.model.User{
 
 	@Column(name = "CREATED")
 	private Date created;
-	
+
 	@Column(name = "CLEARENCE")
 	private String clearence;
 
@@ -51,8 +51,8 @@ public class User implements de.cookieapp.data.model.User{
 	 * @param password
 	 * @param eMail
 	 * @param created
-	 * @param recipe
-	 * @param favorites
+	 * @param recipe if null, creates new ArrayList
+	 * @param favorites if null, creates new ArrayList
 	 */
 	public User(Long id, String name, String password, String eMail,
 			Date created, ArrayList<Recipe> recipe, ArrayList<Recipe> favorites) {
@@ -61,8 +61,16 @@ public class User implements de.cookieapp.data.model.User{
 		this.password = password;
 		this.eMail = eMail;
 		this.created = created;
-		this.recipe = recipe;
-		this.favorites = favorites;
+		if (recipe == null) {
+			recipe = new ArrayList<Recipe>();
+		} else {
+			this.recipe = recipe;
+		}
+		if (favorites == null) {
+			favorites = new ArrayList<Recipe>();
+		} else {
+			this.favorites = favorites;
+		}
 	}
 
 	public String getName() {
@@ -125,7 +133,7 @@ public class User implements de.cookieapp.data.model.User{
 
 	@Override
 	public void setSecurityClearance(SecurityClearance i) {
-		
+
 	}
 
 	@Override

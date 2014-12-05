@@ -15,7 +15,8 @@ public class DataService {
 	private MessageDigest md = null;
 	private Repository repository;
 
-	public DataService() {
+	public DataService(Repository repository) {
+		this.repository = repository;
 		/*
 		try {
 			md = MessageDigest.getInstance("SHA512");
@@ -24,6 +25,10 @@ public class DataService {
 		}
 		*/
 	}
+	
+	public void setRepository(Repository repository) {
+		this.repository = repository;
+	}
 
 	public User login(String userORmail, String password) {
 		User user = null;
@@ -31,10 +36,10 @@ public class DataService {
 		 * Could be implemented differently, if different in Repository
 		 */
 		if (userORmail.contains("@")) {
-			user = repository.getUser(userORmail, null);
+			user = repository.getUser(null, userORmail);
 		} 
 		if (user == null) {
-			user = repository.getUser(null, userORmail);
+			user = repository.getUser(userORmail, userORmail);
 		}
 		if (user != null && user.checkPassword(password)) {
 			return user;
@@ -67,17 +72,5 @@ public class DataService {
 
 	public Recipe getRecipe(Long recipeId) {
 		return repository.getRecipe(recipeId);
-	}
-
-	public void setRepository(Repository repository) {
-		if (repository != null) {
-			this.repository = repository;
-		}
-	}
-
-	public void unsetRepsoitory(Repository repository) {
-		if (repository != null && this.repository.equals(repository)) {
-			this.repository = null;
-		}
 	}
 }
