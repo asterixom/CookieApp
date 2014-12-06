@@ -11,7 +11,9 @@ import org.eclipse.swt.widgets.Label;
 
 import de.cookieapp.gui.folderitem.FolderItem;
 
-public class Profile implements FolderItem{
+public class Profile implements FolderItem {
+	
+	private Long sessionID;
 
 	@Override
 	public Composite getContent(Composite tabFolder) {
@@ -83,6 +85,11 @@ public class Profile implements FolderItem{
 	public void setSpecificProperty(Object property) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void setSessionID(Long sessionID) {
+		this.sessionID = sessionID;
 	}
 	
 

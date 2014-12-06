@@ -53,7 +53,7 @@ public class MainPage extends AbstractEntryPoint {
 	private static final String BACKGROUNDIMAGE = "resources/greenbackground.jpg";
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
 	private static final String LOGO = "resources/Logo.png";
-	private Long sessionId;
+	private Long sessionID;
 	private Text nameText;
 	private Text passwortText;
 
@@ -66,10 +66,11 @@ public class MainPage extends AbstractEntryPoint {
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
 		if (controlService != null) {
-			sessionId = controlService.createSession();
+			sessionID = controlService.createSession();
 		} else {
 			System.err.println("ControlSerive Not Found!");
 		}
+
 
 		setBackgroundImage(parent);
 		createLoginComposite(parent);
@@ -88,6 +89,9 @@ public class MainPage extends AbstractEntryPoint {
 		});
 
 		startTabItemSeviceTracker();
+		if (sessionID != null) {
+			addSessionIDToTabs(sessionID);
+		}
 	}
 
 
@@ -159,8 +163,8 @@ public class MainPage extends AbstractEntryPoint {
 	private void login() {
 		if (controlService != null) {
 			try {
-				controlService.login(sessionId, nameText.getText(), passwortText.getText());
-				System.out.println("logged in as " +  controlService.getCurrentUserName(sessionId));
+				controlService.login(sessionID, nameText.getText(), passwortText.getText());
+				System.out.println("logged in as " +  controlService.getCurrentUserName(sessionID));
 			} catch (CookieAppException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -196,6 +200,12 @@ public class MainPage extends AbstractEntryPoint {
 		}
 		return result;
 	}
+	
+	private void addSessionIDToTabs(Long sessionID) {
+		for (FolderItem folderItem : folderItems) {
+			folderItem.setSessionID(sessionID);
+		}
+	}
 
 
 	/*
@@ -219,6 +229,9 @@ public class MainPage extends AbstractEntryPoint {
 					tabItem.setText(folderItem.getTabItemName());
 					tabItem.setControl(folderItemComposite);
 					tabItems.add(tabItem);	
+					if (sessionID != null) {
+						folderItem.setSessionID(sessionID);
+					}
 
 					/*
 					 * Default TabItem has to be Selected!!!

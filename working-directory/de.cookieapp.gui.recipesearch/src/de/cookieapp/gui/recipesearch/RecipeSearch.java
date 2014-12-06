@@ -13,6 +13,7 @@ public class RecipeSearch implements FolderItem{
 
 	private ControlService controlService;
 	private Composite tabFolder;
+	private Long sessionID;
 
 	@Override
 	public Composite getContent(Composite tabFolder) {
@@ -45,6 +46,11 @@ public class RecipeSearch implements FolderItem{
 			}
 		}
 		
+	}
+	
+	@Override
+	public void setSessionID(Long sessionID) {
+		this.sessionID = sessionID;
 	}
 
 	public void setControlService(ControlService controlService) {

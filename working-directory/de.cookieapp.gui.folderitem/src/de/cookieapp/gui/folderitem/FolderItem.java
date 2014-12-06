@@ -21,4 +21,6 @@ public interface FolderItem {
 	 * @param property
 	 */
 	public void setSpecificProperty(Object property);
+	
+	public void setSessionID(Long sessionID);
 }

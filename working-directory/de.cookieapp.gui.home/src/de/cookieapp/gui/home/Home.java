@@ -7,6 +7,8 @@ import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Home implements FolderItem {
 
+	private Long sessionID;
+
 
 	public Composite getContent(Composite tabFolder) {
 		// TODO Auto-generated method stub
@@ -21,7 +23,12 @@ public class Home implements FolderItem {
 	@Override
 	public void setSpecificProperty(Object property) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void setSessionID(Long sessionID) {
+		this.sessionID = sessionID;		
 	}
 
 }
