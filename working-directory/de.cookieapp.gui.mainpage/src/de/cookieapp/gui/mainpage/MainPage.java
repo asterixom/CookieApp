@@ -59,18 +59,20 @@ public class MainPage extends AbstractEntryPoint {
 	private Long sessionID;
 	private Text nameText;
 	private Text passwortText;
+	private Composite loginComposite;
+	private Composite homeControlComposite;
 
 
 	@Override
 	protected void createContents(Composite parent) {
 		System.out.println("Main Page started");
 		startControlServiceSeviceTracker();
-		
-		this.parent = parent;
-		parent.setLayout(new RowLayout(SWT.NONE));
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
-		
+		this.parent = parent;
+		parent.setLayout(new RowLayout(SWT.NONE));
+
+
 		if (controlService != null) {
 			sessionID = controlService.createSession();
 		} else {
@@ -103,7 +105,7 @@ public class MainPage extends AbstractEntryPoint {
 
 
 	private void createLoginComposite(Composite parent) {
-		Composite homeControlComposite = new Composite(parent, SWT.FILL | SWT.RIGHT);
+		homeControlComposite = new Composite(parent, SWT.FILL | SWT.RIGHT);
 		homeControlComposite.setLayout(new GridLayout(2, true));
 		homeControlComposite.setLocation(CONTENT_SHIFT, 0);
 		Image controlImage = loadImage(CONTROLBACKGROUNDIMAGE);
@@ -114,57 +116,78 @@ public class MainPage extends AbstractEntryPoint {
 		headerImage = new Image(display, headerImage.getImageData().scaledTo((int)(width*0.5),(int)(height*0.5)));
 		Label headerLabel = new Label( homeControlComposite, SWT.LEFT );
 		headerLabel.setImage( headerImage );
-		Composite loginComposite = new Composite(homeControlComposite, SWT.RIGHT);
-		loginComposite.setLayout(new GridLayout(2, true));
-		Label nameLabel = new Label(loginComposite, SWT.NONE);
-		nameLabel.setText("Benutzername oder eMail");
-		nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
-		nameText.addKeyListener(new KeyListener() {			
-			private static final long serialVersionUID = 6511802604250486237L;
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (e.keyCode == SWT.CR) {
-					login();
+		loggedinHeader(null);
+	}
+
+	private void loggedinHeader(final String username) {
+		if (loginComposite != null) {
+			Runnable runnable = new Runnable() {
+				@Override
+				public void run() {
+					loginComposite.dispose();
+			 		loginComposite = new Composite(homeControlComposite, SWT.NONE);
+					loginComposite.setLayout(new FillLayout(SWT.NONE));
+					Label loggedinAsLabel = new Label(loginComposite, SWT.NONE);
+					loggedinAsLabel.setText("Eingeloggt als " + username);	
+					System.out.println("test");
+					loginComposite.layout();
+					loginComposite.update();
 				}
-			}
-			@Override
-			public void keyPressed(KeyEvent e) {
-				//do nothing, wait for release
-			}
-		});
-		Label passwordLabel = new Label(loginComposite, SWT.NONE);
-		passwordLabel.setText("Passwort");
-		passwortText = new Text(loginComposite, SWT.BORDER | SWT.PASSWORD | SWT.FILL);
-		passwortText.addKeyListener(new KeyListener() {			
-			private static final long serialVersionUID = 6277769989802841352L;
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (e.keyCode == SWT.CR) {
-					login();
+			};
+			updateContent(runnable);
+		} else {
+			loginComposite = new Composite(homeControlComposite, SWT.RIGHT);
+			loginComposite.setLayout(new GridLayout(2, true));
+			Label nameLabel = new Label(loginComposite, SWT.NONE);
+			nameLabel.setText("Benutzername oder eMail");
+			nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
+			nameText.addKeyListener(new KeyListener() {			
+				private static final long serialVersionUID = 6511802604250486237L;
+				@Override
+				public void keyReleased(KeyEvent e) {
+					if (e.keyCode == SWT.CR) {
+						login();
+					}
+				}
+				@Override
+				public void keyPressed(KeyEvent e) {
+					//do nothing, wait for release
+				}
+			});
+			Label passwordLabel = new Label(loginComposite, SWT.NONE);
+			passwordLabel.setText("Passwort");
+			passwortText = new Text(loginComposite, SWT.BORDER | SWT.PASSWORD | SWT.FILL);
+			passwortText.addKeyListener(new KeyListener() {			
+				private static final long serialVersionUID = 6277769989802841352L;
+				@Override
+				public void keyReleased(KeyEvent e) {
+					if (e.keyCode == SWT.CR) {
+						login();
+					}
+
+				}
+				@Override
+				public void keyPressed(KeyEvent e) {
+					//do nothing, wait for release
 				}
 
-			}
-			@Override
-			public void keyPressed(KeyEvent e) {
-				//do nothing, wait for release
-			}
-
-		});
-		Label emptyLabel = new Label(loginComposite, SWT.NONE);
-		emptyLabel.setVisible(false);
-		Button loginButton = new Button(loginComposite, SWT.CENTER);
-		loginButton.setText("Login");
-		loginButton.addSelectionListener(new SelectionListener() {
-			private static final long serialVersionUID = 1925540608622081691L;
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				login();
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				//do nothing here				
-			}
-		});
+			});
+			Label emptyLabel = new Label(loginComposite, SWT.NONE);
+			emptyLabel.setVisible(false);
+			Button loginButton = new Button(loginComposite, SWT.CENTER);
+			loginButton.setText("Login");
+			loginButton.addSelectionListener(new SelectionListener() {
+				private static final long serialVersionUID = 1925540608622081691L;
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					login();
+				}
+				@Override
+				public void widgetDefaultSelected(SelectionEvent e) {
+					//do nothing here				
+				}
+			});
+		}
 	}
 
 
@@ -173,6 +196,10 @@ public class MainPage extends AbstractEntryPoint {
 			try {
 				controlService.login(sessionID, nameText.getText(), passwortText.getText());
 				System.out.println("logged in as " +  controlService.getCurrentUserName(sessionID));
+				if (nameText.getText().equals(controlService.getCurrentUserName(sessionID)) ||
+						nameText.getText().equals(controlService.getCurrentUser(sessionID).getMail())) {
+					loggedinHeader(controlService.getCurrentUserName(sessionID));
+				}
 			} catch (CookieAppException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -319,6 +346,7 @@ public class MainPage extends AbstractEntryPoint {
 	}
 
 	public void updateContent(final Runnable runnable) {
+
 		Runnable bgRunnable = new Runnable() {
 			public void run() {
 				if (parent != null) { 

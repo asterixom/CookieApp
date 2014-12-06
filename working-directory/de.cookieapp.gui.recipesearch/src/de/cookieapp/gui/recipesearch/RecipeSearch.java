@@ -82,30 +82,39 @@ public class RecipeSearch implements FolderItem{
 
 	}
 
-	public Composite showResults(Composite parent, ArrayList<Recipe> recipes) {
-		Composite resultComposite = new Composite(parent, SWT.NONE);
-		resultComposite.setLayout(new GridLayout(1, true));
-		for (Recipe recipe : recipes) {
-			final Recipe recipeToShow = recipe;
-			Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
-			recipeNameLabel.setText(recipe.getName());
-			recipeNameLabel.addMouseListener(new MouseListener() {
-				private static final long serialVersionUID = -5558483000466339886L;
-				@Override
-				public void mouseUp(MouseEvent e) {
-					showRecipe(recipeToShow);
+	public Composite showResults(final Composite parent, final ArrayList<Recipe> recipes) {
+		updateContent(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Composite resultComposite = new Composite(parent, SWT.NONE);
+				resultComposite.setLayout(new GridLayout(1, true));
+				for (Recipe recipe : recipes) {
+					final Recipe recipeToShow = recipe;
+					Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
+					recipeNameLabel.setText(recipe.getName());
+					recipeNameLabel.addMouseListener(new MouseListener() {
+						private static final long serialVersionUID = -5558483000466339886L;
+						@Override
+						public void mouseUp(MouseEvent e) {
+							showRecipe(recipeToShow);
+						}
+						@Override
+						public void mouseDown(MouseEvent e) {
+							// TODO Auto-generated method stub
+						}
+						@Override
+						public void mouseDoubleClick(MouseEvent e) {
+							// TODO Auto-generated method stub
+						}
+					});
 				}
-				@Override
-				public void mouseDown(MouseEvent e) {
-					// TODO Auto-generated method stub
-				}
-				@Override
-				public void mouseDoubleClick(MouseEvent e) {
-					// TODO Auto-generated method stub
-				}
-			});
-		}
-		parent.redraw();
+				parent.redraw();
+			}
+		});
+		
+		
 		return parent;
 	}
 
@@ -140,5 +149,21 @@ public class RecipeSearch implements FolderItem{
 		if (this.controlService.equals(controlService)) {
 			this.controlService = null;
 		}
+	}
+	
+	public void updateContent(final Runnable runnable) {
+
+		Runnable bgRunnable = new Runnable() {
+			public void run() {
+				if (tabFolder != null) { 
+					tabFolder.getDisplay().asyncExec(runnable);
+				} else {
+					System.err.println("Parent is null");
+				}
+			};
+		};
+		Thread bgThread = new Thread(bgRunnable);
+		bgThread.setDaemon(true);
+		bgThread.start();
 	}
 }
