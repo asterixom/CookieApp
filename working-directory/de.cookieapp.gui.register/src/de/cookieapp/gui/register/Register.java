@@ -6,6 +6,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -22,14 +23,17 @@ public class Register implements FolderItem{
 	private Text mailT;
 //	private final int padding = 20;
 	private Long sessionID;
+	Composite tabFolder;
+	Composite completeComposite; 
 	
 
 	@Override
 	public Composite getContent(Composite tabFolder) {
-		
+		this.tabFolder = tabFolder;
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		FillLayout verticalLayout = new FillLayout(SWT.VERTICAL);
 		completeComposite.setLayout(verticalLayout);
+		this.completeComposite = completeComposite;
 //		completeComposite.setLocation(padding, padding);
 //		Composite headerComposite = new Composite(completeComposite, SWT.NONE);		
 //		createHeader(completeComposite);
@@ -83,7 +87,11 @@ public class Register implements FolderItem{
 					String eMail = mailT.getText();
 					try {
 						controlService.register(sessionID, userName, password, eMail);
-						System.out.println(controlService.getCurrentUserName(sessionID));
+						if (controlService.getCurrentUserName(sessionID).equals(userName)) {
+							System.out.println(controlService.getCurrentUserName(sessionID));
+							Combo combo = new Combo(completeComposite, SWT.NONE);
+							combo.setText("Erfolgreich Registriert");
+						}
 					} catch (CookieAppException exception) {
 						System.err.println("Registation Failed!");
 					}

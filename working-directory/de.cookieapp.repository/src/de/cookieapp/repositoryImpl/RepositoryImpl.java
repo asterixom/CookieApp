@@ -85,6 +85,21 @@ public class RepositoryImpl implements Repository {
 	public ArrayList<Recipe> getAllRecipe() {
 		return recipeRepository;
 	}
+
+	/**
+	 * Returns all Recipes, that contain the given Name
+	 */
+	@Override
+	public ArrayList<Recipe> getRecipesWithName(String name) {
+		ArrayList<Recipe> selectedRecipes = new ArrayList<Recipe>();
+		for (Recipe recipe : recipeRepository) {
+			if (recipe.getName().contains(name)) {
+				selectedRecipes.add(recipe);
+			}
+			
+		}
+		return selectedRecipes;
+	}
 	
 	
 	

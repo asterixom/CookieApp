@@ -17,24 +17,19 @@ public class RecipeTabImpl implements RecipeTab {
 	
 	private Recipe recipe;
 	
-	
-	public RecipeTabImpl(Recipe recipe) {
-		this.recipe = recipe;
-	}
-	
-	
-
 	@Override
-	public Composite getContent(Composite tabFolder) {
+	public Composite getContent(Composite tabFolder, Recipe recipe) {
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
 		
 		createHeader(completeComposite);
 		createContent(completeComposite);
+		createFooter(completeComposite);
+		createCommentArea(completeComposite);
 
 		return completeComposite;
 	}
-
+	
 	/**
 	 * Creates headline and log-off button
 	 * @param completeComposite
@@ -42,19 +37,7 @@ public class RecipeTabImpl implements RecipeTab {
 	private void createHeader(Composite completeComposite) {
 		Composite header = new Composite(completeComposite, SWT.NONE);
 		header.setLayout(new GridLayout(2, false));
-		Label owner = new Label(header, SWT.NONE);
-		owner.setText("Dieses Rezept ist von owner"); //TODO noch dynamisch anpassen
-		Button favorite = new Button(header, SWT.NONE);
-		//TODO ggf. ueberpruefen, ob schon Favorit und noch if-selection fuer unterschiedliche Buttons
-		favorite.addSelectionListener(new SelectionAdapter() {
-			/**
-			 * Actionlistener for favorite-button
-			 */
-			public void widgetSelected(SelectionEvent e) {
-				//TODO Favoriten implementieren
-			}
-		});
-		favorite.setText("Zu Favoriten hinzufuegen");
+		
 	}
 	
 	/**
@@ -72,7 +55,7 @@ public class RecipeTabImpl implements RecipeTab {
 		Composite contentTR = new Composite(content, SWT.NONE);
 		contentTR.setLayout(new GridLayout(2, false));
 		Label recipeName = new Label(contentTR, SWT.NONE);
-		recipeName.setText("recipe name"); //TODO Methode getRecipeName() einf�gen
+		recipeName.setText(recipe.getName()); //TODO Methode getRecipeName() einf�gen
 		recipeName.setFont(new Font( completeComposite.getDisplay(), "Verdana", 18, SWT.BOLD ) ); //TODO ggf. CSS-Tag Headlie1 einf�gen
 		
 		
@@ -90,11 +73,33 @@ public class RecipeTabImpl implements RecipeTab {
 		
 	}
 
+	private void createFooter(Composite completeComposite) {
+		Composite footerComposite = new Composite(completeComposite, SWT.NONE);
+		footerComposite.setLayout(new GridLayout(2, false));
+		Label owner = new Label(footerComposite, SWT.NONE);
+		owner.setText("Dieses Rezept ist von " + recipe.getCreator().getName()); //TODO noch dynamisch anpassen
+		Button favorite = new Button(footerComposite, SWT.NONE);
+		//TODO ggf. ueberpruefen, ob schon Favorit und noch if-selection fuer unterschiedliche Buttons
+		favorite.addSelectionListener(new SelectionAdapter() {
+			/**
+			 * Actionlistener for favorite-button
+			 */
+			public void widgetSelected(SelectionEvent e) {
+				//TODO Favoriten implementieren
+			}
+		});
+		favorite.setText("Zu Favoriten hinzufuegen");
+	}
+	
+	private void createCommentArea(Composite completeComposite) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public String getTabItemName() {
 		
-		return "recipe name"; //TODO den Rezeptnamen returnen
+		return recipe.getName(); //TODO den Rezeptnamen returnen
 	}
 
 }

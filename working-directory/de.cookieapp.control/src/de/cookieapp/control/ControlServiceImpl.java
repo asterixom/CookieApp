@@ -1,5 +1,6 @@
 package de.cookieapp.control;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.TreeMap;
@@ -155,6 +156,19 @@ public class ControlServiceImpl implements ControlService {
 			throw new NoSuchRecipeException();
 		}
 		return new RecipeInfo(recipe);
+	}
+	
+	@Override
+	public ArrayList<de.cookieapp.dataimpl.Recipe> getRecipeByName(Long sessionId, String name)
+			throws CookieAppException {
+		if (!sessionMap.containsKey(sessionId)) {
+			throw new NoSessionException();
+		}
+		ArrayList<de.cookieapp.dataimpl.Recipe> recipe = dataService.getRecipesWithName(name);
+		if (recipe == null) {
+			throw new NoSuchRecipeException();
+		}
+		return recipe;
 	}
 
 	@Override

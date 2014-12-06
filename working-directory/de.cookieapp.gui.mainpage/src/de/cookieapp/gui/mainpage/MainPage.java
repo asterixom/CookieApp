@@ -14,7 +14,9 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -47,8 +49,9 @@ public class MainPage extends AbstractEntryPoint {
 	private ServiceTracker serviceTrackerControlService;
 	private boolean started = false;
 	final String defaultTab = "Home";
-	//	private static final int HEADER_HEIGHT = 140;
-	//	private static final int CENTER_AREA_WIDTH = 998;		
+	private static final int HEADER_HEIGHT = 140;
+	private static final int CONTENT_SHIFT = 300;
+	private static final int CENTER_AREA_WIDTH = 800;		
 	private Display display;
 	private static final String BACKGROUNDIMAGE = "resources/greenbackground.jpg";
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
@@ -62,9 +65,12 @@ public class MainPage extends AbstractEntryPoint {
 	protected void createContents(Composite parent) {
 		System.out.println("Main Page started");
 		startControlServiceSeviceTracker();
+		
 		this.parent = parent;
+		parent.setLayout(new RowLayout(SWT.NONE));
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
+		
 		if (controlService != null) {
 			sessionID = controlService.createSession();
 		} else {
@@ -77,6 +83,7 @@ public class MainPage extends AbstractEntryPoint {
 
 
 		tabFolder = new TabFolder(parent, SWT.NONE);
+		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
 		tabFolder.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 			public void widgetSelected(SelectionEvent e) {
@@ -98,6 +105,7 @@ public class MainPage extends AbstractEntryPoint {
 	private void createLoginComposite(Composite parent) {
 		Composite homeControlComposite = new Composite(parent, SWT.FILL | SWT.RIGHT);
 		homeControlComposite.setLayout(new GridLayout(2, true));
+		homeControlComposite.setLocation(CONTENT_SHIFT, 0);
 		Image controlImage = loadImage(CONTROLBACKGROUNDIMAGE);
 		homeControlComposite.setBackgroundImage(controlImage);		
 		Image headerImage = loadImage(LOGO);
@@ -200,7 +208,7 @@ public class MainPage extends AbstractEntryPoint {
 		}
 		return result;
 	}
-	
+
 	private void addSessionIDToTabs(Long sessionID) {
 		for (FolderItem folderItem : folderItems) {
 			folderItem.setSessionID(sessionID);
@@ -325,17 +333,17 @@ public class MainPage extends AbstractEntryPoint {
 		bgThread.start();
 	}
 
-//	public void setControlService(ControlService controlService) {
-//		if (controlService != null) {
-//			this.controlService = controlService;
-//		}
-//	}
-//
-//	public void unsetControlService(ControlService controlService) {
-//		if (this.controlService.equals(controlService)) {
-//			this.controlService = null;
-//		}
-//	}
+	//	public void setControlService(ControlService controlService) {
+	//		if (controlService != null) {
+	//			this.controlService = controlService;
+	//		}
+	//	}
+	//
+	//	public void unsetControlService(ControlService controlService) {
+	//		if (this.controlService.equals(controlService)) {
+	//			this.controlService = null;
+	//		}
+	//	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void startControlServiceSeviceTracker() {

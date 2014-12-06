@@ -2,10 +2,11 @@ package de.cookieapp.control;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 import javax.xml.bind.DatatypeConverter;
 
-import de.cookieapp.data.model.Recipe;
+import de.cookieapp.dataimpl.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
 import de.cookieapp.repository.Repository;
@@ -72,5 +73,9 @@ public class DataService {
 
 	public Recipe getRecipe(Long recipeId) {
 		return repository.getRecipe(recipeId);
+	}
+	
+	public ArrayList<Recipe> getRecipesWithName(String name) {
+		return repository.getRecipesWithName(name);
 	}
 }
