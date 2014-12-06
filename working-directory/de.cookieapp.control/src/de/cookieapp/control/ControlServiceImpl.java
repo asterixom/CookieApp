@@ -105,7 +105,15 @@ public class ControlServiceImpl implements ControlService {
 		if (sessionMap.get(sessionId) == null) {
 			throw  new NotLoggedInException();
 		}
-		return null;
+		return sessionMap.get(sessionId).getName();
+	}
+	
+	@Override
+	public User getCurrentUser(Long sessionId) throws CookieAppException {
+		if (sessionMap.get(sessionId) == null) {
+			throw  new NotLoggedInException();
+		}
+		return sessionMap.get(sessionId);
 	}
 
 	@Override

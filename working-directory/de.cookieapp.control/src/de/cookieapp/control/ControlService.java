@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.control.model.RecipeInfo;
 import de.cookieapp.data.model.SecurityClearance;
+import de.cookieapp.data.model.User;
 
 public interface ControlService {
 	
@@ -24,4 +25,5 @@ public interface ControlService {
 	public TreeMap<Long, String> getFavorites(Long sessionId) throws CookieAppException;
 	
 	public RecipeInfo getRecipe(Long sessionId, Long recipeID) throws CookieAppException;
+	User getCurrentUser(Long sessionId) throws CookieAppException;
 }
