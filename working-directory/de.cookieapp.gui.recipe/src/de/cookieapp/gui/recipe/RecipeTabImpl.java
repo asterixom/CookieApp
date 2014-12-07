@@ -21,7 +21,7 @@ public class RecipeTabImpl implements RecipeTab {
 	public Composite getContent(Composite tabFolder, Recipe recipe) {
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
-		
+		this.recipe = recipe;
 		createHeader(completeComposite);
 		createContent(completeComposite);
 		createFooter(completeComposite);

@@ -9,6 +9,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -32,10 +33,15 @@ public class RecipeSearch implements FolderItem{
 	private Long sessionID;
 	private Text recipeNameT;
 	private Composite content;
+	private Label secondResult;
+	private Composite resultComposite;
+	private Label firstResult;
 
 	@Override
 	public Composite getContent(Composite tabFolder) {
 		this.tabFolder = tabFolder;
+//		tabFolder.setLayout(new FillLayout(SWT.VERTICAL));
+		
 		content = new Composite(tabFolder, SWT.NONE);
 		content.setLayout(new GridLayout(2, true));
 
@@ -56,6 +62,19 @@ public class RecipeSearch implements FolderItem{
 			 * Actionlistener for register button
 			 */
 			public void widgetSelected(SelectionEvent e) {
+				
+				if (recipeNameT.getText().contains("Lasagne")) {
+					firstResult.setText("Lasagne");
+					secondResult.setVisible(false);
+				} else if (recipeNameT.getText().contains("Burger")) {
+					firstResult.setText("Hamburger");
+					secondResult.setVisible(true);
+				} else {
+					firstResult.setText("keine Ergebnisse gefunden");
+					secondResult.setVisible(false);
+				}
+				resultComposite.setVisible(true);
+				/*
 				if(controlService != null) {
 					try {
 						ArrayList<Recipe> recipes = controlService.getRecipeByName(sessionID, recipeNameT.getText());
@@ -64,9 +83,27 @@ public class RecipeSearch implements FolderItem{
 						System.err.println("Registation Failed!");
 					}
 				}
+				*/
 			}
 		});
 		searchButton.setText("Suchen");
+		Label blankLabel2 = new Label(content, SWT.NONE);
+		blankLabel2.setVisible(false);
+		
+		resultComposite = new Composite(content, SWT.NONE);
+		Label blankLabel3 = new Label(resultComposite, SWT.NONE);
+		blankLabel3.setVisible(false);
+		Label resultHeader = new Label(resultComposite, SWT.BOLD);
+		resultHeader.setText("Ergebnisse:");
+//		resultHeader.setVisible(true);
+		resultComposite.setLayout(new FillLayout(SWT.VERTICAL));
+		firstResult = new Label(resultComposite, SWT.NONE);
+		firstResult.setText("Lasagne");
+		secondResult = new Label(resultComposite, SWT.NONE);
+		secondResult.setText("Cheeseburger");
+		secondResult.setVisible(false);
+		resultComposite.setVisible(false);
+		
 		return content;
 	}
 
@@ -83,6 +120,31 @@ public class RecipeSearch implements FolderItem{
 	}
 
 	public Composite showResults(final Composite parent, final ArrayList<Recipe> recipes) {
+		Composite resultComposite = new Composite(parent, SWT.NONE);
+		resultComposite.setLayout(new GridLayout(1, true));
+		for (Recipe recipe : recipes) {
+			final Recipe recipeToShow = recipe;
+			Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
+			recipeNameLabel.setText(recipe.getName());
+			recipeNameLabel.addMouseListener(new MouseListener() {
+				private static final long serialVersionUID = -5558483000466339886L;
+				@Override
+				public void mouseUp(MouseEvent e) {
+					showRecipe(recipeToShow);
+				}
+				@Override
+				public void mouseDown(MouseEvent e) {
+					// TODO Auto-generated method stub
+				}
+				@Override
+				public void mouseDoubleClick(MouseEvent e) {
+					// TODO Auto-generated method stub
+				}
+			});
+			showRecipe(recipeToShow);
+		}
+		parent.redraw();
+		/*
 		updateContent(new Runnable() {
 			
 			@Override
@@ -109,10 +171,12 @@ public class RecipeSearch implements FolderItem{
 							// TODO Auto-generated method stub
 						}
 					});
+					showRecipe(recipeToShow);
 				}
 				parent.redraw();
 			}
 		});
+		*/
 		
 		
 		return parent;
@@ -129,6 +193,7 @@ public class RecipeSearch implements FolderItem{
 				TabItem recipeTabItem = new TabItem(tabFolder, SWT.NONE);
 				recipeTabItem.setText(recipe.getName());
 				recipeTabItem.setControl(recipeComp);
+				tabFolder.setSelection(recipeTabItem);
 			}
 		}
 	}
