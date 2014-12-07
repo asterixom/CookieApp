@@ -61,6 +61,9 @@ public class MainPage extends AbstractEntryPoint {
 	private Text passwortText;
 	private Composite loginComposite;
 	private Composite homeControlComposite;
+	private Label nameLabel;
+	private Label passwordLabel;
+	private Button loginButton;
 
 
 	@Override
@@ -124,21 +127,26 @@ public class MainPage extends AbstractEntryPoint {
 			Runnable runnable = new Runnable() {
 				@Override
 				public void run() {
-					loginComposite.dispose();
+//					loginComposite.dispose();
 			 		loginComposite = new Composite(homeControlComposite, SWT.NONE);
 					loginComposite.setLayout(new FillLayout(SWT.NONE));
-					Label loggedinAsLabel = new Label(loginComposite, SWT.NONE);
-					loggedinAsLabel.setText("Eingeloggt als " + username);	
+//					Label loggedinAsLabel = new Label(loginComposite, SWT.NONE);
+//					loggedinAsLabel.setText("Eingeloggt als " + username);	
+//					loggedinAsLabel.setText("Eingeloggt als " + username);	
+					nameLabel.setText("Eingeloggt als " + username);
+					nameText.setVisible(false);
+					passwordLabel.setVisible(false);
+					passwortText.setVisible(false);
+					loginButton.setText("Ausloggen");
 					System.out.println("test");
-					loginComposite.layout();
-					loginComposite.update();
+
 				}
 			};
 			updateContent(runnable);
 		} else {
 			loginComposite = new Composite(homeControlComposite, SWT.RIGHT);
 			loginComposite.setLayout(new GridLayout(2, true));
-			Label nameLabel = new Label(loginComposite, SWT.NONE);
+			nameLabel = new Label(loginComposite, SWT.NONE);
 			nameLabel.setText("Benutzername oder eMail");
 			nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
 			nameText.addKeyListener(new KeyListener() {			
@@ -154,7 +162,7 @@ public class MainPage extends AbstractEntryPoint {
 					//do nothing, wait for release
 				}
 			});
-			Label passwordLabel = new Label(loginComposite, SWT.NONE);
+			passwordLabel = new Label(loginComposite, SWT.NONE);
 			passwordLabel.setText("Passwort");
 			passwortText = new Text(loginComposite, SWT.BORDER | SWT.PASSWORD | SWT.FILL);
 			passwortText.addKeyListener(new KeyListener() {			
@@ -174,7 +182,7 @@ public class MainPage extends AbstractEntryPoint {
 			});
 			Label emptyLabel = new Label(loginComposite, SWT.NONE);
 			emptyLabel.setVisible(false);
-			Button loginButton = new Button(loginComposite, SWT.CENTER);
+			loginButton = new Button(loginComposite, SWT.CENTER);
 			loginButton.setText("Login");
 			loginButton.addSelectionListener(new SelectionListener() {
 				private static final long serialVersionUID = 1925540608622081691L;
