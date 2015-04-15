@@ -18,13 +18,6 @@ public class EmployeeBean {
       
        @Column(name="LastName")
        private String lName;
-       
-       public EmployeeBean(String fname, String lname, int empid) {
-		// TODO Auto-generated constructor stub
-    	   this.fName = fname;
-    	   this.lName = lname;
-    	   this.empId = empid;
-	}
 
        public int getEmpId() {
               return empId;
@@ -50,5 +43,5 @@ public class EmployeeBean {
               this.lName = lName;
        }
        
-     
+       
 }
