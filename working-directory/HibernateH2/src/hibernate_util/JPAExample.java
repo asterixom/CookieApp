@@ -13,9 +13,9 @@ public class JPAExample {
 
 	public static void main(String[] args) {
 		JPAExample example = new JPAExample();
-		
+
 		example.listStudent();
-	
+
 		System.out.println("After Sucessfully insertion ");
 		Student student1 = example.saveStudent("Sumith");
 		Student student2 = example.saveStudent("Anoop");
@@ -27,7 +27,6 @@ public class JPAExample {
 		System.out.println("After Sucessfully deletion ");
 		example.deleteStudent(student2.getStudentId());
 		example.listStudent();
-	
 
 	}
 
@@ -48,9 +47,11 @@ public class JPAExample {
 		try {
 			entityManager.getTransaction().begin();
 			@SuppressWarnings("unchecked")
-			List<Student> Students = entityManager.createQuery("from Student").getResultList();
+			List<Student> Students = entityManager.createQuery("from Student")
+					.getResultList();
 			System.out.println("Listing Students...");
-			for (Iterator<Student> iterator = Students.iterator(); iterator.hasNext();) {
+			for (Iterator<Student> iterator = Students.iterator(); iterator
+					.hasNext();) {
 				Student student = (Student) iterator.next();
 				System.out.println(student.getStudentName());
 
@@ -64,7 +65,8 @@ public class JPAExample {
 	public void updateStudent(Long studentId, String studentName) {
 		try {
 			entityManager.getTransaction().begin();
-			Student student = (Student) entityManager.find(Student.class, studentId);
+			Student student = (Student) entityManager.find(Student.class,
+					studentId);
 			student.setStudentName(studentName);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -75,7 +77,8 @@ public class JPAExample {
 	public void deleteStudent(Long studentId) {
 		try {
 			entityManager.getTransaction().begin();
-			Student student = (Student) entityManager.find(Student.class, studentId);
+			Student student = (Student) entityManager.find(Student.class,
+					studentId);
 			entityManager.remove(student);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
