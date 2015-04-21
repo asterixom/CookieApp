@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/cucumber-core-1.1.8.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/cucumber-html-0.2.3.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/cucumber-java-1.1.8.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/cucumber-junit-1.1.8.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/cucumber-jvm-deps-1.0.3.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/gherkin-2.12.2.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/gherkin-jvm-deps-1.0.2.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/jchronic-0.2.6.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/christianverdion/Downloads/cucumber selenium jars/selenium-server-standalone-2.43.1.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
