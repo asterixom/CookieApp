@@ -15,7 +15,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "User")
-public class User {
+public class User implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "USERID")
@@ -34,9 +39,11 @@ public class User {
 	private Date created;
 
 	@OneToMany
+	@Column(name="RECIPE")
 	private Recipe recipe;
 
 	@OneToMany
+	@Column(name="Favorites")
 	private Recipe favorites;
 
 	public String getName() {
