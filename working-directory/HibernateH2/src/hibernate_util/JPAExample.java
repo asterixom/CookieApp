@@ -14,20 +14,47 @@ public class JPAExample {
 	public static void main(String[] args) {
 		JPAExample example = new JPAExample();
 
-		example.listStudent();
+		/*
+		 * example.listStudent();
+		 * 
+		 * System.out.println("After Sucessfully insertion "); Student student1
+		 * = example.saveStudent("Sumith"); Student student2 =
+		 * example.saveStudent("Anoop"); example.listStudent();
+		 * System.out.println("After Sucessfully modification ");
+		 * example.updateStudent(student1.getStudentId(), "Sumith Honai");
+		 * example.updateStudent(student2.getStudentId(), "Anoop Pavanai");
+		 * example.listStudent();
+		 * System.out.println("After Sucessfully deletion ");
+		 * example.deleteStudent(student2.getStudentId());
+		 * example.listStudent();
+		 */
 
-		System.out.println("After Sucessfully insertion ");
-		Student student1 = example.saveStudent("Sumith");
-		Student student2 = example.saveStudent("Anoop");
-		example.listStudent();
-		System.out.println("After Sucessfully modification ");
-		example.updateStudent(student1.getStudentId(), "Sumith Honai");
-		example.updateStudent(student2.getStudentId(), "Anoop Pavanai");
-		example.listStudent();
-		System.out.println("After Sucessfully deletion ");
-		example.deleteStudent(student2.getStudentId());
-		example.listStudent();
+		Student student1 = example.saveStudent("Moritz");
+		Student student2 = example.saveStudent("Jan");
 
+		Vorlesung vorlesung1 = example.saveVorlesung("Mathe");
+		Vorlesung vorlesung2 = example.saveVorlesung("Best Practice");
+
+		student1.addVorlesung(vorlesung1);
+		student1.addVorlesung(vorlesung2);
+		
+		example.listAllVorlesungen(student1);
+
+	}
+
+	public String listAllVorlesungen(Student student) {
+		String listVorlesungen = "";
+		
+		for(Iterator<Vorlesung> iterator = student.getVorlesung().iterator(); iterator.hasNext();){
+			
+		Vorlesung vorlesung = (Vorlesung) iterator.next();
+		System.out.println(vorlesung.getVorlesungName());
+			
+		
+
+		}
+
+		return "";
 	}
 
 	public Student saveStudent(String studentName) {
@@ -85,4 +112,14 @@ public class JPAExample {
 			entityManager.getTransaction().rollback();
 		}
 	}
+
+	public Vorlesung saveVorlesung(String vorlesungName) {
+		Vorlesung vorlesung = new Vorlesung();
+		entityManager.getTransaction().begin();
+		vorlesung.setVorlesungName(vorlesungName);
+		vorlesung = entityManager.merge(vorlesung);
+		entityManager.getTransaction().commit();
+		return vorlesung;
+	}
+
 }
