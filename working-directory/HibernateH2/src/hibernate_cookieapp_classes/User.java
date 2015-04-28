@@ -9,17 +9,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
-public class User {
+public class User implements java.io.Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6643972648923291606L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,10 +40,10 @@ public class User {
 	private Date created;
 
 	@OneToMany
-	private Set<Recipe> recipes = new HashSet<Recipe>();
+	private Set<Recipe> recipes;
 
-	@ManyToMany
-	private Recipe favorites;
+	@OneToMany
+	private Set<Recipe> favorites;
 
 	public Set<Recipe> getRecipes() {
 		return recipes;
@@ -92,12 +93,12 @@ public class User {
 		this.created = created;
 	}
 
-	public Recipe getFavorites() {
+	public Set<Recipe> getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(Recipe favorites) {
-		this.favorites = favorites;
+	public void setFavorites(Set<Recipe> favorite) {
+		this.favorites = favorite;
 	}
 
 	public Long getId() {
@@ -109,7 +110,7 @@ public class User {
 	}
 
 	public User(Long id, String name, String password, String eMail,
-			Date created, Set<Recipe> recipe, Recipe favorites) {
+			Date created, Set<Recipe> recipe, Set<Recipe> favorites) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -121,6 +122,19 @@ public class User {
 
 	public User() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public User createUser(String name, String password, String eMail,
+			Date created, Set<Recipe> recipe, Set<Recipe> favorites) {
+		User temp = new User();
+		temp.seteMail(eMail);
+		temp.setName(name);
+		temp.setPassword(password);
+		temp.setFavorites(favorites);
+		temp.setRecipes(recipe);
+		temp.setCreated(created);
+		return temp;
+
 	}
 
 }

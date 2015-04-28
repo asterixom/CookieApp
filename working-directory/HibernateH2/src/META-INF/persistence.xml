@@ -3,6 +3,8 @@
   version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
     <class>hibernate_util.Student</class>
+    <class>hibernate_cookieapp_classes.User</class>
+    <class>hibernate_cookieapp_classes.Recipe</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
       <!-- Creates the Database in the Projectfolder -->
