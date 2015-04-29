@@ -43,15 +43,13 @@ public class MainPage extends AbstractEntryPoint {
 	private List<TabItem> tabItems = new ArrayList<TabItem>();
 	private BundleContext context = FrameworkUtil.getBundle(getClass()).getBundleContext();
 	private ControlService controlService;
-	@SuppressWarnings("rawtypes")
-	private ServiceTracker serviceTrackerTabItem;
-	@SuppressWarnings("rawtypes")
-	private ServiceTracker serviceTrackerControlService;
+	private ServiceTracker<FolderItem, FolderItem> serviceTrackerTabItem;
+	private ServiceTracker<ControlService, ControlService> serviceTrackerControlService;
 	private boolean started = false;
 	final String defaultTab = "Home";
 	private static final int HEADER_HEIGHT = 140;
 	private static final int CONTENT_SHIFT = 300;
-	private static final int CENTER_AREA_WIDTH = 800;		
+//	private static final int CENTER_AREA_WIDTH = 800;		
 	private Display display;
 	private static final String BACKGROUNDIMAGE = "resources/greenbackground.jpg";
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
@@ -317,22 +315,21 @@ public class MainPage extends AbstractEntryPoint {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void startTabItemSeviceTracker() {
-		serviceTrackerTabItem = new ServiceTracker(context, FolderItem.class,
-				new ServiceTrackerCustomizer() {
+		serviceTrackerTabItem = new ServiceTracker<FolderItem, FolderItem>(context, FolderItem.class,
+				new ServiceTrackerCustomizer<FolderItem, FolderItem>() {
 
-			public Object addingService(final ServiceReference reference) {
-				final FolderItem folderItem = (FolderItem) context.getService(reference);
+			public FolderItem addingService(final ServiceReference<FolderItem> reference) {
+				final FolderItem folderItem = context.getService(reference);
 				if(folderItem != null)
 					setFolderItem(folderItem);
 				return folderItem;
 			}
 
-			public void modifiedService(final ServiceReference reference, final Object service ) {/*ok*/}
+			public void modifiedService(final ServiceReference<FolderItem> reference, final FolderItem service ) {/*ok*/}
 
-			public void removedService(final ServiceReference reference, final Object service) {
-				final FolderItem folderItem = (FolderItem) context.getService(reference);
+			public void removedService(final ServiceReference<FolderItem> reference, final FolderItem service) {
+				final FolderItem folderItem = context.getService(reference);
 				if(folderItem != null) {
 					unsetFolderItem(folderItem);
 				}
@@ -369,34 +366,21 @@ public class MainPage extends AbstractEntryPoint {
 		bgThread.start();
 	}
 
-	//	public void setControlService(ControlService controlService) {
-	//		if (controlService != null) {
-	//			this.controlService = controlService;
-	//		}
-	//	}
-	//
-	//	public void unsetControlService(ControlService controlService) {
-	//		if (this.controlService.equals(controlService)) {
-	//			this.controlService = null;
-	//		}
-	//	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void startControlServiceSeviceTracker() {
-		serviceTrackerControlService = new ServiceTracker(context, ControlService.class,
-				new ServiceTrackerCustomizer() {
+		serviceTrackerControlService = new ServiceTracker<ControlService, ControlService>(context, ControlService.class,
+				new ServiceTrackerCustomizer<ControlService, ControlService>() {
 
-			public Object addingService(final ServiceReference reference) {
-				final ControlService controlService = (ControlService) context.getService(reference);
+			public ControlService addingService(final ServiceReference<ControlService> reference) {
+				final ControlService controlService = context.getService(reference);
 				if(controlService != null) {
 					MainPage.this.controlService = controlService;
 				}
 				return controlService;
 			}
 
-			public void modifiedService(final ServiceReference reference, final Object service ) {/*ok*/}
+			public void modifiedService(final ServiceReference<ControlService> reference, final ControlService service ) {/*ok*/}
 
-			public void removedService(final ServiceReference reference, final Object service) {
+			public void removedService(final ServiceReference<ControlService> reference, final ControlService service) {
 				final ControlService controlService = (ControlService) context.getService(reference);
 				if(controlService != null) {
 					MainPage.this.controlService = null;
