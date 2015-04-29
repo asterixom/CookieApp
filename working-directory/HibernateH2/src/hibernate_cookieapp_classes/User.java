@@ -40,10 +40,10 @@ public class User implements java.io.Serializable{
 	private Date created;
 
 	@OneToMany
-	private Set<Recipe> recipes;
+	private Set<Recipe> recipes = new HashSet<Recipe>();
 
 	@OneToMany
-	private Set<Recipe> favorites;
+	private Set<Recipe> favorites = new HashSet<Recipe>();
 
 	public Set<Recipe> getRecipes() {
 		return recipes;
