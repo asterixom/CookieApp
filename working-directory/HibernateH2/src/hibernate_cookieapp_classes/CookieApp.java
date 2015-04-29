@@ -29,24 +29,25 @@ public class CookieApp {
 		User mo = new User();
 		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
 				new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
-		/*
-		 * User ma = new User(); ma = ma.createUser("Maritz", "test123",
-		 * "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
-		 * HashSet<Recipe>());
-		 */
-		//cookie.saveUser(mo);
 
-		 //cookie.deleteUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
-		cookie.aenderePasswort(cookie.getUserID("Moritz.gabriel@gmx.de"), "booya");
-		 
-		//System.out.println(cookie.getUserID("Moritz.gabriel@gmx.de"));
-		
+		// User ma = new User(); ma = ma.createUser("Maritz", "test123",
+		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
+		// HashSet<Recipe>());
+
+		// cookie.saveUser(mo);
+
+		cookie.deleteUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
+		// cookie.aenderePasswort(cookie.getUserID("Moritz.gabriel@gmx.de"),
+		// "booya");
+
+		// System.out.println(cookie.getUserID("Moritz.gabriel@gmx.de"));
 
 		List<User> users = cookie.listAllUsers();
-		  for (int i = 0; i < users.size(); i++) {
-		  System.out.println(users.get(i).getPassword()); }
-		 
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).getPassword());
+		}
 
+		// System.out.println(cookie.isUserAlreadySaved(mo));
 	}
 
 	public List<User> listAllUsers() {
@@ -61,6 +62,61 @@ public class CookieApp {
 		return usertemp;
 	}
 
+	public boolean isUserAlreadySaved(User user) {
+		@SuppressWarnings("unchecked")
+		List<User> usertemp = entityManager.createQuery(
+				"from User s where s.eMail='" + user.geteMail() + "'")
+				.getResultList();
+		if (usertemp.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public void saveUser(User user) {
+		entityManager.getTransaction().begin();
+
+		if (isUserAlreadySaved(user)) {
+			System.out.println("User gibt es schon");
+		} else {
+			entityManager.persist(user);
+		}
+		entityManager.getTransaction().commit();
+	}
+
+	public void deleteUser(Long userID) {
+		entityManager.getTransaction().begin();
+		User tempuser = entityManager.find(User.class, userID);
+		if (tempuser == null) {
+
+		} else {
+			entityManager.remove(tempuser);
+		}
+		entityManager.getTransaction().commit();
+	}
+
+	public long getUserID(String eMail) {
+		long id = 0;
+		@SuppressWarnings("unchecked")
+		List<User> usertemp = entityManager.createQuery(
+				"from User s where s.eMail='" + eMail + "'").getResultList();
+		if (usertemp.size() == 1) {
+			id = usertemp.get(0).getId();
+		}
+
+		return id;
+	}
+
+	public void aenderePasswort(long userID, String password) {
+		entityManager.getTransaction().begin();
+		User user = entityManager.find(User.class, userID);
+		user.setPassword(password);
+		entityManager.merge(user);
+		System.out.println("Passwort erfolgreich geändert");
+		entityManager.getTransaction().commit();
+	}
+
 	public List<Recipe> listAllRecipe() {
 		entityManager.getTransaction().begin();
 		@SuppressWarnings("unchecked")
@@ -71,43 +127,4 @@ public class CookieApp {
 		return recipetemp;
 	}
 
-	public void saveUser(User user) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(user);
-		entityManager.getTransaction().commit();
-
-		System.out.println("Erfolg?");
-	}
-
-	public void deleteUser(Long userID) {
-		entityManager.getTransaction().begin();
-		User tempuser = entityManager.find(User.class, userID);
-		entityManager.remove(tempuser);
-		entityManager.getTransaction().commit();
-		System.out.println("Erfolg!");
-
-	}
-
-	public long getUserID(String eMail) {
-		long id = 0;
-		@SuppressWarnings("unchecked")
-		List<User> usertemp = entityManager.createQuery(
-				"from User s where s.eMail='" + eMail + "'").getResultList();
-		if(usertemp.size()==1){
-			id = usertemp.get(0).getId();
-			System.out.println("User vorhanden!");
-		}else{
-			System.out.println("User nicht vorhanden");
-		}
-		return id;
-	}
-	
-	public void aenderePasswort(long userID, String password){
-		entityManager.getTransaction().begin();
-		User user = entityManager.find(User.class, userID);
-		user.setPassword(password);
-		entityManager.merge(user);
-		System.out.println("Passwort erfolgreich geändert");
-		entityManager.getTransaction().commit();
-	}
 }
