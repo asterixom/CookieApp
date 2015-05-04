@@ -15,6 +15,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
@@ -37,7 +41,11 @@ import de.cookieapp.gui.folderitem.FolderItem;
 public class MainPage extends AbstractEntryPoint {
 
 	private Composite parent;
+	private Composite loginComposite;
+	private Composite homeControlComposite;
+	
 	private TabFolder tabFolder;
+	
 	private List<FolderItem> folderItems = new ArrayList<FolderItem>();
 	protected List<Composite> folderItemComposites = new ArrayList<Composite>();
 	private List<TabItem> tabItems = new ArrayList<TabItem>();
@@ -49,7 +57,7 @@ public class MainPage extends AbstractEntryPoint {
 	final String defaultTab = "Home";
 	private static final int HEADER_HEIGHT = 140;
 	private static final int CONTENT_SHIFT = 300;
-//	private static final int CENTER_AREA_WIDTH = 800;		
+	private static final int CONTENT_WITH = 450;
 	private Display display;
 	private static final String BACKGROUNDIMAGE = "resources/greenbackground.jpg";
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
@@ -57,8 +65,7 @@ public class MainPage extends AbstractEntryPoint {
 	private Long sessionID;
 	private Text nameText;
 	private Text passwortText;
-	private Composite loginComposite;
-	private Composite homeControlComposite;
+
 	private Label nameLabel;
 	private Label passwordLabel;
 	private Button loginButton;
@@ -71,8 +78,10 @@ public class MainPage extends AbstractEntryPoint {
 		final ServerPushSession pushSession = new ServerPushSession();
 		pushSession.start();
 		this.parent = parent;
-		parent.setLayout(new RowLayout(SWT.NONE));
-
+		FormLayout formLayout = new FormLayout();
+		formLayout.marginTop = 5;
+		formLayout.marginLeft = 5;
+		parent.setLayout(new FormLayout());
 
 		if (controlService != null) {
 			sessionID = controlService.createSession();
@@ -80,35 +89,46 @@ public class MainPage extends AbstractEntryPoint {
 			System.err.println("ControlSerive Not Found!");
 		}
 
-
 		setBackgroundImage(parent);
 		createLoginComposite(parent);
+		createTabFolderComposite(parent);
 
 
-		tabFolder = new TabFolder(parent, SWT.NONE);
-		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
-		tabFolder.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-			public void widgetSelected(SelectionEvent e) {
-				/*
-				int i = tabFolder.getSelectionIndex();
-				lower_textfield.setText(numeralSystems.get(i).getBackup());
-				ergebnis = false;
-				 */
-			}
-		});
-
-		startTabItemSeviceTracker();
 		if (sessionID != null) {
 			addSessionIDToTabs(sessionID);
 		}
 	}
 
 
-	private void createLoginComposite(Composite parent) {
-		homeControlComposite = new Composite(parent, SWT.FILL | SWT.RIGHT);
+	private Composite createTabFolderComposite(Composite parent) {
+		tabFolder = new TabFolder(parent, SWT.NONE);
+		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
+		tabFolder.setSize(CONTENT_WITH, parent.getSize().y - HEADER_HEIGHT);
+//		tabFolder.addSelectionListener(new SelectionAdapter() {
+//			private static final long serialVersionUID = 1L;
+//			public void widgetSelected(SelectionEvent e) {
+//				/*
+//				int i = tabFolder.getSelectionIndex();
+//				lower_textfield.setText(numeralSystems.get(i).getBackup());
+//				ergebnis = false;
+//				 */
+//			}
+//		});
+		FormData tabFormData = new FormData();
+		tabFormData.top = new FormAttachment(homeControlComposite, 10);
+		tabFormData.left = new FormAttachment(50, -CONTENT_WITH);
+		tabFormData.right = new FormAttachment(50, CONTENT_WITH);
+		tabFolder.setLayoutData(tabFormData);
+		startTabItemSeviceTracker();
+		return tabFolder;
+	}
+
+
+	private Composite createLoginComposite(Composite parent) {
+		homeControlComposite = new Composite(parent, SWT.FILL | SWT.CENTER);
 		homeControlComposite.setLayout(new GridLayout(2, true));
 		homeControlComposite.setLocation(CONTENT_SHIFT, 0);
+		homeControlComposite.setSize(CONTENT_WITH, HEADER_HEIGHT);
 		Image controlImage = loadImage(CONTROLBACKGROUNDIMAGE);
 		homeControlComposite.setBackgroundImage(controlImage);		
 		Image headerImage = loadImage(LOGO);
@@ -118,6 +138,12 @@ public class MainPage extends AbstractEntryPoint {
 		Label headerLabel = new Label( homeControlComposite, SWT.LEFT );
 		headerLabel.setImage( headerImage );
 		loggedinHeader(null);
+	    FormData data1 = new FormData();
+	    data1.left = new FormAttachment(50, -CONTENT_WITH);
+	    data1.right = new FormAttachment(50, CONTENT_WITH);
+	    data1.top = new FormAttachment(0, 20);
+	    homeControlComposite.setLayoutData(data1);
+	    return homeControlComposite;
 	}
 
 	private void loggedinHeader(final String username) {
@@ -144,9 +170,12 @@ public class MainPage extends AbstractEntryPoint {
 		} else {
 			loginComposite = new Composite(homeControlComposite, SWT.RIGHT);
 			loginComposite.setLayout(new GridLayout(2, true));
+			GridData textGridData = new GridData();
+			textGridData.horizontalAlignment = GridData.FILL;
 			nameLabel = new Label(loginComposite, SWT.NONE);
 			nameLabel.setText("Benutzername oder eMail");
 			nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
+			nameText.setLayoutData(textGridData);
 			nameText.addKeyListener(new KeyListener() {			
 				private static final long serialVersionUID = 6511802604250486237L;
 				@Override
@@ -163,6 +192,9 @@ public class MainPage extends AbstractEntryPoint {
 			passwordLabel = new Label(loginComposite, SWT.NONE);
 			passwordLabel.setText("Passwort");
 			passwortText = new Text(loginComposite, SWT.BORDER | SWT.PASSWORD | SWT.FILL);
+			GridData gridData = new GridData();
+			gridData.horizontalAlignment = GridData.FILL;
+			passwortText.setLayoutData(gridData);
 			passwortText.addKeyListener(new KeyListener() {			
 				private static final long serialVersionUID = 6277769989802841352L;
 				@Override
