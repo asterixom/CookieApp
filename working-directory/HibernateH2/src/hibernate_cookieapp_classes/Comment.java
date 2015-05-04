@@ -71,4 +71,8 @@ public class Comment {
 		this.created = created;
 	}
 
+	public Comment() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

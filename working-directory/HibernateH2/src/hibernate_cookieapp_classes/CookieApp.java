@@ -30,22 +30,32 @@ public class CookieApp {
 		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
 				new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
 
+		Recipe re = new Recipe();
+		re = re.createRecipe("Lasagne", "blablabla",
+				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+		 //cookie.saveUser(mo);
+		
+		cookie.saveRecipe(re, cookie.getUserID("Moritz.gabriel@gmx.de"));
+		
+		
+
+		cookie.listAllRecipe();
+
 		// User ma = new User(); ma = ma.createUser("Maritz", "test123",
 		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
 		// HashSet<Recipe>());
 
-		// cookie.saveUser(mo);
-
-		cookie.deleteUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
+		// cookie.deleteUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
 		// cookie.aenderePasswort(cookie.getUserID("Moritz.gabriel@gmx.de"),
+		// "test1234");
 		// "booya");
 
 		// System.out.println(cookie.getUserID("Moritz.gabriel@gmx.de"));
 
-		List<User> users = cookie.listAllUsers();
-		for (int i = 0; i < users.size(); i++) {
-			System.out.println(users.get(i).getPassword());
-		}
+		// List<User> users = cookie.listAllUsers();
+		// for (int i = 0; i < users.size(); i++) {
+		// System.out.println(users.get(i).getPassword());
+		// }
 
 		// System.out.println(cookie.isUserAlreadySaved(mo));
 	}
@@ -108,6 +118,13 @@ public class CookieApp {
 		return id;
 	}
 
+	public User getUser(long userID) {
+		User temp = new User();
+		temp = entityManager.find(User.class, userID);
+		return temp;
+
+	}
+
 	public void aenderePasswort(long userID, String password) {
 		entityManager.getTransaction().begin();
 		User user = entityManager.find(User.class, userID);
@@ -123,8 +140,49 @@ public class CookieApp {
 		List<Recipe> recipetemp = entityManager.createQuery("from Recipe")
 				.getResultList();
 		entityManager.getTransaction().commit();
+		System.out.println(recipetemp.get(0).getName());
 
 		return recipetemp;
+	}
+
+	public boolean isRecipeAlreadySaved(Recipe recipe) {
+		@SuppressWarnings("unchecked")
+		List<Recipe> recipetemp = entityManager.createQuery(
+				"from Recipe s where s.name='" + recipe.getName() + "'")
+				.getResultList();
+		if (recipetemp.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public void saveRecipe(Recipe recipe, long userID) {
+		entityManager.getTransaction().begin();
+		if (isRecipeAlreadySaved(recipe)) {
+			System.out.println("Rezept gibt es schon");
+		} else {
+			entityManager.persist(recipe);
+			}
+		if(isRecipeAlreadySaved(recipe)){
+			User temp = entityManager.find(User.class, userID);
+			temp.addRecipe(recipe);
+			entityManager.merge(temp);
+		}
+		entityManager.getTransaction().commit();
+	}
+
+	public long getRecipeID(String rezeptName) {
+		long id = 0;
+		@SuppressWarnings("unchecked")
+		List<Recipe> recipetemp = entityManager.createQuery(
+				"from Recipe s where s.name='" + rezeptName + "'")
+				.getResultList();
+		if (recipetemp.size() == 1) {
+			id = recipetemp.get(0).getId();
+		}
+
+		return id;
 	}
 
 }

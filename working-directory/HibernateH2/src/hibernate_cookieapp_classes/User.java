@@ -1,21 +1,25 @@
 package hibernate_cookieapp_classes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
-public class User implements java.io.Serializable{
+public class User implements java.io.Serializable {
 
 	/**
 	 * 
@@ -39,7 +43,7 @@ public class User implements java.io.Serializable{
 	@Column(name = "CREATED")
 	private Date created;
 
-	@OneToMany
+	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes = new HashSet<Recipe>();
 
 	@OneToMany
@@ -109,6 +113,16 @@ public class User implements java.io.Serializable{
 		this.id = id;
 	}
 
+	// public Date parseDate(String date) throws ParseException,
+	// java.text.ParseException{
+	// SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+	// java.util.Date parsed;
+	//
+	// parsed = format.parse(date);
+	//
+	// return new java.sql.Date(parsed.getTime());
+	// }
+
 	public User(Long id, String name, String password, String eMail,
 			Date created, Set<Recipe> recipe, Set<Recipe> favorites) {
 		this.id = id;
@@ -135,6 +149,14 @@ public class User implements java.io.Serializable{
 		temp.setCreated(created);
 		return temp;
 
+	}
+
+	public void addRecipe(Recipe recipe) {
+		recipes.add(recipe);
+	}
+
+	public void deleteRecipe(Recipe recipe) {
+		recipes.remove(recipe);
 	}
 
 }

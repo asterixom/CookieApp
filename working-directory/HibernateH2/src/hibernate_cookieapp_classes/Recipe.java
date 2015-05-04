@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,7 +34,8 @@ public class Recipe {
 	@Column(name = "CREATED")
 	private Date created;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name="USERID")
 	private User creator;
 
 	@OneToMany
@@ -60,8 +64,10 @@ public class Recipe {
 		return created;
 	}
 
-	public void setCreated(Date created) {
-		this.created = created;
+	public void setCreated() {
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		this.created = sqlDate;
 	}
 
 	public User getCreator() {
@@ -109,6 +115,17 @@ public class Recipe {
 
 	public Recipe() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Recipe createRecipe(String name, String description, User creator) {
+		Recipe temprecipe = new Recipe();
+		temprecipe.setName(name);
+		temprecipe.setDescription(description);
+		temprecipe.setCreated();
+		temprecipe.setCreator(creator);
+		temprecipe.setComments(new HashSet<Comment>());
+		temprecipe.setIngredients(new HashSet<Ingredient>());
+		return temprecipe;
 	}
 
 }
