@@ -1,25 +1,20 @@
-package hibernate_cookieapp_classes;
+package de.cookieapp.database;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
-public class User implements java.io.Serializable {
+public class User implements java.io.Serializable, de.cookieapp.database.api.User {
 
 	/**
 	 * 

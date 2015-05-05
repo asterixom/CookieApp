@@ -1,4 +1,4 @@
-package hibernate_util;
+package de.cookieapp.database;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

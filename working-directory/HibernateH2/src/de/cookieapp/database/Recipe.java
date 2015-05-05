@@ -1,4 +1,4 @@
-package hibernate_cookieapp_classes;
+package de.cookieapp.database;
 
 import java.util.Date;
 import java.util.HashSet;
