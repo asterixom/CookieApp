@@ -127,5 +127,9 @@ public class Recipe {
 		temprecipe.setIngredients(new HashSet<Ingredient>());
 		return temprecipe;
 	}
+	
+	public void debugDump() {
+		System.out.println("Debug: Recipe: RecipeName: [" + this.name + "] + Description: [" + this.description + "] + ID: [" + this.id + "]");
+	}
 
 }
