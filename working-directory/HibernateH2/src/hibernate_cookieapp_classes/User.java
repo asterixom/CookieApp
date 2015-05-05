@@ -159,4 +159,7 @@ public class User implements java.io.Serializable {
 		recipes.remove(recipe);
 	}
 
+	public void debugDump() {
+		System.out.println("Debug: User: Username: [" + this.name + "] + eMail: [" + this.eMail + "] + ID: [" + this.id + "]");
+	}
 }
