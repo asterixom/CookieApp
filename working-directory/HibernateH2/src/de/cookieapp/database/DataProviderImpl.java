@@ -1,30 +1,23 @@
-package hibernate_cookieapp_classes;
+package de.cookieapp.database;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import hibernate_util.EntityManagerUtil;
-import hibernate_util.Student;
-import hibernate_util.Vorlesung;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
-import org.hibernate.Criteria;
+import de.cookieapp.database.api.DataProvider;
 
 //EclipseLink JPA With H2 Example
 
-public class CookieApp {
+public class DataProviderImpl implements DataProvider {
 
 	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 	public static void main(String[] args) {
-		CookieApp cookie = new CookieApp();
+		DataProviderImpl cookie = new DataProviderImpl();
 
 		User mo = new User();
 		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
@@ -81,9 +74,7 @@ public class CookieApp {
 	public List<User> listAllUsers() {
 		entityManager.getTransaction().begin();
 
-		@SuppressWarnings({ "unchecked" })
-		List<User> usertemp = entityManager.createQuery("from User")
-				.getResultList();
+		List<User> usertemp = entityManager.createQuery("from User").getResultList();
 
 		entityManager.getTransaction().commit();
 
@@ -203,6 +194,13 @@ public class CookieApp {
 		temp = entityManager.find(Recipe.class, recipeID);
 		return temp;
 
+	}
+	
+	public boolean login(String eMail, String password) {
+		entityManager.getTransaction().begin();
+		User user = entityManager.find(User.class, getUserID(eMail));
+		entityManager.getTransaction().commit();
+		return user.getPassword().equals(password);
 	}
 
 }

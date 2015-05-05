@@ -1,4 +1,4 @@
-package hibernate_cookieapp_classes;
+package de.cookieapp.database;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,15 +23,15 @@ public class Ingredient {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "INGREDIENTID")
 	private Long id;
-	
-	@Column(name= "NAME")
-	private String name;
 
 	@Column(name = "QUANTITY")
 	private double quantity;
 
 	@Column(name = "UNIT")
 	private String unit;
+
+	@OneToMany
+	private Set<Nutrient> nutrients = new HashSet<Nutrient>();
 
 	public double getQuantity() {
 		return quantity;
@@ -57,10 +57,20 @@ public class Ingredient {
 		this.id = id;
 	}
 
-	public Ingredient(Long id, double quantity, String unit) {
+	public Set<Nutrient> getNutrients() {
+		return nutrients;
+	}
+
+	public void setNutrients(Set<Nutrient> nutrients) {
+		this.nutrients = nutrients;
+	}
+
+	public Ingredient(Long id, double quantity, String unit,
+			Set<Nutrient> nutrients) {
 		this.id = id;
 		this.quantity = quantity;
 		this.unit = unit;
+		this.nutrients = nutrients;
 	}
 
 }

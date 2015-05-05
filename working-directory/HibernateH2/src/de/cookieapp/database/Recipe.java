@@ -1,4 +1,4 @@
-package hibernate_cookieapp_classes;
+package de.cookieapp.database;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -40,14 +39,10 @@ public class Recipe {
 	private User creator;
 
 	@OneToMany
-	private Set<Comment> comments;
-	
-	@ManyToMany
-	private Set<User> favorites;
-	
+	private Set<Comment> comments = new HashSet<Comment>();
 
 	@OneToMany
-	private Set<Ingredient> ingredients;
+	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
 	public String getName() {
 		return name;

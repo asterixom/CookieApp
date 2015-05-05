@@ -1,4 +1,4 @@
-package hibernate_cookieapp_classes;
+package de.cookieapp.database;
 
 import java.util.Date;
 
@@ -29,7 +29,7 @@ public class Comment {
 	@ManyToOne
 	private User creator;
 
-	@Column(name = "CREATED")
+	@Column(name = "CREATED", nullable = false)
 	private Date created;
 
 	public void setContent(String content) {
