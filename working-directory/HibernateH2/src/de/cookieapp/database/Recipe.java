@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -38,11 +40,16 @@ public class Recipe {
 	@JoinColumn(name = "USERID")
 	private User creator;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "USER", joinColumns = { @JoinColumn(name = "USERID") }, 
+	inverseJoinColumns = { @JoinColumn(name = "RECIPEID") })
+	private Set<Recipe> userFavorites;
+	
 	@OneToMany
-	private Set<Comment> comments = new HashSet<Comment>();
+	private Set<Comment> comments;
 
 	@OneToMany
-	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+	private Set<Ingredient> ingredients;
 
 	public String getName() {
 		return name;
@@ -101,6 +108,14 @@ public class Recipe {
 	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+	
+	public void addRecipeToFavorites(Recipe favo){
+		userFavorites.add(favo);
+	}
+	
+	public void deleteRecipeFromFavorites(Recipe favo){
+		userFavorites.remove(favo);
+	}
 
 	public Recipe(Long id, String name, String description, Date created,
 			User creator, Set<Comment> comments, Set<Ingredient> ingredients) {
@@ -127,9 +142,11 @@ public class Recipe {
 		temprecipe.setIngredients(new HashSet<Ingredient>());
 		return temprecipe;
 	}
-	
+
 	public void debugDump() {
-		System.out.println("Debug: Recipe: RecipeName: [" + this.name + "] + Description: [" + this.description + "] + ID: [" + this.id + "]");
+		System.out.println("Debug: Recipe: RecipeName: [" + this.name
+				+ "] + Description: [" + this.description + "] + ID: ["
+				+ this.id + "]");
 	}
 
 }

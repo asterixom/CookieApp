@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,8 +43,8 @@ public class User implements java.io.Serializable, de.cookieapp.database.api.Use
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
 
-	@OneToMany
-	private Set<Recipe> favorites = new HashSet<Recipe>();
+	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
+	private Set<Recipe> favorites;
 
 	public Set<Recipe> getRecipes() {
 		return recipes;
@@ -107,16 +109,6 @@ public class User implements java.io.Serializable, de.cookieapp.database.api.Use
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	// public Date parseDate(String date) throws ParseException,
-	// java.text.ParseException{
-	// SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	// java.util.Date parsed;
-	//
-	// parsed = format.parse(date);
-	//
-	// return new java.sql.Date(parsed.getTime());
-	// }
 
 	public User(Long id, String name, String password, String eMail,
 			Date created, Set<Recipe> recipe, Set<Recipe> favorites) {
