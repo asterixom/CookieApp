@@ -13,7 +13,7 @@
       <property name="javax.persistence.jdbc.password" value="" />
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
       <!-- creates Table if nessesary, otherwise just update it -->
-      <property name="hibernate.hbm2ddl.auto" value="create" />
+      <property name="hibernate.hbm2ddl.auto" value="update" />
       <!-- creates the Table and Drops it after Restart
       <property name="hibernate.hbm2ddl.auto" value="create-drop" />
       -->

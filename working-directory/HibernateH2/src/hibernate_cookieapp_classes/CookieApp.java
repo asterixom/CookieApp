@@ -29,33 +29,35 @@ public class CookieApp {
 		User mo = new User();
 		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
 				new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
-
-		Recipe re = new Recipe();
-		re = re.createRecipe("Lasagne", "blablabla",mo);
-		Recipe ra = new Recipe();
-		ra = ra.createRecipe("Spaghetti", "blablabla", mo);
-		Recipe ru = new Recipe();
-		ru = ru.createRecipe("Frikadellen", "blablabla",mo);
-		 cookie.saveUser(mo);
-
-		 cookie.saveRecipe(re);
-		 cookie.saveRecipe(ra);
-		 cookie.saveRecipe(ru);
+		cookie.saveUser(mo);
+//		Recipe re = new Recipe();
+//		re = re.createRecipe("Lasagne", "blablabla",
+//				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+//		Recipe ra = new Recipe();
+//		ra = ra.createRecipe("Spaghetti", "blablabla",
+//				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+//		Recipe ru = new Recipe();
+//		ru = ru.createRecipe("Frikadellen", "blablabla",
+//				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+//		
+//
+//		cookie.saveRecipe(re);
+//		cookie.saveRecipe(ra);
+//		cookie.saveRecipe(ru);
 
 		// cookie.listAllRecipe();
 
-//		User temp = cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
-//
-//		Set<Recipe> recipes = temp.getRecipes();
-//		Iterator<Recipe> iter = recipes.iterator();
-//		while (iter.hasNext()) {
-//			System.out.println(iter.next().getName());
-//		}
-		 
-		 Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
-		 System.out.println(temp.getCreator().getName());
-		 
-		 
+		// User temp =
+		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
+		//
+		// Set<Recipe> recipes = temp.getRecipes();
+		// Iterator<Recipe> iter = recipes.iterator();
+		// while (iter.hasNext()) {
+		// System.out.println(iter.next().getName());
+		// }
+
+//		Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
+//		System.out.println(temp.getCreator().getName());
 
 		// User ma = new User(); ma = ma.createUser("Maritz", "test123",
 		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
@@ -68,10 +70,10 @@ public class CookieApp {
 
 		// System.out.println(cookie.getUserID("Moritz.gabriel@gmx.de"));
 
-		// List<User> users = cookie.listAllUsers();
-		// for (int i = 0; i < users.size(); i++) {
-		// System.out.println(users.get(i).getPassword());
-		// }
+		 List<User> users = cookie.listAllUsers();
+		 for (int i = 0; i < users.size(); i++) {
+		 System.out.println(users.get(i).getPassword());
+		 }
 
 		// System.out.println(cookie.isUserAlreadySaved(mo));
 	}
@@ -195,7 +197,7 @@ public class CookieApp {
 
 		return id;
 	}
-	
+
 	public Recipe getRecipe(long recipeID) {
 		Recipe temp = new Recipe();
 		temp = entityManager.find(Recipe.class, recipeID);
