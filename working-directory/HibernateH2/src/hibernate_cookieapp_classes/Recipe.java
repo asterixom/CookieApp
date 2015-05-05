@@ -35,7 +35,7 @@ public class Recipe {
 	private Date created;
 
 	@ManyToOne
-	@JoinColumn(name="USERID")
+	@JoinColumn(name = "USERID")
 	private User creator;
 
 	@OneToMany
