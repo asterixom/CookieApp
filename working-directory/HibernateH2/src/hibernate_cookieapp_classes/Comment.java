@@ -29,7 +29,7 @@ public class Comment {
 	@ManyToOne
 	private User creator;
 
-	@Column(name = "CREATED", nullable = false)
+	@Column(name = "CREATED")
 	private Date created;
 
 	public void setContent(String content) {

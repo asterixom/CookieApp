@@ -46,8 +46,8 @@ public class User implements java.io.Serializable {
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
 
-	@OneToMany
-	private Set<Recipe> favorites = new HashSet<Recipe>();
+	@ManyToMany
+	private Set<Recipe> favorites;
 
 	public Set<Recipe> getRecipes() {
 		return recipes;

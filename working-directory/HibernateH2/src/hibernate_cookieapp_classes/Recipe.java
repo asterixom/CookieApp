@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -39,10 +40,14 @@ public class Recipe {
 	private User creator;
 
 	@OneToMany
-	private Set<Comment> comments = new HashSet<Comment>();
+	private Set<Comment> comments;
+	
+	@ManyToMany
+	private Set<User> favorites;
+	
 
 	@OneToMany
-	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+	private Set<Ingredient> ingredients;
 
 	public String getName() {
 		return name;
