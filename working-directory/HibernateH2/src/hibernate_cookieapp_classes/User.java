@@ -44,7 +44,7 @@ public class User implements java.io.Serializable {
 	private Date created;
 
 	@OneToMany(mappedBy="creator")
-	private Set<Recipe> recipes = new HashSet<Recipe>();
+	private Set<Recipe> recipes;
 
 	@OneToMany
 	private Set<Recipe> favorites = new HashSet<Recipe>();

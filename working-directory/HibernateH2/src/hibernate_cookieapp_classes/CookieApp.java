@@ -33,13 +33,27 @@ public class CookieApp {
 		Recipe re = new Recipe();
 		re = re.createRecipe("Lasagne", "blablabla",
 				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
-		 //cookie.saveUser(mo);
-		
-		cookie.saveRecipe(re, cookie.getUserID("Moritz.gabriel@gmx.de"));
-		
-		
+		Recipe ra = new Recipe();
+		ra = ra.createRecipe("Spaghetti", "blablabla",
+				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+		Recipe ru = new Recipe();
+		ru = ru.createRecipe("Frikadellen", "blablabla",
+				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+		 cookie.saveUser(mo);
 
-		cookie.listAllRecipe();
+		 cookie.saveRecipe(re, cookie.getUserID("Moritz.gabriel@gmx.de"));
+		 cookie.saveRecipe(ra, cookie.getUserID("Moritz.gabriel@gmx.de"));
+		 cookie.saveRecipe(ru, cookie.getUserID("Moritz.gabriel@gmx.de"));
+
+		// cookie.listAllRecipe();
+
+		User temp = cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
+
+		Set<Recipe> recipes = temp.getRecipes();
+		Iterator<Recipe> iter = recipes.iterator();
+		while (iter.hasNext()) {
+			System.out.println(iter.next().getName());
+		}
 
 		// User ma = new User(); ma = ma.createUser("Maritz", "test123",
 		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
@@ -163,12 +177,10 @@ public class CookieApp {
 			System.out.println("Rezept gibt es schon");
 		} else {
 			entityManager.persist(recipe);
-			}
-		if(isRecipeAlreadySaved(recipe)){
-			User temp = entityManager.find(User.class, userID);
-			temp.addRecipe(recipe);
-			entityManager.merge(temp);
 		}
+		User user = entityManager.find(User.class, userID);
+		user.addRecipe(recipe);
+		entityManager.merge(user);
 		entityManager.getTransaction().commit();
 	}
 
