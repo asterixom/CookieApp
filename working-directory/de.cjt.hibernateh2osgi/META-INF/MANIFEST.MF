@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Hibernateh2osgi
+Bundle-SymbolicName: de.cjt.hibernateh2osgi
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: de.cjt.hibernateh2osgi.Activator
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
