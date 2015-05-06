@@ -196,6 +196,17 @@ public class DataProviderImpl implements DataProvider {
 
 	}
 	
+	public void addRecipeToFavorites(Recipe recipe, User user){
+		entityManager.getTransaction().begin();
+		Recipe recipeTemp = new Recipe();
+		User userTemp = new User();
+		
+		recipeTemp = entityManager.find(Recipe.class, recipe);
+		userTemp = entityManager.find(User.class, user);
+		
+		
+	}
+	
 	public boolean login(String eMail, String password) {
 		entityManager.getTransaction().begin();
 		User user = entityManager.find(User.class, getUserID(eMail));
