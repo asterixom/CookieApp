@@ -7,3 +7,5 @@ Bundle-Activator: de.cjt.hibernateh2osgi.Activator
 Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Import-Package: javax.persistence;version="2.1.0",
+ org.h2;version="1.4.187"
