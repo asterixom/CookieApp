@@ -1,7 +1,7 @@
 package de.cookieapp.gui.folderitem;
 
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TabFolder;
 
 public interface FolderItem {
 
@@ -9,7 +9,7 @@ public interface FolderItem {
 	 * Getter Method for the Content this Tab prints
 	 * @return a Composite with the Content
 	 */
-	public Composite getContent(TabFolder tabFolder);
+	public Composite getContent(CTabFolder tabFolder);
 	
 	/**
 	 * Getter Method for the Text, that should stand on the TabItem from the TabFolder

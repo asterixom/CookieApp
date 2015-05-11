@@ -1,6 +1,7 @@
 package de.cookieapp.gui.register;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
@@ -9,7 +10,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
@@ -29,7 +29,7 @@ public class Register implements FolderItem{
 	
 
 	@Override
-	public Composite getContent(TabFolder tabFolder) {
+	public Composite getContent(CTabFolder tabFolder) {
 		this.tabFolder = tabFolder;
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		FillLayout verticalLayout = new FillLayout(SWT.VERTICAL);

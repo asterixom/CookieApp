@@ -3,16 +3,15 @@ package de.cookieapp.gui.recipesearch;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
@@ -24,7 +23,7 @@ import de.cookieapp.gui.recipe.RecipeTabImpl;
 public class RecipeSearch implements FolderItem {
 
 	private ControlService controlService;
-	private TabFolder tabFolder;
+	private CTabFolder tabFolder;
 	private Long sessionID;
 	private Text recipeNameT;
 	private Composite content;
@@ -33,7 +32,7 @@ public class RecipeSearch implements FolderItem {
 	private Label firstResult;
 
 	@Override
-	public Composite getContent(TabFolder tabFolder) {
+	public Composite getContent(CTabFolder tabFolder) {
 		this.tabFolder = tabFolder;
 		// tabFolder.setLayout(new FillLayout(SWT.VERTICAL));
 
@@ -177,9 +176,7 @@ public class RecipeSearch implements FolderItem {
 	private void showRecipe(Recipe recipe) {
 		RecipeTabImpl recipeTab = new RecipeTabImpl();
 		Composite recipeComp = recipeTab.getContent(tabFolder, recipe);
-		Control[] controls = tabFolder.getChildren();
-
-		TabItem recipeTabItem = new TabItem(tabFolder, SWT.NONE);
+		CTabItem recipeTabItem = new CTabItem(tabFolder, SWT.CLOSE);
 		recipeTabItem.setText(recipe.getName());
 		recipeTabItem.setControl(recipeComp);
 		tabFolder.setSelection(recipeTabItem);

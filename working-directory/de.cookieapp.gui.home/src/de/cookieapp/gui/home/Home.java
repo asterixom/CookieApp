@@ -1,14 +1,10 @@
 package de.cookieapp.gui.home;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.TabFolder;
 
 import de.cookieapp.gui.folderitem.FolderItem;
 
@@ -18,7 +14,7 @@ public class Home implements FolderItem {
 
 
 	@Override
-	public Composite getContent(TabFolder tabFolder) {
+	public Composite getContent(CTabFolder tabFolder) {
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
 		
