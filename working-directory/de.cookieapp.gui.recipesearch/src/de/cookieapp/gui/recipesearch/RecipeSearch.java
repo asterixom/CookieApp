@@ -21,7 +21,7 @@ import de.cookieapp.data.model.Recipe;
 import de.cookieapp.gui.folderitem.FolderItem;
 import de.cookieapp.gui.recipe.RecipeTabImpl;
 
-public class RecipeSearch implements FolderItem{
+public class RecipeSearch implements FolderItem {
 
 	private ControlService controlService;
 	private TabFolder tabFolder;
@@ -35,8 +35,8 @@ public class RecipeSearch implements FolderItem{
 	@Override
 	public Composite getContent(TabFolder tabFolder) {
 		this.tabFolder = tabFolder;
-//		tabFolder.setLayout(new FillLayout(SWT.VERTICAL));
-		
+		// tabFolder.setLayout(new FillLayout(SWT.VERTICAL));
+
 		content = new Composite(tabFolder, SWT.NONE);
 		content.setLayout(new GridLayout(2, true));
 
@@ -53,16 +53,19 @@ public class RecipeSearch implements FolderItem{
 		Button searchButton = new Button(content, SWT.NONE);
 		searchButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 4028437061777994602L;
+
 			/**
 			 * Actionlistener for register button
 			 */
 			public void widgetSelected(SelectionEvent e) {
-				if(controlService != null) {
+				if (controlService != null) {
 					try {
-						ArrayList<Recipe> recipes = controlService.getRecipeByName(sessionID, recipeNameT.getText());
-						//System.err.println("Recipe-List-Size: "+recipes.size());
+						ArrayList<Recipe> recipes = controlService
+								.getRecipeByName(sessionID,
+										recipeNameT.getText());
+						// System.err.println("Recipe-List-Size: "+recipes.size());
 						showResults(content, recipes);
-						//resultComposite.setVisible(true);
+						// resultComposite.setVisible(true);
 					} catch (CookieAppException exception) {
 						System.err.println("Kein Ergebnis!");
 						firstResult.setText("keine Ergebnisse gefunden");
@@ -75,13 +78,13 @@ public class RecipeSearch implements FolderItem{
 		searchButton.setText("Suchen");
 		Label blankLabel2 = new Label(content, SWT.NONE);
 		blankLabel2.setVisible(false);
-		
+
 		resultComposite = new Composite(content, SWT.NONE);
 		Label blankLabel3 = new Label(resultComposite, SWT.NONE);
 		blankLabel3.setVisible(false);
 		Label resultHeader = new Label(resultComposite, SWT.BOLD);
 		resultHeader.setText("Ergebnisse:");
-//		resultHeader.setVisible(true);
+		// resultHeader.setVisible(true);
 		resultComposite.setLayout(new FillLayout(SWT.VERTICAL));
 		firstResult = new Label(resultComposite, SWT.NONE);
 		firstResult.setText("Lasagne");
@@ -89,7 +92,7 @@ public class RecipeSearch implements FolderItem{
 		secondResult.setText("Cheeseburger");
 		secondResult.setVisible(false);
 		resultComposite.setVisible(false);
-		
+
 		return content;
 	}
 
@@ -105,11 +108,12 @@ public class RecipeSearch implements FolderItem{
 
 	}
 
-	public Composite showResults(final Composite parent, final ArrayList<Recipe> recipes) {
+	public Composite showResults(final Composite parent,
+			final ArrayList<Recipe> recipes) {
 		Composite resultComposite = new Composite(parent, SWT.NONE);
 		resultComposite.setLayout(new GridLayout(1, true));
 		for (Recipe recipe : recipes) {
-			System.err.println("Added button for "+recipe.getName());
+			System.err.println("Added button for " + recipe.getName());
 			final Recipe recipeToShow = recipe;
 			Button recipeNameLabel = new Button(resultComposite, SWT.NONE);
 			recipeNameLabel.setText(recipe.getName());
@@ -124,60 +128,49 @@ public class RecipeSearch implements FolderItem{
 					System.err.println("KLICK!");
 				}
 			});
-//			recipeNameLabel.addMouseListener(new MouseListener() {
-//				private static final long serialVersionUID = -5558483000466339886L;
-//				@Override
-//				public void mouseUp(MouseEvent e) {
-//					showRecipe(recipeToShow);
-//				}
-//				@Override
-//				public void mouseDown(MouseEvent e) {
-//					// TODO Auto-generated method stub
-//				}
-//				@Override
-//				public void mouseDoubleClick(MouseEvent e) {
-//					// TODO Auto-generated method stub
-//				}
-//			});
-//			showRecipe(recipeToShow);
+			// recipeNameLabel.addMouseListener(new MouseListener() {
+			// private static final long serialVersionUID =
+			// -5558483000466339886L;
+			// @Override
+			// public void mouseUp(MouseEvent e) {
+			// showRecipe(recipeToShow);
+			// }
+			// @Override
+			// public void mouseDown(MouseEvent e) {
+			// // TODO Auto-generated method stub
+			// }
+			// @Override
+			// public void mouseDoubleClick(MouseEvent e) {
+			// // TODO Auto-generated method stub
+			// }
+			// });
+			// showRecipe(recipeToShow);
 		}
 		parent.redraw();
 		parent.pack();
 		/*
-		updateContent(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				Composite resultComposite = new Composite(parent, SWT.NONE);
-				resultComposite.setLayout(new GridLayout(1, true));
-				for (Recipe recipe : recipes) {
-					final Recipe recipeToShow = recipe;
-					Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
-					recipeNameLabel.setText(recipe.getName());
-					recipeNameLabel.addMouseListener(new MouseListener() {
-						private static final long serialVersionUID = -5558483000466339886L;
-						@Override
-						public void mouseUp(MouseEvent e) {
-							showRecipe(recipeToShow);
-						}
-						@Override
-						public void mouseDown(MouseEvent e) {
-							// TODO Auto-generated method stub
-						}
-						@Override
-						public void mouseDoubleClick(MouseEvent e) {
-							// TODO Auto-generated method stub
-						}
-					});
-					showRecipe(recipeToShow);
-				}
-				parent.redraw();
-			}
-		});
-		*/
-		
-		
+		 * updateContent(new Runnable() {
+		 * 
+		 * @Override public void run() { // TODO Auto-generated method stub
+		 * Composite resultComposite = new Composite(parent, SWT.NONE);
+		 * resultComposite.setLayout(new GridLayout(1, true)); for (Recipe
+		 * recipe : recipes) { final Recipe recipeToShow = recipe; Label
+		 * recipeNameLabel = new Label(resultComposite, SWT.NONE);
+		 * recipeNameLabel.setText(recipe.getName());
+		 * recipeNameLabel.addMouseListener(new MouseListener() { private static
+		 * final long serialVersionUID = -5558483000466339886L;
+		 * 
+		 * @Override public void mouseUp(MouseEvent e) {
+		 * showRecipe(recipeToShow); }
+		 * 
+		 * @Override public void mouseDown(MouseEvent e) { // TODO
+		 * Auto-generated method stub }
+		 * 
+		 * @Override public void mouseDoubleClick(MouseEvent e) { // TODO
+		 * Auto-generated method stub } }); showRecipe(recipeToShow); }
+		 * parent.redraw(); } });
+		 */
+
 		return parent;
 	}
 
@@ -185,14 +178,13 @@ public class RecipeSearch implements FolderItem{
 		RecipeTabImpl recipeTab = new RecipeTabImpl();
 		Composite recipeComp = recipeTab.getContent(tabFolder, recipe);
 		Control[] controls = tabFolder.getChildren();
-		
-				TabItem recipeTabItem = new TabItem(tabFolder, SWT.NONE);
-				recipeTabItem.setText(recipe.getName());
-				recipeTabItem.setControl(recipeComp);
-				tabFolder.setSelection(recipeTabItem);
+
+		TabItem recipeTabItem = new TabItem(tabFolder, SWT.NONE);
+		recipeTabItem.setText(recipe.getName());
+		recipeTabItem.setControl(recipeComp);
+		tabFolder.setSelection(recipeTabItem);
 		tabFolder.pack();
 	}
-
 
 	@Override
 	public void setSessionID(Long sessionID) {
@@ -210,12 +202,12 @@ public class RecipeSearch implements FolderItem{
 			this.controlService = null;
 		}
 	}
-	
+
 	public void updateContent(final Runnable runnable) {
 
 		Runnable bgRunnable = new Runnable() {
 			public void run() {
-				if (tabFolder != null) { 
+				if (tabFolder != null) {
 					tabFolder.getDisplay().asyncExec(runnable);
 				} else {
 					System.err.println("Parent is null");
