@@ -14,6 +14,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
@@ -100,6 +101,7 @@ public class MainPage extends AbstractEntryPoint {
 
 	private Composite createTabFolderComposite(Composite parent) {
 		tabFolder = new CTabFolder(parent, SWT.NONE);
+		tabFolder.setBackground(new Color(null,0xf0,0xf0,0xf0));
 		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
 		tabFolder.setSize(CONTENT_WITH, parent.getSize().y - HEADER_HEIGHT);
 //		tabFolder.addSelectionListener(new SelectionAdapter() {
