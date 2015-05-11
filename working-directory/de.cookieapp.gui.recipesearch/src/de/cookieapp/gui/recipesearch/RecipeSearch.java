@@ -3,16 +3,11 @@ package de.cookieapp.gui.recipesearch;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -22,7 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
-import de.cookieapp.dataimpl.Recipe;
+import de.cookieapp.data.model.Recipe;
 import de.cookieapp.gui.folderitem.FolderItem;
 import de.cookieapp.gui.recipe.RecipeTabImpl;
 
@@ -62,28 +57,19 @@ public class RecipeSearch implements FolderItem{
 			 * Actionlistener for register button
 			 */
 			public void widgetSelected(SelectionEvent e) {
-				
-				if (recipeNameT.getText().contains("Lasagne")) {
-					firstResult.setText("Lasagne");
-					secondResult.setVisible(false);
-				} else if (recipeNameT.getText().contains("Burger")) {
-					firstResult.setText("Hamburger");
-					secondResult.setVisible(true);
-				} else {
-					firstResult.setText("keine Ergebnisse gefunden");
-					secondResult.setVisible(false);
-				}
-				resultComposite.setVisible(true);
-				/*
 				if(controlService != null) {
 					try {
 						ArrayList<Recipe> recipes = controlService.getRecipeByName(sessionID, recipeNameT.getText());
+						//System.err.println("Recipe-List-Size: "+recipes.size());
 						showResults(content, recipes);
+						//resultComposite.setVisible(true);
 					} catch (CookieAppException exception) {
-						System.err.println("Registation Failed!");
+						System.err.println("Kein Ergebnis!");
+						firstResult.setText("keine Ergebnisse gefunden");
+						secondResult.setVisible(false);
+						resultComposite.setVisible(true);
 					}
 				}
-				*/
 			}
 		});
 		searchButton.setText("Suchen");
@@ -121,27 +107,40 @@ public class RecipeSearch implements FolderItem{
 
 	public Composite showResults(final Composite parent, final ArrayList<Recipe> recipes) {
 		Composite resultComposite = new Composite(parent, SWT.NONE);
+		resultComposite.setVisible(true);
 		resultComposite.setLayout(new GridLayout(1, true));
 		for (Recipe recipe : recipes) {
+			System.err.println("Added button for "+recipe.getName());
 			final Recipe recipeToShow = recipe;
-			Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
+			Button recipeNameLabel = new Button(resultComposite, SWT.NONE);
 			recipeNameLabel.setText(recipe.getName());
-			recipeNameLabel.addMouseListener(new MouseListener() {
-				private static final long serialVersionUID = -5558483000466339886L;
-				@Override
-				public void mouseUp(MouseEvent e) {
+			recipeNameLabel.addSelectionListener(new SelectionAdapter() {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+				public void widgetSelected(SelectionEvent e) {
 					showRecipe(recipeToShow);
-				}
-				@Override
-				public void mouseDown(MouseEvent e) {
-					// TODO Auto-generated method stub
-				}
-				@Override
-				public void mouseDoubleClick(MouseEvent e) {
-					// TODO Auto-generated method stub
+					System.err.println("KLICK!");
 				}
 			});
-			showRecipe(recipeToShow);
+//			recipeNameLabel.addMouseListener(new MouseListener() {
+//				private static final long serialVersionUID = -5558483000466339886L;
+//				@Override
+//				public void mouseUp(MouseEvent e) {
+//					showRecipe(recipeToShow);
+//				}
+//				@Override
+//				public void mouseDown(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//				}
+//				@Override
+//				public void mouseDoubleClick(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//				}
+//			});
+//			showRecipe(recipeToShow);
 		}
 		parent.redraw();
 		/*

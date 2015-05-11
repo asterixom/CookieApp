@@ -28,5 +28,5 @@ public interface ControlService {
 	
 	public RecipeInfo getRecipe(Long sessionId, Long recipeID) throws CookieAppException;
 	User getCurrentUser(Long sessionId) throws CookieAppException;
-	ArrayList<de.cookieapp.dataimpl.Recipe> getRecipeByName(Long sessionId, String name)	throws CookieAppException;
+	ArrayList<Recipe> getRecipeByName(Long sessionId, String name)	throws CookieAppException;
 }

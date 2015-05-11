@@ -11,7 +11,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.data.model.Recipe;
-import de.cookieapp.gui.folderitem.FolderItem;
 
 public class RecipeTabImpl implements RecipeTab {
 	
@@ -81,6 +80,11 @@ public class RecipeTabImpl implements RecipeTab {
 		Button favorite = new Button(footerComposite, SWT.NONE);
 		//TODO ggf. ueberpruefen, ob schon Favorit und noch if-selection fuer unterschiedliche Buttons
 		favorite.addSelectionListener(new SelectionAdapter() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1546174202494990071L;
+
 			/**
 			 * Actionlistener for favorite-button
 			 */
