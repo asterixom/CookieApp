@@ -8,6 +8,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TabFolder;
 
 import de.cookieapp.gui.folderitem.FolderItem;
 
@@ -16,7 +17,7 @@ public class Profile implements FolderItem {
 	private Long sessionID;
 
 	@Override
-	public Composite getContent(Composite tabFolder) {
+	public Composite getContent(TabFolder tabFolder) {
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
 		

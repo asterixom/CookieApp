@@ -24,7 +24,7 @@ import de.cookieapp.gui.recipe.RecipeTabImpl;
 public class RecipeSearch implements FolderItem{
 
 	private ControlService controlService;
-	private Composite tabFolder;
+	private TabFolder tabFolder;
 	private Long sessionID;
 	private Text recipeNameT;
 	private Composite content;
@@ -33,7 +33,7 @@ public class RecipeSearch implements FolderItem{
 	private Label firstResult;
 
 	@Override
-	public Composite getContent(Composite tabFolder) {
+	public Composite getContent(TabFolder tabFolder) {
 		this.tabFolder = tabFolder;
 //		tabFolder.setLayout(new FillLayout(SWT.VERTICAL));
 		
@@ -107,7 +107,6 @@ public class RecipeSearch implements FolderItem{
 
 	public Composite showResults(final Composite parent, final ArrayList<Recipe> recipes) {
 		Composite resultComposite = new Composite(parent, SWT.NONE);
-		resultComposite.setVisible(true);
 		resultComposite.setLayout(new GridLayout(1, true));
 		for (Recipe recipe : recipes) {
 			System.err.println("Added button for "+recipe.getName());
@@ -143,6 +142,7 @@ public class RecipeSearch implements FolderItem{
 //			showRecipe(recipeToShow);
 		}
 		parent.redraw();
+		parent.pack();
 		/*
 		updateContent(new Runnable() {
 			
@@ -185,16 +185,12 @@ public class RecipeSearch implements FolderItem{
 		RecipeTabImpl recipeTab = new RecipeTabImpl();
 		Composite recipeComp = recipeTab.getContent(tabFolder, recipe);
 		Control[] controls = tabFolder.getChildren();
-
-		for (Control control : controls) {
-			if (control instanceof TabFolder) {
-				TabFolder tabFolder = (TabFolder) control;
+		
 				TabItem recipeTabItem = new TabItem(tabFolder, SWT.NONE);
 				recipeTabItem.setText(recipe.getName());
 				recipeTabItem.setControl(recipeComp);
 				tabFolder.setSelection(recipeTabItem);
-			}
-		}
+		tabFolder.pack();
 	}
 
 

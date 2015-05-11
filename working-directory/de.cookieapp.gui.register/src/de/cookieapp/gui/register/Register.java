@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
@@ -28,7 +29,7 @@ public class Register implements FolderItem{
 	
 
 	@Override
-	public Composite getContent(Composite tabFolder) {
+	public Composite getContent(TabFolder tabFolder) {
 		this.tabFolder = tabFolder;
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		FillLayout verticalLayout = new FillLayout(SWT.VERTICAL);
