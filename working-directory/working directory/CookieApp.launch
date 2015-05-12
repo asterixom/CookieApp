@@ -10,7 +10,6 @@
 <booleanAttribute key="default" value="true"/>
 <booleanAttribute key="default_auto_start" value="true"/>
 <intAttribute key="default_start_level" value="4"/>
-<stringAttribute key="deselected_workspace_plugins" value="de.cjt.hibernateh2osgi,de.cjt.verdion.calculator.numeralsystem.NumeralSystem,de.cjt.verdion.osgi.calculator.bin,de.cjt.verdion.osgi.calculator.bin.impl,de.cjt.verdion.osgi.calculator.calculate,de.cjt.verdion.osgi.calculator.calculate.impl,de.cjt.verdion.osgi.calculator.deci.impl,de.cjt.verdion.osgi.calculator.gui.impl,de.cjt.verdion.osgi.calculator.hex.impl,de.cjt.verdion.osgi.calculator.operator,de.cjt.verdion.osgi.calculator.operator.minus.impl,de.cjt.verdion.osgi.calculator.operator.part.impl,de.cjt.verdion.osgi.calculator.operator.plus.impl,de.cjt.verdion.osgi.calculator.operator.power.impl,de.cjt.verdion.osgi.calculator.operator.times.impl,de.cjt.verdion.osgi.calculator.text,de.cjt.verdion.osgi.calculator.text.impl"/>
 <booleanAttribute key="includeOptional" value="true"/>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
@@ -23,5 +22,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="de.cookieapp.control@default:default,de.cookieapp.data@default:default,de.cookieapp.database@default:default,de.cookieapp.dataimpl@default:default,de.cookieapp.gui.folderitem@default:default,de.cookieapp.gui.home@default:default,de.cookieapp.gui.mainpage@default:default,de.cookieapp.gui.profile@default:default,de.cookieapp.gui.recipe@default:default,de.cookieapp.gui.recipesearch@default:default,de.cookieapp.gui.register@default:default,de.cookieapp.repository@default:default"/>
+<stringAttribute key="workspace_bundles" value="de.cookieapp.control@default:default,de.cookieapp.data@default:default,de.cookieapp.database@default:default,de.cookieapp.dataimpl@default:default,de.cookieapp.gui.folderitem@default:default,de.cookieapp.gui.home@1:default,de.cookieapp.gui.mainpage@default:default,de.cookieapp.gui.profile@2:default,de.cookieapp.gui.recipe@default:default,de.cookieapp.gui.recipesearch@3:default,de.cookieapp.gui.register@4:default,de.cookieapp.repository@default:default"/>
 </launchConfiguration>
