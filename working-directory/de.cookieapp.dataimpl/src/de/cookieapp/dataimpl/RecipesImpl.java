@@ -7,20 +7,20 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class Recipes {
+public class RecipesImpl {
 	
 	@OneToMany
-	private Recipe allRecipes;
+	private RecipeImpl allRecipes;
 	
-	public Recipes(Recipe allRecipes) {
+	public RecipesImpl(RecipeImpl allRecipes) {
 		this.allRecipes = allRecipes;
 	}
 
-	public Recipe getAllRecipes() {
+	public RecipeImpl getAllRecipes() {
 		return allRecipes;
 	}
 
-	public void setAllRecipes(Recipe allRecipes) {
+	public void setAllRecipes(RecipeImpl allRecipes) {
 		this.allRecipes = allRecipes;
 	}	
 	

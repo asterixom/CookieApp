@@ -10,7 +10,6 @@ import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.control.exceptions.NoSessionException;
 import de.cookieapp.control.exceptions.NoSuchRecipeException;
 import de.cookieapp.control.exceptions.NotLoggedInException;
-import de.cookieapp.control.model.RecipeInfo;
 import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
@@ -150,7 +149,7 @@ public class ControlServiceImpl implements ControlService {
 	}
 	
 	@Override
-	public RecipeInfo getRecipe(Long sessionId, Long recipeID)
+	public Recipe getRecipe(Long sessionId, Long recipeID)
 			throws CookieAppException {
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
@@ -159,19 +158,18 @@ public class ControlServiceImpl implements ControlService {
 		if (recipe == null) {
 			throw new NoSuchRecipeException();
 		}
-		return new RecipeInfo(recipe);
+		return recipe;
 	}
 	
 	@Override
 	public ArrayList<Recipe> getRecipeByName(Long sessionId, String name)
 			throws CookieAppException {
 		
-		/*
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
-		ArrayList<Recipe> recipe = dataService.getRecipesWithName(name);*/
-		ArrayList<Recipe> recipe = new ArrayList<>();
+		ArrayList<Recipe> recipe = dataService.getRecipesWithName(name);
+		//ArrayList<Recipe> recipe = new ArrayList<>();
 		if(name.contains("Lasagne")){
 			recipe.add(new TempRecipe(new Long(1001001), "Lasagne"));
 		}

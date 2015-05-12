@@ -11,21 +11,21 @@ import javax.persistence.OneToMany;
 public class Users {
 	
 	@OneToMany
-	private User users;
+	private UserImpl users;
 
-	public User getUsers() {
+	public UserImpl getUsers() {
 		return users;
 	}
 
-	public void setUsers(User users) {
+	public void setUsers(UserImpl users) {
 		this.users = users;
 	}
 
-	public Users(User users) {
+	public Users(UserImpl users) {
 		this.users = users;
 	}
 	
-	public void addUser(User user){
+	public void addUser(UserImpl user){
 		
 	}
 
