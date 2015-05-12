@@ -8,8 +8,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 
 public class RecipeTabImpl implements RecipeTab {
@@ -62,13 +66,24 @@ public class RecipeTabImpl implements RecipeTab {
 		Composite contentBL = new Composite(content, SWT.NONE);
 		contentBL.setLayout(new GridLayout(2, false));
 		//TODO Tabelle einf�gen und dynamisch mit Zutaten und Mengenangaben f�llen
+		Table table = new Table(contentBL, SWT.NONE);
+		TableColumn col1 = new TableColumn(table, SWT.NONE);
+		col1.setText("Zutat");
+		TableColumn col2 = new TableColumn(table, SWT.NONE);
+		col2.setText("Menge");
+		
+		for(Ingredient ingredient : recipe.getIngredients()){
+			TableItem ti = new TableItem(table, SWT.NONE);
+			ti.setText(0, ingredient.getNameId()+"");
+			ti.setText(1,ingredient.getQuantity()+" "+ingredient.getUnit().name());
+		}
 		
 		Composite contentBR = new Composite(content, SWT.NONE);
 		contentBR.setLayout(new GridLayout(1, false));
 		Text method = new Text(contentBR, SWT.BORDER);
 		method.setEditable(false);
 		method.setTouchEnabled(true);
-		method.setText("method"); //TODO getMethod() einf�gen
+		method.setText(recipe.getDescription()); //TODO getMethod() einf�gen
 		
 	}
 

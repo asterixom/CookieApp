@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
@@ -114,35 +116,33 @@ public class RecipeSearch implements FolderItem {
 		for (Recipe recipe : recipes) {
 			System.err.println("Added button for " + recipe.getName());
 			final Recipe recipeToShow = recipe;
-			Button recipeNameLabel = new Button(resultComposite, SWT.NONE);
+			Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
 			recipeNameLabel.setText(recipe.getName());
-			recipeNameLabel.addSelectionListener(new SelectionAdapter() {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+			/*
+			 * recipeNameLabel.addSelectionListener(new SelectionAdapter() {
+			 * private static final long serialVersionUID = 1L;
+			 * 
+			 * public void widgetSelected(SelectionEvent e) {
+			 * showRecipe(recipeToShow); System.err.println("KLICK!"); } });
+			 */
+			recipeNameLabel.addMouseListener(new MouseListener() {
+				private static final long serialVersionUID = -5558483000466339886L;
 
-				public void widgetSelected(SelectionEvent e) {
+				@Override
+				public void mouseUp(MouseEvent e) {
 					showRecipe(recipeToShow);
-					System.err.println("KLICK!");
+				}
+
+				@Override
+				public void mouseDown(MouseEvent e) {
+					// TODO Auto-generated method stub
+				}
+
+				@Override
+				public void mouseDoubleClick(MouseEvent e) {
+					// TODO Auto-generated method stub
 				}
 			});
-			// recipeNameLabel.addMouseListener(new MouseListener() {
-			// private static final long serialVersionUID =
-			// -5558483000466339886L;
-			// @Override
-			// public void mouseUp(MouseEvent e) {
-			// showRecipe(recipeToShow);
-			// }
-			// @Override
-			// public void mouseDown(MouseEvent e) {
-			// // TODO Auto-generated method stub
-			// }
-			// @Override
-			// public void mouseDoubleClick(MouseEvent e) {
-			// // TODO Auto-generated method stub
-			// }
-			// });
 			// showRecipe(recipeToShow);
 		}
 		parent.redraw();
