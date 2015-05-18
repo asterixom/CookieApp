@@ -63,7 +63,7 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
-		User user = dataService.login(userORmail, password);
+		User user = dataService.login(userORmail.toLowerCase(), password);
 		if (user == null) {
 			return false;
 		} else {
@@ -83,7 +83,7 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)){
 			throw new NoSessionException();
 		}
-		User user = dataService.register(username, password, eMail);
+		User user = dataService.register(username.toLowerCase(), password, eMail.toLowerCase());
 		if (user == null) {
 			return false;
 		}
@@ -168,12 +168,13 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
+//		name = name.toLowerCase();
 		//ArrayList<Recipe> recipe = dataService.getRecipesWithName(name);
 		ArrayList<Recipe> recipe = new ArrayList<>();
-		if(name.contains("Lasagne")){
+		if(name.toLowerCase().contains("lasagne")){
 			recipe.add(new TempRecipe(new Long(1001001), "Lasagne"));
 		}
-		if(name.contains("Burger")){
+		if(name.toLowerCase().contains("burger")){
 			recipe.add(new TempRecipe(new Long(2002002), "Burger"));
 		}
 		
