@@ -13,6 +13,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
@@ -81,19 +82,7 @@ public class RecipeSearch implements FolderItem {
 		blankLabel2.setVisible(false);
 
 		resultComposite = new Composite(content, SWT.NONE);
-		Label blankLabel3 = new Label(resultComposite, SWT.NONE);
-		blankLabel3.setVisible(false);
-		Label resultHeader = new Label(resultComposite, SWT.BOLD);
-		resultHeader.setText("Ergebnisse:");
-		// resultHeader.setVisible(true);
 		resultComposite.setLayout(new FillLayout(SWT.VERTICAL));
-		firstResult = new Label(resultComposite, SWT.NONE);
-		firstResult.setText("Lasagne");
-		secondResult = new Label(resultComposite, SWT.NONE);
-		secondResult.setText("Cheeseburger");
-		secondResult.setVisible(false);
-		resultComposite.setVisible(false);
-
 		return content;
 	}
 
@@ -111,8 +100,13 @@ public class RecipeSearch implements FolderItem {
 
 	public Composite showResults(final Composite parent,
 			final ArrayList<Recipe> recipes) {
-		Composite resultComposite = new Composite(parent, SWT.NONE);
-		resultComposite.setLayout(new GridLayout(1, true));
+//		Composite resultComposite = new Composite(parent, SWT.NONE);
+//		resultComposite.setLayout(new GridLayout(1, true));
+		for(Control control : resultComposite.getChildren()){
+			control.dispose();
+		}
+		Label resultHeader = new Label(resultComposite, SWT.BOLD);
+		resultHeader.setText("Ergebnisse:");
 		for (Recipe recipe : recipes) {
 			System.err.println("Added button for " + recipe.getName());
 			final Recipe recipeToShow = recipe;
