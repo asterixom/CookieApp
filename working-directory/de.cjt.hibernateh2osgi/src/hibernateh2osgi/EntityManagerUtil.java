@@ -21,8 +21,9 @@ public class EntityManagerUtil {
 			Bundle thisBundle = FrameworkUtil.getBundle( EntityManagerUtil.class );
 			// Could get this by wiring up OsgiTestBundleActivator as well.
 			BundleContext context = thisBundle.getBundleContext();
-
+			System.err.println(PersistenceProvider.class.getName());
 			ServiceReference serviceReference = context.getServiceReference( PersistenceProvider.class.getName() );
+			System.err.println(serviceReference.toString());
 			PersistenceProvider persistenceProvider = (PersistenceProvider) context.getService( serviceReference );
 			entityManagerFactory = persistenceProvider.createEntityManagerFactory( "test", null);
 		}
