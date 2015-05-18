@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import de.cookieapp.control.exceptions.CookieAppException;
-import de.cookieapp.control.model.RecipeInfo;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
@@ -26,7 +25,7 @@ public interface ControlService {
 	public TreeMap<Long, String> getRecipesOfCurrentUser(Long sessionId) throws CookieAppException;
 	public TreeMap<Long, String> getFavorites(Long sessionId) throws CookieAppException;
 	
-	public RecipeInfo getRecipe(Long sessionId, Long recipeID) throws CookieAppException;
+	public Recipe getRecipe(Long sessionId, Long recipeID) throws CookieAppException;
 	User getCurrentUser(Long sessionId) throws CookieAppException;
-	ArrayList<de.cookieapp.dataimpl.Recipe> getRecipeByName(Long sessionId, String name)	throws CookieAppException;
+	ArrayList<Recipe> getRecipeByName(Long sessionId, String name)	throws CookieAppException;
 }

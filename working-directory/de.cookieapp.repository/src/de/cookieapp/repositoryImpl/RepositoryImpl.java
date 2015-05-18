@@ -3,8 +3,8 @@ package de.cookieapp.repositoryImpl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.cookieapp.dataimpl.User;
-import de.cookieapp.dataimpl.Recipe;
+import de.cookieapp.data.model.User;
+import de.cookieapp.data.model.Recipe;
 import de.cookieapp.repository.Repository;
 
 
@@ -53,7 +53,7 @@ public class RepositoryImpl implements Repository {
 			Date date = new Date();
 			date.setTime(System.currentTimeMillis());
 			long id = userRepository.size() + 1;
-			user = new User(id, name, password, mail, date, null, null);
+			user = new de.cookieapp.dataimpl.UserImpl(id, name, password, mail, date, null, null);
 			userRepository.add(user);
 		} 
 		return user;
@@ -65,7 +65,7 @@ public class RepositoryImpl implements Repository {
 			Date date = new Date();
 			date.setTime(System.currentTimeMillis());
 			Long id = (long) (recipeRepository.size() + 1);
-			recipe = new Recipe(id, name, description, date, null, null, null);
+			recipe = new de.cookieapp.dataimpl.RecipeImpl(id, name, description, date, null, null, null);
 			recipeRepository.add(recipe);
 		}
 		return recipe;

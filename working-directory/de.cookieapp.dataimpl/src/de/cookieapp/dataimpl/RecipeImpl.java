@@ -15,14 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import de.cookieapp.data.model.Comment;
-import de.cookieapp.data.model.Recommendation;
 import de.cookieapp.data.model.Ingredient;
+import de.cookieapp.data.model.Recommendation;
+import de.cookieapp.data.model.User;
 
 
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class Recipe implements de.cookieapp.data.model.Recipe {
+public class RecipeImpl implements de.cookieapp.data.model.Recipe {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
@@ -60,7 +61,7 @@ public class Recipe implements de.cookieapp.data.model.Recipe {
 	 * @param comments
 	 * @param ingredients
 	 */
-	public Recipe(Long id, String name, String description, Date created,
+	public RecipeImpl(Long id, String name, String description, Date created,
 			User creator, ArrayList<Comment> comments, ArrayList<Ingredient> ingredients) {
 		this.id = id;
 		this.name = name;
@@ -97,7 +98,7 @@ public class Recipe implements de.cookieapp.data.model.Recipe {
 	public User getCreator() {
 		return creator;
 	}
-	public void setCreator(User creator) {
+	public void setCreator(UserImpl creator) {
 		this.creator = creator;
 	}
 	public ArrayList<Comment> getComments() {

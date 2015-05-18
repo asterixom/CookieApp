@@ -3,8 +3,8 @@ package de.cookieapp.repository;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.cookieapp.dataimpl.Recipe;
-import de.cookieapp.dataimpl.User;
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
 
 public interface Repository {
 

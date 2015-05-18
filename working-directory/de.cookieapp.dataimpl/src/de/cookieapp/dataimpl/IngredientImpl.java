@@ -14,7 +14,7 @@ import de.cookieapp.data.model.Units;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Ingredient implements de.cookieapp.data.model.Ingredient {
+public class IngredientImpl implements de.cookieapp.data.model.Ingredient {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -33,7 +33,7 @@ public class Ingredient implements de.cookieapp.data.model.Ingredient {
 	@OneToMany
 	private Nutrient nutrient;
 	
-	public Ingredient(Long id, Double quantity, Units unit, Nutrient nutrient) {
+	public IngredientImpl(Long id, Double quantity, Units unit, Nutrient nutrient) {
 		this.id = id;
 		
 		this.quantity = quantity;

@@ -31,7 +31,7 @@ import javax.persistence.OneToMany;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 // für jede Klasse wird eine neue Tabelle erstellt
-public class Comment implements de.cookieapp.data.model.Comment {
+public class CommentImpl implements de.cookieapp.data.model.Comment {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -42,12 +42,12 @@ public class Comment implements de.cookieapp.data.model.Comment {
 	private String text;
 	
 	@OneToMany
-	private User creator;
+	private UserImpl creator;
 	
 	@Column(name="CREATED", nullable=false)
 	private Date created;
 	
-	public Comment(Long id, String text, User creator, Date created) {
+	public CommentImpl(Long id, String text, UserImpl creator, Date created) {
 		this.id = id;
 		this.text = text;
 		this.creator = creator;
@@ -60,7 +60,7 @@ public class Comment implements de.cookieapp.data.model.Comment {
 	 public void setCreated(Date created) {
 		this.created = created;
 	}
-	 public void setCreator(User creator) {
+	 public void setCreator(UserImpl creator) {
 		this.creator = creator;
 	}
 	 public void setId(Long id) {
@@ -72,7 +72,7 @@ public class Comment implements de.cookieapp.data.model.Comment {
 	 public Date getCreated() {
 		return created;
 	}
-	 public User getCreator() {
+	 public UserImpl getCreator() {
 		return creator;
 	}
 	 public Long getId() {

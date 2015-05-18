@@ -13,7 +13,7 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class Nutrient implements de.cookieapp.data.model.Nutrient {
+public class NutrientImpl implements de.cookieapp.data.model.Nutrient {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
@@ -38,7 +38,7 @@ public class Nutrient implements de.cookieapp.data.model.Nutrient {
 	@Column(name="FAT")
 	private Double fat;
 	
-	public Nutrient(Long id, HashMap<Long, String> names, Double calorificValue, Double carbon,
+	public NutrientImpl(Long id, HashMap<Long, String> names, Double calorificValue, Double carbon,
 			Double sugar, Double protein, Double fat) {
 		this.id = id;
 		this.names = names;

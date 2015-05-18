@@ -1,6 +1,7 @@
 package de.cookieapp.gui.profile;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
@@ -13,10 +14,11 @@ import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Profile implements FolderItem {
 	
+	@SuppressWarnings("unused")
 	private Long sessionID;
 
 	@Override
-	public Composite getContent(Composite tabFolder) {
+	public Composite getContent(CTabFolder tabFolder) {
 		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
 		
@@ -91,7 +93,6 @@ public class Profile implements FolderItem {
 	public void setSessionID(Long sessionID) {
 		this.sessionID = sessionID;
 	}
-	
 
 
 	@Override

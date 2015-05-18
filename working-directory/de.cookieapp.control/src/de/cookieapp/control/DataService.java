@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.xml.bind.DatatypeConverter;
 
-import de.cookieapp.dataimpl.Recipe;
+import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
 import de.cookieapp.repository.Repository;

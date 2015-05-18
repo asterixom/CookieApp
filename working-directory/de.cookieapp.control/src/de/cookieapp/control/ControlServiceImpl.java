@@ -1,6 +1,7 @@
 package de.cookieapp.control;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.TreeMap;
@@ -9,8 +10,10 @@ import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.control.exceptions.NoSessionException;
 import de.cookieapp.control.exceptions.NoSuchRecipeException;
 import de.cookieapp.control.exceptions.NotLoggedInException;
-import de.cookieapp.control.model.RecipeInfo;
+import de.cookieapp.data.model.Comment;
+import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.Recommendation;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
 import de.cookieapp.repository.Repository;
@@ -60,7 +63,7 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
-		User user = dataService.login(userORmail, password);
+		User user = dataService.login(userORmail.toLowerCase(), password);
 		if (user == null) {
 			return false;
 		} else {
@@ -80,7 +83,7 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)){
 			throw new NoSessionException();
 		}
-		User user = dataService.register(username, password, eMail);
+		User user = dataService.register(username.toLowerCase(), password, eMail.toLowerCase());
 		if (user == null) {
 			return false;
 		}
@@ -146,7 +149,7 @@ public class ControlServiceImpl implements ControlService {
 	}
 	
 	@Override
-	public RecipeInfo getRecipe(Long sessionId, Long recipeID)
+	public Recipe getRecipe(Long sessionId, Long recipeID)
 			throws CookieAppException {
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
@@ -155,22 +158,187 @@ public class ControlServiceImpl implements ControlService {
 		if (recipe == null) {
 			throw new NoSuchRecipeException();
 		}
-		return new RecipeInfo(recipe);
+		return recipe;
 	}
 	
 	@Override
-	public ArrayList<de.cookieapp.dataimpl.Recipe> getRecipeByName(Long sessionId, String name)
+	public ArrayList<Recipe> getRecipeByName(Long sessionId, String name)
 			throws CookieAppException {
+		
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
-		ArrayList<de.cookieapp.dataimpl.Recipe> recipe = dataService.getRecipesWithName(name);
-		if (recipe == null) {
+//		name = name.toLowerCase();
+		//ArrayList<Recipe> recipe = dataService.getRecipesWithName(name);
+		ArrayList<Recipe> recipe = new ArrayList<>();
+		if(name.toLowerCase().contains("lasagne")){
+			recipe.add(new TempRecipe(new Long(1001001), "Lasagne"));
+		}
+		if(name.toLowerCase().contains("burger")){
+			recipe.add(new TempRecipe(new Long(2002002), "Burger"));
+		}
+		
+		if (recipe == null||recipe.size()<=0) {
 			throw new NoSuchRecipeException();
 		}
 		return recipe;
 	}
 
+	class TempRecipe implements Recipe{
+
+		private Long id;
+		private String name;
+		private String description = "";
+		private Date created;
+		
+		public TempRecipe(Long id, String name){
+			this.id = id;
+			this.name = name;
+			created = new Date();
+		}
+		
+		@Override
+		public Long getId() {
+			return id;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String getDescription() {
+			return description;
+		}
+
+		@Override
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		@Override
+		public Date getCreated() {
+			return created;
+		}
+
+		@Override
+		public User getCreator() {
+			return new User() {
+				
+				@Override
+				public void setSecurityClearance(SecurityClearance i) {
+				}
+				
+				@Override
+				public void setPassword(String password) {
+				}
+				
+				@Override
+				public void setName(String name) {
+				}
+				
+				@Override
+				public void setMail(String mail) {
+				}
+				
+				@Override
+				public SecurityClearance getSecurityClearance() {
+					return SecurityClearance.USER;
+				}
+				
+				@Override
+				public ArrayList<Recipe> getRecipes() {
+					return new ArrayList<>();
+				}
+				
+				@Override
+				public String getName() {
+					return "USER";
+				}
+				
+				@Override
+				public String getMail() {
+					return "mail@test.de";
+				}
+				
+				@Override
+				public ArrayList<Recipe> getFavorites() {
+					return new ArrayList<>();
+				}
+				
+				@Override
+				public Date getCreated() {
+					return new Date();
+				}
+				
+				@Override
+				public boolean checkPassword(String password) {
+					return false;
+				}
+				
+				@Override
+				public void addRecipe(Recipe recipe) {
+				}
+				
+				@Override
+				public void addFavorite(Recipe recipe) {
+				}
+			};
+		}
+
+		@Override
+		public ArrayList<Ingredient> getIngredients() {
+			return new ArrayList<>();
+		}
+
+		@Override
+		public void addIngredient(Ingredient ingredient) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void removeIngredient(Ingredient ingredient) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public ArrayList<Comment> getComments() {
+			return new ArrayList<>();
+		}
+
+		@Override
+		public void addComment(Comment comment) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void removeComment(Comment comment) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public ArrayList<Recommendation> getRecommendations() {
+			return new ArrayList<>();
+		}
+
+		@Override
+		public void addRecommendation(Recommendation recommendation) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void removeRecommendation(Recommendation recommendation) {
+			// TODO Auto-generated method stub
+		}
+		
+	}
+	
 	@Override
 	public boolean changePassword(Long sessionId, String currentPassword,
 			String newPassword) throws CookieAppException {

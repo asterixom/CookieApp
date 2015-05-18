@@ -8,11 +8,13 @@ import java.util.List;
 import org.eclipse.rap.rwt.application.AbstractEntryPoint;
 import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
@@ -20,13 +22,10 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -44,11 +43,11 @@ public class MainPage extends AbstractEntryPoint {
 	private Composite loginComposite;
 	private Composite homeControlComposite;
 	
-	private TabFolder tabFolder;
+	private CTabFolder tabFolder;
 	
 	private List<FolderItem> folderItems = new ArrayList<FolderItem>();
 	protected List<Composite> folderItemComposites = new ArrayList<Composite>();
-	private List<TabItem> tabItems = new ArrayList<TabItem>();
+	private List<CTabItem> tabItems = new ArrayList<CTabItem>();
 	private BundleContext context = FrameworkUtil.getBundle(getClass()).getBundleContext();
 	private ControlService controlService;
 	private ServiceTracker<FolderItem, FolderItem> serviceTrackerTabItem;
@@ -101,7 +100,8 @@ public class MainPage extends AbstractEntryPoint {
 
 
 	private Composite createTabFolderComposite(Composite parent) {
-		tabFolder = new TabFolder(parent, SWT.NONE);
+		tabFolder = new CTabFolder(parent, SWT.NONE);
+		tabFolder.setBackground(new Color(null,0xf0,0xf0,0xf0));
 		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
 		tabFolder.setSize(CONTENT_WITH, parent.getSize().y - HEADER_HEIGHT);
 //		tabFolder.addSelectionListener(new SelectionAdapter() {
@@ -298,7 +298,7 @@ public class MainPage extends AbstractEntryPoint {
 					folderItemComposites.add(folderItemComposite);		
 
 					//The New Tab for the Composite
-					TabItem tabItem = new TabItem(tabFolder, SWT.NONE);
+					CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
 					tabItem.setText(folderItem.getTabItemName());
 					tabItem.setControl(folderItemComposite);
 					tabItems.add(tabItem);	

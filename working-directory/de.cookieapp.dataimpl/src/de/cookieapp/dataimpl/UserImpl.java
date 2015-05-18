@@ -18,7 +18,7 @@ import de.cookieapp.data.model.Recipe;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 // für jede Klasse wird eine neue Tabelle erstellt
-public class User implements de.cookieapp.data.model.User{
+public class UserImpl implements de.cookieapp.data.model.User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "USERID")
@@ -54,7 +54,7 @@ public class User implements de.cookieapp.data.model.User{
 	 * @param recipe if null, creates new ArrayList
 	 * @param favorites if null, creates new ArrayList
 	 */
-	public User(Long id, String name, String password, String eMail,
+	public UserImpl(Long id, String name, String password, String eMail,
 			Date created, ArrayList<Recipe> recipe, ArrayList<Recipe> favorites) {
 		this.id = id;
 		this.name = name;
