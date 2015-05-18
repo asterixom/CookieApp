@@ -1,4 +1,4 @@
-package de.cjt.hibernateh2osgi;
+package hibernateh2osgi;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -39,12 +39,12 @@ public class Recipe {
 	@ManyToOne
 	@JoinColumn(name = "USERID")
 	private User creator;
-
+/*
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "USER", joinColumns = { @JoinColumn(name = "USERID") }, 
 	inverseJoinColumns = { @JoinColumn(name = "RECIPEID") })
 	private Set<Recipe> userFavorites;
-
+*/
 	public String getName() {
 		return name;
 	}
@@ -87,7 +87,7 @@ public class Recipe {
 		this.id = id;
 	}
 
-	
+	/*
 	public void addRecipeToFavorites(Recipe favo){
 		userFavorites.add(favo);
 	}
@@ -95,7 +95,7 @@ public class Recipe {
 	public void deleteRecipeFromFavorites(Recipe favo){
 		userFavorites.remove(favo);
 	}
-
+*/
 	public Recipe(Long id, String name, String description, Date created,
 			User creator) {
 		this.id = id;

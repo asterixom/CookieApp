@@ -1,4 +1,4 @@
-package de.cjt.hibernateh2osgi;
+package hibernateh2osgi;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -40,9 +40,11 @@ public class User implements java.io.Serializable {
 	@Column(name = "CREATED")
 	private Date created;
 
+	/*
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
 
+	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
 	private Set<Recipe> favorites;
 
@@ -61,7 +63,7 @@ public class User implements java.io.Serializable {
 	public void deleteFavoriteRecipe(Recipe recipe) {
 		recipes.remove(recipe);
 	}
-
+*/
 	public String getName() {
 		return name;
 	}
@@ -94,6 +96,7 @@ public class User implements java.io.Serializable {
 		this.created = created;
 	}
 
+	/*
 	public Set<Recipe> getFavorites() {
 		return favorites;
 	}
@@ -102,6 +105,7 @@ public class User implements java.io.Serializable {
 		this.favorites = favorite;
 	}
 
+*/
 	public Long getId() {
 		return id;
 	}
@@ -111,14 +115,14 @@ public class User implements java.io.Serializable {
 	}
 
 	public User(Long id, String name, String password, String eMail,
-			Date created, Set<Recipe> recipe, Set<Recipe> favorites) {
+			Date created /*,Set<Recipe> recipe, Set<Recipe> favorites*/) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.eMail = eMail;
 		this.created = created;
-		this.recipes = recipe;
-		this.favorites = favorites;
+		//this.recipes = recipe;
+		//this.favorites = favorites;
 	}
 
 	public User() {
@@ -126,18 +130,18 @@ public class User implements java.io.Serializable {
 	}
 
 	public User createUser(String name, String password, String eMail,
-			Date created, Set<Recipe> recipe, Set<Recipe> favorites) {
+			Date created /*, Set<Recipe> recipe, Set<Recipe> favorites*/) {
 		User temp = new User();
 		temp.seteMail(eMail);
 		temp.setName(name);
 		temp.setPassword(password);
-		temp.setFavorites(favorites);
-		temp.setRecipes(recipe);
+		//temp.setFavorites(favorites);
+		//temp.setRecipes(recipe);
 		temp.setCreated(created);
 		return temp;
 
 	}
-
+/*
 	public void addRecipe(Recipe recipe) {
 		recipes.add(recipe);
 	}
@@ -145,7 +149,7 @@ public class User implements java.io.Serializable {
 	public void deleteRecipe(Recipe recipe) {
 		recipes.remove(recipe);
 	}
-
+*/
 	public void debugDump() {
 		System.out.println("Debug: User: Username: [" + this.name + "] + eMail: [" + this.eMail + "] + ID: [" + this.id + "]");
 	}

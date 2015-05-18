@@ -1,26 +1,24 @@
-package de.cjt.hibernateh2osgi;
+package hibernateh2osgi;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 //EclipseLink JPA With H2 Example
 
 public class DataProviderImpl {
 
-	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
+	private EntityManager entityManager;
 
-	public static void main(String[] args) {
-		DataProviderImpl cookie = new DataProviderImpl();
+	public void main() {
+		this.entityManager = EntityManagerUtil.getEntityManager();
 
 		User mo = new User();
-		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
-				new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
-		//cookie.saveUser(mo);
+		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de", new Date() /*, new HashSet<Recipe>(), new HashSet<Recipe>()*/);
+		saveUser(mo);
+		/*
 		Recipe re = new Recipe();
 		re = re.createRecipe("Lasagne", "blablabla",
 				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
@@ -35,18 +33,16 @@ public class DataProviderImpl {
 		cookie.saveRecipe(re);
 		cookie.saveRecipe(ra);
 		cookie.saveRecipe(ru);
-
-		// cookie.listAllRecipe();
-
-		 User temp =
-		 cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
-		
+*/
+		 User temp = getUser(getUserID("Moritz.gabriel@gmx.de"));
+		 temp.debugDump();
+		 /*
 		 Set<Recipe> recipes = temp.getRecipes();
 		 Iterator<Recipe> iter = recipes.iterator();
 		 while (iter.hasNext()) {
 		 System.out.println(iter.next().getName());
 		 }
-
+*/
 //		Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
 //		System.out.println(temp.getCreator().getName());
 
@@ -65,8 +61,6 @@ public class DataProviderImpl {
 //		 for (int i = 0; i < users.size(); i++) {
 //		 System.out.println(users.get(i).getPassword());
 //		 }
-
-		// System.out.println(cookie.isUserAlreadySaved(mo));
 	}
 
 	public List<User> listAllUsers() {
@@ -81,9 +75,7 @@ public class DataProviderImpl {
 
 	public boolean isUserAlreadySaved(User user) {
 		@SuppressWarnings("unchecked")
-		List<User> usertemp = entityManager.createQuery(
-				"from User s where s.eMail='" + user.geteMail() + "'")
-				.getResultList();
+		List<User> usertemp = entityManager.createQuery("from User s where s.eMail='" + user.geteMail() + "'").getResultList();
 		if (usertemp.isEmpty()) {
 			return false;
 		} else {
@@ -115,13 +107,11 @@ public class DataProviderImpl {
 
 	public long getUserID(String eMail) {
 		long id = 0;
-		@SuppressWarnings("unchecked")
-		List<User> usertemp = entityManager.createQuery(
-				"from User s where s.eMail='" + eMail + "'").getResultList();
+		Query tempQuery = this.entityManager.createQuery("from User s where s.eMail='" + eMail + "'");
+		List<User> usertemp = tempQuery.getResultList();
 		if (usertemp.size() == 1) {
 			id = usertemp.get(0).getId();
 		}
-
 		return id;
 	}
 
@@ -144,8 +134,7 @@ public class DataProviderImpl {
 	public List<Recipe> listAllRecipe() {
 		entityManager.getTransaction().begin();
 		@SuppressWarnings("unchecked")
-		List<Recipe> recipetemp = entityManager.createQuery("from Recipe")
-				.getResultList();
+		List<Recipe> recipetemp = entityManager.createQuery("from Recipe").getResultList();
 		entityManager.getTransaction().commit();
 		System.out.println(recipetemp.get(0).getName());
 
