@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Register implements FolderItem{
@@ -126,6 +127,13 @@ public class Register implements FolderItem{
 	
 	@Override
 	public void setSpecificProperty(Object property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setLogedInUser(User user) {
 		// TODO Auto-generated method stub
 		
 	}

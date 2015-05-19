@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Profile implements FolderItem {
@@ -98,6 +99,12 @@ public class Profile implements FolderItem {
 	@Override
 	public String getTabItemName() {
 		return "Mein Profil";
+	}
+
+	@Override
+	public void setLogedInUser(User user) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
