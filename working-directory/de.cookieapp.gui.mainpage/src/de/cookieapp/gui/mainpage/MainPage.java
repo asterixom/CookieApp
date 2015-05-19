@@ -105,16 +105,6 @@ public class MainPage extends AbstractEntryPoint {
 		tabFolder.setBackground(new Color(null,0xf0,0xf0,0xf0));
 		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
 		tabFolder.setSize(CONTENT_WITH, parent.getSize().y - HEADER_HEIGHT);
-//		tabFolder.addSelectionListener(new SelectionAdapter() {
-//			private static final long serialVersionUID = 1L;
-//			public void widgetSelected(SelectionEvent e) {
-//				/*
-//				int i = tabFolder.getSelectionIndex();
-//				lower_textfield.setText(numeralSystems.get(i).getBackup());
-//				ergebnis = false;
-//				 */
-//			}
-//		});
 		FormData tabFormData = new FormData();
 		tabFormData.top = new FormAttachment(homeControlComposite, 10);
 		tabFormData.left = new FormAttachment(50, -CONTENT_WITH);
@@ -241,6 +231,7 @@ public class MainPage extends AbstractEntryPoint {
 					for (FolderItem folderitem : folderItems) {
 						folderitem.setLogedInUser(user);
 					}
+					addSessionIDToTabs(sessionID);
 					//TODO implement real database with user
 				}
 			} catch (CookieAppException e1) {
@@ -251,7 +242,10 @@ public class MainPage extends AbstractEntryPoint {
 		}
 	}
 
-
+	/**
+	 * This function sets a background image for the given Composite
+	 * @param parent the Composite, which should have the default background image
+	 */
 	private void setBackgroundImage(Composite parent) {
 		Image backgroundImage = loadImage(BACKGROUNDIMAGE);
 		final int width = backgroundImage.getBounds().width;
@@ -261,7 +255,11 @@ public class MainPage extends AbstractEntryPoint {
 		parent.setBackgroundMode(SWT.INHERIT_DEFAULT);
 	}
 
-
+	/**
+	 * Loads the Image at the given path, transforms it into an Image
+	 * @param name the full path of the image
+	 * @return the Image, which was located at the given path
+	 */
 	public Image loadImage(String name) {
 		Image result = null;
 		InputStream stream = MainPage.class.getClassLoader().getResourceAsStream( name );
@@ -352,6 +350,10 @@ public class MainPage extends AbstractEntryPoint {
 		}
 	}
 
+	/**
+	 * starts the ServiceTracker, which adds the started tabs to the list 
+	 * and registers a osgi listener, which will be activated, if a tab service will be started
+	 */
 	public void startTabItemSeviceTracker() {
 		serviceTrackerTabItem = new ServiceTracker<FolderItem, FolderItem>(context, FolderItem.class,
 				new ServiceTrackerCustomizer<FolderItem, FolderItem>() {
@@ -382,13 +384,16 @@ public class MainPage extends AbstractEntryPoint {
 		//started = true;
 	}
 
-	public void stopNumeralSystem() {
+	public void stopTabItemSeviceTracker() {
 		if(serviceTrackerTabItem != null)
 			serviceTrackerTabItem.close();
 	}
 
+	/**
+	 * Updated the Page without reloading it
+	 * @param runnable
+	 */
 	public void updateContent(final Runnable runnable) {
-
 		Runnable bgRunnable = new Runnable() {
 			public void run() {
 				if (parent != null) { 
@@ -403,6 +408,10 @@ public class MainPage extends AbstractEntryPoint {
 		bgThread.start();
 	}
 
+	/**
+	 * starts the ServiceTracker, which adds the started ControlService 
+	 * and registers a osgi listener, which will be activated, if a ControlService will be started
+	 */
 	public void startControlServiceSeviceTracker() {
 		serviceTrackerControlService = new ServiceTracker<ControlService, ControlService>(context, ControlService.class,
 				new ServiceTrackerCustomizer<ControlService, ControlService>() {
