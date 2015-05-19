@@ -35,6 +35,7 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class MainPage extends AbstractEntryPoint {
@@ -163,7 +164,6 @@ public class MainPage extends AbstractEntryPoint {
 					passwortText.setVisible(false);
 					loginButton.setText("Ausloggen");
 					System.out.println("test");
-
 				}
 			};
 			updateContent(runnable);
@@ -237,6 +237,11 @@ public class MainPage extends AbstractEntryPoint {
 				if (nameText.getText().equals(controlService.getCurrentUserName(sessionID)) ||
 						nameText.getText().equals(controlService.getCurrentUser(sessionID).getMail())) {
 					loggedinHeader(controlService.getCurrentUserName(sessionID));
+					User user = controlService.getCurrentUser(sessionID);
+					for (FolderItem folderitem : folderItems) {
+						folderitem.setLogedInUser(user);
+					}
+					//TODO implement real database with user
 				}
 			} catch (CookieAppException e1) {
 				// TODO Auto-generated catch block
