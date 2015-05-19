@@ -63,9 +63,9 @@ public class MainPage extends AbstractEntryPoint {
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
 	private static final String LOGO = "resources/Logo.png";
 	private Long sessionID;
+	
 	private Text nameText;
 	private Text passwortText;
-
 	private Label nameLabel;
 	private Label passwordLabel;
 	private Button loginButton;
@@ -86,13 +86,12 @@ public class MainPage extends AbstractEntryPoint {
 		if (controlService != null) {
 			sessionID = controlService.createSession();
 		} else {
-			System.err.println("ControlSerive Not Found!");
+			System.err.println("ControlService Not Found!");
 		}
 
 		setBackgroundImage(parent);
 		createLoginComposite(parent);
 		createTabFolderComposite(parent);
-
 
 		if (sessionID != null) {
 			addSessionIDToTabs(sessionID);
