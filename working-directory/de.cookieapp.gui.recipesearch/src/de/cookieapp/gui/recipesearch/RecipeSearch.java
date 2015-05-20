@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Text;
 import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 import de.cookieapp.gui.recipe.RecipeTabImpl;
 
@@ -208,5 +209,11 @@ public class RecipeSearch implements FolderItem {
 		Thread bgThread = new Thread(bgRunnable);
 		bgThread.setDaemon(true);
 		bgThread.start();
+	}
+
+	@Override
+	public void setLogedInUser(User user) {
+		// TODO Auto-generated method stub
+		
 	}
 }

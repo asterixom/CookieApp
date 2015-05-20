@@ -3,10 +3,10 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="dependencies/hibernate-entitymanager-4.3.9.Final.jar"/>
-	<classpathentry kind="lib" path="dependencies/h2-1.4.187.jar"/>
-	<classpathentry kind="lib" path="dependencies/hibernate-core-4.3.9.Final.jar"/>
-	<classpathentry kind="lib" path="dependencies/javassist-3.19.0-GA.jar"/>
-	<classpathentry kind="lib" path="dependencies/javax.persistence-2.1.0.jar"/>
+	<classpathentry kind="lib" path="/working directory/jars/hibernate-entitymanager-4.3.10.Final.jar"/>
+	<classpathentry kind="lib" path="/working directory/jars/h2-1.4.187.jar"/>
+	<classpathentry kind="lib" path="/working directory/jars/hibernate-core-4.3.10.Final.jar"/>
+	<classpathentry kind="lib" path="/working directory/jars/javassist-3.18.1-GA.jar"/>
+	<classpathentry kind="lib" path="/working directory/jars/javax.persistence-2.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

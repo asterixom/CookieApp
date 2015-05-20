@@ -35,6 +35,7 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class MainPage extends AbstractEntryPoint {
@@ -62,9 +63,9 @@ public class MainPage extends AbstractEntryPoint {
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
 	private static final String LOGO = "resources/Logo.png";
 	private Long sessionID;
+	
 	private Text nameText;
 	private Text passwortText;
-
 	private Label nameLabel;
 	private Label passwordLabel;
 	private Button loginButton;
@@ -85,13 +86,12 @@ public class MainPage extends AbstractEntryPoint {
 		if (controlService != null) {
 			sessionID = controlService.createSession();
 		} else {
-			System.err.println("ControlSerive Not Found!");
+			System.err.println("ControlService Not Found!");
 		}
 
 		setBackgroundImage(parent);
 		createLoginComposite(parent);
 		createTabFolderComposite(parent);
-
 
 		if (sessionID != null) {
 			addSessionIDToTabs(sessionID);
@@ -104,16 +104,6 @@ public class MainPage extends AbstractEntryPoint {
 		tabFolder.setBackground(new Color(null,0xf0,0xf0,0xf0));
 		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
 		tabFolder.setSize(CONTENT_WITH, parent.getSize().y - HEADER_HEIGHT);
-//		tabFolder.addSelectionListener(new SelectionAdapter() {
-//			private static final long serialVersionUID = 1L;
-//			public void widgetSelected(SelectionEvent e) {
-//				/*
-//				int i = tabFolder.getSelectionIndex();
-//				lower_textfield.setText(numeralSystems.get(i).getBackup());
-//				ergebnis = false;
-//				 */
-//			}
-//		});
 		FormData tabFormData = new FormData();
 		tabFormData.top = new FormAttachment(homeControlComposite, 10);
 		tabFormData.left = new FormAttachment(50, -CONTENT_WITH);
@@ -163,7 +153,6 @@ public class MainPage extends AbstractEntryPoint {
 					passwortText.setVisible(false);
 					loginButton.setText("Ausloggen");
 					System.out.println("test");
-
 				}
 			};
 			updateContent(runnable);
@@ -237,6 +226,12 @@ public class MainPage extends AbstractEntryPoint {
 				if (nameText.getText().equals(controlService.getCurrentUserName(sessionID)) ||
 						nameText.getText().equals(controlService.getCurrentUser(sessionID).getMail())) {
 					loggedinHeader(controlService.getCurrentUserName(sessionID));
+					User user = controlService.getCurrentUser(sessionID);
+					for (FolderItem folderitem : folderItems) {
+						folderitem.setLogedInUser(user);
+					}
+					addSessionIDToTabs(sessionID);
+					//TODO implement real database with user
 				}
 			} catch (CookieAppException e1) {
 				// TODO Auto-generated catch block
@@ -246,7 +241,10 @@ public class MainPage extends AbstractEntryPoint {
 		}
 	}
 
-
+	/**
+	 * This function sets a background image for the given Composite
+	 * @param parent the Composite, which should have the default background image
+	 */
 	private void setBackgroundImage(Composite parent) {
 		Image backgroundImage = loadImage(BACKGROUNDIMAGE);
 		final int width = backgroundImage.getBounds().width;
@@ -256,7 +254,11 @@ public class MainPage extends AbstractEntryPoint {
 		parent.setBackgroundMode(SWT.INHERIT_DEFAULT);
 	}
 
-
+	/**
+	 * Loads the Image at the given path, transforms it into an Image
+	 * @param name the full path of the image
+	 * @return the Image, which was located at the given path
+	 */
 	public Image loadImage(String name) {
 		Image result = null;
 		InputStream stream = MainPage.class.getClassLoader().getResourceAsStream( name );
@@ -347,6 +349,10 @@ public class MainPage extends AbstractEntryPoint {
 		}
 	}
 
+	/**
+	 * starts the ServiceTracker, which adds the started tabs to the list 
+	 * and registers a osgi listener, which will be activated, if a tab service will be started
+	 */
 	public void startTabItemSeviceTracker() {
 		serviceTrackerTabItem = new ServiceTracker<FolderItem, FolderItem>(context, FolderItem.class,
 				new ServiceTrackerCustomizer<FolderItem, FolderItem>() {
@@ -377,13 +383,16 @@ public class MainPage extends AbstractEntryPoint {
 		//started = true;
 	}
 
-	public void stopNumeralSystem() {
+	public void stopTabItemSeviceTracker() {
 		if(serviceTrackerTabItem != null)
 			serviceTrackerTabItem.close();
 	}
 
+	/**
+	 * Updated the Page without reloading it
+	 * @param runnable
+	 */
 	public void updateContent(final Runnable runnable) {
-
 		Runnable bgRunnable = new Runnable() {
 			public void run() {
 				if (parent != null) { 
@@ -398,6 +407,10 @@ public class MainPage extends AbstractEntryPoint {
 		bgThread.start();
 	}
 
+	/**
+	 * starts the ServiceTracker, which adds the started ControlService 
+	 * and registers a osgi listener, which will be activated, if a ControlService will be started
+	 */
 	public void startControlServiceSeviceTracker() {
 		serviceTrackerControlService = new ServiceTracker<ControlService, ControlService>(context, ControlService.class,
 				new ServiceTrackerCustomizer<ControlService, ControlService>() {
