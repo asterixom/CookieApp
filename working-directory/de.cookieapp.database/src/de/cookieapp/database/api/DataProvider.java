@@ -6,14 +6,14 @@ import de.cookieapp.database.Recipe;
 import de.cookieapp.database.User;
 
 public interface DataProvider {
-	
+
 	public boolean login(String eMail, String password);
-	
+
 	public List<User> listAllUsers();
 
 	public boolean isUserAlreadySaved(User user);
 
-	public void saveUser(User user);
+	public long saveUser(User user);
 
 	public void deleteUser(Long userID);
 

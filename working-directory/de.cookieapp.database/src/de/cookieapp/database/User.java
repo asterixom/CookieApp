@@ -43,7 +43,7 @@ public class User implements java.io.Serializable, de.cookieapp.database.api.Use
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
 
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
+	@ManyToMany
 	private Set<Recipe> favorites;
 
 	public Set<Recipe> getRecipes() {

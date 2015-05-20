@@ -22,35 +22,42 @@ public class DataProviderImpl implements DataProvider {
 		User mo = new User();
 		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
 				new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
-		//cookie.saveUser(mo);
-		Recipe re = new Recipe();
-		re = re.createRecipe("Lasagne", "blablabla",
-				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
-		Recipe ra = new Recipe();
-		ra = ra.createRecipe("Spaghetti", "blablabla",
-				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
-		Recipe ru = new Recipe();
-		ru = ru.createRecipe("Frikadellen", "blablabla",
-				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
-		
+		User ma = new User();
+		ma = ma.createUser("mo", "test", "maritz.gabriel@gmx.de", new Date(),
+				new HashSet<Recipe>(), new HashSet<Recipe>());
+		User mi = new User();
+		mi = mi.createUser("mi", "test", "miritz.gabriel@gmx.de", new Date(),
+				new HashSet<Recipe>(), new HashSet<Recipe>());
+		cookie.deleteUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
 
-		cookie.saveRecipe(re);
-		cookie.saveRecipe(ra);
-		cookie.saveRecipe(ru);
+		// System.out.println(cookie.saveUser(mi));
+		// Recipe re = new Recipe();
+		// re = re.createRecipe("Lasagne", "blablabla",
+		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+		// Recipe ra = new Recipe();
+		// ra = ra.createRecipe("Spaghetti", "blablabla",
+		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+		// Recipe ru = new Recipe();
+		// ru = ru.createRecipe("Frikadellen", "blablabla",
+		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+
+		// cookie.saveRecipe(re);
+		// cookie.saveRecipe(ra);
+		// cookie.saveRecipe(ru);
 
 		// cookie.listAllRecipe();
 
-		 User temp =
-		 cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
-		
-		 Set<Recipe> recipes = temp.getRecipes();
-		 Iterator<Recipe> iter = recipes.iterator();
-		 while (iter.hasNext()) {
-		 System.out.println(iter.next().getName());
-		 }
+		// User temp =
+		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
+		//
+		// Set<Recipe> recipes = temp.getRecipes();
+		// Iterator<Recipe> iter = recipes.iterator();
+		// while (iter.hasNext()) {
+		// System.out.println(iter.next().getName());
+		// }
 
-//		Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
-//		System.out.println(temp.getCreator().getName());
+		// Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
+		// System.out.println(temp.getCreator().getName());
 
 		// User ma = new User(); ma = ma.createUser("Maritz", "test123",
 		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
@@ -63,10 +70,10 @@ public class DataProviderImpl implements DataProvider {
 
 		// System.out.println(cookie.getUserID("Moritz.gabriel@gmx.de"));
 
-//		 List<User> users = cookie.listAllUsers();
-//		 for (int i = 0; i < users.size(); i++) {
-//		 System.out.println(users.get(i).getPassword());
-//		 }
+		List<User> users = cookie.listAllUsers();
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).getId());
+		}
 
 		// System.out.println(cookie.isUserAlreadySaved(mo));
 	}
@@ -74,7 +81,8 @@ public class DataProviderImpl implements DataProvider {
 	public List<User> listAllUsers() {
 		entityManager.getTransaction().begin();
 
-		List<User> usertemp = entityManager.createQuery("from User").getResultList();
+		List<User> usertemp = entityManager.createQuery("from User")
+				.getResultList();
 
 		entityManager.getTransaction().commit();
 
@@ -93,15 +101,17 @@ public class DataProviderImpl implements DataProvider {
 		}
 	}
 
-	public void saveUser(User user) {
+	public long saveUser(User user) {
 		entityManager.getTransaction().begin();
-
+		long temp = 0;
 		if (isUserAlreadySaved(user)) {
 			System.out.println("User gibt es schon");
 		} else {
 			entityManager.persist(user);
+			temp = user.getId();
 		}
 		entityManager.getTransaction().commit();
+		return temp;
 	}
 
 	public void deleteUser(Long userID) {
@@ -110,7 +120,12 @@ public class DataProviderImpl implements DataProvider {
 		if (tempuser == null) {
 
 		} else {
-			entityManager.remove(tempuser);
+			if (tempuser.getRecipes().isEmpty()) {
+				entityManager.remove(tempuser);
+				System.out.println("Erfolg");
+			} else {
+				System.out.println("User hat noch Rezepte");
+			}
 		}
 		entityManager.getTransaction().commit();
 	}
@@ -195,18 +210,17 @@ public class DataProviderImpl implements DataProvider {
 		return temp;
 
 	}
-	
-	public void addRecipeToFavorites(Recipe recipe, User user){
+
+	public void addRecipeToFavorites(Recipe recipe, User user) {
 		entityManager.getTransaction().begin();
 		Recipe recipeTemp = new Recipe();
 		User userTemp = new User();
-		
+
 		recipeTemp = entityManager.find(Recipe.class, recipe);
 		userTemp = entityManager.find(User.class, user);
-		
-		
+
 	}
-	
+
 	public boolean login(String eMail, String password) {
 		entityManager.getTransaction().begin();
 		User user = entityManager.find(User.class, getUserID(eMail));
