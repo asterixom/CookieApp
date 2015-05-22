@@ -13,7 +13,7 @@ public interface DataProvider {
 
 	public boolean isUserAlreadySaved(User user);
 
-	public long saveUser(User user);
+	public void saveUser(User user);
 
 	public void deleteUser(Long userID);
 
