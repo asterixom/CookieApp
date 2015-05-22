@@ -14,11 +14,12 @@ import javax.persistence.OneToMany;
 
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 // für jede Klasse wird eine neue Tabelle erstellt
-public class UserImpl implements de.cookieapp.data.model.User{
+public class UserImpl implements User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "USERID")
