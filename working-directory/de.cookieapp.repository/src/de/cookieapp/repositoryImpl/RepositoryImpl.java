@@ -30,7 +30,7 @@ public class RepositoryImpl implements Repository {
 		User user = null;
 		if(name != null) {
 			for (User userFromRepo : userRepository) {
-				if (userFromRepo.getName().equals(name)) {
+				if (userFromRepo.getName().toLowerCase().equals(name)) {
 					user = userFromRepo;
 					break;
 				}
