@@ -2,7 +2,9 @@ package hibernateh2osgi;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,36 +18,34 @@ public class DataProviderImpl {
 	public void main() {
 		this.entityManager = EntityManagerUtil.getEntityManager();
 
-		User mo = new User();
-		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de", new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
-		saveUser(mo);
-		/*
-		Recipe re = new Recipe();
-		re = re.createRecipe("Lasagne", "blablabla",
-				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
-		Recipe ra = new Recipe();
-		ra = ra.createRecipe("Spaghetti", "blablabla",
-				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
-		Recipe ru = new Recipe();
-		ru = ru.createRecipe("Frikadellen", "blablabla",
-				cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
-		
+		User user = new User();
+		String mailadress = "Moritz.gabriel@gmx.de";
+		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
+		saveUser(user);
 
-		cookie.saveRecipe(re);
-		cookie.saveRecipe(ra);
-		cookie.saveRecipe(ru);
-*/
-		 User temp = getUser(getUserID("Moritz.gabriel@gmx.de"));
-		 temp.debugDump();
-		 /*
-		 Set<Recipe> recipes = temp.getRecipes();
-		 Iterator<Recipe> iter = recipes.iterator();
-		 while (iter.hasNext()) {
-		 System.out.println(iter.next().getName());
-		 }
-*/
-//		Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
-//		System.out.println(temp.getCreator().getName());
+		Recipe re = new Recipe();
+		re = re.createRecipe("Lasagne", "blablabla", getUser(getUserID(mailadress)));
+		Recipe ra = new Recipe();
+		ra = ra.createRecipe("Spaghetti", "blobloblo", getUser(getUserID(mailadress)));
+		Recipe ru = new Recipe();
+		ru = ru.createRecipe("Frikadellen", "bliblibli", getUser(getUserID(mailadress)));
+
+		saveRecipe(re);
+		saveRecipe(ra);
+		saveRecipe(ru);
+
+		user = getUser(getUserID(mailadress));
+		user.debugDump();
+
+		Set<Recipe> recipes = user.getRecipes();
+		Iterator<Recipe> recipeIterator = recipes.iterator();
+		System.out.println(recipeIterator.hasNext());
+		while (recipeIterator.hasNext()) {
+			recipeIterator.next().debugDump();
+		}
+		
+		//		Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
+		//		System.out.println(temp.getCreator().getName());
 
 		// User ma = new User(); ma = ma.createUser("Maritz", "test123",
 		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
@@ -58,10 +58,10 @@ public class DataProviderImpl {
 
 		// System.out.println(cookie.getUserID("Moritz.gabriel@gmx.de"));
 
-//		 List<User> users = cookie.listAllUsers();
-//		 for (int i = 0; i < users.size(); i++) {
-//		 System.out.println(users.get(i).getPassword());
-//		 }
+		//		 List<User> users = cookie.listAllUsers();
+		//		 for (int i = 0; i < users.size(); i++) {
+		//		 System.out.println(users.get(i).getPassword());
+		//		 }
 	}
 
 	public List<User> listAllUsers() {
@@ -74,20 +74,10 @@ public class DataProviderImpl {
 		return usertemp;
 	}
 
-	public boolean isUserAlreadySaved(User user) {
-		@SuppressWarnings("unchecked")
-		List<User> usertemp = entityManager.createQuery("from User s where s.eMail='" + user.geteMail() + "'").getResultList();
-		if (usertemp.isEmpty()) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
 	public void saveUser(User user) {
 		entityManager.getTransaction().begin();
 
-		if (isUserAlreadySaved(user)) {
+		if (contains(user)) {
 			System.out.println("User gibt es schon");
 		} else {
 			entityManager.persist(user);
@@ -123,7 +113,7 @@ public class DataProviderImpl {
 
 	}
 
-	public void aenderePasswort(long userID, String password) {
+	public void changePassword(long userID, String password) {
 		entityManager.getTransaction().begin();
 		User user = entityManager.find(User.class, userID);
 		user.setPassword(password);
@@ -142,21 +132,29 @@ public class DataProviderImpl {
 		return recipetemp;
 	}
 
-	public boolean isRecipeAlreadySaved(Recipe recipe) {
-		@SuppressWarnings("unchecked")
-		List<Recipe> recipetemp = entityManager.createQuery(
-				"from Recipe s where s.name='" + recipe.getName() + "'")
-				.getResultList();
-		if (recipetemp.isEmpty()) {
-			return false;
-		} else {
-			return true;
-		}
+	/**
+	 * Returns true, if the Database contains the Recipe
+	 * @param recipe the recipe to look for
+	 * @return true, if it is already in the Database, otherwise false
+	 */
+	public boolean contains(Recipe recipe) {
+		List<?> recipeList = entityManager.createQuery("from Recipe s where s.name='" + recipe.getName() + "'").getResultList();
+		return !recipeList.isEmpty();
+	}
+
+	/**
+	 * Returns true, if the Database contains the User
+	 * @param user the user to look for
+	 * @return true, if it is already in the Database, otherwise false
+	 */
+	public boolean contains(User user) {
+		List<?> userList = entityManager.createQuery("from User s where s.eMail='" + user.geteMail() + "'").getResultList();
+		return !userList.isEmpty();
 	}
 
 	public void saveRecipe(Recipe recipe) {
 		entityManager.getTransaction().begin();
-		if (isRecipeAlreadySaved(recipe)) {
+		if (contains(recipe)) {
 			System.out.println("Rezept gibt es schon");
 		} else {
 			entityManager.persist(recipe);
@@ -183,18 +181,18 @@ public class DataProviderImpl {
 		return temp;
 
 	}
-	
+
 	public void addRecipeToFavorites(Recipe recipe, User user){
 		entityManager.getTransaction().begin();
 		Recipe recipeTemp = new Recipe();
 		User userTemp = new User();
-		
+
 		recipeTemp = entityManager.find(Recipe.class, recipe);
 		userTemp = entityManager.find(User.class, user);
-		
-		
+
+
 	}
-	
+
 	public boolean login(String eMail, String password) {
 		entityManager.getTransaction().begin();
 		User user = entityManager.find(User.class, getUserID(eMail));

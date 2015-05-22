@@ -42,6 +42,7 @@ public class Recipe {
 	@ManyToOne
 	@JoinColumn(name = "USERID")
 	private User creator;
+	
 /*
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "USER", joinColumns = { @JoinColumn(name = "USERID") }, 
