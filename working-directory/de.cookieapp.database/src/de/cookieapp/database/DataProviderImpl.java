@@ -19,12 +19,8 @@ public class DataProviderImpl implements DataProvider {
 	public static void main(String[] args) {
 		DataProviderImpl cookie = new DataProviderImpl();
 		
-//		User dummy = new User();
-//		dummy.seteMail("dummy");
-//		dummy.setName("dummy");
-//		dummy.setCreated(new Date());
-//		cookie.saveUser(dummy);
-
+		
+		cookie.createDummyUser();
 //		User mo = new User();
 //		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
 //				new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
@@ -35,7 +31,7 @@ public class DataProviderImpl implements DataProvider {
 //		User mi = new User();
 //		mi = mi.createUser("mi", "test", "miritz.gabriel@gmx.de", new Date(),
 //				new HashSet<Recipe>(), new HashSet<Recipe>());
-//		cookie.deleteUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
+//		cookie.deleteUser(cookie.getUserID("dummy"));
 
 		// System.out.println(cookie.saveUser(mi));
 //		 Recipe re = new Recipe();
@@ -78,6 +74,27 @@ public class DataProviderImpl implements DataProvider {
 //		}
 
 	
+	}
+	
+	public void createDummyUser(){
+		entityManager.getTransaction().begin();
+		@SuppressWarnings("unchecked")
+		List<User> dummyuser = entityManager.createQuery(
+				"from User s where s.eMail='dummy'")
+				.getResultList();
+		if(dummyuser.isEmpty()){
+			User dummy = new User();
+			dummy.seteMail("dummy");
+			dummy.setName("dummy");
+			dummy.setCreated(new Date());
+			entityManager.persist(dummy);
+			
+		}else{
+		}
+		entityManager.getTransaction().commit();
+		
+		
+		
 	}
 
 	public List<User> listAllUsers() {
