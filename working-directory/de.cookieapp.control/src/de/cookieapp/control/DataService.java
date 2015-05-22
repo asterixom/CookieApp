@@ -31,17 +31,14 @@ public class DataService {
 		this.repository = repository;
 	}
 
-	public User login(String userORmail, String password) {
+	public User login(String userOrMail, String password) {
 		User user = null;
 		/*
 		 * Could be implemented differently, if different in Repository
 		 */
-		if (userORmail.contains("@")) {
-			user = repository.getUser(null, userORmail);
+		if (userOrMail.contains("@")) {
+			user = repository.getUser(userOrMail);
 		} 
-		if (user == null) {
-			user = repository.getUser(userORmail, userORmail);
-		}
 		if (user != null && user.checkPassword(password)) {
 			return user;
 		} else {

@@ -8,7 +8,7 @@ import de.cookieapp.data.model.User;
 
 public interface Repository {
 
-	public User getUser(String name, String mail);
+	public User getUser(String userOrMail);
 	public User addUser(String name, String mail, String password);
 	public Recipe addRecipe(String name, String description, Date created, User creator);
 	public Recipe getRecipe(Long recipeId);

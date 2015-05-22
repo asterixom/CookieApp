@@ -22,22 +22,17 @@ public class RepositoryImpl implements Repository {
 	
 	/**
 	 * Returns the User from Repository
-	 * @param name the Name of the User, that is searched for. may be null
-	 * @param mail the mail of the User, that is searched for. may be null
-	 * @return the User object from name or mail. may be null
+	 * @param nameOrMail the Name or the Mail Adress of the User, that is searched for. may be null
+	 * @return the User object from name or mail. <Code> Null </Code> if no user is found
 	 */
-	public User getUser(String name, String mail) {
+	public User getUser(String userOrMail) {
 		User user = null;
-		if(name != null) {
+		if(userOrMail != null) {
 			for (User userFromRepo : userRepository) {
-				if (userFromRepo.getName().toLowerCase().equals(name)) {
+				if (userFromRepo.getName().toLowerCase().equals(userOrMail)) {
 					user = userFromRepo;
 					break;
-				}
-			}
-		} else if (mail != null) {
-			for (User userFromRepo : userRepository) {
-				if (userFromRepo.getMail().equals(mail)) {
+				} else if (userFromRepo.getMail().toLowerCase().equals(userOrMail)) {
 					user = userFromRepo;
 					break;
 				}
@@ -46,7 +41,12 @@ public class RepositoryImpl implements Repository {
 		return user;
 	}
 	
-	
+	/**
+	 * Adds a User with the given name, mailadress and password
+	 * @param name the username
+	 * @param mail the mailadress
+	 * @param password the password
+	 */
 	public User addUser(String name, String mail, String password) {
 		User user = null;
 		if (name != null && mail != null && password != null) {
