@@ -1,5 +1,6 @@
 package hibernateh2osgi;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,8 +10,6 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-//EclipseLink JPA With H2 Example
-
 public class DataProviderImpl {
 
 	private EntityManager entityManager;
@@ -18,11 +17,40 @@ public class DataProviderImpl {
 	public void main() {
 		this.entityManager = EntityManagerUtil.getEntityManager();
 
-		User user = new User();
-		String mailadress = "Moritz.gabriel@gmx.de";
-		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
-		saveUser(user);
+		String mailadress = createDummyUser();
 
+		createDummyRecipe(mailadress);
+
+		User user;
+		user = getUser(getUserID(mailadress));
+		user.debugDump();
+
+		Set<Recipe> recipes = user.getRecipes();
+		Iterator<Recipe> recipeIterator = recipes.iterator();
+		System.out.println(recipeIterator.hasNext());
+		while (recipeIterator.hasNext()) {
+			recipeIterator.next().debugDump();
+		}
+
+		Recipe temp = getRecipe(getRecipeID("Spaghetti"));
+		System.out.println(temp.getCreator().getName());
+
+		user = user.createUser("Maritz", "test123", mailadress, new Date(), new HashSet<Recipe>() /*, new HashSet<Recipe>()*/);
+
+		// deleteUser(getUserID(mailadress));
+		
+		changePassword(getUserID(mailadress), "test123", "test1234");
+
+		System.out.println(getUserID(mailadress));
+
+		List<User> users = getUsers();
+		for (int i = 0; i < users.size(); i++) {
+			users.get(i).debugDump();
+			System.out.println(users.get(i).getPassword());
+		}
+	}
+
+	private void createDummyRecipe(String mailadress) {
 		Recipe re = new Recipe();
 		re = re.createRecipe("Lasagne", "blablabla", getUser(getUserID(mailadress)));
 		Recipe ra = new Recipe();
@@ -33,52 +61,33 @@ public class DataProviderImpl {
 		saveRecipe(re);
 		saveRecipe(ra);
 		saveRecipe(ru);
-
-		user = getUser(getUserID(mailadress));
-		user.debugDump();
-
-		Set<Recipe> recipes = user.getRecipes();
-		Iterator<Recipe> recipeIterator = recipes.iterator();
-		System.out.println(recipeIterator.hasNext());
-		while (recipeIterator.hasNext()) {
-			recipeIterator.next().debugDump();
-		}
-		
-		//		Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
-		//		System.out.println(temp.getCreator().getName());
-
-		// User ma = new User(); ma = ma.createUser("Maritz", "test123",
-		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
-		// HashSet<Recipe>());
-
-		// cookie.deleteUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
-		// cookie.aenderePasswort(cookie.getUserID("Moritz.gabriel@gmx.de"),
-		// "test1234");
-		// "booya");
-
-		// System.out.println(cookie.getUserID("Moritz.gabriel@gmx.de"));
-
-		//		 List<User> users = cookie.listAllUsers();
-		//		 for (int i = 0; i < users.size(); i++) {
-		//		 System.out.println(users.get(i).getPassword());
-		//		 }
 	}
 
-	public List<User> listAllUsers() {
+	private String createDummyUser() {
+		User user = new User();
+		String mailadress = "Moritz.gabriel@gmx.de";
+		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
+		saveUser(user);
+		return mailadress;
+	}
+
+	public List<User> getUsers() {
 		entityManager.getTransaction().begin();
-
-		List<User> usertemp = entityManager.createQuery("from User").getResultList();
-
+		List<?> obj = entityManager.createQuery("from User").getResultList();
+		List<User> users = new ArrayList<User>();
+		for (Object object : obj) {
+			if (object instanceof User) {
+				users.add((User) object);
+			}
+		}
 		entityManager.getTransaction().commit();
-
-		return usertemp;
+		return users;
 	}
 
 	public void saveUser(User user) {
 		entityManager.getTransaction().begin();
-
 		if (contains(user)) {
-			System.out.println("User gibt es schon");
+			System.err.println("User gibt es schon");
 		} else {
 			entityManager.persist(user);
 		}
@@ -87,49 +96,53 @@ public class DataProviderImpl {
 
 	public void deleteUser(Long userID) {
 		entityManager.getTransaction().begin();
-		User tempuser = entityManager.find(User.class, userID);
-		if (tempuser == null) {
-
-		} else {
-			entityManager.remove(tempuser);
-		}
+		User user = entityManager.find(User.class, userID);
+		if (user != null) {
+			entityManager.remove(user);
+		} 
 		entityManager.getTransaction().commit();
 	}
 
 	public long getUserID(String eMail) {
 		long id = 0;
-		Query tempQuery = this.entityManager.createQuery("from User s where s.eMail='" + eMail + "'");
-		List<User> usertemp = tempQuery.getResultList();
-		if (usertemp.size() == 1) {
-			id = usertemp.get(0).getId();
+		Query query = this.entityManager.createQuery("from User s where s.eMail='" + eMail + "'");
+		List<?> usersFromQuery = query.getResultList();
+		if (usersFromQuery.size() == 1 && usersFromQuery.get(0) instanceof User) {
+			id = ((User) usersFromQuery.get(0)).getId();
 		}
 		return id;
 	}
 
 	public User getUser(long userID) {
-		User temp = new User();
-		temp = entityManager.find(User.class, userID);
-		return temp;
-
+		User user = entityManager.find(User.class, userID);
+		return user;
 	}
 
-	public void changePassword(long userID, String password) {
+	public void changePassword(long userID, String oldPassword, String newPassword) {
 		entityManager.getTransaction().begin();
 		User user = entityManager.find(User.class, userID);
-		user.setPassword(password);
-		entityManager.merge(user);
-		System.out.println("Passwort erfolgreich geändert");
+		if (user.getPassword().equals(oldPassword) && newPassword != null && newPassword.length() > 0) {
+			user.setPassword(newPassword);
+			entityManager.merge(user);
+			System.out.println("Password changed successfully");
+		} else {
+			System.err.println("Failed changing password");
+		}
 		entityManager.getTransaction().commit();
+		// TODO add return value, Maybe just Boolean?
 	}
 
-	public List<Recipe> listAllRecipe() {
+	public List<Recipe> getRecipes() {
 		entityManager.getTransaction().begin();
-		@SuppressWarnings("unchecked")
-		List<Recipe> recipetemp = entityManager.createQuery("from Recipe").getResultList();
+		List<?> obj = entityManager.createQuery("from Recipe").getResultList();
+		List<Recipe> recipes = new ArrayList<Recipe>();
+		for (Object object : obj) {
+			if (object instanceof Recipe) {
+				recipes.add((Recipe) object);
+			}
+		}
 		entityManager.getTransaction().commit();
-		System.out.println(recipetemp.get(0).getName());
-
-		return recipetemp;
+		return recipes;
 	}
 
 	/**
@@ -164,14 +177,10 @@ public class DataProviderImpl {
 
 	public long getRecipeID(String rezeptName) {
 		long id = 0;
-		@SuppressWarnings("unchecked")
-		List<Recipe> recipetemp = entityManager.createQuery(
-				"from Recipe s where s.name='" + rezeptName + "'")
-				.getResultList();
-		if (recipetemp.size() == 1) {
-			id = recipetemp.get(0).getId();
+		List<?> recipes = entityManager.createQuery("from Recipe s where s.name='" + rezeptName + "'").getResultList();
+		if (recipes.size() == 1 && recipes.get(0) instanceof Recipe) {
+			id = ((Recipe)recipes.get(0)).getId();
 		}
-
 		return id;
 	}
 
@@ -182,16 +191,15 @@ public class DataProviderImpl {
 
 	}
 
+	/*
 	public void addRecipeToFavorites(Recipe recipe, User user){
 		entityManager.getTransaction().begin();
-		Recipe recipeTemp = new Recipe();
-		User userTemp = new User();
+		Recipe recipeTemp = entityManager.find(Recipe.class, recipe);
+		User userTemp = entityManager.find(User.class, user);
 
-		recipeTemp = entityManager.find(Recipe.class, recipe);
-		userTemp = entityManager.find(User.class, user);
-
-
+		entityManager.getTransaction().commit();
 	}
+	*/
 
 	public boolean login(String eMail, String password) {
 		entityManager.getTransaction().begin();
