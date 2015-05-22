@@ -103,11 +103,14 @@ public class MainPage extends AbstractEntryPoint {
 		tabFolder = new CTabFolder(parent, SWT.NONE);
 		tabFolder.setBackground(new Color(null,0xf0,0xf0,0xf0));
 		tabFolder.setLocation(CONTENT_SHIFT, HEADER_HEIGHT);
-		tabFolder.setSize(CONTENT_WITH, parent.getSize().y - HEADER_HEIGHT);
+		int tabFolderHeight = parent.getSize().y - HEADER_HEIGHT;
+		System.out.println("Debug: Size of TabFolder is: [" + tabFolderHeight);
+		tabFolder.setSize(CONTENT_WITH, tabFolderHeight);
 		FormData tabFormData = new FormData();
 		tabFormData.top = new FormAttachment(homeControlComposite, 10);
 		tabFormData.left = new FormAttachment(50, -CONTENT_WITH);
 		tabFormData.right = new FormAttachment(50, CONTENT_WITH);
+		tabFormData.bottom = new FormAttachment(100, -10);
 		tabFolder.setLayoutData(tabFormData);
 		startTabItemSeviceTracker();
 		return tabFolder;
