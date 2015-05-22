@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
+@Proxy
 @Entity
 @Table(name = "USER")
 public class User implements java.io.Serializable {
@@ -40,14 +43,13 @@ public class User implements java.io.Serializable {
 	@Column(name = "CREATED")
 	private Date created;
 
-	/*
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
 
-	
+	/*
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
 	private Set<Recipe> favorites;
-
+	 */
 	public Set<Recipe> getRecipes() {
 		return recipes;
 	}
@@ -55,7 +57,7 @@ public class User implements java.io.Serializable {
 	public void setRecipes(Set<Recipe> recipes) {
 		this.recipes = recipes;
 	}
-
+	/*
 	public void addFavoriteRecipe(Recipe recipe) {
 		recipes.add(recipe);
 	}
@@ -63,7 +65,7 @@ public class User implements java.io.Serializable {
 	public void deleteFavoriteRecipe(Recipe recipe) {
 		recipes.remove(recipe);
 	}
-*/
+	 */
 	public String getName() {
 		return name;
 	}
@@ -105,7 +107,7 @@ public class User implements java.io.Serializable {
 		this.favorites = favorite;
 	}
 
-*/
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -114,14 +116,17 @@ public class User implements java.io.Serializable {
 		this.id = id;
 	}
 
+	/**
+	 * This Method is not for User/Developer use! It is called from the Database/Hibernate, to create a Userobject
+	 */
 	public User(Long id, String name, String password, String eMail,
-			Date created /*,Set<Recipe> recipe, Set<Recipe> favorites*/) {
+			Date created ,Set<Recipe> recipe /*,Set<Recipe> favorites*/) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.eMail = eMail;
 		this.created = created;
-		//this.recipes = recipe;
+		this.recipes = recipe;
 		//this.favorites = favorites;
 	}
 
@@ -129,19 +134,36 @@ public class User implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * This Method is for User/Developer use. It creates a new Userobject and returns the new Instance.
+	 * @param name the Username of the User
+	 * @param password the Password of the User
+	 * @param eMail the Mailadress of the User
+	 * @param created the date, in which the User was created. If null, the current Server time will be taken.
+	 * @param recipe the List of recipes the User has created. If null, a new Empty Set will be created.
+	 * @return
+	 */
 	public User createUser(String name, String password, String eMail,
-			Date created /*, Set<Recipe> recipe, Set<Recipe> favorites*/) {
-		User temp = new User();
-		temp.seteMail(eMail);
-		temp.setName(name);
-		temp.setPassword(password);
-		//temp.setFavorites(favorites);
-		//temp.setRecipes(recipe);
-		temp.setCreated(created);
-		return temp;
+			Date created , Set<Recipe> recipe /*, Set<Recipe> favorites*/) {
+		User user = new User();
+		user.seteMail(eMail);
+		user.setName(name);
+		user.setPassword(password);
+		// user.setFavorites(favorites);
+		if (recipe != null) {
+			user.setRecipes(recipe);
+		} else {
+			user.setRecipes(new HashSet<Recipe>());
+		}
+		if (created != null) {
+			user.setCreated(created);
+		} else {
+			user.setCreated(new Date(System.currentTimeMillis()));
+		}
+		return user;
 
 	}
-/*
+
 	public void addRecipe(Recipe recipe) {
 		recipes.add(recipe);
 	}
@@ -149,7 +171,7 @@ public class User implements java.io.Serializable {
 	public void deleteRecipe(Recipe recipe) {
 		recipes.remove(recipe);
 	}
-*/
+
 	public void debugDump() {
 		System.out.println("Debug: User: Username: [" + this.name + "] + eMail: [" + this.eMail + "] + ID: [" + this.id + "]");
 	}

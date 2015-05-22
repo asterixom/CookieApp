@@ -1,6 +1,7 @@
 package hibernateh2osgi;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,7 +17,7 @@ public class DataProviderImpl {
 		this.entityManager = EntityManagerUtil.getEntityManager();
 
 		User mo = new User();
-		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de", new Date() /*, new HashSet<Recipe>(), new HashSet<Recipe>()*/);
+		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de", new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
 		saveUser(mo);
 		/*
 		Recipe re = new Recipe();

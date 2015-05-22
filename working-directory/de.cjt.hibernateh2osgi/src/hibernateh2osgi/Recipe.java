@@ -18,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
+@Proxy
 @Entity
 @Table(name = "RECIPE")
 public class Recipe {
