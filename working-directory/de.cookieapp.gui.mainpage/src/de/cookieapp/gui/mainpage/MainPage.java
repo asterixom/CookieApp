@@ -72,6 +72,11 @@ public class MainPage extends AbstractEntryPoint {
 	private Button loginButton;
 
 
+	/**
+	 * Method, that will be executed, when the Page gets loaded. 
+	 * Everything for the starting routine should be in here!
+	 * @param parent the Composite parent, which is the window of the Browser
+	 */
 	@Override
 	protected void createContents(Composite parent) {
 		System.out.println("Main Page started");
@@ -100,6 +105,12 @@ public class MainPage extends AbstractEntryPoint {
 	}
 
 
+	/**
+	 * This Method Creates and Formats the TabFolder Composite and places it into the given Composite
+	 * The TabFolder has been changed to a CTabFolder, so a Tab can be closed!
+	 * @param parent the Composite, in which the TabFolder should be placed in
+	 * @return The Composite of the TabFilder
+	 */
 	private Composite createTabFolderComposite(Composite parent) {
 		tabFolder = new CTabFolder(parent, SWT.NONE);
 		tabFolder.setBackground(new Color(null,0xf0,0xf0,0xf0));
@@ -118,6 +129,11 @@ public class MainPage extends AbstractEntryPoint {
 	}
 
 
+	/**
+	 * This Method created the Login Part for the Site.
+	 * @param parent the Composite, in which the Login Composite should be placed
+	 * @return the Composite of the Login part
+	 */
 	private Composite createLoginComposite(Composite parent) {
 		homeControlComposite = new Composite(parent, SWT.FILL | SWT.CENTER);
 		homeControlComposite.setLayout(new GridLayout(2, true));
@@ -140,17 +156,21 @@ public class MainPage extends AbstractEntryPoint {
 		return homeControlComposite;
 	}
 
+	/**
+	 * This Method formats the Header if a user is logged in
+	 * @param username the username, that should be written here
+	 */
 	private void loggedinHeader(final String username) {
 		if (loginComposite != null) {
 			Runnable runnable = new Runnable() {
 				@Override
 				public void run() {
-					//					loginComposite.dispose();
+					// loginComposite.dispose();
 					loginComposite = new Composite(homeControlComposite, SWT.NONE);
 					loginComposite.setLayout(new FillLayout(SWT.NONE));
-					//					Label loggedinAsLabel = new Label(loginComposite, SWT.NONE);
-					//					loggedinAsLabel.setText("Eingeloggt als " + username);	
-					//					loggedinAsLabel.setText("Eingeloggt als " + username);	
+					// Label loggedinAsLabel = new Label(loginComposite, SWT.NONE);
+					// loggedinAsLabel.setText("Eingeloggt als " + username);	
+					// loggedinAsLabel.setText("Eingeloggt als " + username);	
 					nameLabel.setText("Eingeloggt als " + username);
 					nameText.setVisible(false);
 					passwordLabel.setVisible(false);
@@ -169,6 +189,9 @@ public class MainPage extends AbstractEntryPoint {
 			nameLabel.setText("Benutzername oder eMail");
 			nameText = new Text(loginComposite, SWT.BORDER | SWT.FILL);
 			nameText.setLayoutData(textGridData);
+			/**
+			 * Key listener, that is triggered, when the EnterKey is released
+			 */
 			nameText.addKeyListener(new KeyListener() {			
 				private static final long serialVersionUID = 6511802604250486237L;
 				@Override
@@ -188,6 +211,9 @@ public class MainPage extends AbstractEntryPoint {
 			GridData gridData = new GridData();
 			gridData.horizontalAlignment = GridData.FILL;
 			passwortText.setLayoutData(gridData);
+			/**
+			 * Key listener, that is triggered, when the EnterKey is released
+			 */
 			passwortText.addKeyListener(new KeyListener() {			
 				private static final long serialVersionUID = 6277769989802841352L;
 				@Override
@@ -207,6 +233,9 @@ public class MainPage extends AbstractEntryPoint {
 			emptyLabel.setVisible(false);
 			loginButton = new Button(loginComposite, SWT.CENTER);
 			loginButton.setText("Login");
+			/**
+			 * The Selectionlistener is triggered, when the Login Button is pressed
+			 */
 			loginButton.addSelectionListener(new SelectionListener() {
 				private static final long serialVersionUID = 1925540608622081691L;
 				@Override
@@ -222,6 +251,10 @@ public class MainPage extends AbstractEntryPoint {
 	}
 
 
+	/**
+	 * The Routine, that should be executed, when the user wants to login.
+	 * Everything that should happen, if a user logs in should be in here!
+	 */
 	private void login() {
 		if (controlService != null) {
 			try {
@@ -295,6 +328,10 @@ public class MainPage extends AbstractEntryPoint {
 		return result;
 	}
 
+	/**
+	 * This Method reports the sessionID of the Current Session to all Tabs
+	 * @param sessionID
+	 */
 	private void addSessionIDToTabs(Long sessionID) {
 		for (FolderItem folderItem : folderItems) {
 			folderItem.setSessionID(sessionID);
@@ -302,7 +339,7 @@ public class MainPage extends AbstractEntryPoint {
 	}
 
 
-	/*
+	/**
 	 * wird vor dem create Content aufgerufen...
 	 * tabs zeichne methode muss angepasst werden!
 	 */
