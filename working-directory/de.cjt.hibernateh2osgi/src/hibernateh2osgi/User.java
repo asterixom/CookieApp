@@ -48,8 +48,9 @@ public class User implements java.io.Serializable {
 
 	/*
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
-	private Set<Recipe> favorites;
+ 	Set<Recipe> favorites;
 	 */
+	
 	public Set<Recipe> getRecipes() {
 		return recipes;
 	}
@@ -57,6 +58,7 @@ public class User implements java.io.Serializable {
 	public void setRecipes(Set<Recipe> recipes) {
 		this.recipes = recipes;
 	}
+	
 	/*
 	public void addFavoriteRecipe(Recipe recipe) {
 		recipes.add(recipe);
@@ -66,6 +68,7 @@ public class User implements java.io.Serializable {
 		recipes.remove(recipe);
 	}
 	 */
+	
 	public String getName() {
 		return name;
 	}

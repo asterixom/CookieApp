@@ -114,18 +114,19 @@ public class Recipe {
 	}
 
 	public Recipe createRecipe(String name, String description, User creator) {
-		Recipe temprecipe = new Recipe();
-		temprecipe.setName(name);
-		temprecipe.setDescription(description);
-		temprecipe.setCreated();
-		temprecipe.setCreator(creator);
-		return temprecipe;
+		Recipe recipe = new Recipe();
+		recipe.setName(name);
+		recipe.setDescription(description);
+		recipe.setCreated();
+		recipe.setCreator(creator);
+		return recipe;
 	}
 
 	public void debugDump() {
-		System.out.println("Debug: Recipe: RecipeName: [" + this.name
-				+ "] + Description: [" + this.description + "] + ID: ["
-				+ this.id + "]");
+		System.out.println("Debug: Recipe: RecipeName: [" + this.name + "] + Description: [" + 
+										this.description + "] + ID: [" + this.id + "]");
+		System.out.print("\t and was created by: ");
+		this.creator.debugDump();
 	}
 
 }

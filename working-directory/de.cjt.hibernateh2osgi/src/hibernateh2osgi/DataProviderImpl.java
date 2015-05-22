@@ -17,29 +17,17 @@ public class DataProviderImpl {
 	public void main() {
 		this.entityManager = EntityManagerUtil.getEntityManager();
 
-		String mailadress = createDummyUser();
-
+		String mailadress = "Moritz.gabriel@gmx.de";
+		
+		createDummyUser(mailadress);
 		createDummyRecipe(mailadress);
 
-		User user;
-		user = getUser(getUserID(mailadress));
-		user.debugDump();
-
-		Set<Recipe> recipes = user.getRecipes();
-		Iterator<Recipe> recipeIterator = recipes.iterator();
-		System.out.println(recipeIterator.hasNext());
-		while (recipeIterator.hasNext()) {
-			recipeIterator.next().debugDump();
-		}
-
-		Recipe temp = getRecipe(getRecipeID("Spaghetti"));
-		System.out.println(temp.getCreator().getName());
-
-		user = user.createUser("Maritz", "test123", mailadress, new Date(), new HashSet<Recipe>() /*, new HashSet<Recipe>()*/);
+		getRecepiesFrom(mailadress);
 
 		// deleteUser(getUserID(mailadress));
 		
-		changePassword(getUserID(mailadress), "test123", "test1234");
+		changePassword(getUserID(mailadress), "test1", "test1234");
+		changePassword(getUserID(mailadress), "test1", "test1234");
 
 		System.out.println(getUserID(mailadress));
 
@@ -50,25 +38,41 @@ public class DataProviderImpl {
 		}
 	}
 
-	private void createDummyRecipe(String mailadress) {
-		Recipe re = new Recipe();
-		re = re.createRecipe("Lasagne", "blablabla", getUser(getUserID(mailadress)));
-		Recipe ra = new Recipe();
-		ra = ra.createRecipe("Spaghetti", "blobloblo", getUser(getUserID(mailadress)));
-		Recipe ru = new Recipe();
-		ru = ru.createRecipe("Frikadellen", "bliblibli", getUser(getUserID(mailadress)));
-
-		saveRecipe(re);
-		saveRecipe(ra);
-		saveRecipe(ru);
+	private void getRecepiesFrom(String mailadress) {
+		User user = getUser(getUserID(mailadress));
+		user.debugDump();
+		
+		Set<Recipe> recipes = user.getRecipes();
+		System.out.println(recipes.isEmpty());
+		Iterator<Recipe> recipeIterator = recipes.iterator();
+		System.out.println(recipeIterator.hasNext());
+		while (recipeIterator.hasNext()) {
+			recipeIterator.next().debugDump();
+		}
 	}
 
-	private String createDummyUser() {
+	private void createDummyRecipe(String mailadress) {
+		ArrayList<String> recipeNames = new ArrayList<String>();
+		ArrayList<String> recipeDesc = new ArrayList<String>();
+		
+		recipeNames.add("lasagne"); recipeNames.add("Spaghetti"); recipeNames.add("Burger");
+		recipeDesc.add("blablabla"); recipeDesc.add("bliblablub"); recipeDesc.add("blubblubblub");
+		
+		if (recipeNames.size() == recipeDesc.size()) {
+			Recipe recipe = new Recipe();
+			for (int i = 0; i < recipeNames.size(); i = i + 1) {
+				recipe = recipe.createRecipe(recipeNames.get(i), recipeDesc.get(i), getUser(getUserID(mailadress)));
+				saveRecipe(recipe, getUser(getUserID(mailadress)));
+				recipe.debugDump();
+			}
+		}
+	}
+
+	private void createDummyUser(String mailadress) {
 		User user = new User();
-		String mailadress = "Moritz.gabriel@gmx.de";
 		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
 		saveUser(user);
-		return mailadress;
+		user.debugDump();
 	}
 
 	public List<User> getUsers() {
@@ -165,12 +169,14 @@ public class DataProviderImpl {
 		return !userList.isEmpty();
 	}
 
-	public void saveRecipe(Recipe recipe) {
+	public void saveRecipe(Recipe recipe, User user) {
 		entityManager.getTransaction().begin();
 		if (contains(recipe)) {
 			System.out.println("Rezept gibt es schon");
 		} else {
 			entityManager.persist(recipe);
+			user.addRecipe(recipe);
+			entityManager.merge(user);
 		}
 		entityManager.getTransaction().commit();
 	}
