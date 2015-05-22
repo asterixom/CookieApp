@@ -37,12 +37,10 @@ public class Recipe {
 	private Date created;
 
 	@ManyToOne
-	@JoinColumn(name = "USERID")
+	@JoinColumn(name = "USERID", nullable= false)
 	private User creator;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "USER", joinColumns = { @JoinColumn(name = "USERID") }, 
-	inverseJoinColumns = { @JoinColumn(name = "RECIPEID") })
+	@ManyToMany
 	private Set<Recipe> userFavorites;
 	
 	@OneToMany

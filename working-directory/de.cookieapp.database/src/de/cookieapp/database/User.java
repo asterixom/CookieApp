@@ -37,13 +37,13 @@ public class User implements java.io.Serializable, de.cookieapp.database.api.Use
 	@Column(name = "EMAIL")
 	private String eMail;
 
-	@Column(name = "CREATED")
+	@Column(name = "CREATED", nullable = false)
 	private Date created;
 
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
 
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
+	@ManyToMany
 	private Set<Recipe> favorites;
 
 	public Set<Recipe> getRecipes() {
@@ -108,17 +108,6 @@ public class User implements java.io.Serializable, de.cookieapp.database.api.Use
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public User(Long id, String name, String password, String eMail,
-			Date created, Set<Recipe> recipe, Set<Recipe> favorites) {
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.eMail = eMail;
-		this.created = created;
-		this.recipes = recipe;
-		this.favorites = favorites;
 	}
 
 	public User() {
