@@ -43,9 +43,9 @@ public class MainPage extends AbstractEntryPoint {
 	private Composite parent;
 	private Composite loginComposite;
 	private Composite homeControlComposite;
-	
+
 	private CTabFolder tabFolder;
-	
+
 	private List<FolderItem> folderItems = new ArrayList<FolderItem>();
 	protected List<Composite> folderItemComposites = new ArrayList<Composite>();
 	private List<CTabItem> tabItems = new ArrayList<CTabItem>();
@@ -55,6 +55,7 @@ public class MainPage extends AbstractEntryPoint {
 	private ServiceTracker<ControlService, ControlService> serviceTrackerControlService;
 	private boolean started = false;
 	final String defaultTab = "Home";
+	final String profileTab = "Mein Profil";
 	private static final int HEADER_HEIGHT = 140;
 	private static final int CONTENT_SHIFT = 300;
 	private static final int CONTENT_WITH = 450;
@@ -63,7 +64,7 @@ public class MainPage extends AbstractEntryPoint {
 	private static final String CONTROLBACKGROUNDIMAGE = "resources/controlbackground.png";
 	private static final String LOGO = "resources/Logo.png";
 	private Long sessionID;
-	
+
 	private Text nameText;
 	private Text passwortText;
 	private Label nameLabel;
@@ -131,12 +132,12 @@ public class MainPage extends AbstractEntryPoint {
 		Label headerLabel = new Label( homeControlComposite, SWT.LEFT );
 		headerLabel.setImage( headerImage );
 		loggedinHeader(null);
-	    FormData data1 = new FormData();
-	    data1.left = new FormAttachment(50, -CONTENT_WITH);
-	    data1.right = new FormAttachment(50, CONTENT_WITH);
-	    data1.top = new FormAttachment(0, 20);
-	    homeControlComposite.setLayoutData(data1);
-	    return homeControlComposite;
+		FormData data1 = new FormData();
+		data1.left = new FormAttachment(50, -CONTENT_WITH);
+		data1.right = new FormAttachment(50, CONTENT_WITH);
+		data1.top = new FormAttachment(0, 20);
+		homeControlComposite.setLayoutData(data1);
+		return homeControlComposite;
 	}
 
 	private void loggedinHeader(final String username) {
@@ -144,12 +145,12 @@ public class MainPage extends AbstractEntryPoint {
 			Runnable runnable = new Runnable() {
 				@Override
 				public void run() {
-//					loginComposite.dispose();
-			 		loginComposite = new Composite(homeControlComposite, SWT.NONE);
+					//					loginComposite.dispose();
+					loginComposite = new Composite(homeControlComposite, SWT.NONE);
 					loginComposite.setLayout(new FillLayout(SWT.NONE));
-//					Label loggedinAsLabel = new Label(loginComposite, SWT.NONE);
-//					loggedinAsLabel.setText("Eingeloggt als " + username);	
-//					loggedinAsLabel.setText("Eingeloggt als " + username);	
+					//					Label loggedinAsLabel = new Label(loginComposite, SWT.NONE);
+					//					loggedinAsLabel.setText("Eingeloggt als " + username);	
+					//					loggedinAsLabel.setText("Eingeloggt als " + username);	
 					nameLabel.setText("Eingeloggt als " + username);
 					nameText.setVisible(false);
 					passwordLabel.setVisible(false);
@@ -232,7 +233,22 @@ public class MainPage extends AbstractEntryPoint {
 					User user = controlService.getCurrentUser(sessionID);
 					for (FolderItem folderitem : folderItems) {
 						folderitem.setLogedInUser(user);
+						if (folderitem.getTabItemName().equals(profileTab)) {
+							// General Composite for the Tab and the NumberArea
+							Composite folderItemComposite = folderitem.getContent(tabFolder);
+							// folderItemComposite.setParent(tabFolder);
+							folderItemComposites.add(folderItemComposite);
+							// The New Tab for the Composite
+							CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
+							tabItem.setText(folderitem.getTabItemName());
+							tabItem.setControl(folderItemComposite);
+							tabItems.add(tabItem);	
+							if (sessionID != null) {
+								folderitem.setSessionID(sessionID);
+							}
+						}
 					}
+
 					addSessionIDToTabs(sessionID);
 					//TODO implement real database with user
 				}
@@ -294,21 +310,24 @@ public class MainPage extends AbstractEntryPoint {
 		if (folderItem != null && !(folderItems.contains(folderItem))) {
 			updateContent(new Runnable() {
 
-				public void run() {					
+				public void run() {				
 					folderItems.add(folderItem);
 					System.out.println("added " + folderItem.getTabItemName());
-					//General Composite for the Tab and the NumberArea
-					Composite folderItemComposite = folderItem.getContent(tabFolder);
-					//					folderItemComposite.setParent(tabFolder);
-					folderItemComposites.add(folderItemComposite);		
 
-					//The New Tab for the Composite
-					CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
-					tabItem.setText(folderItem.getTabItemName());
-					tabItem.setControl(folderItemComposite);
-					tabItems.add(tabItem);	
-					if (sessionID != null) {
-						folderItem.setSessionID(sessionID);
+					if (!folderItem.getTabItemName().equals(profileTab)) {
+						// General Composite for the Tab and the NumberArea
+						Composite folderItemComposite = folderItem.getContent(tabFolder);
+						// folderItemComposite.setParent(tabFolder);
+						folderItemComposites.add(folderItemComposite);		
+
+						// The New Tab for the Composite
+						CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
+						tabItem.setText(folderItem.getTabItemName());
+						tabItem.setControl(folderItemComposite);
+						tabItems.add(tabItem);	
+						if (sessionID != null) {
+							folderItem.setSessionID(sessionID);
+						}
 					}
 
 					/*
