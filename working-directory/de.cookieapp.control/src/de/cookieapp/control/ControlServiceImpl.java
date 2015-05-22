@@ -16,6 +16,7 @@ import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.Recommendation;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
+import de.cookieapp.dataimpl.UserImpl;
 import de.cookieapp.repository.Repository;
 
 public class ControlServiceImpl implements ControlService {
@@ -229,67 +230,7 @@ public class ControlServiceImpl implements ControlService {
 
 		@Override
 		public User getCreator() {
-			return new User() {
-				
-				@Override
-				public void setSecurityClearance(SecurityClearance i) {
-				}
-				
-				@Override
-				public void setPassword(String password) {
-				}
-				
-				@Override
-				public void setName(String name) {
-				}
-				
-				@Override
-				public void setMail(String mail) {
-				}
-				
-				@Override
-				public SecurityClearance getSecurityClearance() {
-					return SecurityClearance.USER;
-				}
-				
-				@Override
-				public ArrayList<Recipe> getRecipes() {
-					return new ArrayList<>();
-				}
-				
-				@Override
-				public String getName() {
-					return "USER";
-				}
-				
-				@Override
-				public String getMail() {
-					return "mail@test.de";
-				}
-				
-				@Override
-				public ArrayList<Recipe> getFavorites() {
-					return new ArrayList<>();
-				}
-				
-				@Override
-				public Date getCreated() {
-					return new Date();
-				}
-				
-				@Override
-				public boolean checkPassword(String password) {
-					return false;
-				}
-				
-				@Override
-				public void addRecipe(Recipe recipe) {
-				}
-				
-				@Override
-				public void addFavorite(Recipe recipe) {
-				}
-			};
+			return new UserImpl(123456L, "Moritz", "Test1234", "moe@web.de", new Date(System.currentTimeMillis()), new ArrayList<Recipe>(), new ArrayList<Recipe>());
 		}
 
 		@Override
