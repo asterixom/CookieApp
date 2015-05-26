@@ -22,11 +22,11 @@ public class DataProviderImpl {
 		createDummyRecipe(mailadress);
 		
 
-		getRecepiesFrom(mailadress);
+		printRecepiesFrom(mailadress);
 		
 		Long recipeID = getRecipeID("Spaghetti");
 		changeRecipeName(recipeID, "Spaghetti2");
-		getRecepiesFrom(mailadress);
+		printRecepiesFrom(mailadress);
 
 		saveComment("Blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
 		//saveComment("babam", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Spaghetti")));
@@ -50,14 +50,10 @@ public class DataProviderImpl {
 		//addRecipeToFavorites(getRecipeID("Spaghetti"), getUserID(mailadress));
 	}
 
-	private void getRecepiesFrom(String mailadress) {
-		User user = getUser(getUserID(mailadress));
-		user.debugDump();
-		
+	private void printRecepiesFrom(String mailadress) {
+		User user = getUser(getUserID(mailadress));		
 		Set<Recipe> recipes = user.getRecipes();
-		System.out.println(recipes.isEmpty());
 		Iterator<Recipe> recipeIterator = recipes.iterator();
-		System.out.println(recipeIterator.hasNext());
 		while (recipeIterator.hasNext()) {
 			recipeIterator.next().debugDump();
 		}
