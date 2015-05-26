@@ -99,6 +99,10 @@ public class Recipe {
 		this.recipeComments.remove(comment);
 	}
 	
+	public void setComments(Set<Comment> recipeComments) {
+		this.recipeComments = recipeComments;
+	}
+	
 	public Set<Comment> getComments() {
 		return recipeComments;
 	}
@@ -130,6 +134,7 @@ public class Recipe {
 		this.description = description;
 		this.created = created;
 		this.creator = creator;
+		this.recipeComments = new HashSet<Comment>();
 	}
 
 	public Recipe() {
@@ -142,6 +147,7 @@ public class Recipe {
 		recipe.setDescription(description);
 		recipe.setCreated();
 		recipe.setCreator(creator);
+		recipe.setComments(new HashSet<Comment>());
 		return recipe;
 	}
 

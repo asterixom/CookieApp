@@ -10,16 +10,18 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class DataProviderImpl {
+import org.hibernate.annotations.CreationTimestamp;
 
-	private EntityManager entityManager = EntityManagerUtil.getEntityManager();;
+import de.cookieapp.database.test.DummyDataCreator;
+
+public class DataProviderImpl implements DataProvider {
+
+	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 	public void main() {
 
-		String mailadress = "Moritz.gabriel@gmx.de";
-		
-		createDummyUser(mailadress);
-		createDummyRecipe(mailadress);
+		DummyDataCreator dataCreator = new DummyDataCreator(this);
+		dataCreator.createDummyData();
 		
 		/*
 		 * Test if Recipes are Created and has User
@@ -33,16 +35,12 @@ public class DataProviderImpl {
 		printRecepiesFrom(mailadress);
 		 */
 		
-		createDummyComment(mailadress);
-		
-		createDummyFavorites(mailadress);
-		
-		printFavoritesFromUser(mailadress);
+		//printFavoritesFromUser(mailadress);
 
 		// deleteUser(getUserID(mailadress));
 		
-		changePassword(getUserID(mailadress), "test1", "test1234");
-		changePassword(getUserID(mailadress), "test1", "test1234");
+//		changePassword(getUserID(mailadress), "test1", "test1234");
+//		changePassword(getUserID(mailadress), "test1", "test1234");
 
 		List<User> users = getUsers();
 		for (int i = 0; i < users.size(); i++) {
@@ -64,23 +62,7 @@ public class DataProviderImpl {
 		}
 	}
 
-	private void createDummyFavorites(String mailadress) {
-		entityManager.getTransaction().begin();
-		User user = getUser(getUserID(mailadress));
-		Recipe recipe = getRecipe(getRecipeID("Burger"));
-		user.addFavorite(recipe);
-		entityManager.merge(user);
-		entityManager.getTransaction().commit();
-	}
 
-	private void createDummyComment(String mailadress) {
-		saveComment("blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
-		saveComment("babam", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Spaghetti")));
-		System.out.println("CommentID:");
-		System.out.println(getCommentID("blabla"));
-		
-		System.out.println();
-	}
 
 	private void printRecepiesFrom(String mailadress) {
 		User user = getUser(getUserID(mailadress));		
@@ -89,30 +71,6 @@ public class DataProviderImpl {
 		while (recipeIterator.hasNext()) {
 			recipeIterator.next().debugDump();
 		}
-	}
-
-	private void createDummyRecipe(String mailadress) {
-		ArrayList<String> recipeNames = new ArrayList<String>();
-		ArrayList<String> recipeDesc = new ArrayList<String>();
-		
-		recipeNames.add("lasagne"); recipeNames.add("Spaghetti"); recipeNames.add("Burger");
-		recipeDesc.add("blablabla"); recipeDesc.add("bliblablub"); recipeDesc.add("blubblubblub");
-		
-		if (recipeNames.size() == recipeDesc.size()) {
-			Recipe recipe = new Recipe();
-			for (int i = 0; i < recipeNames.size(); i = i + 1) {
-				recipe = recipe.createRecipe(recipeNames.get(i), recipeDesc.get(i), getUser(getUserID(mailadress)));
-				saveRecipe(recipe, getUser(getUserID(mailadress)));
-				recipe.debugDump();
-			}
-		}
-	}
-
-	private void createDummyUser(String mailadress) {
-		User user = new User();
-		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>(), new HashSet<Recipe>());
-		saveUser(user);
-		user.debugDump();
 	}
 
 	public List<User> getUsers() {
@@ -230,7 +188,6 @@ public class DataProviderImpl {
 			System.out.println("Rezept gibt es schon");
 		} else {
 			entityManager.persist(recipe);
-			// TODO this should not be necessary, do to the mapping of the database!
 			user.addRecipe(recipe);
 			entityManager.merge(user);
 		}
@@ -278,7 +235,6 @@ public class DataProviderImpl {
 				comment = comment.createComment(content, user, recipe);
 		entityManager.persist(comment);
 		entityManager.merge(recipe);
-		System.out.println("Erfolgreich?");
 		entityManager.getTransaction().commit();
 		
 	}
@@ -292,7 +248,6 @@ public class DataProviderImpl {
 		entityManager.persist(comment);
 		recipe.addComment(comment);
 		entityManager.merge(recipe);
-		System.out.println("Erfolgreich?");
 		entityManager.getTransaction().commit();
 	}
 	
@@ -304,6 +259,15 @@ public class DataProviderImpl {
 			id = ((Comment) commentFromQuery.get(0)).getId();
 		}
 		return id;
+	}
+	
+	public void saveFavorite(Long recipeID, Long userID) {
+		entityManager.getTransaction().begin();
+		User user = getUser(userID);
+		Recipe recipe = getRecipe(recipeID);
+		user.addFavoriteRecipe(recipe);
+		entityManager.merge(user);
+		entityManager.getTransaction().commit();
 	}
 
 }

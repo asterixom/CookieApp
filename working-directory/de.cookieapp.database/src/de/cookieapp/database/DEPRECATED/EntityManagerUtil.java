@@ -1,4 +1,4 @@
-package de.cookieapp.database;
+package de.cookieapp.database.DEPRECATED;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

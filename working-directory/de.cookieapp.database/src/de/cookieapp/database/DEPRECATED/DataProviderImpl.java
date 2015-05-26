@@ -1,4 +1,4 @@
-package de.cookieapp.database;
+package de.cookieapp.database.DEPRECATED;
 
 import java.io.ObjectInputStream.GetField;
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import de.cookieapp.database.api.DataProvider;
+import de.cookieapp.database.api.DEPRECATED.DataProvider;
 
 //EclipseLink JPA With H2 Example
 

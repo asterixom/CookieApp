@@ -1,4 +1,4 @@
-package de.cookieapp.database;
+package de.cookieapp.database.DEPRECATED;
 
 import java.util.Date;
 

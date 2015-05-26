@@ -113,14 +113,6 @@ public class User implements java.io.Serializable {
 	public void setFavorites(Set<Recipe> favorite) {
 		this.favorites = favorite;
 	}
-
-	public void addFavorite(Recipe recipe) {
-		this.favorites.add(recipe);
-	}
-	
-	public void removeFavorite(Recipe recipe) {
-		this.favorites.remove(recipe);
-	}
 	
 	public Long getId() {
 		return id;
@@ -169,13 +161,17 @@ public class User implements java.io.Serializable {
 		} else {
 			user.setRecipes(new HashSet<Recipe>());
 		}
+		if (favorites != null) {
+			user.setFavorites(favorites);
+		} else {
+			user.setFavorites(new HashSet<Recipe>());
+		}
 		if (created != null) {
 			user.setCreated(created);
 		} else {
 			user.setCreated(new Date(System.currentTimeMillis()));
 		}
 		return user;
-
 	}
 
 	public void addRecipe(Recipe recipe) {
