@@ -43,12 +43,11 @@ public class Recipe {
 	@JoinColumn(name = "USERID")
 	private User creator;
 
-	@ManyToMany(mappedBy = "favorites")
-	private Set<Recipe> userFavorites;
-	
+	/*@ManyToMany(mappedBy = "favorites")
+	private Set<Recipe> userFavorites;*/
+
+	@OneToMany(mappedBy = "recipeComment")
 	private Set<Comment> recipeComments;
-	
-	
 
 	public String getName() {
 		return name;
@@ -70,7 +69,6 @@ public class Recipe {
 		return created;
 	}
 
-
 	public void setCreated() {
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -85,13 +83,13 @@ public class Recipe {
 		this.creator = creator;
 	}
 
-	public Set<Recipe> getUserFavorites() {
-		return userFavorites;
-	}
-
-	public void setUserFavorites(Set<Recipe> userFavorites) {
-		this.userFavorites = userFavorites;
-	}
+//	public Set<Recipe> getUserFavorites() {
+//		return userFavorites;
+//	}
+//
+//	public void setUserFavorites(Set<Recipe> userFavorites) {
+//		this.userFavorites = userFavorites;
+//	}
 
 	public void setCreated(Date created) {
 		this.created = created;
@@ -105,13 +103,13 @@ public class Recipe {
 		this.id = id;
 	}
 
-	public void addRecipeToFavorites(Recipe favo) {
-		userFavorites.add(favo);
-	}
-
-	public void deleteRecipeFromFavorites(Recipe favo) {
-		userFavorites.remove(favo);
-	}
+//	public void addRecipeToFavorites(Recipe favo) {
+//		userFavorites.add(favo);
+//	}
+//
+//	public void deleteRecipeFromFavorites(Recipe favo) {
+//		userFavorites.remove(favo);
+//	}
 
 	public Recipe(Long id, String name, String description, Date created,
 			User creator) {

@@ -38,7 +38,7 @@ public class DataProviderImpl {
 			users.get(i).debugDump();
 			System.out.println(users.get(i).getPassword());
 		}
-		addRecipeToFavorites(getRecipeID("Spaghetti"), getUserID(mailadress));
+		//addRecipeToFavorites(getRecipeID("Spaghetti"), getUserID(mailadress));
 	}
 
 	private void getRecepiesFrom(String mailadress) {
@@ -73,7 +73,7 @@ public class DataProviderImpl {
 
 	private void createDummyUser(String mailadress) {
 		User user = new User();
-		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>(), new HashSet<Recipe>());
+		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
 		saveUser(user);
 		user.debugDump();
 	}
@@ -218,6 +218,16 @@ public class DataProviderImpl {
 		User user = entityManager.find(User.class, getUserID(eMail));
 		entityManager.getTransaction().commit();
 		return user.getPassword().equals(password);
+	}
+	
+	public void saveComment(String content, User user, Recipe recipe){
+		entityManager.getTransaction().begin();
+		Comment comment = new Comment();
+				comment = comment.createComment(content, user, recipe);
+		entityManager.persist(comment);
+		entityManager.merge(recipe);
+		entityManager.getTransaction().commit();
+		
 	}
 
 }
