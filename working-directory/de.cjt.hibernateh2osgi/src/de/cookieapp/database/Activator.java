@@ -1,4 +1,4 @@
-package hibernateh2osgi;
+package de.cookieapp.database;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

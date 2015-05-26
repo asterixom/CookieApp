@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Hibernateh2osgi
-Bundle-SymbolicName: de.cookieapp.hibernateh2osgi
+Bundle-Name: Database
+Bundle-SymbolicName: de.cookieapp.database
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: hibernateh2osgi.Activator
+Bundle-Activator: de.cookieapp.database.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Meta-Persistence: META-INF/persistence.xml
 Eclipse-BuddyPolicy: registered

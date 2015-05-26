@@ -1,4 +1,4 @@
-package hibernateh2osgi;
+package de.cookieapp.database;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
