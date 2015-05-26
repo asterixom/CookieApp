@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,11 +47,16 @@ public class User implements java.io.Serializable {
 
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
+	
+	@OneToMany(mappedBy="commentCreator")
+	private Set<Comment> comments;
 
-	/*
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
- 	Set<Recipe> favorites;
-	 */
+	
+	/*@ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="READER_SUBSCRIPTIONS", joinColumns={@JoinColumn(referencedColumnName="USERID")}
+                                        , inverseJoinColumns={@JoinColumn(referencedColumnName="RECIPEID")})
+ 	Set<Recipe> favorites;*/
+	 
 	
 	public Set<Recipe> getRecipes() {
 		return recipes;
@@ -59,7 +66,7 @@ public class User implements java.io.Serializable {
 		this.recipes = recipes;
 	}
 	
-	/*
+	
 	public void addFavoriteRecipe(Recipe recipe) {
 		recipes.add(recipe);
 	}
@@ -67,7 +74,7 @@ public class User implements java.io.Serializable {
 	public void deleteFavoriteRecipe(Recipe recipe) {
 		recipes.remove(recipe);
 	}
-	 */
+	 
 	
 	public String getName() {
 		return name;
@@ -101,16 +108,16 @@ public class User implements java.io.Serializable {
 		this.created = created;
 	}
 
-	/*
-	public Set<Recipe> getFavorites() {
-		return favorites;
-	}
+	
+//	public Set<Recipe> getFavorites() {
+//		return favorites;
+//	}
+//
+//	public void setFavorites(Set<Recipe> favorite) {
+//		this.favorites = favorite;
+//	}
 
-	public void setFavorites(Set<Recipe> favorite) {
-		this.favorites = favorite;
-	}
-
-	 */
+	 
 	public Long getId() {
 		return id;
 	}
@@ -152,7 +159,7 @@ public class User implements java.io.Serializable {
 		user.seteMail(eMail);
 		user.setName(name);
 		user.setPassword(password);
-		// user.setFavorites(favorites);
+		//user.setFavorites(favorites);
 		if (recipe != null) {
 			user.setRecipes(recipe);
 		} else {
