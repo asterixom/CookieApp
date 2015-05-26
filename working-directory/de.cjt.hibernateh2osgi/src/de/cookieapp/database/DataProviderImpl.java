@@ -22,6 +22,10 @@ public class DataProviderImpl {
 		createDummyRecipe(mailadress);
 
 		getRecepiesFrom(mailadress);
+		
+		Long recipeID = getRecipeID("Spaghetti");
+		changeRecipeName(recipeID, "Spaghetti2");
+		getRecepiesFrom(mailadress);
 
 		// deleteUser(getUserID(mailadress));
 		
@@ -134,6 +138,21 @@ public class DataProviderImpl {
 		entityManager.getTransaction().commit();
 		// TODO add return value, Maybe just Boolean?
 	}
+	
+	public void changeRecipeName(long recipeID, String newRecipeName) {
+		entityManager.getTransaction().begin();
+		Recipe recipe = entityManager.find(Recipe.class, recipeID);
+		if (recipe != null && newRecipeName != null && newRecipeName.length() > 0) {
+			recipe.setName(newRecipeName);
+			entityManager.merge(recipe);
+			System.out.println("Recipename changed successfully");
+		} else {
+			System.err.println("Failed changing Recipename");
+		}
+		entityManager.getTransaction().commit();
+		// TODO add return value, Maybe just Boolean?
+	}
+
 
 	public List<Recipe> getRecipes() {
 		entityManager.getTransaction().begin();
