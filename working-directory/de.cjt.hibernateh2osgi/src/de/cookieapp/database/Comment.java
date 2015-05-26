@@ -104,5 +104,9 @@ public class Comment {
 		comment.setRecipeComment(recipe);
 		return comment;
 	}
+	
+	public void debugDump() {
+		System.out.println("Debug: Comment: Creator: [" + this.getCreator().getName() + "] + Created: [" + this.created + "] + Comment: [" + this.content + "]");
+	}
 
 }
