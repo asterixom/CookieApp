@@ -30,9 +30,6 @@ public class Ingredient {
 	@Column(name = "UNIT")
 	private String unit;
 
-	@OneToMany
-	private Set<Nutrient> nutrients = new HashSet<Nutrient>();
-
 	public double getQuantity() {
 		return quantity;
 	}
@@ -57,20 +54,12 @@ public class Ingredient {
 		this.id = id;
 	}
 
-	public Set<Nutrient> getNutrients() {
-		return nutrients;
-	}
-
-	public void setNutrients(Set<Nutrient> nutrients) {
-		this.nutrients = nutrients;
-	}
 
 	public Ingredient(Long id, double quantity, String unit,
 			Set<Nutrient> nutrients) {
 		this.id = id;
 		this.quantity = quantity;
 		this.unit = unit;
-		this.nutrients = nutrients;
 	}
 
 }

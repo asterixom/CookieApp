@@ -18,25 +18,24 @@ public class DataProviderImpl implements DataProvider {
 
 	public static void main(String[] args) {
 		DataProviderImpl cookie = new DataProviderImpl();
-		
-		
+
 		cookie.createDummyUser();
-//		User mo = new User();
-//		mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
-//				new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
-//		cookie.saveUser(mo);
-//		User ma = new User();
-//		ma = ma.createUser("mo", "test", "maritz.gabriel@gmx.de", new Date(),
-//				new HashSet<Recipe>(), new HashSet<Recipe>());
-//		User mi = new User();
-//		mi = mi.createUser("mi", "test", "miritz.gabriel@gmx.de", new Date(),
-//				new HashSet<Recipe>(), new HashSet<Recipe>());
-//		cookie.deleteUser(cookie.getUserID("dummy"));
+		// User mo = new User();
+		// mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
+		// new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
+		// cookie.saveUser(mo);
+		// User ma = new User();
+		// ma = ma.createUser("mo", "test", "maritz.gabriel@gmx.de", new Date(),
+		// new HashSet<Recipe>(), new HashSet<Recipe>());
+		// User mi = new User();
+		// mi = mi.createUser("mi", "test", "miritz.gabriel@gmx.de", new Date(),
+		// new HashSet<Recipe>(), new HashSet<Recipe>());
+		// cookie.deleteUser(cookie.getUserID("dummy"));
 
 		// System.out.println(cookie.saveUser(mi));
-//		 Recipe re = new Recipe();
-//		 re = re.createRecipe("Lasagne", "blablabla",
-//		 cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
+		// Recipe re = new Recipe();
+		// re = re.createRecipe("Lasagne", "blablabla",
+		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
 		// Recipe ra = new Recipe();
 		// ra = ra.createRecipe("Spaghetti", "blablabla",
 		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
@@ -44,20 +43,18 @@ public class DataProviderImpl implements DataProvider {
 		// ru = ru.createRecipe("Frikadellen", "blablabla",
 		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de")));
 
-//		 cookie.saveRecipe(re);
+		// cookie.saveRecipe(re);
 		// cookie.saveRecipe(ra);
 		// cookie.saveRecipe(ru);
-
-		
 
 		// User temp =
 		// cookie.getUser(cookie.getUserID("Moritz.gabriel@gmx.de"));
 		//
-//		 List<Recipe> recipes = cookie.listAllRecipe();
-//		 Iterator<Recipe> iter = recipes.iterator();
-//		 while (iter.hasNext()) {
-//		 System.out.println(iter.next().getCreator().getName());
-//		 }
+		// List<Recipe> recipes = cookie.listAllRecipe();
+		// Iterator<Recipe> iter = recipes.iterator();
+		// while (iter.hasNext()) {
+		// System.out.println(iter.next().getCreator().getName());
+		// }
 
 		// Recipe temp = cookie.getRecipe(cookie.getRecipeID("Spaghetti"));
 		// System.out.println(temp.getCreator().getName());
@@ -66,35 +63,30 @@ public class DataProviderImpl implements DataProvider {
 		// "maritz.gabriel@gmx.de", new Date(), new HashSet<Recipe>(), new
 		// HashSet<Recipe>());
 
+		//
+		// List<User> users = cookie.listAllUsers();
+		// for (int i = 0; i < users.size(); i++) {
+		// System.out.println(users.size());
+		// }
 
-//
-//		List<User> users = cookie.listAllUsers();
-//		for (int i = 0; i < users.size(); i++) {
-//			System.out.println(users.size());
-//		}
-
-	
 	}
-	
-	public void createDummyUser(){
+
+	public void createDummyUser() {
 		entityManager.getTransaction().begin();
 		@SuppressWarnings("unchecked")
 		List<User> dummyuser = entityManager.createQuery(
-				"from User s where s.eMail='dummy'")
-				.getResultList();
-		if(dummyuser.isEmpty()){
+				"from User s where s.eMail='dummy'").getResultList();
+		if (dummyuser.isEmpty()) {
 			User dummy = new User();
 			dummy.seteMail("dummy");
 			dummy.setName("dummy");
 			dummy.setCreated(new Date());
 			entityManager.persist(dummy);
-			
-		}else{
+
+		} else {
 		}
 		entityManager.getTransaction().commit();
-		
-		
-		
+
 	}
 
 	public List<User> listAllUsers() {
@@ -139,9 +131,9 @@ public class DataProviderImpl implements DataProvider {
 		} else {
 			Set<Recipe> recipes = tempuser.getRecipes();
 			Iterator<Recipe> iter = recipes.iterator();
-			 while (iter.hasNext()) {
-			 iter.next().setCreator(dummy);
-			 }
+			while (iter.hasNext()) {
+				iter.next().setCreator(dummy);
+			}
 			entityManager.remove(tempuser);
 			System.out.println("Erfolg");
 		}
@@ -228,25 +220,46 @@ public class DataProviderImpl implements DataProvider {
 
 	}
 
-	public void addRecipeToFavorites(Recipe recipe, User user) {
+	// public void addRecipeToFavorites(Recipe recipe, User user) {
+	// entityManager.getTransaction().begin();
+	// Recipe recipeTemp = new Recipe();
+	// User userTemp = new User();
+	//
+	// recipeTemp = entityManager.find(Recipe.class, recipe);
+	// userTemp = entityManager.find(User.class, user);
+	//
+	// }
+
+	public void changeRecipeDescription(long recipeID, String description) {
 		entityManager.getTransaction().begin();
 		Recipe recipeTemp = new Recipe();
-		User userTemp = new User();
 
-		recipeTemp = entityManager.find(Recipe.class, recipe);
-		userTemp = entityManager.find(User.class, user);
-
-	}
-	
-	public void changeRecipeDescription(long recipeID, String description){
-		entityManager.getTransaction().begin();
-		Recipe recipeTemp = new Recipe();
-		
 		recipeTemp = entityManager.find(Recipe.class, recipeID);
 		recipeTemp.setDescription(description);
 		entityManager.merge(recipeTemp);
 		System.out.println("Beschreibung geändert");
 		entityManager.getTransaction().commit();
+	}
+
+	public void changeRecipeName(long recipeID, String name) {
+		entityManager.getTransaction().begin();
+		Recipe recipeTemp = new Recipe();
+
+		recipeTemp = entityManager.find(Recipe.class, recipeID);
+		recipeTemp.setName(name);
+		entityManager.merge(recipeTemp);
+		System.out.println("Name geändert");
+		entityManager.getTransaction().commit();
+	}
+	
+	public void createRecipe(User creator, String description, String name ){
+		Recipe recipe = new Recipe();
+		recipe.setCreated();
+		recipe.setCreator(creator);
+		recipe.setDescription(description);
+		recipe.setName(name);
+		entityManager.getTransaction().begin();
+		entityManager.persist(recipe);
 		
 	}
 
