@@ -98,6 +98,10 @@ public class Recipe {
 	public void removeComment(Comment comment) {
 		this.recipeComments.remove(comment);
 	}
+	
+	public Set<Comment> getComments() {
+		return recipeComments;
+	}
 
 	public void setCreated(Date created) {
 		this.created = created;
