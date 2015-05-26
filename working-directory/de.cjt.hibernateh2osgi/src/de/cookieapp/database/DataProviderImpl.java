@@ -28,6 +28,13 @@ public class DataProviderImpl {
 		changeRecipeName(recipeID, "Spaghetti2");
 		getRecepiesFrom(mailadress);
 
+		saveComment("Blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
+		//saveComment("babam", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Spaghetti")));
+		System.out.println("CommentID:");
+		System.out.println(getCommentID("blabla"));
+		
+		System.out.println();
+
 		// deleteUser(getUserID(mailadress));
 		
 		changePassword(getUserID(mailadress), "test1", "test1234");
@@ -243,8 +250,19 @@ public class DataProviderImpl {
 				comment = comment.createComment(content, user, recipe);
 		entityManager.persist(comment);
 		entityManager.merge(recipe);
+		System.out.println("Erfolgreich?");
 		entityManager.getTransaction().commit();
 		
+	}
+	
+	public long getCommentID(String content){
+		long id = 0;
+		Query query = this.entityManager.createQuery("from Comment s where s.content='" + content + "'");
+		List<?> commentFromQuery = query.getResultList();
+		if (commentFromQuery.size() == 1 && commentFromQuery.get(0) instanceof Comment) {
+			id = ((Comment) commentFromQuery.get(0)).getId();
+		}
+		return id;
 	}
 
 }
