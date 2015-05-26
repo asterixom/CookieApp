@@ -10,7 +10,7 @@
 <booleanAttribute key="default" value="true"/>
 <booleanAttribute key="default_auto_start" value="true"/>
 <intAttribute key="default_start_level" value="4"/>
-<stringAttribute key="deselected_workspace_plugins" value="de.cookieapp.control,de.cookieapp.data,de.cookieapp.database,de.cookieapp.dataimpl,de.cookieapp.gui.folderitem,de.cookieapp.gui.home,de.cookieapp.gui.mainpage,de.cookieapp.gui.profile,de.cookieapp.gui.recipe,de.cookieapp.gui.recipesearch,de.cookieapp.gui.register,de.cookieapp.repository"/>
+<stringAttribute key="deselected_workspace_plugins" value="de.cookieapp.control,de.cookieapp.data,de.cookieapp.database*1.0.0.qualifier,de.cookieapp.database*1.0.0.qualifier,de.cookieapp.dataimpl,de.cookieapp.gui.folderitem,de.cookieapp.gui.home,de.cookieapp.gui.mainpage,de.cookieapp.gui.profile,de.cookieapp.gui.recipe,de.cookieapp.gui.recipesearch,de.cookieapp.gui.register,de.cookieapp.repository"/>
 <booleanAttribute key="includeOptional" value="true"/>
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
@@ -26,5 +26,4 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="hibernateh2osgi@default:default"/>
 </launchConfiguration>
