@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,11 +47,15 @@ public class User implements java.io.Serializable {
 
 	@OneToMany(mappedBy="creator")
 	private Set<Recipe> recipes;
+	
+	private Set<Comment> comments;
 
-	/*
-	@ManyToMany(cascade=CascadeType.ALL, mappedBy="userFavorites")
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="READER_SUBSCRIPTIONS", joinColumns={@JoinColumn(referencedColumnName="USERID")}
+                                        , inverseJoinColumns={@JoinColumn(referencedColumnName="RECIPEID")})
  	Set<Recipe> favorites;
-	 */
+	 
 	
 	public Set<Recipe> getRecipes() {
 		return recipes;
@@ -59,7 +65,7 @@ public class User implements java.io.Serializable {
 		this.recipes = recipes;
 	}
 	
-	/*
+	
 	public void addFavoriteRecipe(Recipe recipe) {
 		recipes.add(recipe);
 	}
@@ -67,7 +73,7 @@ public class User implements java.io.Serializable {
 	public void deleteFavoriteRecipe(Recipe recipe) {
 		recipes.remove(recipe);
 	}
-	 */
+	 
 	
 	public String getName() {
 		return name;
@@ -101,7 +107,7 @@ public class User implements java.io.Serializable {
 		this.created = created;
 	}
 
-	/*
+	
 	public Set<Recipe> getFavorites() {
 		return favorites;
 	}
@@ -110,7 +116,7 @@ public class User implements java.io.Serializable {
 		this.favorites = favorite;
 	}
 
-	 */
+	 
 	public Long getId() {
 		return id;
 	}
@@ -123,14 +129,14 @@ public class User implements java.io.Serializable {
 	 * This Method is not for User/Developer use! It is called from the Database/Hibernate, to create a Userobject
 	 */
 	public User(Long id, String name, String password, String eMail,
-			Date created ,Set<Recipe> recipe /*,Set<Recipe> favorites*/) {
+			Date created ,Set<Recipe> recipe ,Set<Recipe> favorites) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.eMail = eMail;
 		this.created = created;
 		this.recipes = recipe;
-		//this.favorites = favorites;
+		this.favorites = favorites;
 	}
 
 	public User() {
@@ -147,12 +153,12 @@ public class User implements java.io.Serializable {
 	 * @return
 	 */
 	public User createUser(String name, String password, String eMail,
-			Date created , Set<Recipe> recipe /*, Set<Recipe> favorites*/) {
+			Date created , Set<Recipe> recipe , Set<Recipe> favorites) {
 		User user = new User();
 		user.seteMail(eMail);
 		user.setName(name);
 		user.setPassword(password);
-		// user.setFavorites(favorites);
+		user.setFavorites(favorites);
 		if (recipe != null) {
 			user.setRecipes(recipe);
 		} else {

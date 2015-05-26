@@ -42,13 +42,14 @@ public class Recipe {
 	@ManyToOne
 	@JoinColumn(name = "USERID")
 	private User creator;
-	
-/*
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "USER", joinColumns = { @JoinColumn(name = "USERID") }, 
-	inverseJoinColumns = { @JoinColumn(name = "RECIPEID") })
+
+	@ManyToMany(mappedBy = "favorites")
 	private Set<Recipe> userFavorites;
-*/
+	
+	private Set<Comment> recipeComments;
+	
+	
+
 	public String getName() {
 		return name;
 	}
@@ -69,6 +70,7 @@ public class Recipe {
 		return created;
 	}
 
+
 	public void setCreated() {
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -83,6 +85,18 @@ public class Recipe {
 		this.creator = creator;
 	}
 
+	public Set<Recipe> getUserFavorites() {
+		return userFavorites;
+	}
+
+	public void setUserFavorites(Set<Recipe> userFavorites) {
+		this.userFavorites = userFavorites;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -91,15 +105,14 @@ public class Recipe {
 		this.id = id;
 	}
 
-	/*
-	public void addRecipeToFavorites(Recipe favo){
+	public void addRecipeToFavorites(Recipe favo) {
 		userFavorites.add(favo);
 	}
-	
-	public void deleteRecipeFromFavorites(Recipe favo){
+
+	public void deleteRecipeFromFavorites(Recipe favo) {
 		userFavorites.remove(favo);
 	}
-*/
+
 	public Recipe(Long id, String name, String description, Date created,
 			User creator) {
 		this.id = id;
@@ -123,25 +136,29 @@ public class Recipe {
 	}
 
 	public void debugDump() {
-		System.out.println("Debug: Recipe: RecipeName: [" + this.name + "] + Description: [" + 
-										this.description + "] + ID: [" + this.id + "]");
+		System.out.println("Debug: Recipe: RecipeName: [" + this.name
+				+ "] + Description: [" + this.description + "] + ID: ["
+				+ this.id + "]");
 		System.out.print("\t and was created by: ");
 		this.creator.debugDump();
 	}
 
 	/**
-	 * Equals Method for the Recipe, returns true, if the recipe consist the same data
-	 * @param object the other recipe to be compared
+	 * Equals Method for the Recipe, returns true, if the recipe consist the
+	 * same data
+	 * 
+	 * @param object
+	 *            the other recipe to be compared
 	 * @return true if they consist the same data, false otherwise
 	 */
 	public boolean equals(Object object) {
 		boolean flag = false;
 		if (object != null && object instanceof Recipe) {
 			Recipe recipe = (Recipe) object;
-			if (this.getId().equals(recipe.getId()) && 
-					this.getName().equals(recipe.getName()) && 
-					this.getDescription().equals(recipe.getDescription()) && 
-					this.getCreated().equals(recipe.getCreated())) {
+			if (this.getId().equals(recipe.getId())
+					&& this.getName().equals(recipe.getName())
+					&& this.getDescription().equals(recipe.getDescription())
+					&& this.getCreated().equals(recipe.getCreated())) {
 				flag = true;
 			}
 		}
