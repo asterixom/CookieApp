@@ -33,19 +33,16 @@ public class DataProviderImpl {
 		printRecepiesFrom(mailadress);
 		 */
 		
-		saveComment("blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
-		//saveComment("babam", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Spaghetti")));
-		System.out.println("CommentID:");
-		System.out.println(getCommentID("blabla"));
+		createDummyComment(mailadress);
 		
-		System.out.println();
+		createDummyFavorites(mailadress);
+		
+		printFavoritesFromUser(mailadress);
 
 		// deleteUser(getUserID(mailadress));
 		
 		changePassword(getUserID(mailadress), "test1", "test1234");
 		changePassword(getUserID(mailadress), "test1", "test1234");
-
-		System.out.println(getUserID(mailadress));
 
 		List<User> users = getUsers();
 		for (int i = 0; i < users.size(); i++) {
@@ -53,6 +50,36 @@ public class DataProviderImpl {
 			System.out.println(users.get(i).getPassword());
 		}
 		//addRecipeToFavorites(getRecipeID("Spaghetti"), getUserID(mailadress));
+	}
+
+	private void printFavoritesFromUser(String mailadress) {
+		System.out.println("Debug: Favorites from");
+		User user = getUser(getUserID(mailadress));
+		user.debugDump();
+		System.out.println("are:");
+		Set<Recipe> recipes = user.getFavorites();
+		Iterator<Recipe> iterReci = recipes.iterator();
+		while(iterReci.hasNext()) {
+			iterReci.next().debugDump();
+		}
+	}
+
+	private void createDummyFavorites(String mailadress) {
+		entityManager.getTransaction().begin();
+		User user = getUser(getUserID(mailadress));
+		Recipe recipe = getRecipe(getRecipeID("Burger"));
+		user.addFavorite(recipe);
+		entityManager.merge(user);
+		entityManager.getTransaction().commit();
+	}
+
+	private void createDummyComment(String mailadress) {
+		saveComment("blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
+		saveComment("babam", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Spaghetti")));
+		System.out.println("CommentID:");
+		System.out.println(getCommentID("blabla"));
+		
+		System.out.println();
 	}
 
 	private void printRecepiesFrom(String mailadress) {
@@ -83,7 +110,7 @@ public class DataProviderImpl {
 
 	private void createDummyUser(String mailadress) {
 		User user = new User();
-		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>()/*, new HashSet<Recipe>()*/);
+		user = user.createUser("Moritz", "test1", mailadress, new Date() , new HashSet<Recipe>(), new HashSet<Recipe>());
 		saveUser(user);
 		user.debugDump();
 	}

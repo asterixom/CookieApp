@@ -23,9 +23,6 @@ import org.hibernate.annotations.Proxy;
 @Table(name = "USER")
 public class User implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6643972648923291606L;
 
 	@Id
@@ -52,10 +49,10 @@ public class User implements java.io.Serializable {
 	private Set<Comment> comments;
 
 	
-	/*@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="READER_SUBSCRIPTIONS", joinColumns={@JoinColumn(referencedColumnName="USERID")}
-                                        , inverseJoinColumns={@JoinColumn(referencedColumnName="RECIPEID")})
- 	Set<Recipe> favorites;*/
+	@ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="READER_SUBSCRIPTIONS", joinColumns={@JoinColumn(referencedColumnName="USERID")}, 
+    										inverseJoinColumns={@JoinColumn(referencedColumnName="RECIPEID")})
+ 	Set<Recipe> favorites;
 	 
 	
 	public Set<Recipe> getRecipes() {
@@ -109,15 +106,22 @@ public class User implements java.io.Serializable {
 	}
 
 	
-//	public Set<Recipe> getFavorites() {
-//		return favorites;
-//	}
-//
-//	public void setFavorites(Set<Recipe> favorite) {
-//		this.favorites = favorite;
-//	}
+	public Set<Recipe> getFavorites() {
+		return favorites;
+	}
 
-	 
+	public void setFavorites(Set<Recipe> favorite) {
+		this.favorites = favorite;
+	}
+
+	public void addFavorite(Recipe recipe) {
+		this.favorites.add(recipe);
+	}
+	
+	public void removeFavorite(Recipe recipe) {
+		this.favorites.remove(recipe);
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -130,14 +134,14 @@ public class User implements java.io.Serializable {
 	 * This Method is not for User/Developer use! It is called from the Database/Hibernate, to create a Userobject
 	 */
 	public User(Long id, String name, String password, String eMail,
-			Date created ,Set<Recipe> recipe /*,Set<Recipe> favorites*/) {
+			Date created ,Set<Recipe> recipe ,Set<Recipe> favorites) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.eMail = eMail;
 		this.created = created;
 		this.recipes = recipe;
-		//this.favorites = favorites;
+		this.favorites = favorites;
 	}
 
 	public User() {
@@ -154,12 +158,12 @@ public class User implements java.io.Serializable {
 	 * @return
 	 */
 	public User createUser(String name, String password, String eMail,
-			Date created , Set<Recipe> recipe /*, Set<Recipe> favorites*/) {
+			Date created , Set<Recipe> recipe , Set<Recipe> favorites) {
 		User user = new User();
 		user.seteMail(eMail);
 		user.setName(name);
 		user.setPassword(password);
-		//user.setFavorites(favorites);
+		user.setFavorites(favorites);
 		if (recipe != null) {
 			user.setRecipes(recipe);
 		} else {
