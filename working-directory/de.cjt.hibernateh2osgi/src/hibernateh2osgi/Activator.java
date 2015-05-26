@@ -18,6 +18,7 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
 
+		// this activator only contains this for testing!
 		DataProviderImpl provider = new DataProviderImpl();
 		provider.main();
 	}

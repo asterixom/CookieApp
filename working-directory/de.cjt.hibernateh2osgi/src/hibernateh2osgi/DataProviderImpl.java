@@ -12,10 +12,9 @@ import javax.persistence.Query;
 
 public class DataProviderImpl {
 
-	private EntityManager entityManager;
+	private EntityManager entityManager = EntityManagerUtil.getEntityManager();;
 
 	public void main() {
-		this.entityManager = EntityManagerUtil.getEntityManager();
 
 		String mailadress = "Moritz.gabriel@gmx.de";
 		
@@ -175,6 +174,7 @@ public class DataProviderImpl {
 			System.out.println("Rezept gibt es schon");
 		} else {
 			entityManager.persist(recipe);
+			// TODO this should not be necessary, do to the mapping of the database!
 			user.addRecipe(recipe);
 			entityManager.merge(user);
 		}

@@ -129,4 +129,22 @@ public class Recipe {
 		this.creator.debugDump();
 	}
 
+	/**
+	 * Equals Method for the Recipe, returns true, if the recipe consist the same data
+	 * @param object the other recipe to be compared
+	 * @return true if they consist the same data, false otherwise
+	 */
+	public boolean equals(Object object) {
+		boolean flag = false;
+		if (object != null && object instanceof Recipe) {
+			Recipe recipe = (Recipe) object;
+			if (this.getId().equals(recipe.getId()) && 
+					this.getName().equals(recipe.getName()) && 
+					this.getDescription().equals(recipe.getDescription()) && 
+					this.getCreated().equals(recipe.getCreated())) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
 }

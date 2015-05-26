@@ -178,4 +178,24 @@ public class User implements java.io.Serializable {
 	public void debugDump() {
 		System.out.println("Debug: User: Username: [" + this.name + "] + eMail: [" + this.eMail + "] + ID: [" + this.id + "]");
 	}
+	
+	/**
+	 * Equals Method for the User, returns true, if the user consist the same data
+	 * @param object the other user to be compared
+	 * @return true if they consist the same data, false otherwise
+	 */
+	public boolean equals(Object object) {
+		boolean flag = false;
+		if (object != null && object instanceof User) {
+			User user = (User) object;
+			if (this.getId().equals(user.getId()) && 
+					this.getName().equals(user.getName()) && 
+					this.geteMail().equals(user.geteMail()) && 
+					this.getCreated().equals(user.getCreated()) &&
+					this.getPassword().equals(user.getPassword())) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
 }
