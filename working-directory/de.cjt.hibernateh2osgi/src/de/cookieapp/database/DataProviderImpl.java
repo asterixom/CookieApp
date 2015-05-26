@@ -33,7 +33,7 @@ public class DataProviderImpl {
 		printRecepiesFrom(mailadress);
 		 */
 		
-		saveComment("Blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
+		saveComment("blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
 		//saveComment("babam", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Spaghetti")));
 		System.out.println("CommentID:");
 		System.out.println(getCommentID("blabla"));
@@ -254,6 +254,19 @@ public class DataProviderImpl {
 		System.out.println("Erfolgreich?");
 		entityManager.getTransaction().commit();
 		
+	}
+	
+	public void saveComment(String content, Long userID, Long recipeID){
+		entityManager.getTransaction().begin();
+		User user = getUser(userID);
+		Recipe recipe = getRecipe(recipeID);
+		Comment comment = new Comment();
+		comment = comment.createComment(content, user, recipe);
+		entityManager.persist(comment);
+		recipe.addComment(comment);
+		entityManager.merge(recipe);
+		System.out.println("Erfolgreich?");
+		entityManager.getTransaction().commit();
 	}
 	
 	public long getCommentID(String content){

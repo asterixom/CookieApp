@@ -90,6 +90,14 @@ public class Recipe {
 //	public void setUserFavorites(Set<Recipe> userFavorites) {
 //		this.userFavorites = userFavorites;
 //	}
+	
+	public void addComment(Comment comment) {
+		this.recipeComments.add(comment);
+	}
+	
+	public void removeComment(Comment comment) {
+		this.recipeComments.remove(comment);
+	}
 
 	public void setCreated(Date created) {
 		this.created = created;
