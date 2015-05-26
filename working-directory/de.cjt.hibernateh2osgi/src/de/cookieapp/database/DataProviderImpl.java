@@ -21,13 +21,18 @@ public class DataProviderImpl {
 		createDummyUser(mailadress);
 		createDummyRecipe(mailadress);
 		
-
+		/*
+		 * Test if Recipes are Created and has User
 		printRecepiesFrom(mailadress);
+		*/
 		
+		/*
+		 * Checks if Recipes can be renamed
 		Long recipeID = getRecipeID("Spaghetti");
 		changeRecipeName(recipeID, "Spaghetti2");
 		printRecepiesFrom(mailadress);
-
+		 */
+		
 		saveComment("Blabla", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Burger")));
 		//saveComment("babam", getUser(getUserID(mailadress)), getRecipe(getRecipeID("Spaghetti")));
 		System.out.println("CommentID:");
