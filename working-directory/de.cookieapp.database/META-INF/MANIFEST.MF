@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Database-DEPRECATED
-Bundle-SymbolicName: de.cookieapp.database-DEPRECATED
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Service-Component: OSGI-INF/component.xml
-Export-Package: de.cookieapp.database.api.DEPRECATED
-Import-Package: javax.persistence;version="2.1.0"
