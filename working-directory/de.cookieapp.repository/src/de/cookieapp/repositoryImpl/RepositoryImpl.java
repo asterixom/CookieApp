@@ -26,13 +26,14 @@ public class RepositoryImpl implements Repository {
 	 * @return the User object from name or mail. <Code> Null </Code> if no user is found
 	 */
 	public User getUser(String userOrMail) {
+		System.out.println("Login versuch für "+userOrMail);
 		User user = null;
 		if(userOrMail != null) {
 			for (User userFromRepo : userRepository) {
-				if (userFromRepo.getName().toLowerCase().equals(userOrMail)) {
+				if (userFromRepo.getName().equalsIgnoreCase(userOrMail)) {
 					user = userFromRepo;
 					break;
-				} else if (userFromRepo.getMail().toLowerCase().equals(userOrMail)) {
+				} else if (userFromRepo.getMail().equalsIgnoreCase(userOrMail)) {
 					user = userFromRepo;
 					break;
 				}

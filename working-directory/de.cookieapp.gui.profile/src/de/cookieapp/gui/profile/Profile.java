@@ -19,10 +19,12 @@ public class Profile implements FolderItem {
 	private Long sessionID;
 	@SuppressWarnings("unused")
 	private User user;
+	
+	private Composite completeComposite;
 
 	@Override
 	public Composite getContent(CTabFolder tabFolder) {
-		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
+		completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
 		if (user != null) {
 			createHeader(completeComposite);
@@ -105,7 +107,10 @@ public class Profile implements FolderItem {
 
 	@Override
 	public void setLogedInUser(User user) {
-		this.user = user;		
+		if(user==null){
+			completeComposite.dispose();
+		}
+		this.user = user;
 	}
 
 }
