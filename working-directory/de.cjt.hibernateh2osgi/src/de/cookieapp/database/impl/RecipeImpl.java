@@ -47,12 +47,40 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 	@ManyToOne(targetEntity = UserImpl.class)
 	@JoinColumn(name = "USERID")
 	private User creator;
+	
+	private Set<String> ingredients;
 
 	/*@ManyToMany(mappedBy = "favorites")
 	private Set<Recipe> userFavorites;*/
 
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipeComment")
 	private Set<Comment> recipeComments;
+
+	
+	
+	public Set<String> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<String> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	public void addIngredient(String ingredient){
+		ingredients.add(ingredient);
+	}
+	
+	public void deleteIngredient(String ingredient){
+		ingredients.remove(ingredient);
+	}
+
+	public Set<Comment> getRecipeComments() {
+		return recipeComments;
+	}
+
+	public void setRecipeComments(Set<Comment> recipeComments) {
+		this.recipeComments = recipeComments;
+	}
 
 	public String getName() {
 		return name;
@@ -62,6 +90,8 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 		this.name = name;
 	}
 
+	
+	
 	public String getDescription() {
 		return description;
 	}

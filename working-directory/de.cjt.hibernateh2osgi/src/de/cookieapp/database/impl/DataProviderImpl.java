@@ -226,6 +226,17 @@ public class DataProviderImpl implements DataProvider {
 		return id;
 	}
 	
+	public void deleteComment(Long commentID){
+		entityManager.getTransaction().begin();
+		CommentImpl comment = entityManager.find(CommentImpl.class, commentID);
+		Recipe recipe = comment.getRecipeComment();
+		//TODO COMMENT AUS DEM REZEPT LÖSCHEN
+		if(comment != null){
+			entityManager.remove(comment);
+		}
+		entityManager.getTransaction().commit();
+	}
+	
 	public void saveFavorite(Long recipeID, Long userID) {
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, userID);;
@@ -235,5 +246,16 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 	}
 	
-	//TODO deleteFavorite, Rezepte Strings speichern(Zutaten)
+	public void deleteFavorite(Long recipeID, Long userID){
+		entityManager.getTransaction().begin();
+		UserImpl user = entityManager.find(UserImpl.class, userID);
+		Recipe recipe = getRecipe(recipeID);
+		user.deleteFavoriteRecipe(recipe);
+		entityManager.merge(user);
+		entityManager.getTransaction().commit();
+	}
+	
+	
+	
+	//TODO deleteFavorite, Rezepte Strings speichern(Zutaten), update methoden
 }
