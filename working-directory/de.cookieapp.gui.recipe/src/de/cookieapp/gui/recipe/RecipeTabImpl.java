@@ -13,8 +13,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import de.cookieapp.data.model.Ingredient;
-import de.cookieapp.data.model.Recipe;
+import de.cookieapp.database.Recipe;
 
 public class RecipeTabImpl implements RecipeTab {
 	
@@ -71,13 +70,14 @@ public class RecipeTabImpl implements RecipeTab {
 		col1.setText("Zutat");
 		TableColumn col2 = new TableColumn(table, SWT.NONE);
 		col2.setText("Menge");
-		
+		// TODO implement this
+		/*
 		for(Ingredient ingredient : recipe.getIngredients()){
 			TableItem ti = new TableItem(table, SWT.NONE);
 			ti.setText(0, ingredient.getNameId()+"");
 			ti.setText(1,ingredient.getQuantity()+" "+ingredient.getUnit().name());
 		}
-		
+		*/
 		Composite contentBR = new Composite(content, SWT.NONE);
 		contentBR.setLayout(new GridLayout(1, false));
 		Text method = new Text(contentBR, SWT.BORDER);

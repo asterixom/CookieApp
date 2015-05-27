@@ -35,7 +35,7 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
 import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
-import de.cookieapp.data.model.User;
+import de.cookieapp.database.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class MainPage extends AbstractEntryPoint {
@@ -260,7 +260,7 @@ public class MainPage extends AbstractEntryPoint {
 				controlService.login(sessionID, nameText.getText(), passwortText.getText());
 				System.out.println("logged in as " +  controlService.getCurrentUserName(sessionID));
 				if (nameText.getText().equals(controlService.getCurrentUserName(sessionID)) ||
-						nameText.getText().equals(controlService.getCurrentUser(sessionID).getMail())) {
+						nameText.getText().equals(controlService.getCurrentUser(sessionID).geteMail())) {
 					loggedinHeader(controlService.getCurrentUserName(sessionID));
 					User user = controlService.getCurrentUser(sessionID);
 					for (FolderItem folderitem : folderItems) {

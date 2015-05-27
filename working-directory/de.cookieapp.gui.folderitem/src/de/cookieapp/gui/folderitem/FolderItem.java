@@ -3,7 +3,7 @@ package de.cookieapp.gui.folderitem;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
 
-import de.cookieapp.data.model.User;
+import de.cookieapp.database.User;
 
 public interface FolderItem {
 
