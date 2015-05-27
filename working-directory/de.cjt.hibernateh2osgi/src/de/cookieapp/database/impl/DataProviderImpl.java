@@ -256,6 +256,24 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 	}
 	
+	public void update(User user){
+		entityManager.getTransaction().begin();
+		entityManager.merge(user);
+		entityManager.getTransaction().commit();
+	}
+	
+	public void update(Recipe recipe){
+		entityManager.getTransaction().begin();
+		entityManager.merge(recipe);
+		entityManager.getTransaction().commit();
+	}
+	
+	public void update(Comment comment){
+		entityManager.getTransaction().begin();
+		entityManager.merge(comment);
+		entityManager.getTransaction().commit();
+	}
+	
 	
 	
 	//TODO deleteFavorite, Rezepte Strings speichern(Zutaten), update methoden
