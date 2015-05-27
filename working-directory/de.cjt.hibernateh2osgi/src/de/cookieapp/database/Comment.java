@@ -7,11 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,11 +23,16 @@ public class Comment {
 	@Column(name = "CONTENT", length = 1000)
 	private String content;
 
-	@ManyToOne
-	private User creator;
-
 	@Column(name = "CREATED", nullable = false)
 	private Date created;
+	
+	@ManyToOne
+	@JoinColumn(name = "USERID")
+	private User commentCreator;
+	
+	@ManyToOne
+	@JoinColumn(name="RECIPEID")
+	private Recipe recipeComment;
 
 	public void setContent(String content) {
 		this.content = content;
@@ -41,7 +43,7 @@ public class Comment {
 	}
 
 	public void setCreator(User creator) {
-		this.creator = creator;
+		this.commentCreator = creator;
 	}
 
 	public void setId(Long id) {
@@ -57,22 +59,53 @@ public class Comment {
 	}
 
 	public User getCreator() {
-		return creator;
+		return commentCreator;
 	}
 
 	public Long getId() {
 		return id;
 	}
+	
+	
+
+	public User getCommentCreator() {
+		return commentCreator;
+	}
+
+	public void setCommentCreator(User commentCreator) {
+		this.commentCreator = commentCreator;
+	}
+
+	public Recipe getRecipeComment() {
+		return recipeComment;
+	}
+
+	public void setRecipeComment(Recipe recipeComment) {
+		this.recipeComment = recipeComment;
+	}
 
 	public Comment(Long id, String content, User creator, Date created) {
 		this.id = id;
 		this.content = content;
-		this.creator = creator;
+		this.commentCreator = creator;
 		this.created = created;
 	}
 
 	public Comment() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Comment createComment(String content, User creator, Recipe recipe){
+		Comment comment = new Comment();
+		comment.setContent(content);
+		comment.setCreated(new Date());
+		comment.setCreator(creator);
+		comment.setRecipeComment(recipe);
+		return comment;
+	}
+	
+	public void debugDump() {
+		System.out.println("Debug: Comment: Creator: [" + this.getCreator().getName() + "] + Created: [" + this.created + "] + Comment: [" + this.content + "]");
 	}
 
 }

@@ -1,4 +1,4 @@
-package hibernateh2osgi;
+package de.cookieapp.database;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -18,6 +18,7 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
 
+		// this activator only contains this for testing!
 		DataProviderImpl provider = new DataProviderImpl();
 		provider.main();
 	}

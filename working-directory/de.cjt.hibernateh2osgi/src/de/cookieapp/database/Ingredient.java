@@ -54,12 +54,12 @@ public class Ingredient {
 		this.id = id;
 	}
 
+	public Ingredient(Long id, double quantity, String unit) {
+		{
+			this.id = id;
+			this.quantity = quantity;
+			this.unit = unit;
+		}
 
-	public Ingredient(Long id, double quantity, String unit,
-			Set<Nutrient> nutrients) {
-		this.id = id;
-		this.quantity = quantity;
-		this.unit = unit;
 	}
-
 }

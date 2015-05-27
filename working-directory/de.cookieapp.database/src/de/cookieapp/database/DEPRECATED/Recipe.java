@@ -1,4 +1,4 @@
-package hibernateh2osgi;
+package de.cookieapp.database.DEPRECATED;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -37,14 +37,18 @@ public class Recipe {
 	private Date created;
 
 	@ManyToOne
-	@JoinColumn(name = "USERID")
+	@JoinColumn(name = "USERID", nullable= false)
 	private User creator;
-/*
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "USER", joinColumns = { @JoinColumn(name = "USERID") }, 
-	inverseJoinColumns = { @JoinColumn(name = "RECIPEID") })
+
+	@ManyToMany
 	private Set<Recipe> userFavorites;
-*/
+	
+	@OneToMany
+	private Set<Comment> comments;
+
+	@OneToMany
+	private Set<Ingredient> ingredients;
+
 	public String getName() {
 		return name;
 	}
@@ -87,7 +91,22 @@ public class Recipe {
 		this.id = id;
 	}
 
-	/*
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
 	public void addRecipeToFavorites(Recipe favo){
 		userFavorites.add(favo);
 	}
@@ -95,14 +114,16 @@ public class Recipe {
 	public void deleteRecipeFromFavorites(Recipe favo){
 		userFavorites.remove(favo);
 	}
-*/
+
 	public Recipe(Long id, String name, String description, Date created,
-			User creator) {
+			User creator, Set<Comment> comments, Set<Ingredient> ingredients) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.created = created;
 		this.creator = creator;
+		this.comments = comments;
+		this.ingredients = ingredients;
 	}
 
 	public Recipe() {
@@ -115,6 +136,8 @@ public class Recipe {
 		temprecipe.setDescription(description);
 		temprecipe.setCreated();
 		temprecipe.setCreator(creator);
+		temprecipe.setComments(new HashSet<Comment>());
+		temprecipe.setIngredients(new HashSet<Ingredient>());
 		return temprecipe;
 	}
 

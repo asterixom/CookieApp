@@ -1,5 +1,6 @@
-package de.cookieapp.database;
+package de.cookieapp.database.DEPRECATED;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,7 +9,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import de.cookieapp.database.api.DataProvider;
+import de.cookieapp.database.api.DEPRECATED.DataProvider;
 
 //EclipseLink JPA With H2 Example
 
@@ -18,8 +19,10 @@ public class DataProviderImpl implements DataProvider {
 
 	public static void main(String[] args) {
 		DataProviderImpl cookie = new DataProviderImpl();
+		
+		cookie.addRecipeToFavorites(cookie.getRecipeID("Lasagne"), cookie.getUserID("Moritz.gabriel@gmx.de"));
 
-		cookie.createDummyUser();
+		// cookie.createDummyUser();
 		// User mo = new User();
 		// mo = mo.createUser("Moritz", "test", "Moritz.gabriel@gmx.de",
 		// new Date(), new HashSet<Recipe>(), new HashSet<Recipe>());
@@ -220,15 +223,18 @@ public class DataProviderImpl implements DataProvider {
 
 	}
 
-	// public void addRecipeToFavorites(Recipe recipe, User user) {
-	// entityManager.getTransaction().begin();
-	// Recipe recipeTemp = new Recipe();
-	// User userTemp = new User();
-	//
-	// recipeTemp = entityManager.find(Recipe.class, recipe);
-	// userTemp = entityManager.find(User.class, user);
-	//
-	// }
+	public void addRecipeToFavorites(long recipeID, long userID) {
+		entityManager.getTransaction().begin();
+
+		Recipe recipeTemp = getRecipe(recipeID);
+		User userTemp = getUser(userID);
+
+		userTemp.addFavoriteRecipe(recipeTemp);
+		entityManager.merge(userTemp);
+
+		entityManager.getTransaction().commit();
+
+	}
 
 	public void changeRecipeDescription(long recipeID, String description) {
 		entityManager.getTransaction().begin();
@@ -239,28 +245,7 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.merge(recipeTemp);
 		System.out.println("Beschreibung geändert");
 		entityManager.getTransaction().commit();
-	}
 
-	public void changeRecipeName(long recipeID, String name) {
-		entityManager.getTransaction().begin();
-		Recipe recipeTemp = new Recipe();
-
-		recipeTemp = entityManager.find(Recipe.class, recipeID);
-		recipeTemp.setName(name);
-		entityManager.merge(recipeTemp);
-		System.out.println("Name geändert");
-		entityManager.getTransaction().commit();
-	}
-	
-	public void createRecipe(User creator, String description, String name ){
-		Recipe recipe = new Recipe();
-		recipe.setCreated();
-		recipe.setCreator(creator);
-		recipe.setDescription(description);
-		recipe.setName(name);
-		entityManager.getTransaction().begin();
-		entityManager.persist(recipe);
-		
 	}
 
 	public boolean login(String eMail, String password) {

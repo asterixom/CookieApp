@@ -1,4 +1,4 @@
-package de.cookieapp.database.api;
+package de.cookieapp.database.api.DEPRECATED;
 
 public interface User {
 

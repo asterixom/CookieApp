@@ -1,4 +1,4 @@
-package de.cookieapp.database;
+package de.cookieapp.database.DEPRECATED;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
-public class User implements java.io.Serializable, de.cookieapp.database.api.User {
+public class User implements java.io.Serializable, de.cookieapp.database.api.DEPRECATED.User {
 
 	/**
 	 * 

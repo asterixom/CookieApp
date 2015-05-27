@@ -1,4 +1,4 @@
-package hibernateh2osgi;
+package de.cookieapp.database;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,6 +9,12 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 
+/**
+ * This Class provides the Database with the EntityManagerFactory.
+ * This Object is needed, to make transactions with the Database
+ * @author christianverdion
+ *
+ */
 public class EntityManagerUtil {
 	private static EntityManagerFactory entityManagerFactory;
 
@@ -21,11 +27,12 @@ public class EntityManagerUtil {
 			Bundle thisBundle = FrameworkUtil.getBundle( EntityManagerUtil.class );
 			// Could get this by wiring up OsgiTestBundleActivator as well.
 			BundleContext context = thisBundle.getBundleContext();
-			System.err.println(PersistenceProvider.class.getName());
+			System.out.println("Debug: Persistence Provider is: " + PersistenceProvider.class.getName());
 			ServiceReference serviceReference = context.getServiceReference( PersistenceProvider.class.getName() );
-			System.err.println(serviceReference.toString());
+			System.out.println("Debug: PersistenceServiceReference is: " + serviceReference.toString());
 			PersistenceProvider persistenceProvider = (PersistenceProvider) context.getService( serviceReference );
-			entityManagerFactory = persistenceProvider.createEntityManagerFactory( "test", null);
+			// Load the EntityManagerFactory from the PersistenceProvider
+			entityManagerFactory = persistenceProvider.createEntityManagerFactory( "CookieAppPersistenceUnit", null);
 		}
 		return entityManagerFactory;
 	}

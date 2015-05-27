@@ -1,9 +1,9 @@
-package de.cookieapp.database.api;
+package de.cookieapp.database.api.DEPRECATED;
 
 import java.util.List;
 
-import de.cookieapp.database.Recipe;
-import de.cookieapp.database.User;
+import de.cookieapp.database.DEPRECATED.Recipe;
+import de.cookieapp.database.DEPRECATED.User;
 
 public interface DataProvider {
 

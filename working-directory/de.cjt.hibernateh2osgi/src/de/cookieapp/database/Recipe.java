@@ -18,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
+@Proxy
 @Entity
 @Table(name = "RECIPE")
 public class Recipe {
@@ -37,17 +40,14 @@ public class Recipe {
 	private Date created;
 
 	@ManyToOne
-	@JoinColumn(name = "USERID", nullable= false)
+	@JoinColumn(name = "USERID")
 	private User creator;
 
-	@ManyToMany
-	private Set<Recipe> userFavorites;
-	
-	@OneToMany
-	private Set<Comment> comments;
+	/*@ManyToMany(mappedBy = "favorites")
+	private Set<Recipe> userFavorites;*/
 
-	@OneToMany
-	private Set<Ingredient> ingredients;
+	@OneToMany(mappedBy = "recipeComment")
+	private Set<Comment> recipeComments;
 
 	public String getName() {
 		return name;
@@ -83,6 +83,34 @@ public class Recipe {
 		this.creator = creator;
 	}
 
+//	public Set<Recipe> getUserFavorites() {
+//		return userFavorites;
+//	}
+//
+//	public void setUserFavorites(Set<Recipe> userFavorites) {
+//		this.userFavorites = userFavorites;
+//	}
+	
+	public void addComment(Comment comment) {
+		this.recipeComments.add(comment);
+	}
+	
+	public void removeComment(Comment comment) {
+		this.recipeComments.remove(comment);
+	}
+	
+	public void setComments(Set<Comment> recipeComments) {
+		this.recipeComments = recipeComments;
+	}
+	
+	public Set<Comment> getComments() {
+		return recipeComments;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -91,39 +119,22 @@ public class Recipe {
 		this.id = id;
 	}
 
-	public Set<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
-	}
-
-	public Set<Ingredient> getIngredients() {
-		return ingredients;
-	}
-
-	public void setIngredients(Set<Ingredient> ingredients) {
-		this.ingredients = ingredients;
-	}
-	
-	public void addRecipeToFavorites(Recipe favo){
-		userFavorites.add(favo);
-	}
-	
-	public void deleteRecipeFromFavorites(Recipe favo){
-		userFavorites.remove(favo);
-	}
+//	public void addRecipeToFavorites(Recipe favo) {
+//		userFavorites.add(favo);
+//	}
+//
+//	public void deleteRecipeFromFavorites(Recipe favo) {
+//		userFavorites.remove(favo);
+//	}
 
 	public Recipe(Long id, String name, String description, Date created,
-			User creator, Set<Comment> comments, Set<Ingredient> ingredients) {
+			User creator) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.created = created;
 		this.creator = creator;
-		this.comments = comments;
-		this.ingredients = ingredients;
+		this.recipeComments = new HashSet<Comment>();
 	}
 
 	public Recipe() {
@@ -131,20 +142,42 @@ public class Recipe {
 	}
 
 	public Recipe createRecipe(String name, String description, User creator) {
-		Recipe temprecipe = new Recipe();
-		temprecipe.setName(name);
-		temprecipe.setDescription(description);
-		temprecipe.setCreated();
-		temprecipe.setCreator(creator);
-		temprecipe.setComments(new HashSet<Comment>());
-		temprecipe.setIngredients(new HashSet<Ingredient>());
-		return temprecipe;
+		Recipe recipe = new Recipe();
+		recipe.setName(name);
+		recipe.setDescription(description);
+		recipe.setCreated();
+		recipe.setCreator(creator);
+		recipe.setComments(new HashSet<Comment>());
+		return recipe;
 	}
 
 	public void debugDump() {
 		System.out.println("Debug: Recipe: RecipeName: [" + this.name
 				+ "] + Description: [" + this.description + "] + ID: ["
 				+ this.id + "]");
+		System.out.print("\t and was created by: ");
+		this.creator.debugDump();
 	}
 
+	/**
+	 * Equals Method for the Recipe, returns true, if the recipe consist the
+	 * same data
+	 * 
+	 * @param object
+	 *            the other recipe to be compared
+	 * @return true if they consist the same data, false otherwise
+	 */
+	public boolean equals(Object object) {
+		boolean flag = false;
+		if (object != null && object instanceof Recipe) {
+			Recipe recipe = (Recipe) object;
+			if (this.getId().equals(recipe.getId())
+					&& this.getName().equals(recipe.getName())
+					&& this.getDescription().equals(recipe.getDescription())
+					&& this.getCreated().equals(recipe.getCreated())) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
 }
