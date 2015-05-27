@@ -20,7 +20,7 @@ public class DummyDataCreator {
 	/**
 	 * Flag, that represents, if the Debug Dump should be written or not
 	 */
-	boolean debug = true;
+	boolean debug = false;
 
 	public DummyDataCreator(DataProvider dataProvider) {
 		this.dataProvider = dataProvider;
@@ -32,6 +32,26 @@ public class DummyDataCreator {
 		createDummyRecipe();
 		createDummyFavorites();
 		createDummyComment();
+		printExtendedUserData();
+		printExtendedRecipeData();
+	}
+
+	private void printExtendedUserData(){
+		User user;
+		for (int i = 0; i < mailAdresses.size(); i = i + 1)	{
+			user = dataProvider.getUser(dataProvider.getUserID(mailAdresses.get(i)));
+			System.out.println();
+			user.debugDumpExtended();
+		}
+	}
+	
+	private void printExtendedRecipeData(){
+		Recipe recipe;
+		for (int i = 0; i < recipeNames.size(); i = i + 1)	{
+			recipe = dataProvider.getRecipe(dataProvider.getRecipeID(recipeNames.get(i)));
+			System.out.println();
+			recipe.debugDumpExtended();
+		}
 	}
 
 	private void createDummyUser() {

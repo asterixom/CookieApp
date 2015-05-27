@@ -2,6 +2,7 @@ package de.cookieapp.database;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -155,8 +156,19 @@ public class Recipe {
 		System.out.println("Debug: Recipe: RecipeName: [" + this.name
 				+ "] + Description: [" + this.description + "] + ID: ["
 				+ this.id + "]");
-		System.out.print("\t and was created by: ");
+	}
+	
+	public void debugDumpExtended() {
+		System.out.println("Debug: Recipe: RecipeName: [" + this.name
+				+ "] + Description: [" + this.description + "] + ID: ["
+				+ this.id + "]");
+		System.out.print("\t and was created by:");
 		this.creator.debugDump();
+		System.out.print("\t and has comments:");
+		Iterator<Comment> comments = this.getComments().iterator();
+		while (comments.hasNext()) {
+			comments.next().debugDump();
+		}
 	}
 
 	/**

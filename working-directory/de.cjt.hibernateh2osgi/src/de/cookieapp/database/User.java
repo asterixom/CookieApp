@@ -2,6 +2,7 @@ package de.cookieapp.database;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -65,11 +66,11 @@ public class User implements java.io.Serializable {
 	
 	
 	public void addFavoriteRecipe(Recipe recipe) {
-		recipes.add(recipe);
+		favorites.add(recipe);
 	}
 
 	public void deleteFavoriteRecipe(Recipe recipe) {
-		recipes.remove(recipe);
+		favorites.remove(recipe);
 	}
 	 
 	
@@ -184,6 +185,19 @@ public class User implements java.io.Serializable {
 
 	public void debugDump() {
 		System.out.println("Debug: User: Username: [" + this.name + "] + eMail: [" + this.eMail + "] + ID: [" + this.id + "]");
+	}
+	
+	public void debugDumpExtended() {
+		System.out.println("Debug: User: Username: [" + this.name + "] + eMail: [" + this.eMail + "] + ID: [" + this.id + "]\n\tUsers Recipes are:");
+		Iterator<Recipe> recipes = this.getRecipes().iterator();
+		while (recipes.hasNext()) {
+			recipes.next().debugDump();
+		}
+		System.out.println("\tUsers Favorites are:");
+		recipes = this.getFavorites().iterator();
+		while (recipes.hasNext()) {
+			recipes.next().debugDump();
+		}
 	}
 	
 	/**

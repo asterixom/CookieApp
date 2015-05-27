@@ -263,7 +263,7 @@ public class DataProviderImpl implements DataProvider {
 	
 	public void saveFavorite(Long recipeID, Long userID) {
 		entityManager.getTransaction().begin();
-		User user = getUser(userID);
+		User user = entityManager.find(User.class, userID);;
 		Recipe recipe = getRecipe(recipeID);
 		user.addFavoriteRecipe(recipe);
 		entityManager.merge(user);
