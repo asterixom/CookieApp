@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import de.cookieapp.control.exceptions.CookieAppException;
-import de.cookieapp.data.model.Recipe;
+import de.cookieapp.database.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
-import de.cookieapp.data.model.User;
+import de.cookieapp.database.User;
 
 public interface ControlService {
 	

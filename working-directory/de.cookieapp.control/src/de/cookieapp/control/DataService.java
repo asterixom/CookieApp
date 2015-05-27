@@ -6,18 +6,17 @@ import java.util.ArrayList;
 
 import javax.xml.bind.DatatypeConverter;
 
-import de.cookieapp.data.model.Recipe;
-import de.cookieapp.data.model.SecurityClearance;
-import de.cookieapp.data.model.User;
-import de.cookieapp.repository.Repository;
+import de.cookieapp.database.Recipe;
+import de.cookieapp.database.User;
+import de.cookieapp.database.DataProvider;
 
 public class DataService {
 
 	private MessageDigest md = null;
-	private Repository repository;
+	private DataProvider dataProvider;
 
-	public DataService(Repository repository) {
-		this.repository = repository;
+	public DataService(DataProvider dataProvider) {
+		this.dataProvider = dataProvider;
 		/*
 		try {
 			md = MessageDigest.getInstance("SHA512");
@@ -27,8 +26,8 @@ public class DataService {
 		*/
 	}
 	
-	public void setRepository(Repository repository) {
-		this.repository = repository;
+	public void setRepository(DataProvider dataProvider) {
+		this.dataProvider = dataProvider;
 	}
 
 	public User login(String userOrMail, String password) {
@@ -36,23 +35,20 @@ public class DataService {
 		/*
 		 * Could be implemented differently, if different in Repository
 		 */
-		if (userOrMail.contains("@")) {
-			user = repository.getUser(userOrMail);
-		} 
-		if (user != null && user.checkPassword(password)) {
-			return user;
-		} else {
-			return null;
+		if (dataProvider.login(userOrMail, password)) {
+			user = dataProvider.getUser(dataProvider.getUserID(userOrMail));
 		}
+		return user;
 	}
 
 	public User register(String username, String password, String mail) {
 		User user = null;
-		if (repository != null) {
-			user = repository.addUser(username, mail, password);
-			if (user != null) {
-				user.setSecurityClearance(SecurityClearance.USER);
-			}
+		if (dataProvider != null) {
+			// implement register
+			//user = dataProvider.addUser(username, mail, password);
+//			if (user != null) {
+//				user.setSecurityClearance(SecurityClearance.USER);
+//			}
 		}
 		return user;
 	}
@@ -69,10 +65,12 @@ public class DataService {
 	}
 
 	public Recipe getRecipe(Long recipeId) {
-		return repository.getRecipe(recipeId);
+		//TODO implement this
+		return null;
 	}
 	
 	public ArrayList<Recipe> getRecipesWithName(String name) {
-		return repository.getRecipesWithName(name);
+		//TODO implement this
+		return null;
 	}
 }
