@@ -186,19 +186,7 @@ public class DataProviderImpl implements DataProvider {
 		return temp;
 
 	}
-
 	
-	public void addRecipeToFavorites(long recipeID, long userID){
-		entityManager.getTransaction().begin();
-		Recipe recipe = getRecipe(recipeID);
-		User user = getUser(userID);
-		user.addFavoriteRecipe(recipe);
-		entityManager.merge(user);
-
-		entityManager.getTransaction().commit();
-	}
-	
-
 	public boolean login(String eMail, String password) {
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, getUserID(eMail));
@@ -247,4 +235,6 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.merge(user);
 		entityManager.getTransaction().commit();
 	}
+	
+	//TODO deleteFavorite, Rezepte Strings speichern(Zutaten)
 }

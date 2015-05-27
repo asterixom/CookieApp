@@ -16,8 +16,6 @@ public interface DataProvider {
 	
 	public Recipe getRecipe(long recipeID);
 	
-	public void addRecipeToFavorites(long recipeID, long userID);
-	
 	public void saveFavorite(Long recipeID, Long userID);
 	
 	public void saveComment(String content, Long userID, Long recipeID);
