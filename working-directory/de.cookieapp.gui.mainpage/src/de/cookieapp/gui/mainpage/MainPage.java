@@ -257,10 +257,15 @@ public class MainPage extends AbstractEntryPoint {
 	private void login() {
 		if (controlService != null) {
 			try {
-				controlService.login(sessionID, nameText.getText(), passwortText.getText());
+				System.out.println(sessionID);
+				if(!controlService.login(sessionID, nameText.getText(), passwortText.getText())){
+					System.err.println("Wrong Password! Not logged in.");
+					//TODO show Message on site
+					return;
+				}
 				System.out.println("logged in as " +  controlService.getCurrentUserName(sessionID));
-				if (nameText.getText().equals(controlService.getCurrentUserName(sessionID)) ||
-						nameText.getText().equals(controlService.getCurrentUser(sessionID).getMail())) {
+				if (nameText.getText().equalsIgnoreCase(controlService.getCurrentUserName(sessionID)) ||
+						nameText.getText().equalsIgnoreCase(controlService.getCurrentUser(sessionID).getMail())) {
 					loggedinHeader(controlService.getCurrentUserName(sessionID));
 					User user = controlService.getCurrentUser(sessionID);
 					for (FolderItem folderitem : folderItems) {

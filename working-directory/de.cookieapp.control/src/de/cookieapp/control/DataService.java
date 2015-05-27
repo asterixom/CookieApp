@@ -36,9 +36,9 @@ public class DataService {
 		/*
 		 * Could be implemented differently, if different in Repository
 		 */
-		if (userOrMail.contains("@")) {
+//		if (userOrMail.contains("@")) {
 			user = repository.getUser(userOrMail);
-		} 
+//		} 
 		if (user != null && user.checkPassword(password)) {
 			return user;
 		} else {

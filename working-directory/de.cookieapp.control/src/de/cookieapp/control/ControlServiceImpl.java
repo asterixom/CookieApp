@@ -64,7 +64,7 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
-		User user = dataService.login(userORmail.toLowerCase(), password);
+		User user = dataService.login(userORmail, password);
 		if (user == null) {
 			return false;
 		} else {
@@ -84,7 +84,7 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)){
 			throw new NoSessionException();
 		}
-		User user = dataService.register(username.toLowerCase(), password, eMail.toLowerCase());
+		User user = dataService.register(username, password, eMail);
 		if (user == null) {
 			return false;
 		}
