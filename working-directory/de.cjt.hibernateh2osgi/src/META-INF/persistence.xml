@@ -2,8 +2,9 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
   version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="CookieAppPersistenceUnit" transaction-type="RESOURCE_LOCAL">
-    <class>de.cookieapp.database.User</class>
-    <class>de.cookieapp.database.Recipe</class>
+    <class>de.cookieapp.database.impl.UserImpl</class>
+    <class>de.cookieapp.database.impl.RecipeImpl</class>
+    <class>de.cookieapp.database.impl.CommentImpl</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
       <!-- Creates the Database in the Projectfolder -->

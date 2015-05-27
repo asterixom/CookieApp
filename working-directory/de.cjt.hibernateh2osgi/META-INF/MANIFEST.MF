@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Database
 Bundle-SymbolicName: de.cookieapp.database
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: de.cookieapp.database.Activator
+Bundle-Activator: de.cookieapp.database.impl.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Meta-Persistence: META-INF/persistence.xml
 Eclipse-BuddyPolicy: registered
@@ -16,3 +16,7 @@ Import-Package: de.cookieapp.data.model,
  org.hibernate.annotations;version="4.3.10.Final",
  org.hibernate.osgi;version="4.3.10.Final",
  org.osgi.framework;version="1.8.0"
+Service-Component: OSGI-INF/DataProvider.xml,
+ OSGI-INF/User.xml,
+ OSGI-INF/Recipe.xml
+Export-Package: de.cookieapp.database

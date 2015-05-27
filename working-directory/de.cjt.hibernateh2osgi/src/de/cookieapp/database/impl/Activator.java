@@ -1,4 +1,4 @@
-package de.cookieapp.database;
+package de.cookieapp.database.impl;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

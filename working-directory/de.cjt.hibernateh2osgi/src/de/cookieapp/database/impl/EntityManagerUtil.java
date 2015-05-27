@@ -1,4 +1,4 @@
-package de.cookieapp.database;
+package de.cookieapp.database.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,7 +32,7 @@ public class EntityManagerUtil {
 			System.out.println("Debug: PersistenceServiceReference is: " + serviceReference.toString());
 			PersistenceProvider persistenceProvider = (PersistenceProvider) context.getService( serviceReference );
 			// Load the EntityManagerFactory from the PersistenceProvider
-			entityManagerFactory = persistenceProvider.createEntityManagerFactory( "CookieAppPersistenceUnit", null);
+			entityManagerFactory = persistenceProvider.createEntityManagerFactory("CookieAppPersistenceUnit", null);
 		}
 		return entityManagerFactory;
 	}

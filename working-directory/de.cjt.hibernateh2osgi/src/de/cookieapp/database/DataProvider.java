@@ -21,5 +21,7 @@ public interface DataProvider {
 	public void saveFavorite(Long recipeID, Long userID);
 	
 	public void saveComment(String content, Long userID, Long recipeID);
+	
+	public boolean changePassword(long userID, String oldPassword, String newPassword);
 
 }

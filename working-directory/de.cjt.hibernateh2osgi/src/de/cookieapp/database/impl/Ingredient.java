@@ -1,4 +1,4 @@
-package de.cookieapp.database;
+package de.cookieapp.database.impl;
 
 import java.util.Date;
 import java.util.HashSet;

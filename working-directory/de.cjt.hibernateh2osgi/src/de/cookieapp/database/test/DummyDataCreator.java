@@ -1,7 +1,10 @@
 package de.cookieapp.database.test;
 
 import java.util.ArrayList;
-import de.cookieapp.database.Comment;
+
+import de.cookieapp.database.impl.CommentImpl;
+import de.cookieapp.database.impl.RecipeImpl;
+import de.cookieapp.database.impl.UserImpl;
 import de.cookieapp.database.DataProvider;
 import de.cookieapp.database.Recipe;
 import de.cookieapp.database.User;
@@ -55,7 +58,7 @@ public class DummyDataCreator {
 	}
 
 	private void createDummyUser() {
-		User user = new User();
+		User user = new UserImpl();
 		for (int i = 0; i < mailAdresses.size(); i = i + 1) {
 			user = user.createUser(userNames.get(i), passwords.get(i), mailAdresses.get(i), null , null, null);
 			dataProvider.saveUser(user);
@@ -67,7 +70,7 @@ public class DummyDataCreator {
 
 	private void createDummyRecipe() {
 		if (recipeNames.size() == recipeDescription.size()) {
-			Recipe recipe = new Recipe();
+			Recipe recipe = new RecipeImpl();
 			User user;
 			for (int i = 0; i < userNames.size(); i = i + 1) {
 				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses.get(i)));
@@ -101,7 +104,7 @@ public class DummyDataCreator {
 			reverseMailAdresses.add(mailAdresses.get(i));
 		}
 		 */
-		Comment comment = new Comment();
+		CommentImpl comment = new CommentImpl();
 		long user;
 		for (int i = 0; i < recipeNames.size(); i = i + 1) {
 			int randomUser = (int) (Math.random() * mailAdresses.size());
