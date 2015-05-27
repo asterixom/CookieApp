@@ -113,7 +113,7 @@ public class DataProviderImpl implements DataProvider {
 	
 	public void changeRecipeName(long recipeID, String newRecipeName) {
 		entityManager.getTransaction().begin();
-		RecipeImpl recipe = entityManager.find(RecipeImpl.class, recipeID);
+		Recipe recipe = entityManager.find(RecipeImpl.class, recipeID);
 		if (recipe != null && newRecipeName != null && newRecipeName.length() > 0) {
 			recipe.setName(newRecipeName);
 			entityManager.merge(recipe);
@@ -126,13 +126,13 @@ public class DataProviderImpl implements DataProvider {
 	}
 
 
-	public List<RecipeImpl> getRecipes() {
+	public List<Recipe> getRecipes() {
 		entityManager.getTransaction().begin();
 		List<?> obj = entityManager.createQuery("from " + RecipeImpl.class.getName()).getResultList();
-		List<RecipeImpl> recipes = new ArrayList<RecipeImpl>();
+		List<Recipe> recipes = new ArrayList<Recipe>();
 		for (Object object : obj) {
-			if (object instanceof RecipeImpl) {
-				recipes.add((RecipeImpl) object);
+			if (object instanceof Recipe) {
+				recipes.add((Recipe) object);
 			}
 		}
 		entityManager.getTransaction().commit();
@@ -203,6 +203,7 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, getUserID(eMail));
 		entityManager.getTransaction().commit();
+		// TODO NullPointer, if user not found!!!
 		return user.getPassword().equals(password);
 	}
 	

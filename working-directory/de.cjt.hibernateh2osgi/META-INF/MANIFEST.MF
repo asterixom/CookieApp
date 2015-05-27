@@ -16,7 +16,5 @@ Import-Package: de.cookieapp.data.model,
  org.hibernate.annotations;version="4.3.10.Final",
  org.hibernate.osgi;version="4.3.10.Final",
  org.osgi.framework;version="1.8.0"
-Service-Component: OSGI-INF/DataProvider.xml,
- OSGI-INF/User.xml,
- OSGI-INF/Recipe.xml
+Service-Component: OSGI-INF/DataProvider.xml
 Export-Package: de.cookieapp.database
