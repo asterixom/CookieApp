@@ -306,6 +306,14 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.merge(comment);
 		entityManager.getTransaction().commit();
 	}
+	
+	public List<Recipe> compareToRecipeName(String string){
+		entityManager.getTransaction().begin();
+		List<?> recipeList = entityManager.createQuery(
+				"from " + RecipeImpl.class.getName() + " s where s.name='"
+						+ string + "'").getResultList();
+		return (List<Recipe>) recipeList;
+	}
 
 	// TODO Rezepte Strings speichern(Zutaten)
 }
