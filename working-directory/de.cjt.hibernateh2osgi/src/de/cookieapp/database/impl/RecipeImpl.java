@@ -128,11 +128,11 @@ public class RecipeImpl implements Recipe {
 	}
 
 	public void addIngredient(Ingredient ingredient){
-		ingredients.add(ingredient);
+		this.ingredients.add(ingredient);
 	}
 	
 	public void removeIngredient(Ingredient ingredient){
-		ingredients.remove(ingredient);
+		this.ingredients.remove(ingredient);
 	}
 	
 	public Set<Ingredient> getIngredients() {
