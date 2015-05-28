@@ -40,7 +40,7 @@ public class IngredientImpl implements Ingredient {
 	private String unit;
 	
 	@ManyToOne(targetEntity = RecipeImpl.class)
-	@JoinColumn(name="RECIPEID")
+	@JoinColumn(name = "RECIPEID")
 	private Recipe recipeIngredient;
 
 	
