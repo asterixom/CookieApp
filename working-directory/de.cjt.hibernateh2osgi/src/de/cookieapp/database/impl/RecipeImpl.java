@@ -21,9 +21,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 import de.cookieapp.data.model.Comment;
+
 
 
 @Proxy
@@ -48,37 +50,13 @@ public class RecipeImpl implements Recipe {
 	@ManyToOne(targetEntity = UserImpl.class)
 	@JoinColumn(name = "USERID")
 	private User creator;
-	
-	/*
-	@Column(name = "INGREDIENTS")
-	private Set<String> ingredients;
-	*/
 
-	/*@ManyToMany(mappedBy = "favorites")
-	private Set<Recipe> userFavorites;*/
+	@OneToMany(targetEntity = IngredientImpl.class, mappedBy = "recipeIngredient")
+	private Set<Ingredient> ingredients;
 
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipeComment")
 	private Set<Comment> recipeComments;
 
-	
-	/*
-	public Set<String> getIngredients() {
-		return ingredients;
-	}
-
-	public void setIngredients(Set<String> ingredients) {
-		this.ingredients = ingredients;
-	}
-	
-	public void addIngredient(String ingredient){
-		ingredients.add(ingredient);
-	}
-	
-	public void deleteIngredient(String ingredient){
-		ingredients.remove(ingredient);
-	}
-	 */
-	
 	public Set<Comment> getRecipeComments() {
 		return recipeComments;
 	}
@@ -120,14 +98,6 @@ public class RecipeImpl implements Recipe {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-
-//	public Set<Recipe> getUserFavorites() {
-//		return userFavorites;
-//	}
-//
-//	public void setUserFavorites(Set<Recipe> userFavorites) {
-//		this.userFavorites = userFavorites;
-//	}
 	
 	public void addComment(Comment comment) {
 		this.recipeComments.add(comment);
@@ -157,13 +127,18 @@ public class RecipeImpl implements Recipe {
 		this.id = id;
 	}
 
-//	public void addRecipeToFavorites(Recipe favo) {
-//		userFavorites.add(favo);
-//	}
-//
-//	public void deleteRecipeFromFavorites(Recipe favo) {
-//		userFavorites.remove(favo);
-//	}
+	public void addIngredient(Ingredient ingredient){
+		ingredients.add(ingredient);
+	}
+	
+	public void removeIngredient(Ingredient ingredient){
+		ingredients.remove(ingredient);
+	}
+	
+	public Set<Ingredient> getIngredients() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public RecipeImpl(Long id, String name, String description, Date created,
 			User creator) {

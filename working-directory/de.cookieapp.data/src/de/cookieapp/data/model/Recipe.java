@@ -3,6 +3,8 @@ package de.cookieapp.data.model;
 import java.util.Date;
 import java.util.Set;
 
+import de.cookieapp.data.model.Ingredient;
+
 public interface Recipe {
 	
 	public Long getId();
@@ -33,11 +35,9 @@ public interface Recipe {
 	public void setComments(Set<Comment> recipeComments);
 	public Set<Comment> getComments();
 	
-	/*
-	public Set<String> getIngredients();
-	public void addIngredient(String ingredient);
-	public void deleteIngredient(String ingredient);
-	*/
+	public Set<Ingredient> getIngredients();
+	public void addIngredient(Ingredient ingredient);
+	public void removeIngredient(Ingredient ingredient);
 	
 	/*
 	public Set<String> getRecommendations();
