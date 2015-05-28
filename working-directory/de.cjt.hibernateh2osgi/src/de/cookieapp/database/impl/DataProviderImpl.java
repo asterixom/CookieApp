@@ -20,37 +20,47 @@ public class DataProviderImpl implements DataProvider {
 
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
-		
+		System.out.println("Debug: CommentID:");
+		System.out.println(getCommentID("Eat that Shit"));
+		deleteComment(getCommentID("Eat that Shit"));
+		System.out.println("Debug: CommentID:");
+		System.out.println(getCommentID("Eat that Shit"));
+
+		getRecipe(getRecipeID("Monster Lasagne")).debugDumpExtended();
+
 		/*
 		 * Test if Recipes are Created and has User
-		printRecepiesFrom(mailadress);
-		*/
-		
-		/*
-		 * Checks if Recipes can be renamed
-		Long recipeID = getRecipeID("Spaghetti");
-		changeRecipeName(recipeID, "Spaghetti2");
-		printRecepiesFrom(mailadress);
+		 * printRecepiesFrom(mailadress);
 		 */
-		
-		//printFavoritesFromUser(mailadress);
+
+		/*
+		 * Checks if Recipes can be renamed Long recipeID =
+		 * getRecipeID("Spaghetti"); changeRecipeName(recipeID, "Spaghetti2");
+		 * printRecepiesFrom(mailadress);
+		 */
+
+		// printFavoritesFromUser(mailadress);
 
 		// deleteUser(getUserID(mailadress));
-		
-//		changePassword(getUserID(mailadress), "test1", "test1234");
-//		changePassword(getUserID(mailadress), "test1", "test1234");
 
-		List<User> users = getUsers();
-		for (int i = 0; i < users.size(); i++) {
-			users.get(i).debugDump();
-			System.out.println(users.get(i).getPassword());
-		}
-		//addRecipeToFavorites(getRecipeID("Spaghetti"), getUserID(mailadress));
+		// changePassword(getUserID(mailadress), "test1", "test1234");
+		// changePassword(getUserID(mailadress), "test1", "test1234");
+
+		// List<User> users = getUsers();
+		// for (int i = 0; i < users.size(); i++) {
+		// users.get(i).debugDump();
+		// System.out.println(users.get(i).getPassword());
+		// }
+
+		// addRecipeToFavorites(getRecipeID("Spaghetti"),
+		// getUserID(mailadress));
+
 	}
 
 	public List<User> getUsers() {
 		entityManager.getTransaction().begin();
-		List<?> obj = entityManager.createQuery("from " + UserImpl.class.getName()).getResultList();
+		List<?> obj = entityManager.createQuery(
+				"from " + UserImpl.class.getName()).getResultList();
 		List<User> users = new ArrayList<User>();
 		for (Object object : obj) {
 			if (object instanceof User) {
@@ -76,15 +86,18 @@ public class DataProviderImpl implements DataProvider {
 		User user = entityManager.find(UserImpl.class, userID);
 		if (user != null) {
 			entityManager.remove(user);
-		} 
+		}
 		entityManager.getTransaction().commit();
 	}
 
 	public long getUserID(String eMail) {
 		long id = 0;
-		Query query = this.entityManager.createQuery("from " + UserImpl.class.getName() + " s where s.eMail='" + eMail + "'");
+		Query query = this.entityManager
+				.createQuery("from " + UserImpl.class.getName()
+						+ " s where s.eMail='" + eMail + "'");
 		List<?> usersFromQuery = query.getResultList();
-		if (usersFromQuery.size() == 1 && usersFromQuery.get(0) instanceof UserImpl) {
+		if (usersFromQuery.size() == 1
+				&& usersFromQuery.get(0) instanceof UserImpl) {
 			id = ((UserImpl) usersFromQuery.get(0)).getId();
 		}
 		return id;
@@ -95,11 +108,13 @@ public class DataProviderImpl implements DataProvider {
 		return user;
 	}
 
-	public boolean changePassword(long userID, String oldPassword, String newPassword) {
+	public boolean changePassword(long userID, String oldPassword,
+			String newPassword) {
 		boolean flag = false;
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, userID);
-		if (user.getPassword().equals(oldPassword) && newPassword != null && newPassword.length() > 0) {
+		if (user.getPassword().equals(oldPassword) && newPassword != null
+				&& newPassword.length() > 0) {
 			user.setPassword(newPassword);
 			entityManager.merge(user);
 			System.out.println("Password changed successfully");
@@ -110,11 +125,12 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 		return flag;
 	}
-	
+
 	public void changeRecipeName(long recipeID, String newRecipeName) {
 		entityManager.getTransaction().begin();
 		Recipe recipe = entityManager.find(RecipeImpl.class, recipeID);
-		if (recipe != null && newRecipeName != null && newRecipeName.length() > 0) {
+		if (recipe != null && newRecipeName != null
+				&& newRecipeName.length() > 0) {
 			recipe.setName(newRecipeName);
 			entityManager.merge(recipe);
 			System.out.println("Recipename changed successfully");
@@ -125,10 +141,10 @@ public class DataProviderImpl implements DataProvider {
 		// TODO add return value, Maybe just Boolean?
 	}
 
-
 	public List<Recipe> getRecipes() {
 		entityManager.getTransaction().begin();
-		List<?> obj = entityManager.createQuery("from " + RecipeImpl.class.getName()).getResultList();
+		List<?> obj = entityManager.createQuery(
+				"from " + RecipeImpl.class.getName()).getResultList();
 		List<Recipe> recipes = new ArrayList<Recipe>();
 		for (Object object : obj) {
 			if (object instanceof Recipe) {
@@ -141,21 +157,29 @@ public class DataProviderImpl implements DataProvider {
 
 	/**
 	 * Returns true, if the Database contains the Recipe
-	 * @param recipe the recipe to look for
+	 * 
+	 * @param recipe
+	 *            the recipe to look for
 	 * @return true, if it is already in the Database, otherwise false
 	 */
 	public boolean contains(Recipe recipe) {
-		List<?> recipeList = entityManager.createQuery("from " + RecipeImpl.class.getName() + " s where s.name='" + recipe.getName() + "'").getResultList();
+		List<?> recipeList = entityManager.createQuery(
+				"from " + RecipeImpl.class.getName() + " s where s.name='"
+						+ recipe.getName() + "'").getResultList();
 		return !recipeList.isEmpty();
 	}
 
 	/**
 	 * Returns true, if the Database contains the User
-	 * @param user the user to look for
+	 * 
+	 * @param user
+	 *            the user to look for
 	 * @return true, if it is already in the Database, otherwise false
 	 */
 	public boolean contains(User user) {
-		List<?> userList = entityManager.createQuery("from " + UserImpl.class.getName() + " s where s.eMail='" + user.geteMail() + "'").getResultList();
+		List<?> userList = entityManager.createQuery(
+				"from " + UserImpl.class.getName() + " s where s.eMail='"
+						+ user.geteMail() + "'").getResultList();
 		return !userList.isEmpty();
 	}
 
@@ -173,9 +197,11 @@ public class DataProviderImpl implements DataProvider {
 
 	public long getRecipeID(String rezeptName) {
 		long id = 0;
-		List<?> recipes = entityManager.createQuery("from " + RecipeImpl.class.getName() + " s where s.name='" + rezeptName + "'").getResultList();
+		List<?> recipes = entityManager.createQuery(
+				"from " + RecipeImpl.class.getName() + " s where s.name='"
+						+ rezeptName + "'").getResultList();
 		if (recipes.size() == 1 && recipes.get(0) instanceof RecipeImpl) {
-			id = ((RecipeImpl)recipes.get(0)).getId();
+			id = ((RecipeImpl) recipes.get(0)).getId();
 		}
 		return id;
 	}
@@ -186,7 +212,7 @@ public class DataProviderImpl implements DataProvider {
 		return temp;
 
 	}
-	
+
 	public boolean login(String eMail, String password) {
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, getUserID(eMail));
@@ -194,18 +220,18 @@ public class DataProviderImpl implements DataProvider {
 		// TODO NullPointer, if user not found!!!
 		return user.getPassword().equals(password);
 	}
-	
-	public void saveComment(String content, UserImpl user, RecipeImpl recipe){
+
+	public void saveComment(String content, UserImpl user, RecipeImpl recipe) {
 		entityManager.getTransaction().begin();
 		CommentImpl comment = new CommentImpl();
-				comment = comment.createComment(content, user, recipe);
+		comment = comment.createComment(content, user, recipe);
 		entityManager.persist(comment);
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
-		
+
 	}
-	
-	public void saveComment(String content, Long userID, Long recipeID){
+
+	public void saveComment(String content, Long userID, Long recipeID) {
 		entityManager.getTransaction().begin();
 		User user = getUser(userID);
 		Recipe recipe = getRecipe(recipeID);
@@ -216,38 +242,45 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
 	}
-	
-	public long getCommentID(String content){
+
+	public long getCommentID(String content) {
 		long id = 0;
-		Query query = this.entityManager.createQuery("from " + CommentImpl.class.getName() + " s where s.content='" + content + "'");
+		Query query = this.entityManager.createQuery("from "
+				+ CommentImpl.class.getName() + " s where s.content='"
+				+ content + "'");
 		List<?> commentFromQuery = query.getResultList();
-		if (commentFromQuery.size() == 1 && commentFromQuery.get(0) instanceof CommentImpl) {
+		if (commentFromQuery.size() == 1
+				&& commentFromQuery.get(0) instanceof CommentImpl) {
 			id = ((CommentImpl) commentFromQuery.get(0)).getId();
 		}
 		return id;
 	}
-	
-	public void deleteComment(Long commentID){
+
+	public void deleteComment(Long commentID) {
 		entityManager.getTransaction().begin();
 		CommentImpl comment = entityManager.find(CommentImpl.class, commentID);
-		Recipe recipe = comment.getRecipeComment();
-		//TODO COMMENT AUS DEM REZEPT LÖSCHEN
-		if(comment != null){
+		RecipeImpl recipe = entityManager.find(RecipeImpl.class, comment
+				.getRecipeComment().getId());
+		recipe.removeComment(comment);
+		if (comment != null) {
 			entityManager.remove(comment);
+			entityManager.merge(recipe);
+			System.out.println("Kommentar erfolgreich gelöscht");
 		}
 		entityManager.getTransaction().commit();
 	}
-	
+
 	public void saveFavorite(Long recipeID, Long userID) {
 		entityManager.getTransaction().begin();
-		UserImpl user = entityManager.find(UserImpl.class, userID);;
+		UserImpl user = entityManager.find(UserImpl.class, userID);
+		;
 		Recipe recipe = getRecipe(recipeID);
 		user.addFavoriteRecipe(recipe);
 		entityManager.merge(user);
 		entityManager.getTransaction().commit();
 	}
-	
-	public void deleteFavorite(Long recipeID, Long userID){
+
+	public void deleteFavorite(Long recipeID, Long userID) {
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, userID);
 		Recipe recipe = getRecipe(recipeID);
@@ -255,26 +288,24 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.merge(user);
 		entityManager.getTransaction().commit();
 	}
-	
-	public void update(User user){
+
+	public void update(User user) {
 		entityManager.getTransaction().begin();
 		entityManager.merge(user);
 		entityManager.getTransaction().commit();
 	}
-	
-	public void update(Recipe recipe){
+
+	public void update(Recipe recipe) {
 		entityManager.getTransaction().begin();
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
 	}
-	
-	public void update(Comment comment){
+
+	public void update(Comment comment) {
 		entityManager.getTransaction().begin();
 		entityManager.merge(comment);
 		entityManager.getTransaction().commit();
 	}
-	
-	
-	
-	//TODO deleteFavorite, Rezepte Strings speichern(Zutaten), update methoden
+
+	// TODO deleteFavorite, Rezepte Strings speichern(Zutaten), update methoden
 }

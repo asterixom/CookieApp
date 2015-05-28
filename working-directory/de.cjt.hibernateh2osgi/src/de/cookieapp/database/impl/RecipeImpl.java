@@ -48,7 +48,8 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 	@JoinColumn(name = "USERID")
 	private User creator;
 	
-	private Set<String> ingredients;
+	/*@Column(name = "INGREDIENTS")
+	private Set<String> ingredients;*/
 
 	/*@ManyToMany(mappedBy = "favorites")
 	private Set<Recipe> userFavorites;*/
@@ -58,21 +59,21 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 
 	
 	
-	public Set<String> getIngredients() {
-		return ingredients;
-	}
-
-	public void setIngredients(Set<String> ingredients) {
-		this.ingredients = ingredients;
-	}
-	
-	public void addIngredient(String ingredient){
-		ingredients.add(ingredient);
-	}
-	
-	public void deleteIngredient(String ingredient){
-		ingredients.remove(ingredient);
-	}
+//	public Set<String> getIngredients() {
+//		return ingredients;
+//	}
+//
+//	public void setIngredients(Set<String> ingredients) {
+//		this.ingredients = ingredients;
+//	}
+//	
+//	public void addIngredient(String ingredient){
+//		ingredients.add(ingredient);
+//	}
+//	
+//	public void deleteIngredient(String ingredient){
+//		ingredients.remove(ingredient);
+//	}
 
 	public Set<Comment> getRecipeComments() {
 		return recipeComments;
