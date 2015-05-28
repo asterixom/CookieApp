@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
-import de.cookieapp.database.User;
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Register implements FolderItem{

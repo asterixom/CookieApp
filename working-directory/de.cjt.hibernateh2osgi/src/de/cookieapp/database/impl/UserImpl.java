@@ -19,12 +19,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import de.cookieapp.database.Recipe;
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.SecurityClearance;
+import de.cookieapp.data.model.User;
 
 @Proxy
 @Entity
 @Table(name = "USER")
-public class UserImpl implements java.io.Serializable, de.cookieapp.database.User {
+public class UserImpl implements java.io.Serializable, User {
 
 	private static final long serialVersionUID = 6643972648923291606L;
 
@@ -55,7 +57,7 @@ public class UserImpl implements java.io.Serializable, de.cookieapp.database.Use
 	@ManyToMany(targetEntity = RecipeImpl.class, cascade=CascadeType.ALL)
     @JoinTable(name="READER_SUBSCRIPTIONS", joinColumns={@JoinColumn(referencedColumnName="USERID")}, 
     										inverseJoinColumns={@JoinColumn(referencedColumnName="RECIPEID")})
- 	Set<Recipe> favorites;
+ 	private Set<Recipe> favorites;
 	 
 	
 	public Set<Recipe> getRecipes() {
@@ -184,6 +186,11 @@ public class UserImpl implements java.io.Serializable, de.cookieapp.database.Use
 	public void deleteRecipe(Recipe recipe) {
 		recipes.remove(recipe);
 	}
+	
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
+	}
+
 
 	public void debugDump() {
 		System.out.println("Debug: User: Username: [" + this.name + "] + eMail: [" + this.eMail + "] + ID: [" + this.id + "]");
@@ -220,5 +227,16 @@ public class UserImpl implements java.io.Serializable, de.cookieapp.database.Use
 			}
 		}
 		return flag;
+	}
+
+	@Override
+	public SecurityClearance getSecurityClearance() {
+		// TODO Auto-generated method stub
+		return SecurityClearance.USER;
+	}
+
+	@Override
+	public void setSecurityClearance(SecurityClearance i) {
+		// TODO Auto-generated method stub
 	}
 }

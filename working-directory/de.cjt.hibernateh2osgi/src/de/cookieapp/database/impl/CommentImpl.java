@@ -11,13 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.cookieapp.database.User;
-import de.cookieapp.database.Recipe;
+import de.cookieapp.data.model.Comment;
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
 
 
 @Entity
 @Table(name = "COMMENT")
-public class CommentImpl implements de.cookieapp.database.Comment {
+public class CommentImpl implements Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

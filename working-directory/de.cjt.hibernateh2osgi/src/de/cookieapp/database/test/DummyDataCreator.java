@@ -2,12 +2,12 @@ package de.cookieapp.database.test;
 
 import java.util.ArrayList;
 
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
+import de.cookieapp.data.service.DataProvider;
 import de.cookieapp.database.impl.CommentImpl;
 import de.cookieapp.database.impl.RecipeImpl;
 import de.cookieapp.database.impl.UserImpl;
-import de.cookieapp.database.DataProvider;
-import de.cookieapp.database.Recipe;
-import de.cookieapp.database.User;
 
 public class DummyDataCreator {
 

@@ -6,10 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import de.cookieapp.database.Comment;
-import de.cookieapp.database.DataProvider;
-import de.cookieapp.database.Recipe;
-import de.cookieapp.database.User;
+import de.cookieapp.data.model.Comment;
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
+import de.cookieapp.data.service.DataProvider;
 import de.cookieapp.database.test.DummyDataCreator;
 
 public class DataProviderImpl implements DataProvider {

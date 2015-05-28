@@ -7,6 +7,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.rap.rwt;bundle-version="2.3.1"
 Import-Package: de.cookieapp.control,
  de.cookieapp.control.exceptions,
- de.cookieapp.database,
+ de.cookieapp.data.model,
  de.cookieapp.gui.folderitem
 Service-Component: OSGI-INF/component.xml

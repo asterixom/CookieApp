@@ -2,7 +2,7 @@ package de.cookieapp.gui.recipe;
 
 import org.eclipse.swt.widgets.Composite;
 
-import de.cookieapp.database.Recipe;
+import de.cookieapp.data.model.Recipe;
 
 public interface RecipeTab {
 

@@ -9,10 +9,10 @@ import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.control.exceptions.NoSessionException;
 import de.cookieapp.control.exceptions.NoSuchRecipeException;
 import de.cookieapp.control.exceptions.NotLoggedInException;
-import de.cookieapp.database.Recipe;
+import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
-import de.cookieapp.database.User;
-import de.cookieapp.database.DataProvider;
+import de.cookieapp.data.model.User;
+import de.cookieapp.data.service.DataProvider;
 
 public class ControlServiceImpl implements ControlService {
 	
@@ -124,9 +124,12 @@ public class ControlServiceImpl implements ControlService {
 			throw  new NotLoggedInException();
 		}
 		TreeMap<Long, String> list = new TreeMap<Long, String>();
+		// TODO finish implementing
+		/*
 		for (Recipe r : user.getRecipes()) {
 			list.put(r.getId(), r.getName());
 		}
+		*/
 		return list;
 	}
 
@@ -138,9 +141,12 @@ public class ControlServiceImpl implements ControlService {
 			throw  new NotLoggedInException();
 		}
 		TreeMap<Long, String> list = new TreeMap<Long, String>();
+		// TODO Implement new
+		/*
 		for (Recipe r : user.getFavorites()) {
 			list.put(r.getId(), r.getName());
 		}
+		*/
 		return list;
 	}
 	
@@ -198,6 +204,7 @@ public class ControlServiceImpl implements ControlService {
 		if (dataProvider != null) {
 			this.dataProvider = dataProvider;
 			dataService.setRepository(dataProvider);
+			System.out.println("Debug: DataProvider is set!");
 		}
 	}
 

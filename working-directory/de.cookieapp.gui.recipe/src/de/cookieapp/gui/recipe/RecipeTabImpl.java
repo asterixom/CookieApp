@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import de.cookieapp.database.Recipe;
+import de.cookieapp.data.model.Recipe;
 
 public class RecipeTabImpl implements RecipeTab {
 	

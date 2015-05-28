@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import javax.xml.bind.DatatypeConverter;
 
-import de.cookieapp.database.Recipe;
-import de.cookieapp.database.User;
-import de.cookieapp.database.DataProvider;
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
+import de.cookieapp.data.service.DataProvider;
 
 public class DataService {
 

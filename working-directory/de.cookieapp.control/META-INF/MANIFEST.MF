@@ -4,10 +4,9 @@ Bundle-Name: Control
 Bundle-SymbolicName: de.cookieapp.control
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: de.cookieapp.data.model,
- de.cookieapp.database,
- de.cookieapp.dataimpl
 Export-Package: de.cookieapp.control;uses:="de.cookieapp.data.service,de.cookieapp.control.model,de.cookieapp.data.model",
  de.cookieapp.control.exceptions
 Service-Component: OSGI-INF/*
 Bundle-ActivationPolicy: lazy
+Import-Package: de.cookieapp.data.model,
+ de.cookieapp.data.service

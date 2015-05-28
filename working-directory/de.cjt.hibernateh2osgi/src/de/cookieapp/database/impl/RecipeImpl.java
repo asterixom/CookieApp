@@ -21,14 +21,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
-import de.cookieapp.database.User;
-import de.cookieapp.database.Comment;
+import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
+import de.cookieapp.data.model.Comment;
 
 
 @Proxy
 @Entity
 @Table(name = "RECIPE")
-public class RecipeImpl implements de.cookieapp.database.Recipe {
+public class RecipeImpl implements Recipe {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,7 +49,10 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 	@JoinColumn(name = "USERID")
 	private User creator;
 	
+	/*
+	@Column(name = "INGREDIENTS")
 	private Set<String> ingredients;
+	*/
 
 	/*@ManyToMany(mappedBy = "favorites")
 	private Set<Recipe> userFavorites;*/
@@ -57,7 +61,7 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 	private Set<Comment> recipeComments;
 
 	
-	
+	/*
 	public Set<String> getIngredients() {
 		return ingredients;
 	}
@@ -73,7 +77,8 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 	public void deleteIngredient(String ingredient){
 		ingredients.remove(ingredient);
 	}
-
+	 */
+	
 	public Set<Comment> getRecipeComments() {
 		return recipeComments;
 	}
@@ -89,8 +94,6 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	
 	
 	public String getDescription() {
 		return description;
@@ -170,19 +173,27 @@ public class RecipeImpl implements de.cookieapp.database.Recipe {
 		this.created = created;
 		this.creator = creator;
 		this.recipeComments = new HashSet<Comment>();
+		//this.ingredients = new HashSet<String>();
 	}
 
 	public RecipeImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeImpl createRecipe(String name, String description, User creator) {
+	public RecipeImpl createRecipe(String name, String description, User creator /*, Set<String> ingredients*/) {
 		RecipeImpl recipe = new RecipeImpl();
 		recipe.setName(name);
 		recipe.setDescription(description);
 		recipe.setCreated();
 		recipe.setCreator(creator);
 		recipe.setComments(new HashSet<Comment>());
+		/*
+		if (ingredients != null) {
+		recipe.setIngredients(ingredients);
+		} else {
+			recipe.setIngredients(new HashSet<String>());
+		}
+		*/
 		return recipe;
 	}
 

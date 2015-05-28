@@ -6,7 +6,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import de.cookieapp.database.User;
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Home implements FolderItem {
