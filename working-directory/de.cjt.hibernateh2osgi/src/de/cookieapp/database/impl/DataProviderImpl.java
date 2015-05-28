@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import de.cookieapp.database.Comment;
 import de.cookieapp.database.DataProvider;
+import de.cookieapp.database.Ingredient;
 import de.cookieapp.database.Recipe;
 import de.cookieapp.database.User;
 import de.cookieapp.database.test.DummyDataCreator;
@@ -20,13 +21,7 @@ public class DataProviderImpl implements DataProvider {
 
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
-		System.out.println("Debug: CommentID:");
-		System.out.println(getCommentID("Eat that Shit"));
-		deleteComment(getCommentID("Eat that Shit"));
-		System.out.println("Debug: CommentID:");
-		System.out.println(getCommentID("Eat that Shit"));
-
-		getRecipe(getRecipeID("Monster Lasagne")).debugDumpExtended();
+		
 
 		/*
 		 * Test if Recipes are Created and has User
@@ -306,13 +301,23 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.merge(comment);
 		entityManager.getTransaction().commit();
 	}
-	
-	public List<Recipe> compareToRecipeName(String string){
+
+	public List<Recipe> compareToRecipeName(String string) {
 		entityManager.getTransaction().begin();
 		List<?> recipeList = entityManager.createQuery(
 				"from " + RecipeImpl.class.getName() + " s where s.name='"
 						+ string + "'").getResultList();
 		return (List<Recipe>) recipeList;
+	}
+
+	public void saveIngredient(Ingredient ingredient, Long recipeID) {
+		entityManager.getTransaction().begin();
+		Recipe recipe = getRecipe(recipeID);
+		entityManager.persist(ingredient);
+		recipe.addIngredient(ingredient);
+		entityManager.merge(recipe);
+		entityManager.getTransaction().commit();
+
 	}
 
 	// TODO Rezepte Strings speichern(Zutaten)

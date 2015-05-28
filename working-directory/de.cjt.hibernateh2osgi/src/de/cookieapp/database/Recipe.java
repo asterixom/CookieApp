@@ -28,6 +28,10 @@ public interface Recipe {
 	
 	public void removeComment(Comment comment);
 	
+	public void addIngredient(Ingredient ingredient);
+	
+	public void removeIngredient(Ingredient ingredient);
+	
 	public void setComments(Set<Comment> recipeComments);
 	
 	public Set<Comment> getComments();
