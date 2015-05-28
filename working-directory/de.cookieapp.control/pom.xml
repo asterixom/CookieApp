@@ -28,15 +28,5 @@
   		<artifactId>de.cookieapp.data</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
-  	<dependency>
-  		<groupId>de.cookieapp.repository</groupId>
-  		<artifactId>de.cookieapp.repository</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>de.cookieapp.dataimpl</groupId>
-  		<artifactId>de.cookieapp.dataimpl</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
   </dependencies>
 </project>
