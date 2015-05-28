@@ -307,5 +307,5 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 	}
 
-	// TODO deleteFavorite, Rezepte Strings speichern(Zutaten), update methoden
+	// TODO Rezepte Strings speichern(Zutaten)
 }

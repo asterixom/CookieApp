@@ -39,19 +39,21 @@ public class DummyDataCreator {
 		printExtendedRecipeData();
 	}
 
-	private void printExtendedUserData(){
+	private void printExtendedUserData() {
 		User user;
-		for (int i = 0; i < mailAdresses.size(); i = i + 1)	{
-			user = dataProvider.getUser(dataProvider.getUserID(mailAdresses.get(i)));
+		for (int i = 0; i < mailAdresses.size(); i = i + 1) {
+			user = dataProvider.getUser(dataProvider.getUserID(mailAdresses
+					.get(i)));
 			System.out.println();
 			user.debugDumpExtended();
 		}
 	}
-	
-	private void printExtendedRecipeData(){
+
+	private void printExtendedRecipeData() {
 		Recipe recipe;
-		for (int i = 0; i < recipeNames.size(); i = i + 1)	{
-			recipe = dataProvider.getRecipe(dataProvider.getRecipeID(recipeNames.get(i)));
+		for (int i = 0; i < recipeNames.size(); i = i + 1) {
+			recipe = dataProvider.getRecipe(dataProvider
+					.getRecipeID(recipeNames.get(i)));
 			System.out.println();
 			recipe.debugDumpExtended();
 		}
@@ -60,7 +62,8 @@ public class DummyDataCreator {
 	private void createDummyUser() {
 		User user = new UserImpl();
 		for (int i = 0; i < mailAdresses.size(); i = i + 1) {
-			user = user.createUser(userNames.get(i), passwords.get(i), mailAdresses.get(i), null , null, null);
+			user = user.createUser(userNames.get(i), passwords.get(i),
+					mailAdresses.get(i), null, null, null);
 			dataProvider.saveUser(user);
 			if (debug) {
 				user.debugDump();
@@ -73,16 +76,18 @@ public class DummyDataCreator {
 			Recipe recipe = new RecipeImpl();
 			User user;
 			for (int i = 0; i < userNames.size(); i = i + 1) {
-				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses.get(i)));
+				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses
+						.get(i)));
 				for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
-					recipe = recipe.createRecipe(recipeNames.get(j), recipeDescription.get(j), user);
+					recipe = recipe.createRecipe(recipeNames.get(j),
+							recipeDescription.get(j), user);
 					dataProvider.saveRecipe(recipe, user);
 					if (debug) {
 						recipe.debugDump();
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	private void createDummyFavorites() {
@@ -91,18 +96,17 @@ public class DummyDataCreator {
 			int numberOfFavorites = (int) (Math.random() * recipeNames.size());
 			for (int j = 0; j < numberOfFavorites; j = j + 1) {
 				int favoriteRecipe = (int) (Math.random() * recipeNames.size());
-				dataProvider.saveFavorite(dataProvider.getRecipeID(recipeNames.get(favoriteRecipe)), user);
+				dataProvider.saveFavorite(dataProvider.getRecipeID(recipeNames
+						.get(favoriteRecipe)), user);
 			}
 		}
 	}
 
-
 	private void createDummyComment() {
 		/*
-		ArrayList<String> reverseMailAdresses = new ArrayList<String>();
-		for (int i = mailAdresses.size(); i >= 0 ; i = i - 1) {
-			reverseMailAdresses.add(mailAdresses.get(i));
-		}
+		 * ArrayList<String> reverseMailAdresses = new ArrayList<String>(); for
+		 * (int i = mailAdresses.size(); i >= 0 ; i = i - 1) {
+		 * reverseMailAdresses.add(mailAdresses.get(i)); }
 		 */
 		CommentImpl comment = new CommentImpl();
 		long user;
@@ -110,8 +114,12 @@ public class DummyDataCreator {
 			int randomUser = (int) (Math.random() * mailAdresses.size());
 			user = dataProvider.getUserID(mailAdresses.get(randomUser));
 			for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
-				comment = comment.createComment(commentContents.get(j), dataProvider.getUser(user), dataProvider.getRecipe(dataProvider.getRecipeID(recipeNames.get(i))));
-				dataProvider.saveComment(commentContents.get(j), user, dataProvider.getRecipeID(recipeNames.get(i)));
+				comment = comment.createComment(commentContents.get(j),
+						dataProvider.getUser(user), dataProvider
+								.getRecipe(dataProvider.getRecipeID(recipeNames
+										.get(i))));
+				dataProvider.saveComment(commentContents.get(j), user,
+						dataProvider.getRecipeID(recipeNames.get(i)));
 				if (debug) {
 					comment.debugDump();
 				}
@@ -120,7 +128,8 @@ public class DummyDataCreator {
 	}
 
 	/**
-	 * Fills the ArrayLists with some Data to be used by the create Dummy Data Methods
+	 * Fills the ArrayLists with some Data to be used by the create Dummy Data
+	 * Methods
 	 */
 	private void fillArrayLists() {
 		mailAdresses.add("Moritz.gabriel@gmx.de");
@@ -145,7 +154,7 @@ public class DummyDataCreator {
 		recipeDescription.add("can be added by French Fries");
 		recipeDescription.add("Some Meat");
 		recipeDescription.add("More Meat");
-		recipeDescription.add("Flour, Salami and Cheese");		
+		recipeDescription.add("Flour, Salami and Cheese");
 		recipeDescription.add("French, Potatos and Fat");
 		recipeDescription.add("Monster Flesh Muhaahaa");
 
