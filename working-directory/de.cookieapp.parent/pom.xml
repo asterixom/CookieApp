@@ -23,6 +23,7 @@
   	<module>../de.cookieapp.gui.recipe</module>
   	
   	<module>../de.cjt.hibernateh2osgi</module>
+  	<module>../de.cookieapp.gui.folderitem</module>
   </modules>
   <dependencies>
   	<dependency>
