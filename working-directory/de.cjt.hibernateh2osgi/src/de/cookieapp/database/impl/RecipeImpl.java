@@ -50,7 +50,7 @@ public class RecipeImpl implements Recipe {
 
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipeComment")
 	private Set<Comment> recipeComments;
-	
+
 	public Set<Comment> getRecipeComments() {
 		return recipeComments;
 	}
@@ -159,7 +159,7 @@ public class RecipeImpl implements Recipe {
 		recipe.setDescription(description);
 		recipe.setCreated();
 		recipe.setCreator(creator);
-		
+
 		recipe.setComments(new HashSet<Comment>());
 		if (ingredients != null) { 
 			recipe.setIngredients(ingredients); 
@@ -183,13 +183,18 @@ public class RecipeImpl implements Recipe {
 		this.creator.debugDump();
 		System.out.println("\t and has ingredients");
 		Iterator<Ingredient> ingredients = this.getIngredients().iterator();
-		while (ingredients.hasNext()) {
-			ingredients.next().debugDump();
+		if (ingredients.hasNext()) {
+			System.out.println("\t and has ingredients");
+			while (ingredients.hasNext()) {
+				ingredients.next().debugDump();
+			}
 		}
-		System.out.print("\t and has comments:");
-		Iterator<Comment> comments = this.getComments().iterator();
-		while (comments.hasNext()) {
-			comments.next().debugDump();
+		Iterator<Comment> comments = this.getComments().iterator();		
+		if (comments.hasNext()) {
+			System.out.print("\t and has comments:");
+			while (comments.hasNext()) {
+				comments.next().debugDump();
+			}
 		}
 	}
 

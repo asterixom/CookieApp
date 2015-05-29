@@ -21,35 +21,6 @@ public class DataProviderImpl implements DataProvider {
 
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
-		IngredientImpl ing = new IngredientImpl();
-		ing = ing.createIngredient(200.0, "Liter", "Wasser");
-		saveIngredient(ing, getRecipeID("Burger"));
-		/*
-		 * Test if Recipes are Created and has User
-		 * printRecepiesFrom(mailadress);
-		 */
-
-		/*
-		 * Checks if Recipes can be renamed Long recipeID =
-		 * getRecipeID("Spaghetti"); changeRecipeName(recipeID, "Spaghetti2");
-		 * printRecepiesFrom(mailadress);
-		 */
-
-		// printFavoritesFromUser(mailadress);
-
-		// deleteUser(getUserID(mailadress));
-
-		// changePassword(getUserID(mailadress), "test1", "test1234");
-		// changePassword(getUserID(mailadress), "test1", "test1234");
-
-		// List<User> users = getUsers();
-		// for (int i = 0; i < users.size(); i++) {
-		// users.get(i).debugDump();
-		// System.out.println(users.get(i).getPassword());
-		// }
-
-		// addRecipeToFavorites(getRecipeID("Spaghetti"),
-		// getUserID(mailadress));
 
 	}
 
@@ -308,7 +279,13 @@ public class DataProviderImpl implements DataProvider {
 		List<?> recipeList = entityManager.createQuery(
 				"from " + RecipeImpl.class.getName() + " s where s.name='"
 						+ string + "'").getResultList();
-		return (List<Recipe>) recipeList;
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		for (Object object : recipeList) {
+			if (object instanceof Recipe) {
+				recipes.add((Recipe) object);
+			}
+		}
+		return recipes;
 	}
 
 	public void saveIngredient(Ingredient ingredient, Long recipeID) {
