@@ -10,3 +10,4 @@ Service-Component: OSGI-INF/*
 Bundle-ActivationPolicy: lazy
 Import-Package: de.cookieapp.data.model,
  de.cookieapp.data.service
+Bundle-Vendor: de.cookieapp

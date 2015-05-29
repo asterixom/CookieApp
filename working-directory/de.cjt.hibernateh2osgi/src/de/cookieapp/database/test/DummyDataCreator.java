@@ -1,11 +1,15 @@
 package de.cookieapp.database.test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 import de.cookieapp.data.service.DataProvider;
 import de.cookieapp.database.impl.CommentImpl;
+import de.cookieapp.database.impl.IngredientImpl;
 import de.cookieapp.database.impl.RecipeImpl;
 import de.cookieapp.database.impl.UserImpl;
 
@@ -19,6 +23,8 @@ public class DummyDataCreator {
 	private ArrayList<String> recipeNames = new ArrayList<String>();
 	private ArrayList<String> recipeDescription = new ArrayList<String>();
 	private ArrayList<String> commentContents = new ArrayList<String>();
+	private ArrayList<String> ingredientNames = new ArrayList<String>();
+	private ArrayList<String> ingredientUnits = new ArrayList<String>();
 
 	/**
 	 * Flag, that represents, if the Debug Dump should be written or not
@@ -79,9 +85,15 @@ public class DummyDataCreator {
 				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses
 						.get(i)));
 				for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
-					recipe = recipe.createRecipe(recipeNames.get(j),
-							recipeDescription.get(j), user);
+					recipe = recipe.createRecipe(recipeNames.get(j), recipeDescription.get(j), user, null);
 					dataProvider.saveRecipe(recipe, user);
+					Long id = dataProvider.getRecipeID(recipeNames.get(j));
+					int numberOfIngredients = (int) (Math.random() * 2);
+					Ingredient ingredient = new IngredientImpl();
+					for (int k = 0; k < numberOfIngredients; k = k + 1) {
+						ingredient = ingredient.createIngredient((Math.random() * 1000), ingredientUnits.get((int) (Math.random() * 2)), ingredientNames.get((int) (Math.random() * 1)));
+						dataProvider.saveIngredient(ingredient, id);
+					}
 					if (debug) {
 						recipe.debugDump();
 					}
@@ -164,7 +176,7 @@ public class DummyDataCreator {
 		commentContents.add("Long Noodles");
 		commentContents.add("Longest Noodles");
 
-		commentContents.add("Gigantic Noodleplates and some good meet");
+		commentContents.add("Gigantic Noodleplates and some good meat");
 		commentContents.add("Tastes Delicious, dont forget the Cheese");
 
 		commentContents.add("An Italian and a StoneOven. Superb");
@@ -175,6 +187,15 @@ public class DummyDataCreator {
 
 		commentContents.add("Bullshit, ich kann nichts hörn!!!");
 		commentContents.add("Eat that Shit");
+		
+		
+		ingredientNames.add("Salami");
+		ingredientNames.add("Cheese");
+		ingredientNames.add("Fries");
+
+		ingredientUnits.add("ml");
+		ingredientUnits.add("g");
+
 	}
 
 }

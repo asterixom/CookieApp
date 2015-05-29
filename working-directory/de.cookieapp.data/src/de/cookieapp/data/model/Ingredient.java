@@ -23,7 +23,8 @@ public interface Ingredient {
 
 	public abstract void setName(String name);
 
-	public abstract Ingredient createIngredient(double quantity,
-			String unit, String name);
+	public abstract Ingredient createIngredient(double quantity, String unit, String name);
+	
+	public void debugDump();
 
 }

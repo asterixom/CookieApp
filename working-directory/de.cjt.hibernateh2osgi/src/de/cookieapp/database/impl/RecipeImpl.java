@@ -130,9 +130,7 @@ public class RecipeImpl implements Recipe {
 	}
 
 	public void addIngredient(Ingredient ingredient) {
-		System.out.println(ingredients.size());
-		//this.ingredients.add(ingredient);
-
+		this.ingredients.add(ingredient);
 	}
 
 	public void removeIngredient(Ingredient ingredient) {
@@ -140,8 +138,7 @@ public class RecipeImpl implements Recipe {
 	}
 
 	public Set<Ingredient> getIngredients() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.ingredients;
 	}
 
 	public RecipeImpl(Long id, String name, String description, Date created,
@@ -152,31 +149,26 @@ public class RecipeImpl implements Recipe {
 		this.created = created;
 		this.creator = creator;
 		this.recipeComments = new HashSet<Comment>();
-		// this.ingredients = new HashSet<String>();
+		this.ingredients = new HashSet<Ingredient>();
 	}
 
 	public RecipeImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeImpl createRecipe(String name, String description, User creator /*
-																				 * ,
-																				 * Set
-																				 * <
-																				 * String
-																				 * >
-																				 * ingredients
-																				 */) {
+	public RecipeImpl createRecipe(String name, String description, User creator, Set<Ingredient> ingredients) {
 		RecipeImpl recipe = new RecipeImpl();
 		recipe.setName(name);
 		recipe.setDescription(description);
 		recipe.setCreated();
 		recipe.setCreator(creator);
+		
 		recipe.setComments(new HashSet<Comment>());
-		/*
-		 * if (ingredients != null) { recipe.setIngredients(ingredients); } else
-		 * { recipe.setIngredients(new HashSet<String>()); }
-		 */
+		if (ingredients != null) { 
+			recipe.setIngredients(ingredients); 
+		} else { 
+			recipe.setIngredients(new HashSet<Ingredient>()); 
+		}
 		return recipe;
 	}
 
@@ -192,6 +184,11 @@ public class RecipeImpl implements Recipe {
 				+ this.id + "]");
 		System.out.print("\t and was created by:");
 		this.creator.debugDump();
+		System.out.println("\t and has ingredients");
+		Iterator<Ingredient> ingredients = this.getIngredients().iterator();
+		while (ingredients.hasNext()) {
+			ingredients.next().debugDump();
+		}
 		System.out.print("\t and has comments:");
 		Iterator<Comment> comments = this.getComments().iterator();
 		while (comments.hasNext()) {

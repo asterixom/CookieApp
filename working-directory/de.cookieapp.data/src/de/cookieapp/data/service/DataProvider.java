@@ -1,5 +1,6 @@
 package de.cookieapp.data.service;
 
+import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 
@@ -24,4 +25,6 @@ public interface DataProvider {
 	public void saveComment(String content, Long userID, Long recipeID);
 	
 	public boolean changePassword(long userID, String oldPassword, String newPassword);
+	
+	public void saveIngredient(Ingredient ingredient, Long recipeID);
 }

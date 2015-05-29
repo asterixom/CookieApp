@@ -22,9 +22,8 @@ public class DataProviderImpl implements DataProvider {
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
 		IngredientImpl ing = new IngredientImpl();
-		ing = ing.createIngredient(200, "Liter", "Wasser");
+		ing = ing.createIngredient(200.0, "Liter", "Wasser");
 		saveIngredient(ing, getRecipeID("Burger"));
-
 		/*
 		 * Test if Recipes are Created and has User
 		 * printRecepiesFrom(mailadress);
@@ -316,11 +315,9 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().begin();
 		Recipe recipe = getRecipe(recipeID);
 		entityManager.persist(ingredient);
-		System.out.println(recipe.getName());
 		recipe.addIngredient(ingredient);
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
-		
 	}
 
 	// TODO Rezepte Strings speichern(Zutaten)

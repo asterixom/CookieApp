@@ -1,20 +1,12 @@
 package de.cookieapp.database.impl;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import de.cookieapp.data.model.Ingredient;
@@ -147,5 +139,9 @@ public class IngredientImpl implements Ingredient {
 		return temp;
 	}
 	
-	
+	public void debugDump() {
+		System.out.println("Debug: Ingredient: IngredientName: [" + this.name
+				+ "] + Unit: [" + this.unit + "] + Quantity: ["
+				+ this.quantity + "]");
+	}
 }
