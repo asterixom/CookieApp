@@ -89,10 +89,12 @@ public class Register implements FolderItem{
 					String eMail = mailT.getText();
 					try {
 						controlService.register(sessionID, userName, password, eMail);
-						if (controlService.getCurrentUserName(sessionID).equals(userName)) {
+						if (controlService.getCurrentUserName(sessionID) != null && controlService.getCurrentUserName(sessionID).equals(userName)) {
 							System.out.println(controlService.getCurrentUserName(sessionID));
 							Combo combo = new Combo(completeComposite, SWT.NONE);
 							combo.setText("Erfolgreich Registriert");
+						} else {
+							System.err.println("Failed to Register");
 						}
 					} catch (CookieAppException exception) {
 						System.err.println("Registation Failed!");

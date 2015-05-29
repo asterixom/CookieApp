@@ -9,6 +9,7 @@ import javax.xml.bind.DatatypeConverter;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 import de.cookieapp.data.service.DataProvider;
+import de.cookieapp.database.impl.UserImpl;
 
 public class DataService {
 
@@ -42,13 +43,10 @@ public class DataService {
 	}
 
 	public User register(String username, String password, String mail) {
-		User user = null;
+		User user = new UserImpl();
 		if (dataProvider != null) {
-			// implement register
-			//user = dataProvider.addUser(username, mail, password);
-//			if (user != null) {
-//				user.setSecurityClearance(SecurityClearance.USER);
-//			}
+			user.createUser(username, password, mail, null, null, null);
+			dataProvider.saveUser(user);
 		}
 		return user;
 	}
