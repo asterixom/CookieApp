@@ -30,5 +30,5 @@ public interface DataProvider {
 	
 	public void deleteIngredient(Long ingredientID);
 	
-	public Long getIngredientID(String name, Long recipeID);
+	public Long getIngredientID(String name, Recipe recipe);
 }

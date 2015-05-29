@@ -22,7 +22,7 @@ public class DataProviderImpl implements DataProvider {
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
 
-		System.out.println(getIngredientID("Wasser", getRecipeID("Burger")));
+		System.out.println(getIngredientID("Wasser", getRecipe(getRecipeID("Burger"))));
 
 	}
 
@@ -300,16 +300,15 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 	}
 
-	public Long getIngredientID(String name, Long recipeID) {
+	public Long getIngredientID(String name, Recipe recipe) {
 		Long id = 0L;
-		Recipe recipe = entityManager.find(RecipeImpl.class, recipeID);
 		Query query = this.entityManager.createQuery("from "
 				+ IngredientImpl.class.getName() + " s where s.name='"
 				+ name + "' AND s.recipe='" + recipe.getName() + "'");
-		List<?> commentFromQuery = query.getResultList();
-		if (commentFromQuery.size() == 1
-				&& commentFromQuery.get(0) instanceof IngredientImpl) {
-			id = ((IngredientImpl) commentFromQuery.get(0)).getId();
+		List<?> ingredientFromQuery = query.getResultList();
+		if (ingredientFromQuery.size() == 1
+				&& ingredientFromQuery.get(0) instanceof IngredientImpl) {
+			id = ((IngredientImpl) ingredientFromQuery.get(0)).getId();
 		}
 		return id;
 
