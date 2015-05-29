@@ -3,9 +3,11 @@ package de.cookieapp.data.model;
 
 public interface Ingredient {
 
-	public abstract Recipe getRecipeIngredient();
+	
 
-	public abstract void setRecipeIngredient(Recipe recipeIngredient);
+	public abstract Recipe getRecipe();
+	
+	public abstract void setRecipe(Recipe recipe);
 
 	public abstract double getQuantity();
 

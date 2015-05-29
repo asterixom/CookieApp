@@ -5,18 +5,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -49,12 +45,12 @@ public class RecipeImpl implements Recipe {
 	@JoinColumn(name = "USERID")
 	private User creator;
 
-	@OneToMany(targetEntity=IngredientImpl.class, mappedBy = "recipeIngredient")
+	@OneToMany(targetEntity=IngredientImpl.class, mappedBy = "recipe")
 	private Set<Ingredient> ingredients;
 
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipeComment")
 	private Set<Comment> recipeComments;
-
+	
 	public Set<Comment> getRecipeComments() {
 		return recipeComments;
 	}
@@ -124,6 +120,7 @@ public class RecipeImpl implements Recipe {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
