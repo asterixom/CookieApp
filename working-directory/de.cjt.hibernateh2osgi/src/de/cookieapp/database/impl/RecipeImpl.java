@@ -5,18 +5,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -49,12 +45,20 @@ public class RecipeImpl implements Recipe {
 	@JoinColumn(name = "USERID")
 	private User creator;
 
-	@OneToMany(targetEntity=IngredientImpl.class, mappedBy = "recipeIngredient")
+	@OneToMany(targetEntity=IngredientImpl.class, mappedBy = "recipe")
 	private Set<Ingredient> ingredients;
 
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipeComment")
 	private Set<Comment> recipeComments;
 
+	public void addIngredient(Ingredient ingredient){
+		this.ingredients.add(ingredient);
+	}
+	
+	public void removeIngredient(Ingredient ingredient){
+		this.ingredients.remove(ingredient);
+	}
+	
 	public Set<Comment> getRecipeComments() {
 		return recipeComments;
 	}
@@ -125,24 +129,15 @@ public class RecipeImpl implements Recipe {
 		this.id = id;
 	}
 
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
 	public void setIngredients(Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-
-	public void addIngredient(Ingredient ingredient) {
-		System.out.println(ingredients.size());
-		//this.ingredients.add(ingredient);
-
-	}
-
-	public void removeIngredient(Ingredient ingredient) {
-		this.ingredients.remove(ingredient);
-	}
-
-	public Set<Ingredient> getIngredients() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
 
 	public RecipeImpl(Long id, String name, String description, Date created,
 			User creator) {
@@ -152,7 +147,7 @@ public class RecipeImpl implements Recipe {
 		this.created = created;
 		this.creator = creator;
 		this.recipeComments = new HashSet<Comment>();
-		// this.ingredients = new HashSet<String>();
+		this.ingredients = new HashSet<Ingredient>();
 	}
 
 	public RecipeImpl() {
