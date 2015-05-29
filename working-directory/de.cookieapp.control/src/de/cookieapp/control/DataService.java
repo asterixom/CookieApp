@@ -45,7 +45,7 @@ public class DataService {
 	public User register(String username, String password, String mail) {
 		User user = new UserImpl();
 		if (dataProvider != null) {
-			user.createUser(username, password, mail, null, null, null);
+			user = user.createUser(username, password, mail, null, null, null);
 			dataProvider.saveUser(user);
 		}
 		return user;

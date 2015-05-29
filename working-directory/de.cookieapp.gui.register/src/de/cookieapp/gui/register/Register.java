@@ -88,8 +88,9 @@ public class Register implements FolderItem{
 					String password = passwordT.getText();
 					String eMail = mailT.getText();
 					try {
+						//TODO check if registering worked
 						controlService.register(sessionID, userName, password, eMail);
-						if (controlService.getCurrentUserName(sessionID) != null && controlService.getCurrentUserName(sessionID).equals(userName)) {
+						if (controlService.getCurrentUserName(sessionID) != null && controlService.getCurrentUserName(sessionID).equalsIgnoreCase(userName)) {
 							System.out.println(controlService.getCurrentUserName(sessionID));
 							Combo combo = new Combo(completeComposite, SWT.NONE);
 							combo.setText("Erfolgreich Registriert");
