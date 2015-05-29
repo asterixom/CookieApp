@@ -27,4 +27,8 @@ public interface DataProvider {
 	public boolean changePassword(long userID, String oldPassword, String newPassword);
 	
 	public void saveIngredient(Ingredient ingredient, Long recipeID);
+	
+	public void deleteIngredient(Long ingredientID);
+	
+	public Long getIngredientID(String name, Long recipeID);
 }

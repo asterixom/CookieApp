@@ -22,6 +22,8 @@ public class DataProviderImpl implements DataProvider {
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
 
+		System.out.println(getIngredientID("Wasser", getRecipeID("Burger")));
+
 	}
 
 	public List<User> getUsers() {
@@ -291,10 +293,38 @@ public class DataProviderImpl implements DataProvider {
 	public void saveIngredient(Ingredient ingredient, Long recipeID) {
 		entityManager.getTransaction().begin();
 		Recipe recipe = getRecipe(recipeID);
+
 		entityManager.persist(ingredient);
 		recipe.addIngredient(ingredient);
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
+	}
+
+	public Long getIngredientID(String name, Long recipeID) {
+		Long id = 0L;
+		Recipe recipe = entityManager.find(RecipeImpl.class, recipeID);
+		Query query = this.entityManager.createQuery("from "
+				+ IngredientImpl.class.getName() + " s where s.name='"
+				+ name + "' AND s.recipe='" + recipe.getName() + "'");
+		List<?> commentFromQuery = query.getResultList();
+		if (commentFromQuery.size() == 1
+				&& commentFromQuery.get(0) instanceof IngredientImpl) {
+			id = ((IngredientImpl) commentFromQuery.get(0)).getId();
+		}
+		return id;
+
+	}
+
+	public void deleteIngredient(Long ingredientID) {
+		entityManager.getTransaction().begin();
+		Ingredient ing = entityManager.find(IngredientImpl.class, ingredientID);
+		Recipe recipe = entityManager.find(RecipeImpl.class, ing.getRecipe()
+				.getId());
+		entityManager.remove(ing);
+		recipe.removeIngredient(ing);
+		entityManager.merge(recipe);
+		entityManager.getTransaction().commit();
+
 	}
 
 	// TODO Rezepte Strings speichern(Zutaten)
