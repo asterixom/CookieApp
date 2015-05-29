@@ -26,8 +26,6 @@ import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 import de.cookieapp.data.model.Comment;
 
-
-
 @Proxy
 @Entity
 @Table(name = "RECIPE")
@@ -51,7 +49,7 @@ public class RecipeImpl implements Recipe {
 	@JoinColumn(name = "USERID")
 	private User creator;
 
-	@OneToMany(targetEntity = IngredientImpl.class, mappedBy = "recipeIngredient")
+	@OneToMany(targetEntity=IngredientImpl.class, mappedBy = "recipeIngredient")
 	private Set<Ingredient> ingredients;
 
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy = "recipeComment")
@@ -72,7 +70,7 @@ public class RecipeImpl implements Recipe {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -98,19 +96,19 @@ public class RecipeImpl implements Recipe {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-	
+
 	public void addComment(Comment comment) {
 		this.recipeComments.add(comment);
 	}
-	
+
 	public void removeComment(Comment comment) {
 		this.recipeComments.remove(comment);
 	}
-	
+
 	public void setComments(Set<Comment> recipeComments) {
 		this.recipeComments = recipeComments;
 	}
-	
+
 	public Set<Comment> getComments() {
 		return recipeComments;
 	}
@@ -127,14 +125,20 @@ public class RecipeImpl implements Recipe {
 		this.id = id;
 	}
 
-	public void addIngredient(Ingredient ingredient){
-		this.ingredients.add(ingredient);
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
-	
-	public void removeIngredient(Ingredient ingredient){
+
+	public void addIngredient(Ingredient ingredient) {
+		System.out.println(ingredients.size());
+		//this.ingredients.add(ingredient);
+
+	}
+
+	public void removeIngredient(Ingredient ingredient) {
 		this.ingredients.remove(ingredient);
 	}
-	
+
 	public Set<Ingredient> getIngredients() {
 		// TODO Auto-generated method stub
 		return null;
@@ -148,14 +152,21 @@ public class RecipeImpl implements Recipe {
 		this.created = created;
 		this.creator = creator;
 		this.recipeComments = new HashSet<Comment>();
-		//this.ingredients = new HashSet<String>();
+		// this.ingredients = new HashSet<String>();
 	}
 
 	public RecipeImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeImpl createRecipe(String name, String description, User creator /*, Set<String> ingredients*/) {
+	public RecipeImpl createRecipe(String name, String description, User creator /*
+																				 * ,
+																				 * Set
+																				 * <
+																				 * String
+																				 * >
+																				 * ingredients
+																				 */) {
 		RecipeImpl recipe = new RecipeImpl();
 		recipe.setName(name);
 		recipe.setDescription(description);
@@ -163,12 +174,9 @@ public class RecipeImpl implements Recipe {
 		recipe.setCreator(creator);
 		recipe.setComments(new HashSet<Comment>());
 		/*
-		if (ingredients != null) {
-		recipe.setIngredients(ingredients);
-		} else {
-			recipe.setIngredients(new HashSet<String>());
-		}
-		*/
+		 * if (ingredients != null) { recipe.setIngredients(ingredients); } else
+		 * { recipe.setIngredients(new HashSet<String>()); }
+		 */
 		return recipe;
 	}
 
@@ -177,7 +185,7 @@ public class RecipeImpl implements Recipe {
 				+ "] + Description: [" + this.description + "] + ID: ["
 				+ this.id + "]");
 	}
-	
+
 	public void debugDumpExtended() {
 		System.out.println("Debug: Recipe: RecipeName: [" + this.name
 				+ "] + Description: [" + this.description + "] + ID: ["

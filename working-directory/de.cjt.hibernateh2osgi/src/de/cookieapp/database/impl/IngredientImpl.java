@@ -139,8 +139,8 @@ public class IngredientImpl implements Ingredient {
 	 * @see de.cookieapp.database.impl.Ingredient#createIngredient(double, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Ingredient createIngredient(double quantity, String unit, String name){
-		Ingredient temp = new IngredientImpl();
+	public IngredientImpl createIngredient(double quantity, String unit, String name){
+		IngredientImpl temp = new IngredientImpl();
 		temp.setQuantity(quantity);
 		temp.setUnit(unit);
 		temp.setName(name);

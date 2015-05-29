@@ -5,6 +5,7 @@
     <class>de.cookieapp.database.impl.UserImpl</class>
     <class>de.cookieapp.database.impl.RecipeImpl</class>
     <class>de.cookieapp.database.impl.CommentImpl</class>
+    <class>de.cookieapp.database.impl.IngredientImpl</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
       <!-- Creates the Database in the Projectfolder -->
