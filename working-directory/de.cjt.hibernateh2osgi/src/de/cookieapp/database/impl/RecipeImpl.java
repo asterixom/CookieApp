@@ -153,7 +153,7 @@ public class RecipeImpl implements Recipe {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeImpl createRecipe(String name, String description, User creator, Set<Ingredient> ingredients) {
+	public static Recipe createRecipe(String name, String description, User creator, Set<Ingredient> ingredients) {
 		RecipeImpl recipe = new RecipeImpl();
 		recipe.setName(name);
 		recipe.setDescription(description);

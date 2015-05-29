@@ -100,7 +100,7 @@ public class CommentImpl implements Comment {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CommentImpl createComment(String content, User creator, Recipe recipe){
+	public static Comment createComment(String content, User creator, Recipe recipe){
 		CommentImpl comment = new CommentImpl();
 		comment.setContent(content);
 		comment.setCreated(new Date());

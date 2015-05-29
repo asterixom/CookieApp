@@ -21,8 +21,6 @@ public interface Comment {
 	
 	public Recipe getRecipeComment();
 	public void setRecipeComment(Recipe recipeComment);
-	
-	public Comment createComment(String content, User creator, Recipe recipe);
-	
+		
 	public void debugDump();
 }

@@ -22,8 +22,6 @@ public class DataProviderImpl implements DataProvider {
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
 
-		System.out.println(getIngredientID("Wasser", getRecipe(getRecipeID("Burger"))));
-
 	}
 
 	public List<User> getUsers() {
@@ -192,8 +190,8 @@ public class DataProviderImpl implements DataProvider {
 
 	public void saveComment(String content, UserImpl user, RecipeImpl recipe) {
 		entityManager.getTransaction().begin();
-		CommentImpl comment = new CommentImpl();
-		comment = comment.createComment(content, user, recipe);
+		Comment comment;
+		comment = CommentImpl.createComment(content, user, recipe);
 		entityManager.persist(comment);
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
@@ -204,8 +202,8 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().begin();
 		User user = getUser(userID);
 		Recipe recipe = getRecipe(recipeID);
-		Comment comment = new CommentImpl();
-		comment = comment.createComment(content, user, recipe);
+		Comment comment;
+		comment = CommentImpl.createComment(content, user, recipe);
 		entityManager.persist(comment);
 		recipe.addComment(comment);
 		entityManager.merge(recipe);
@@ -227,8 +225,8 @@ public class DataProviderImpl implements DataProvider {
 
 	public void deleteComment(Long commentID) {
 		entityManager.getTransaction().begin();
-		CommentImpl comment = entityManager.find(CommentImpl.class, commentID);
-		RecipeImpl recipe = entityManager.find(RecipeImpl.class, comment
+		Comment comment = entityManager.find(CommentImpl.class, commentID);
+		Recipe recipe = entityManager.find(RecipeImpl.class, comment
 				.getRecipeComment().getId());
 		recipe.removeComment(comment);
 		if (comment != null) {

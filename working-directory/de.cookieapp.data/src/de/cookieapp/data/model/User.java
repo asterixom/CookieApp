@@ -32,8 +32,6 @@ public interface User {
 	public SecurityClearance getSecurityClearance();
 	public void setSecurityClearance(SecurityClearance i);
 
-	public User createUser(String name, String password, String eMail, Date created , Set<Recipe> recipe , Set<Recipe> favorites);
-
 	public void debugDump();
 	public void debugDumpExtended();
 	

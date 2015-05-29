@@ -154,7 +154,7 @@ public class UserImpl implements java.io.Serializable, User {
 	 * @param recipe the List of recipes the User has created. If null, a new Empty Set will be created.
 	 * @return
 	 */
-	public UserImpl createUser(String name, String password, String eMail,
+	public static User createUser(String name, String password, String eMail,
 			Date created , Set<Recipe> recipe , Set<Recipe> favorites) {
 		UserImpl user = new UserImpl();
 		user.seteMail(eMail);

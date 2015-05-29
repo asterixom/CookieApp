@@ -2,6 +2,7 @@ package de.cookieapp.database.test;
 
 import java.util.ArrayList;
 
+import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
@@ -64,9 +65,9 @@ public class DummyDataCreator {
 	}
 
 	private void createDummyUser() {
-		User user = new UserImpl();
+		User user;
 		for (int i = 0; i < mailAdresses.size(); i = i + 1) {
-			user = user.createUser(userNames.get(i), passwords.get(i),
+			user = UserImpl.createUser(userNames.get(i), passwords.get(i),
 					mailAdresses.get(i), null, null, null);
 			dataProvider.saveUser(user);
 			if (debug) {
@@ -77,13 +78,13 @@ public class DummyDataCreator {
 
 	private void createDummyRecipe() {
 		if (recipeNames.size() == recipeDescription.size()) {
-			Recipe recipe = new RecipeImpl();
+			Recipe recipe;
 			User user;
 			for (int i = 0; i < userNames.size(); i = i + 1) {
 				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses
 						.get(i)));
 				for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
-					recipe = recipe.createRecipe(recipeNames.get(j), recipeDescription.get(j), user, null);
+					recipe = RecipeImpl.createRecipe(recipeNames.get(j), recipeDescription.get(j), user, null);
 					dataProvider.saveRecipe(recipe, user);
 					Long id = dataProvider.getRecipeID(recipeNames.get(j));
 					int numberOfIngredients = (int) (Math.random() * 2);
@@ -118,13 +119,13 @@ public class DummyDataCreator {
 		 * (int i = mailAdresses.size(); i >= 0 ; i = i - 1) {
 		 * reverseMailAdresses.add(mailAdresses.get(i)); }
 		 */
-		CommentImpl comment = new CommentImpl();
+		Comment comment;
 		long user;
 		for (int i = 0; i < recipeNames.size(); i = i + 1) {
 			int randomUser = (int) (Math.random() * mailAdresses.size());
 			user = dataProvider.getUserID(mailAdresses.get(randomUser));
 			for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
-				comment = comment.createComment(commentContents.get(j),
+				comment = CommentImpl.createComment(commentContents.get(j),
 						dataProvider.getUser(user), dataProvider
 								.getRecipe(dataProvider.getRecipeID(recipeNames
 										.get(i))));

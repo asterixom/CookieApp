@@ -45,8 +45,6 @@ public interface Recipe {
 	public void removeRecommendation(String recommendation);
 	 */
 	
-	public Recipe createRecipe(String name, String description, User creator, Set<Ingredient> ingredients);
-
 	public void debugDump();	
 	public void debugDumpExtended();
 
