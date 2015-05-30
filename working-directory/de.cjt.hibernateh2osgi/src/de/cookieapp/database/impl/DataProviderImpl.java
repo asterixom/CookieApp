@@ -276,9 +276,7 @@ public class DataProviderImpl implements DataProvider {
 
 	public ArrayList<Recipe> compareToRecipeName(String string) {
 		entityManager.getTransaction().begin();
-		List<?> recipeList = entityManager.createQuery(
-				"from " + RecipeImpl.class.getName() + " s where s.name='"
-						+ string + "'").getResultList();
+		List<?> recipeList = entityManager.createQuery("from " + RecipeImpl.class.getName() + " s where lower(s.name) like '%" + string + "%'").getResultList();
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		for (Object object : recipeList) {
 			if (object instanceof Recipe) {
