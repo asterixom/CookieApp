@@ -40,7 +40,7 @@ public class DummyDataCreator {
 		createDummyRecipe();
 		createDummyFavorites();
 		createDummyComment();
-		printExtendedUserData();
+		//printExtendedUserData();
 		printExtendedRecipeData();
 	}
 

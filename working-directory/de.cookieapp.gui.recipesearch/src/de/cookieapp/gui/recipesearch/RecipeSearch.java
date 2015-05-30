@@ -187,7 +187,7 @@ public class RecipeSearch implements FolderItem {
 		if (select) {
 			tabFolder.setSelection(recipeTabItem);
 		}
-		tabFolder.pack();
+		//tabFolder.pack(); dont call pack. this will resize the tabfolder!
 	}
 
 	@Override

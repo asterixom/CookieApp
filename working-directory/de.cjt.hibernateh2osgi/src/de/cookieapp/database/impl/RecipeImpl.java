@@ -181,7 +181,6 @@ public class RecipeImpl implements Recipe {
 				+ this.id + "]");
 		System.out.print("\t and was created by:");
 		this.creator.debugDump();
-		System.out.println("\t and has ingredients");
 		Iterator<Ingredient> ingredients = this.getIngredients().iterator();
 		if (ingredients.hasNext()) {
 			System.out.println("\t and has ingredients");

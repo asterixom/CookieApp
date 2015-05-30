@@ -9,6 +9,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -35,9 +36,12 @@ public class RecipeTabImpl implements RecipeTab {
 		completeComposite.setLayout(new GridLayout(1,false));
 		this.recipe = recipe;
 		createHeader(completeComposite);
-		createContent(completeComposite);
+		
+		createIngredientsArea(completeComposite);
+		createDescriptionArea(completeComposite);
+		//createContent(completeComposite);
 		createCommentArea(completeComposite);
-
+		
 		return completeComposite;
 	}
 	
@@ -47,16 +51,17 @@ public class RecipeTabImpl implements RecipeTab {
 	 */
 	private void createHeader(Composite completeComposite) {
 		Composite header = new Composite(completeComposite, SWT.NONE);
-		header.setLayout(new GridLayout(2, false));
+		header.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
-		Composite imageComposite = new Composite(header, SWT.NONE);
+		//Composite imageComposite = new Composite(header, SWT.NONE);
 		Image trollFace = loadImage(PIC);
-		
 		final int width = trollFace.getBounds().width;
 		final int height = trollFace.getBounds().height;
-		trollFace = new Image(display, trollFace.getImageData().scaledTo((int) (width * 0.7), (int) (height * 0.7)));
-		imageComposite.setBackgroundImage(trollFace);
-		
+		trollFace = new Image(display, trollFace.getImageData().scaledTo((int) (width * 0.3), (int) (height * 0.3)));
+		//imageComposite.setBackgroundImage(trollFace);
+		Label imageLabel = new Label(header, SWT.NONE);
+		imageLabel.setImage(trollFace);
+
 		createInformationArea(header);
 		
 		
@@ -136,7 +141,7 @@ public class RecipeTabImpl implements RecipeTab {
 	
 	private void createInformationArea(Composite headerComposite) {
 		Composite informationArea = new Composite(headerComposite, SWT.NONE);
-		//informationArea.setLayout(layout);
+		informationArea.setLayout(new FillLayout(SWT.VERTICAL));
 		Label recipeName = new Label(informationArea, SWT.NONE);
 		recipeName.setText(recipe.getName());
 		
@@ -149,7 +154,7 @@ public class RecipeTabImpl implements RecipeTab {
 	
 	private void createIngredientsArea(Composite contentComposite) {
 		Composite ingredientArea = new Composite(contentComposite, SWT.NONE);
-		//ingredientArea.setLayout(layout);
+		ingredientArea.setLayout(new FillLayout(SWT.VERTICAL));
 		Iterator<Ingredient> ingredients = recipe.getIngredients().iterator();
 		if (ingredients.hasNext()) {
 			Label ingredientsText = new Label(ingredientArea, SWT.NONE);
@@ -160,22 +165,23 @@ public class RecipeTabImpl implements RecipeTab {
 				ingredientsText.setText(ingredient.getQuantity() + " " + ingredient.getUnit() + " " + ingredient.getName());
 			}
 		}
+		recipe.debugDumpExtended();
 	}
 	
 	private void createDescriptionArea(Composite contentComposite) {
 		Composite descriptionArea = new Composite(contentComposite, SWT.NONE);
-		//ingredientArea.setLayout(layout);
+		descriptionArea.setLayout(new FillLayout(SWT.VERTICAL));
 		Label ingredientsText = new Label(descriptionArea, SWT.NONE);
-		ingredientsText.setText(recipe.getDescription());
+		ingredientsText.setText("Anleitung: \n" + recipe.getDescription());
 	}
 	
 	private void createCommentArea(Composite contentComposite) {
 		Composite commentArea = new Composite(contentComposite, SWT.NONE);
-		//ingredientArea.setLayout(layout);
+		commentArea.setLayout(new FillLayout(SWT.VERTICAL));		
 		Iterator<Comment> comments = recipe.getComments().iterator();
 		if (comments.hasNext()) {
 			Label commentsText = new Label(commentArea, SWT.NONE);
-			commentsText.setText("Zutaten:");
+			commentsText.setText("Kommentare:");
 			while(comments.hasNext()) {
 				commentsText = new Label(commentArea, SWT.NONE);
 				Comment comment = comments.next();
