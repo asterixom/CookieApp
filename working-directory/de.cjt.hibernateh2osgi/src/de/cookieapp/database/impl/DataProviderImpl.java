@@ -277,6 +277,8 @@ public class DataProviderImpl implements DataProvider {
 
 	public ArrayList<Recipe> compareToRecipeName(String string) {
 		entityManager.getTransaction().begin();
+		// replace whitespace with wildcard
+		string = string.replace(" ", "%");
 		List<?> recipeList = entityManager.createQuery("from " + RecipeImpl.class.getName() + " s where lower(s.name) like '%" + string + "%'").getResultList();
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		for (Object object : recipeList) {
