@@ -292,7 +292,7 @@ public class DataProviderImpl implements DataProvider {
 	public void saveIngredient(Ingredient ingredient, Long recipeID) {
 		entityManager.getTransaction().begin();
 		Recipe recipe = getRecipe(recipeID);
-
+		ingredient.setRecipe(recipe);
 		entityManager.persist(ingredient);
 		recipe.addIngredient(ingredient);
 		entityManager.merge(recipe);
