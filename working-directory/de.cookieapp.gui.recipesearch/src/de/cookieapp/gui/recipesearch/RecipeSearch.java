@@ -9,7 +9,10 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -40,22 +43,35 @@ public class RecipeSearch implements FolderItem {
 		// tabFolder.setLayout(new FillLayout(SWT.VERTICAL));
 
 		content = new Composite(tabFolder, SWT.NONE);
-		content.setLayout(new GridLayout(2, true));
+		content.setLayout(new GridLayout(4, true));
+		content.setLocation(20, 10);
 
 		Label headline = new Label(content, SWT.NONE);
 		headline.setText("Suche hier nach neuen Rezepten");
+		GridData gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
+		gridData.horizontalSpan = 4;
+		gridData.horizontalIndent = 20;
 
-		Label blankLabel = new Label(content, SWT.NONE);
-		blankLabel.setVisible(false);
+		headline.setLayoutData(gridData);
 
 		Label recipeName = new Label(content, SWT.NONE);
 		recipeName.setText("Rezeptname");
+		gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
+		gridData.horizontalSpan = 1;
+		gridData.horizontalIndent = 10;
+		gridData.verticalIndent = 20;
+		recipeName.setLayoutData(gridData);
+
 		recipeNameT = new Text(content, SWT.BORDER);
+		gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
+		gridData.horizontalSpan = 3;
+		gridData.horizontalIndent = 10;
+		gridData.verticalIndent = 20;
+		recipeNameT.setLayoutData(gridData);
 
 		Button searchButton = new Button(content, SWT.NONE);
 		searchButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 4028437061777994602L;
-
 			/**
 			 * Actionlistener for search button
 			 */
@@ -68,7 +84,6 @@ public class RecipeSearch implements FolderItem {
 					results.clear();
 					try {
 						ArrayList<Recipe> recipes = controlService.getRecipeByName(sessionID, recipeNameT.getText());
-						System.err.println("Recipe-List-Size: "+recipes.size());
 						showResults(content, recipes);
 						resultComposite.setVisible(true);
 					} catch (CookieAppException exception) {
@@ -81,11 +96,17 @@ public class RecipeSearch implements FolderItem {
 			}
 		});
 		searchButton.setText("Suchen");
-		Label blankLabel2 = new Label(content, SWT.NONE);
-		blankLabel2.setVisible(false);
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
+		gridData.horizontalSpan = 4;
+		gridData.horizontalIndent = 10;
+		searchButton.setLayoutData(gridData);
 
 		resultComposite = new Composite(content, SWT.NONE);
-		resultComposite.setLayout(new FillLayout(SWT.VERTICAL));
+		resultComposite.setLayout(new GridLayout(1, true));
+		gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		gridData.horizontalSpan = 4;
+		gridData.horizontalIndent = 10;
+		resultComposite.setLayoutData(gridData);
 		return content;
 	}
 
@@ -101,8 +122,7 @@ public class RecipeSearch implements FolderItem {
 
 	}
 
-	public Composite showResults(final Composite parent,
-			final ArrayList<Recipe> recipes) {
+	public Composite showResults(final Composite parent, final ArrayList<Recipe> recipes) {
 		//		Composite resultComposite = new Composite(parent, SWT.NONE);
 		//		resultComposite.setLayout(new GridLayout(1, true));
 		for(Control control : resultComposite.getChildren()){
@@ -110,22 +130,16 @@ public class RecipeSearch implements FolderItem {
 		}
 		Label resultHeader = new Label(resultComposite, SWT.BOLD);
 		resultHeader.setText("Ergebnisse:");
+		String fontName = resultHeader.getFont().getFontData()[0].getName();
+		Font font = new Font(resultHeader.getDisplay(), fontName, 12, SWT.BOLD);
+		resultHeader.setFont(font);
 		for (Recipe recipe : recipes) {
-			System.err.println("Added button for " + recipe.getName());
 			final Recipe recipeToShow = recipe;
 			Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
 			results.add(recipeNameLabel);
 			recipeNameLabel.setText(recipe.getName());
-			/*
-			 * recipeNameLabel.addSelectionListener(new SelectionAdapter() {
-			 * private static final long serialVersionUID = 1L;
-			 * 
-			 * public void widgetSelected(SelectionEvent e) {
-			 * showRecipe(recipeToShow); System.err.println("KLICK!"); } });
-			 */
 			recipeNameLabel.addMouseListener(new MouseListener() {
 				private static final long serialVersionUID = -5558483000466339886L;
-
 				@Override
 				public void mouseUp(MouseEvent e) {
 					showRecipe(recipeToShow, false);
@@ -133,41 +147,16 @@ public class RecipeSearch implements FolderItem {
 
 				@Override
 				public void mouseDown(MouseEvent e) {
-					// TODO Auto-generated method stub
 				}
 
 				@Override
 				public void mouseDoubleClick(MouseEvent e) {
-					showRecipe(recipeToShow, true);
+					//showRecipe(recipeToShow, true);
 				}
 			});
-			// showRecipe(recipeToShow);
 		}
 		parent.redraw();
 		parent.pack();
-		/*
-		 * updateContent(new Runnable() {
-		 * 
-		 * @Override public void run() { // TODO Auto-generated method stub
-		 * Composite resultComposite = new Composite(parent, SWT.NONE);
-		 * resultComposite.setLayout(new GridLayout(1, true)); for (Recipe
-		 * recipe : recipes) { final Recipe recipeToShow = recipe; Label
-		 * recipeNameLabel = new Label(resultComposite, SWT.NONE);
-		 * recipeNameLabel.setText(recipe.getName());
-		 * recipeNameLabel.addMouseListener(new MouseListener() { private static
-		 * final long serialVersionUID = -5558483000466339886L;
-		 * 
-		 * @Override public void mouseUp(MouseEvent e) {
-		 * showRecipe(recipeToShow); }
-		 * 
-		 * @Override public void mouseDown(MouseEvent e) { // TODO
-		 * Auto-generated method stub }
-		 * 
-		 * @Override public void mouseDoubleClick(MouseEvent e) { // TODO
-		 * Auto-generated method stub } }); showRecipe(recipeToShow); }
-		 * parent.redraw(); } });
-		 */
-
 		return parent;
 	}
 
@@ -179,15 +168,23 @@ public class RecipeSearch implements FolderItem {
 	 * @param select a flag to show or not show the Tab
 	 */
 	private void showRecipe(Recipe recipe, boolean select) {
-		RecipeTabImpl recipeTab = new RecipeTabImpl();
-		Composite recipeComp = recipeTab.getContent(tabFolder, recipe);
-		CTabItem recipeTabItem = new CTabItem(tabFolder, SWT.CLOSE);
-		recipeTabItem.setText(recipe.getName());
-		recipeTabItem.setControl(recipeComp);
-		if (select) {
-			tabFolder.setSelection(recipeTabItem);
+		CTabItem[] ctabs = tabFolder.getItems();
+		boolean flag = false;
+		for (CTabItem cTabItem : ctabs) {
+			if (cTabItem.getText().equals(recipe.getName())) {
+				flag = true;
+			}
 		}
-		//tabFolder.pack(); dont call pack. this will resize the tabfolder!
+		if (!flag)  {
+			RecipeTabImpl recipeTab = new RecipeTabImpl();
+			Composite recipeComp = recipeTab.getContent(tabFolder, recipe);
+			CTabItem recipeTabItem = new CTabItem(tabFolder, SWT.CLOSE);
+			recipeTabItem.setText(recipe.getName());
+			recipeTabItem.setControl(recipeComp);
+			if (select) {
+				tabFolder.setSelection(recipeTabItem);
+			}
+		}
 	}
 
 	@Override
@@ -225,7 +222,5 @@ public class RecipeSearch implements FolderItem {
 
 	@Override
 	public void setLogedInUser(User user) {
-		// TODO Auto-generated method stub
-
 	}
 }

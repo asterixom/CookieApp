@@ -175,7 +175,7 @@ public class DummyDataCreator {
 		recipeImage.add("lasagne.jpg");
 		recipeImage.add("pizza.jpg");
 		recipeImage.add(null);
-		recipeImage.add(null);
+		recipeImage.add("monster.jpg");
 
 		commentContents.add("Tastes good with Fries");
 		commentContents.add("Fast food for the Win!");

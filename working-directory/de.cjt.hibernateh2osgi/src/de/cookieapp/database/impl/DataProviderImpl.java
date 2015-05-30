@@ -147,7 +147,10 @@ public class DataProviderImpl implements DataProvider {
 		List<?> userList = entityManager.createQuery(
 				"from " + UserImpl.class.getName() + " s where s.eMail='"
 						+ user.geteMail() + "'").getResultList();
-		return !userList.isEmpty();
+		List<?> userList2 = entityManager.createQuery(
+				"from " + UserImpl.class.getName() + " s where s.name='"
+						+ user.getName() + "'").getResultList();
+		return !(userList.isEmpty() && userList2.isEmpty());
 	}
 
 	public void saveRecipe(Recipe recipe, User user) {
@@ -216,8 +219,7 @@ public class DataProviderImpl implements DataProvider {
 				+ CommentImpl.class.getName() + " s where s.content='"
 				+ content + "'");
 		List<?> commentFromQuery = query.getResultList();
-		if (commentFromQuery.size() == 1
-				&& commentFromQuery.get(0) instanceof CommentImpl) {
+		if (commentFromQuery.size() == 1 && commentFromQuery.get(0) instanceof CommentImpl) {
 			id = ((CommentImpl) commentFromQuery.get(0)).getId();
 		}
 		return id;
@@ -226,13 +228,11 @@ public class DataProviderImpl implements DataProvider {
 	public void deleteComment(Long commentID) {
 		entityManager.getTransaction().begin();
 		Comment comment = entityManager.find(CommentImpl.class, commentID);
-		Recipe recipe = entityManager.find(RecipeImpl.class, comment
-				.getRecipeComment().getId());
+		Recipe recipe = entityManager.find(RecipeImpl.class, comment.getRecipeComment().getId());
 		recipe.removeComment(comment);
 		if (comment != null) {
 			entityManager.remove(comment);
 			entityManager.merge(recipe);
-			System.out.println("Kommentar erfolgreich gelöscht");
 		}
 		entityManager.getTransaction().commit();
 	}
@@ -240,10 +240,11 @@ public class DataProviderImpl implements DataProvider {
 	public void saveFavorite(Long recipeID, Long userID) {
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, userID);
-		;
 		Recipe recipe = getRecipe(recipeID);
-		user.addFavoriteRecipe(recipe);
-		entityManager.merge(user);
+		if (!user.getFavorites().contains(recipe)) {
+			user.addFavoriteRecipe(recipe);
+			entityManager.merge(user);
+		}
 		entityManager.getTransaction().commit();
 	}
 
@@ -303,8 +304,7 @@ public class DataProviderImpl implements DataProvider {
 				+ IngredientImpl.class.getName() + " s where s.name='"
 				+ name + "' AND s.recipe='" + recipe.getName() + "'");
 		List<?> ingredientFromQuery = query.getResultList();
-		if (ingredientFromQuery.size() == 1
-				&& ingredientFromQuery.get(0) instanceof IngredientImpl) {
+		if (ingredientFromQuery.size() == 1	&& ingredientFromQuery.get(0) instanceof IngredientImpl) {
 			id = ((IngredientImpl) ingredientFromQuery.get(0)).getId();
 		}
 		return id;
@@ -314,13 +314,11 @@ public class DataProviderImpl implements DataProvider {
 	public void deleteIngredient(Long ingredientID) {
 		entityManager.getTransaction().begin();
 		Ingredient ing = entityManager.find(IngredientImpl.class, ingredientID);
-		Recipe recipe = entityManager.find(RecipeImpl.class, ing.getRecipe()
-				.getId());
+		Recipe recipe = entityManager.find(RecipeImpl.class, ing.getRecipe().getId());
 		entityManager.remove(ing);
 		recipe.removeIngredient(ing);
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
-
 	}
 
 	// TODO Rezepte Strings speichern(Zutaten)
