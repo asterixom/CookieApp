@@ -155,12 +155,12 @@ public class DummyDataCreator {
 		passwords.add("test2");
 		passwords.add("test3");
 
-		recipeNames.add("Burger");
-		recipeNames.add("Spaghetti");
-		recipeNames.add("Lasagne");
-		recipeNames.add("Pizza");
-		recipeNames.add("French Fries");
-		recipeNames.add("Monster Lasagne");
+		recipeNames.add("burger");
+		recipeNames.add("spaghetti");
+		recipeNames.add("lasagne");
+		recipeNames.add("pizza");
+		recipeNames.add("french fries");
+		recipeNames.add("monster lasagne");
 
 		recipeDescription.add("can be added by French Fries");
 		recipeDescription.add("Some Meat");

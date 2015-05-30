@@ -17,10 +17,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
-import de.cookieapp.data.model.Comment;
 
 @Proxy
 @Entity

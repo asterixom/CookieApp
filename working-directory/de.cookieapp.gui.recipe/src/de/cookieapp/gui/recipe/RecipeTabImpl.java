@@ -1,23 +1,33 @@
 package de.cookieapp.gui.recipe;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
+import de.cookieapp.data.model.Comment;
+import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 
 public class RecipeTabImpl implements RecipeTab {
 	
 	private Recipe recipe;
+	private Display display;
+	private static final String PIC = "resources/troll_face_small.png";
+
 	
 	@Override
 	public Composite getContent(Composite tabFolder, Recipe recipe) {
@@ -26,19 +36,29 @@ public class RecipeTabImpl implements RecipeTab {
 		this.recipe = recipe;
 		createHeader(completeComposite);
 		createContent(completeComposite);
-		createFooter(completeComposite);
 		createCommentArea(completeComposite);
 
 		return completeComposite;
 	}
 	
 	/**
-	 * Creates headline and log-off button
+	 * Creates Header. This contains the Picture and the InformationArea
 	 * @param completeComposite
 	 */
 	private void createHeader(Composite completeComposite) {
 		Composite header = new Composite(completeComposite, SWT.NONE);
 		header.setLayout(new GridLayout(2, false));
+		
+		Composite imageComposite = new Composite(header, SWT.NONE);
+		Image trollFace = loadImage(PIC);
+		
+		final int width = trollFace.getBounds().width;
+		final int height = trollFace.getBounds().height;
+		trollFace = new Image(display, trollFace.getImageData().scaledTo((int) (width * 0.7), (int) (height * 0.7)));
+		imageComposite.setBackgroundImage(trollFace);
+		
+		createInformationArea(header);
+		
 		
 	}
 	
@@ -87,6 +107,10 @@ public class RecipeTabImpl implements RecipeTab {
 		
 	}
 
+	/**
+	 * Creates the Footer, here is Comment and a Favorite Button
+	 * @param completeComposite
+	 */
 	private void createFooter(Composite completeComposite) {
 		Composite footerComposite = new Composite(completeComposite, SWT.NONE);
 		footerComposite.setLayout(new GridLayout(2, false));
@@ -110,15 +134,83 @@ public class RecipeTabImpl implements RecipeTab {
 		favorite.setText("Zu Favoriten hinzufuegen");
 	}
 	
-	private void createCommentArea(Composite completeComposite) {
-		// TODO Auto-generated method stub
+	private void createInformationArea(Composite headerComposite) {
+		Composite informationArea = new Composite(headerComposite, SWT.NONE);
+		//informationArea.setLayout(layout);
+		Label recipeName = new Label(informationArea, SWT.NONE);
+		recipeName.setText(recipe.getName());
 		
+		Label recipeCreator = new Label(informationArea, SWT.NONE);
+		recipeCreator.setText(recipe.getCreator().getName());
+		
+		Label recipeCreated = new Label(informationArea, SWT.NONE);
+		recipeCreated.setText(recipe.getCreated().toString());		
+	}
+	
+	private void createIngredientsArea(Composite contentComposite) {
+		Composite ingredientArea = new Composite(contentComposite, SWT.NONE);
+		//ingredientArea.setLayout(layout);
+		Iterator<Ingredient> ingredients = recipe.getIngredients().iterator();
+		if (ingredients.hasNext()) {
+			Label ingredientsText = new Label(ingredientArea, SWT.NONE);
+			ingredientsText.setText("Zutaten:");
+			while(ingredients.hasNext()) {
+				ingredientsText = new Label(ingredientArea, SWT.NONE);
+				Ingredient ingredient = ingredients.next();
+				ingredientsText.setText(ingredient.getQuantity() + " " + ingredient.getUnit() + " " + ingredient.getName());
+			}
+		}
+	}
+	
+	private void createDescriptionArea(Composite contentComposite) {
+		Composite descriptionArea = new Composite(contentComposite, SWT.NONE);
+		//ingredientArea.setLayout(layout);
+		Label ingredientsText = new Label(descriptionArea, SWT.NONE);
+		ingredientsText.setText(recipe.getDescription());
+	}
+	
+	private void createCommentArea(Composite contentComposite) {
+		Composite commentArea = new Composite(contentComposite, SWT.NONE);
+		//ingredientArea.setLayout(layout);
+		Iterator<Comment> comments = recipe.getComments().iterator();
+		if (comments.hasNext()) {
+			Label commentsText = new Label(commentArea, SWT.NONE);
+			commentsText.setText("Zutaten:");
+			while(comments.hasNext()) {
+				commentsText = new Label(commentArea, SWT.NONE);
+				Comment comment = comments.next();
+				commentsText.setText(comment.getCreator().getName() + "\n" + comment.getContent());
+			}
+		}
 	}
 
 	@Override
 	public String getTabItemName() {
-		
-		return recipe.getName(); //TODO den Rezeptnamen returnen
+		return recipe.getName();
+	}
+	
+	/**
+	 * Loads the Image at the given path, transforms it into an Image
+	 * 
+	 * @param name
+	 *            the full path of the image
+	 * @return the Image, which was located at the given path
+	 */
+	public Image loadImage(String name) {
+		Image result = null;
+		InputStream stream = RecipeTabImpl.class.getClassLoader().getResourceAsStream(name);
+		if (stream != null) {
+			try {
+				result = new Image(display, stream);
+			} finally {
+				try {
+					stream.close();
+				} catch (IOException unexpected) {
+					throw new RuntimeException("Failed to close image input stream", unexpected);
+				}
+			}
+		}
+		return result;
 	}
 
 }

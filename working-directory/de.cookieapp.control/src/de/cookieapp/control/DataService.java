@@ -68,7 +68,6 @@ public class DataService {
 	}
 	
 	public ArrayList<Recipe> getRecipesWithName(String name) {
-		//TODO implement this
-		return null;
+		return dataProvider.compareToRecipeName(name);
 	}
 }

@@ -1,5 +1,7 @@
 package de.cookieapp.data.service;
 
+import java.util.ArrayList;
+
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
@@ -31,4 +33,6 @@ public interface DataProvider {
 	public void deleteIngredient(Long ingredientID);
 	
 	public Long getIngredientID(String name, Recipe recipe);
+	
+	public ArrayList<Recipe> compareToRecipeName(String string);
 }

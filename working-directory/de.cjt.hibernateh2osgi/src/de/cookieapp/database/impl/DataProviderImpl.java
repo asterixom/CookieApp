@@ -274,7 +274,7 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 	}
 
-	public List<Recipe> compareToRecipeName(String string) {
+	public ArrayList<Recipe> compareToRecipeName(String string) {
 		entityManager.getTransaction().begin();
 		List<?> recipeList = entityManager.createQuery(
 				"from " + RecipeImpl.class.getName() + " s where s.name='"
@@ -285,6 +285,7 @@ public class DataProviderImpl implements DataProvider {
 				recipes.add((Recipe) object);
 			}
 		}
+		entityManager.getTransaction().commit();
 		return recipes;
 	}
 

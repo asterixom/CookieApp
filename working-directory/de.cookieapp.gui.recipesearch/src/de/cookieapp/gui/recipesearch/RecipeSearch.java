@@ -31,9 +31,8 @@ public class RecipeSearch implements FolderItem {
 	private Long sessionID;
 	private Text recipeNameT;
 	private Composite content;
-	private Label secondResult;
 	private Composite resultComposite;
-	private Label firstResult;
+	private ArrayList<Label> results = new ArrayList<Label>();
 
 	@Override
 	public Composite getContent(CTabFolder tabFolder) {
@@ -58,21 +57,24 @@ public class RecipeSearch implements FolderItem {
 			private static final long serialVersionUID = 4028437061777994602L;
 
 			/**
-			 * Actionlistener for register button
+			 * Actionlistener for search button
 			 */
 			public void widgetSelected(SelectionEvent e) {
 				if (controlService != null) {
+					Control[] controls = resultComposite.getChildren();
+					for (Control control : controls) {
+						control.dispose();
+					}
+					results.clear();
 					try {
-						ArrayList<Recipe> recipes = controlService
-								.getRecipeByName(sessionID,
-										recipeNameT.getText());
-						// System.err.println("Recipe-List-Size: "+recipes.size());
+						ArrayList<Recipe> recipes = controlService.getRecipeByName(sessionID, recipeNameT.getText());
+						System.err.println("Recipe-List-Size: "+recipes.size());
 						showResults(content, recipes);
-						// resultComposite.setVisible(true);
+						resultComposite.setVisible(true);
 					} catch (CookieAppException exception) {
 						System.err.println("Kein Ergebnis!");
-						firstResult.setText("keine Ergebnisse gefunden");
-						secondResult.setVisible(false);
+						Label resultLabel = new Label(resultComposite, SWT.NONE);
+						resultLabel.setText("keine Ergebnisse gefunden");
 						resultComposite.setVisible(true);
 					}
 				}
@@ -101,8 +103,8 @@ public class RecipeSearch implements FolderItem {
 
 	public Composite showResults(final Composite parent,
 			final ArrayList<Recipe> recipes) {
-//		Composite resultComposite = new Composite(parent, SWT.NONE);
-//		resultComposite.setLayout(new GridLayout(1, true));
+		//		Composite resultComposite = new Composite(parent, SWT.NONE);
+		//		resultComposite.setLayout(new GridLayout(1, true));
 		for(Control control : resultComposite.getChildren()){
 			control.dispose();
 		}
@@ -112,6 +114,7 @@ public class RecipeSearch implements FolderItem {
 			System.err.println("Added button for " + recipe.getName());
 			final Recipe recipeToShow = recipe;
 			Label recipeNameLabel = new Label(resultComposite, SWT.NONE);
+			results.add(recipeNameLabel);
 			recipeNameLabel.setText(recipe.getName());
 			/*
 			 * recipeNameLabel.addSelectionListener(new SelectionAdapter() {
@@ -125,7 +128,7 @@ public class RecipeSearch implements FolderItem {
 
 				@Override
 				public void mouseUp(MouseEvent e) {
-					showRecipe(recipeToShow);
+					showRecipe(recipeToShow, false);
 				}
 
 				@Override
@@ -135,7 +138,7 @@ public class RecipeSearch implements FolderItem {
 
 				@Override
 				public void mouseDoubleClick(MouseEvent e) {
-					// TODO Auto-generated method stub
+					showRecipe(recipeToShow, true);
 				}
 			});
 			// showRecipe(recipeToShow);
@@ -168,13 +171,22 @@ public class RecipeSearch implements FolderItem {
 		return parent;
 	}
 
-	private void showRecipe(Recipe recipe) {
+	/**
+	 * Adds the Recipe as Tab to the TabFolder. 
+	 * If select is true, the Tab will be opened automatically. 
+	 * otherwise it will just be added to the Tab Folder
+	 * @param recipe the Recipe to Show
+	 * @param select a flag to show or not show the Tab
+	 */
+	private void showRecipe(Recipe recipe, boolean select) {
 		RecipeTabImpl recipeTab = new RecipeTabImpl();
 		Composite recipeComp = recipeTab.getContent(tabFolder, recipe);
 		CTabItem recipeTabItem = new CTabItem(tabFolder, SWT.CLOSE);
 		recipeTabItem.setText(recipe.getName());
 		recipeTabItem.setControl(recipeComp);
-		tabFolder.setSelection(recipeTabItem);
+		if (select) {
+			tabFolder.setSelection(recipeTabItem);
+		}
 		tabFolder.pack();
 	}
 
@@ -214,6 +226,6 @@ public class RecipeSearch implements FolderItem {
 	@Override
 	public void setLogedInUser(User user) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

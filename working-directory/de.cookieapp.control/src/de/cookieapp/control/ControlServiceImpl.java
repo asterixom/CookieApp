@@ -170,10 +170,10 @@ public class ControlServiceImpl implements ControlService {
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
-//		name = name.toLowerCase();
-		//ArrayList<Recipe> recipe = dataService.getRecipesWithName(name);
-		ArrayList<Recipe> recipe = new ArrayList<>();		
-		recipe.add(dataProvider.getRecipe(dataProvider.getRecipeID(name)));
+		name = name.toLowerCase();
+		ArrayList<Recipe> recipe = dataService.getRecipesWithName(name);
+		//ArrayList<Recipe> recipe = new ArrayList<>();		
+		//recipe.add(dataProvider.getRecipe(dataProvider.getRecipeID(name)));
 		if (recipe == null || recipe.size() < 1) {
 			throw new NoSuchRecipeException();
 		}
