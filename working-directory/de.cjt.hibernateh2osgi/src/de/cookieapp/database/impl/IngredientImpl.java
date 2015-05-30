@@ -89,7 +89,7 @@ public class IngredientImpl implements Ingredient {
 		// TODO Auto-generated constructor stub
 	}
 
-	public IngredientImpl createIngredient(double quantity, String unit, String name){
+	public static IngredientImpl createIngredient(double quantity, String unit, String name){
 		IngredientImpl temp = new IngredientImpl();
 		temp.setQuantity(quantity);
 		temp.setUnit(unit);
