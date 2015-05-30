@@ -37,6 +37,9 @@ public class RecipeImpl implements Recipe {
 
 	@Column(name = "DESCRIPTION")
 	private String description;
+	
+	@Column(name = "IMAGE")
+	private String image;
 
 	@Column(name = "CREATED")
 	private Date created;
@@ -73,6 +76,14 @@ public class RecipeImpl implements Recipe {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public Date getCreated() {
@@ -138,13 +149,14 @@ public class RecipeImpl implements Recipe {
 		return this.ingredients;
 	}
 
-	public RecipeImpl(Long id, String name, String description, Date created,
+	public RecipeImpl(Long id, String name, String description, Date created, String image, 
 			User creator) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.created = created;
 		this.creator = creator;
+		this.image = image;
 		this.recipeComments = new HashSet<Comment>();
 		this.ingredients = new HashSet<Ingredient>();
 	}
@@ -153,12 +165,13 @@ public class RecipeImpl implements Recipe {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static Recipe createRecipe(String name, String description, User creator, Set<Ingredient> ingredients) {
+	public static Recipe createRecipe(String name, String description, User creator, String image, Set<Ingredient> ingredients) {
 		RecipeImpl recipe = new RecipeImpl();
 		recipe.setName(name);
 		recipe.setDescription(description);
 		recipe.setCreated();
 		recipe.setCreator(creator);
+		recipe.setImage(image);
 
 		recipe.setComments(new HashSet<Comment>());
 		if (ingredients != null) { 
@@ -178,7 +191,7 @@ public class RecipeImpl implements Recipe {
 	public void debugDumpExtended() {
 		System.out.println("Debug: Recipe: RecipeName: [" + this.name
 				+ "] + Description: [" + this.description + "] + ID: ["
-				+ this.id + "]");
+				+ this.id + "] ImgagePath: [" + this.image + "]") ;
 		System.out.print("\t and was created by:");
 		this.creator.debugDump();
 		Iterator<Ingredient> ingredients = this.getIngredients().iterator();

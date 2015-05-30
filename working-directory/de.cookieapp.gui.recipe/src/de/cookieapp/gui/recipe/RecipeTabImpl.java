@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Text;
 import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
+import de.cookieapp.database.impl.DataProviderImpl;
 
 public class RecipeTabImpl implements RecipeTab {
 	
@@ -54,7 +55,14 @@ public class RecipeTabImpl implements RecipeTab {
 		header.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
 		//Composite imageComposite = new Composite(header, SWT.NONE);
-		Image trollFace = loadImage(PIC);
+		recipe.debugDumpExtended();
+		Image trollFace = null;
+		if (recipe.getImage() != null) {
+			String temp = recipe.getImage();
+			trollFace = loadImage("resources/" + recipe.getImage());
+		} else {
+			trollFace = loadImage(PIC);
+		}
 		final int width = trollFace.getBounds().width;
 		final int height = trollFace.getBounds().height;
 		trollFace = new Image(display, trollFace.getImageData().scaledTo((int) (width * 0.3), (int) (height * 0.3)));
@@ -204,7 +212,7 @@ public class RecipeTabImpl implements RecipeTab {
 	 */
 	public Image loadImage(String name) {
 		Image result = null;
-		InputStream stream = RecipeTabImpl.class.getClassLoader().getResourceAsStream(name);
+		InputStream stream = DataProviderImpl.class.getClassLoader().getResourceAsStream(name);
 		if (stream != null) {
 			try {
 				result = new Image(display, stream);

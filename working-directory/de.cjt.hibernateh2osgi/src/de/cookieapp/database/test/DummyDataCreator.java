@@ -21,6 +21,7 @@ public class DummyDataCreator {
 	private ArrayList<String> passwords = new ArrayList<String>();
 	private ArrayList<String> recipeNames = new ArrayList<String>();
 	private ArrayList<String> recipeDescription = new ArrayList<String>();
+	private ArrayList<String> recipeImage = new ArrayList<String>();
 	private ArrayList<String> commentContents = new ArrayList<String>();
 	private ArrayList<String> ingredientNames = new ArrayList<String>();
 	private ArrayList<String> ingredientUnits = new ArrayList<String>();
@@ -84,13 +85,13 @@ public class DummyDataCreator {
 				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses
 						.get(i)));
 				for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
-					recipe = RecipeImpl.createRecipe(recipeNames.get(j), recipeDescription.get(j), user, null);
+					recipe = RecipeImpl.createRecipe(recipeNames.get(j), recipeDescription.get(j), user, recipeImage.get(j), null);
 					dataProvider.saveRecipe(recipe, user);
 					Long id = dataProvider.getRecipeID(recipeNames.get(j));
 					int numberOfIngredients = (int) (Math.random() * 2);
-					Ingredient ingredient = new IngredientImpl();
+					Ingredient ingredient;
 					for (int k = 0; k < numberOfIngredients; k = k + 1) {
-						ingredient = ingredient.createIngredient((Math.random() * 1000), ingredientUnits.get((int) (Math.random() * 2)), ingredientNames.get((int) (Math.random() * 1)));
+						ingredient = IngredientImpl.createIngredient((Math.random() * 1000), ingredientUnits.get((int) (Math.random() * 2)), ingredientNames.get((int) (Math.random() * 1)));
 						dataProvider.saveIngredient(ingredient, id);
 					}
 					if (debug) {
@@ -155,12 +156,12 @@ public class DummyDataCreator {
 		passwords.add("test2");
 		passwords.add("test3");
 
-		recipeNames.add("burger");
-		recipeNames.add("spaghetti");
-		recipeNames.add("lasagne");
-		recipeNames.add("pizza");
-		recipeNames.add("french fries");
-		recipeNames.add("monster lasagne");
+		recipeNames.add("Burger");
+		recipeNames.add("Spaghetti");
+		recipeNames.add("Lasagne");
+		recipeNames.add("Pizza");
+		recipeNames.add("French fries");
+		recipeNames.add("Monster lasagne");
 
 		recipeDescription.add("can be added by French Fries");
 		recipeDescription.add("Some Meat");
@@ -168,6 +169,13 @@ public class DummyDataCreator {
 		recipeDescription.add("Flour, Salami and Cheese");
 		recipeDescription.add("French, Potatos and Fat");
 		recipeDescription.add("Monster Flesh Muhaahaa");
+		
+		recipeImage.add("burger.jpg");
+		recipeImage.add(null);
+		recipeImage.add("lasagne.jpg");
+		recipeImage.add("pizza.jpg");
+		recipeImage.add(null);
+		recipeImage.add(null);
 
 		commentContents.add("Tastes good with Fries");
 		commentContents.add("Fast food for the Win!");

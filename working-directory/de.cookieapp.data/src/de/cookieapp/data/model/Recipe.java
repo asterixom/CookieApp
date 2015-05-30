@@ -15,6 +15,9 @@ public interface Recipe {
 
 	public String getDescription();
 	public void setDescription(String description);
+	
+	public String getImage();
+	public void setImage(String image);
 
 	public void setCreated(Date created);
 	public Date getCreated();
