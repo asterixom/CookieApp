@@ -58,7 +58,7 @@ public class ControlServiceImpl implements ControlService {
 			throw new NoSessionException();
 			//System.err.println("No Such Session available: [" + sessionId + "]");
 		}
-		User user = dataService.login(userORmail, password);
+		User user = dataService.login(userORmail.toLowerCase(), password);
 		if (user == null) {
 			return false;
 		} else {

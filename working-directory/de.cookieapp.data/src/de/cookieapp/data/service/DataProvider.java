@@ -16,7 +16,7 @@ public interface DataProvider {
 	
 	public User getUser(long userID);
 	
-	public void saveRecipe(Recipe recipe, User user);
+	public boolean saveRecipe(Recipe recipe, User user);
 	
 	public long getRecipeID(String rezeptName);
 	
@@ -28,7 +28,7 @@ public interface DataProvider {
 	
 	public boolean changePassword(long userID, String oldPassword, String newPassword);
 	
-	public void saveIngredient(Ingredient ingredient, Long recipeID);
+	public boolean saveIngredient(Ingredient ingredient, Long recipeID);
 	
 	public void deleteIngredient(Long ingredientID);
 	

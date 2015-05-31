@@ -257,7 +257,6 @@ public class MainPage extends AbstractEntryPoint {
 					if (e.keyCode == SWT.CR) {
 						login();
 					}
-
 				}
 
 				@Override

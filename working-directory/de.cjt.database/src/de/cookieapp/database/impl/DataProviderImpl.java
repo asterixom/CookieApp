@@ -57,11 +57,22 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 	}
 
-	public long getUserID(String eMail) {
+	public long getUserID(String mailOrName) {
+		long id = 0;
+		String mailOrNameLowerCase = mailOrName.toLowerCase();
+		Query query = this.entityManager.createQuery("from " + UserImpl.class.getName() + " s where lower(s.eMail)='" + mailOrNameLowerCase + "' OR lower(s.name)='" + mailOrNameLowerCase + "'");
+		List<?> usersFromQuery = query.getResultList();
+		if (usersFromQuery.size() == 1	&& usersFromQuery.get(0) instanceof UserImpl) {
+			id = ((UserImpl) usersFromQuery.get(0)).getId();
+		}
+		return id;
+	}
+
+	public long getUserIDFromName(String name) {
 		long id = 0;
 		Query query = this.entityManager
 				.createQuery("from " + UserImpl.class.getName()
-						+ " s where s.eMail='" + eMail + "'");
+						+ " s where s.name='" + name + "'");
 		List<?> usersFromQuery = query.getResultList();
 		if (usersFromQuery.size() == 1
 				&& usersFromQuery.get(0) instanceof UserImpl) {
@@ -153,16 +164,19 @@ public class DataProviderImpl implements DataProvider {
 		return !(userList.isEmpty() && userList2.isEmpty());
 	}
 
-	public void saveRecipe(Recipe recipe, User user) {
+	public boolean saveRecipe(Recipe recipe, User user) {
 		entityManager.getTransaction().begin();
+		boolean flag = false;
 		if (contains(recipe)) {
 			System.out.println("Rezept gibt es schon");
 		} else {
 			entityManager.persist(recipe);
 			user.addRecipe(recipe);
 			entityManager.merge(user);
+			flag = true;
 		}
 		entityManager.getTransaction().commit();
+		return flag;
 	}
 
 	public long getRecipeID(String rezeptName) {
@@ -183,9 +197,9 @@ public class DataProviderImpl implements DataProvider {
 
 	}
 
-	public boolean login(String eMail, String password) {
+	public boolean login(String eMailorName, String password) {
 		entityManager.getTransaction().begin();
-		UserImpl user = entityManager.find(UserImpl.class, getUserID(eMail));
+		UserImpl user = entityManager.find(UserImpl.class, getUserID(eMailorName));
 		entityManager.getTransaction().commit();
 		// TODO NullPointer, if user not found!!!
 		if (user != null && user.getPassword() != null) {
@@ -294,14 +308,19 @@ public class DataProviderImpl implements DataProvider {
 		return recipes;
 	}
 
-	public void saveIngredient(Ingredient ingredient, Long recipeID) {
-		entityManager.getTransaction().begin();
-		Recipe recipe = getRecipe(recipeID);
-		ingredient.setRecipe(recipe);
-		entityManager.persist(ingredient);
-		recipe.addIngredient(ingredient);
-		entityManager.merge(recipe);
-		entityManager.getTransaction().commit();
+	public boolean saveIngredient(Ingredient ingredient, Long recipeID) {
+		boolean flag = false;
+		if (0 != getIngredientID(ingredient.getName(), getRecipe(recipeID))) {
+			entityManager.getTransaction().begin();
+			Recipe recipe = getRecipe(recipeID);
+			ingredient.setRecipe(recipe);
+			entityManager.persist(ingredient);
+			recipe.addIngredient(ingredient);
+			entityManager.merge(recipe);
+			entityManager.getTransaction().commit();
+			flag = true;
+		}
+		return flag;
 	}
 
 	public Long getIngredientID(String name, Recipe recipe) {
