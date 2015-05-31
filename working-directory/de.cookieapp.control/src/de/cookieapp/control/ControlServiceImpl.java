@@ -55,8 +55,8 @@ public class ControlServiceImpl implements ControlService {
 	public boolean login(Long sessionId, String userORmail, String password)
 			throws CookieAppException {
 		if (!sessionMap.containsKey(sessionId)) {
-			//throw new NoSessionException();
-			System.err.println("No Such Session available: [" + sessionId + "]");
+			throw new NoSessionException();
+			//System.err.println("No Such Session available: [" + sessionId + "]");
 		}
 		User user = dataService.login(userORmail, password);
 		if (user == null) {
