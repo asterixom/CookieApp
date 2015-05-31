@@ -3,12 +3,17 @@ package de.cookieapp.control;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.bind.DatatypeConverter;
 
+import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 import de.cookieapp.data.service.DataProvider;
+import de.cookieapp.database.impl.IngredientImpl;
+import de.cookieapp.database.impl.RecipeImpl;
 import de.cookieapp.database.impl.UserImpl;
 
 public class DataService {
@@ -69,5 +74,27 @@ public class DataService {
 	
 	public ArrayList<Recipe> getRecipesWithName(String name) {
 		return dataProvider.compareToRecipeName(name);
+	}
+
+	public boolean saveRecipe(String recipeName, String recipeDescription,	User user, ArrayList<String> ingredientNames,
+			ArrayList<String> ingredientUnits, ArrayList<String> ingredientQuantity) {
+		boolean flag = true;
+		Recipe recipe = RecipeImpl.createRecipe(recipeName, recipeDescription, user, null, null);
+		dataProvider.saveRecipe(recipe, user);
+		Long recipeID = dataProvider.getRecipeID(recipeName);
+		for (int i = 0; i < ingredientNames.size(); i = i + 1) {
+			double quantity = 0.0;
+			String unit = ingredientUnits.get(i);
+			String name = ingredientNames.get(i);
+			try {
+				quantity = Double.valueOf(ingredientQuantity.get(i));
+			} catch (NumberFormatException e) {
+				System.err.println("NumberFormat Exeption. Could not Format the Number for " + name);
+				e.printStackTrace();
+			}
+			Ingredient ingredient = IngredientImpl.createIngredient(quantity, unit, name);
+			dataProvider.saveIngredient(ingredient, recipeID);
+		}
+		return flag;
 	}
 }

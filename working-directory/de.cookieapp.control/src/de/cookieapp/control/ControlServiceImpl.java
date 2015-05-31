@@ -200,6 +200,10 @@ public class ControlServiceImpl implements ControlService {
 		return user.geteMail();
 	}
 	
+	public boolean saveRecipe(String recipeName, String recipeDescription, User user, ArrayList<String> ingredientNames, ArrayList<String> ingredientUnits, ArrayList<String> ingredientQuantity) {
+		return dataService.saveRecipe(recipeName, recipeDescription, user, ingredientNames, ingredientUnits, ingredientQuantity);
+	}
+	
 	public void setDataProvider(DataProvider dataProvider) {
 		if (dataProvider != null) {
 			this.dataProvider = dataProvider;

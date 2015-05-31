@@ -188,7 +188,11 @@ public class DataProviderImpl implements DataProvider {
 		UserImpl user = entityManager.find(UserImpl.class, getUserID(eMail));
 		entityManager.getTransaction().commit();
 		// TODO NullPointer, if user not found!!!
-		return user.getPassword().equals(password);
+		if (user != null && user.getPassword() != null) {
+			return user.getPassword().equals(password);
+		} else {
+			return false;
+		}
 	}
 
 	public void saveComment(String content, UserImpl user, RecipeImpl recipe) {

@@ -4,7 +4,8 @@ Bundle-Name: Createrecipe
 Bundle-SymbolicName: de.cookieapp.gui.createrecipe
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: de.cookieapp.data.model,
+Import-Package: de.cookieapp.control,
+ de.cookieapp.data.model,
  de.cookieapp.gui.folderitem,
  org.eclipse.swt.custom,
  org.eclipse.swt.widgets
