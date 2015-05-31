@@ -33,6 +33,7 @@ public class CreateRecipeTab implements FolderItem {
 	private ControlService controlService;
 	private Text recipeDescriptionText;
 	private Text recipeNameText;
+	private ScrolledComposite scrolledComposite;
 
 
 	@Override
@@ -62,23 +63,26 @@ public class CreateRecipeTab implements FolderItem {
 		addIngredientButton.setText("Füge Zutatenfeld hinzu!");
 		addButtonListener(addIngredientButton);
 		
-		ScrolledComposite scrolledComposite = new ScrolledComposite(informationArea, SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
+		scrolledComposite = new ScrolledComposite(informationArea, SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
 		scrolledComposite.setLayout(new FillLayout(SWT.HORIZONTAL));
 		scrolledComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		scrolledComposite.setMinHeight(200);
-		scrolledComposite.setMinWidth(200);
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
+		//scrolledComposite.setAlwaysShowScrollBars(true);
 		
 		ingredientsComposite = new Composite(scrolledComposite, SWT.NONE);
 		scrolledComposite.setContent(ingredientsComposite);
-		ingredientsComposite.setLayout(new FillLayout(SWT.VERTICAL));
-		ingredientsComposite.setSize(ingredientsComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		
 		/*
+		FillLayout fillLayout = new FillLayout();
+		fillLayout.type = SWT.VERTICAL;
+		fillLayout.spacing = 5;
+		ingredientsComposite.setLayout(fillLayout);*/
+		//ingredientsComposite.setSize(500, 500);
+		scrolledComposite.setMinHeight(200);
+		
 		RowLayout rowLayout = new RowLayout();
-		rowLayout.wrap = true;
-		rowLayout.pack = true;
+		rowLayout.wrap = false;
+		rowLayout.pack = false;
 		rowLayout.justify = true;
 		rowLayout.type = SWT.VERTICAL;
 		rowLayout.marginLeft = 5;
@@ -86,7 +90,7 @@ public class CreateRecipeTab implements FolderItem {
 		rowLayout.marginRight = 5;
 		rowLayout.marginBottom = 5;
 		rowLayout.spacing = 0;
-		ingredientsComposite.setLayout(rowLayout);*/
+		ingredientsComposite.setLayout(rowLayout);
 		
 //		addIngredientRow();
 //		addIngredientRow();
@@ -135,6 +139,11 @@ public class CreateRecipeTab implements FolderItem {
 		Composite ingredientRowComposite = new Composite(ingredientsComposite, SWT.BORDER);
 		ingredientRowComposite.setSize(ingredientRowComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		ingredientRowComposite.setLayout(new GridLayout(6, true));
+		
+		/*
+		RowData rowData = new RowData();
+		rowData.
+		*/
 		
 		Label ingredientNameLabel = new Label(ingredientRowComposite, SWT.NONE);
 		ingredientNameLabel.setText("Zutatenname:");
@@ -200,7 +209,10 @@ public class CreateRecipeTab implements FolderItem {
 				Text ingredientUnitText = new Text(ingredientRowComposite, SWT.SINGLE | SWT.BORDER);
 				ingredientUnit.add(ingredientUnitText);
 				ingredientUnitText.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1));
-
+				
+				//ingredientsComposite.setSize(ingredientsComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+				scrolledComposite.setMinHeight(scrolledComposite.getMinHeight() + 20);
+				
 				ingredientsComposite.pack();
 			}
 			@Override
