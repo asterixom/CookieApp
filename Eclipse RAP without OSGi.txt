@@ -1,2 +1,0 @@
-https://eclipse.org/rap/developers-guide/devguide.php?topic=rwt-standalone.html&version=2.3
-Update sites: http://download.eclipse.org/rt/rap/tools/3.0

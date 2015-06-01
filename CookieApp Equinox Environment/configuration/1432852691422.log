@@ -1,0 +1,168 @@
+!SESSION 2015-05-29 00:38:11.310 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Command-line arguments:  -consoleLog -console
+
+!ENTRY de.cookieapp.database 4 0 2015-05-29 00:38:11.895
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.database [10]
+  Unresolved requirement: Import-Package: javax.persistence; version="2.1.0"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY de.cookieapp.gui.folderitem 4 0 2015-05-29 00:38:11.899
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.gui.folderitem [11]
+  Unresolved requirement: Require-Bundle: org.eclipse.rap.rwt; bundle-version="2.3.1"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY de.cookieapp.gui.home 4 0 2015-05-29 00:38:11.900
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.gui.home [12]
+  Unresolved requirement: Import-Package: de.cookieapp.gui.folderitem
+    -> Export-Package: de.cookieapp.gui.folderitem; bundle-symbolic-name="de.cookieapp.gui.folderitem"; bundle-version="1.0.0.201505290016"; version="0.0.0"
+       de.cookieapp.gui.folderitem [11]
+         Unresolved requirement: Require-Bundle: org.eclipse.rap.rwt; bundle-version="2.3.1"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY de.cookieapp.gui.mainpage 4 0 2015-05-29 00:38:11.901
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.gui.mainpage [13]
+  Unresolved requirement: Import-Package: de.cookieapp.gui.folderitem
+    -> Export-Package: de.cookieapp.gui.folderitem; bundle-symbolic-name="de.cookieapp.gui.folderitem"; bundle-version="1.0.0.201505290016"; version="0.0.0"
+       de.cookieapp.gui.folderitem [11]
+         Unresolved requirement: Require-Bundle: org.eclipse.rap.rwt; bundle-version="2.3.1"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY de.cookieapp.gui.profile 4 0 2015-05-29 00:38:11.903
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.gui.profile [14]
+  Unresolved requirement: Import-Package: de.cookieapp.gui.folderitem
+    -> Export-Package: de.cookieapp.gui.folderitem; bundle-symbolic-name="de.cookieapp.gui.folderitem"; bundle-version="1.0.0.201505290016"; version="0.0.0"
+       de.cookieapp.gui.folderitem [11]
+         Unresolved requirement: Require-Bundle: org.eclipse.rap.rwt; bundle-version="2.3.1"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY de.cookieapp.gui.recipe 4 0 2015-05-29 00:38:11.904
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.gui.recipe [15]
+  Unresolved requirement: Import-Package: de.cookieapp.gui.folderitem
+    -> Export-Package: de.cookieapp.gui.folderitem; bundle-symbolic-name="de.cookieapp.gui.folderitem"; bundle-version="1.0.0.201505290016"; version="0.0.0"
+       de.cookieapp.gui.folderitem [11]
+         Unresolved requirement: Require-Bundle: org.eclipse.rap.rwt; bundle-version="2.3.1"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY de.cookieapp.gui.recipesearch 4 0 2015-05-29 00:38:11.906
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.gui.recipesearch [16]
+  Unresolved requirement: Import-Package: de.cookieapp.gui.folderitem
+    -> Export-Package: de.cookieapp.gui.folderitem; bundle-symbolic-name="de.cookieapp.gui.folderitem"; bundle-version="1.0.0.201505290016"; version="0.0.0"
+       de.cookieapp.gui.folderitem [11]
+         Unresolved requirement: Require-Bundle: org.eclipse.rap.rwt; bundle-version="2.3.1"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY de.cookieapp.gui.register 4 0 2015-05-29 00:38:11.907
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: de.cookieapp.gui.register [17]
+  Unresolved requirement: Import-Package: de.cookieapp.gui.folderitem
+    -> Export-Package: de.cookieapp.gui.folderitem; bundle-symbolic-name="de.cookieapp.gui.folderitem"; bundle-version="1.0.0.201505290016"; version="0.0.0"
+       de.cookieapp.gui.folderitem [11]
+         Unresolved requirement: Require-Bundle: org.eclipse.rap.rwt; bundle-version="2.3.1"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.909
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.database_1.0.0.201505290016.jar was not resolved.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.909
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.gui.folderitem_1.0.0.201505290016.jar was not resolved.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.910
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.gui.home_1.0.0.201505290016.jar was not resolved.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.911
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.gui.mainpage_1.0.0.201505290016.jar was not resolved.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.911
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.gui.profile_1.0.0.201505290016.jar was not resolved.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.912
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.gui.recipe_1.0.0.201505290016.jar was not resolved.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.912
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.gui.recipesearch_1.0.0.201505290016.jar was not resolved.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:38:11.913
+!MESSAGE Bundle initial@reference:file:plugins/de.cookieapp.gui.register_1.0.0.201505290016.jar was not resolved.

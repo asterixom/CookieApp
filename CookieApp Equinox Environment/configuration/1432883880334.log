@@ -1,0 +1,9 @@
+!SESSION 2015-05-29 09:18:00.229 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Command-line arguments:  -console -consoleLog
+
+!ENTRY org.eclipse.update.configurator 4 0 2015-05-29 09:18:01.097
+!MESSAGE Could not install bundle plugins/javax.enterprise.cdi-api-1.2.jar   A bundle is already installed with the name "javax.enterprise.cdi-api" and version "1.2.0"

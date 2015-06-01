@@ -1,0 +1,36 @@
+osgi.bundles.defaultStartLevel=4
+osgi.bundles=org.apache.felix.gogo.command-0.14.0.jar@start,\
+  org.apache.felix.gogo.runtime-0.16.2.jar@start,\
+  org.apache.felix.gogo.shell-0.10.0.jar@start,\
+  org.eclipse.equinox.console_1.1.0.v20140131-1639.jar@start,\
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+  ./dependencies/
+
+  ./plugins/de.cookieapp.control_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.data_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.database_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.gui.folderitem_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.gui.home_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.gui.mainpage_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.gui.profile_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.gui.recipe_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.gui.recipesearch_1.0.0.201505290016.jar@start,\
+  ./plugins/de.cookieapp.gui.register_1.0.0.201505290016.jar@start
+osgi.noShutdown=true
+eclipse.ignoreApp=true
+org.osgi.service.http.port=62507

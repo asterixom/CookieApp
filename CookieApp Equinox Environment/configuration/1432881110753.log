@@ -1,0 +1,8 @@
+!SESSION 2015-05-29 08:31:50.622 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 08:31:51.088
+!MESSAGE Bundle osgi.noShutdown=true not found.

@@ -1,0 +1,36 @@
+!SESSION 2015-05-29 00:37:36.136 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Command-line arguments:  -consoleLog -console
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.629
+!MESSAGE Bundle de.cookieapp.control_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.631
+!MESSAGE Bundle de.cookieapp.data_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.635
+!MESSAGE Bundle de.cookieapp.database_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.636
+!MESSAGE Bundle de.cookieapp.gui.folderitem_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.637
+!MESSAGE Bundle de.cookieapp.gui.home_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.638
+!MESSAGE Bundle de.cookieapp.gui.mainpage_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.639
+!MESSAGE Bundle de.cookieapp.gui.profile_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.640
+!MESSAGE Bundle de.cookieapp.gui.recipe_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.640
+!MESSAGE Bundle de.cookieapp.gui.recipesearch_1.0.0.201505290016.jar@start not found.
+
+!ENTRY org.eclipse.osgi 4 0 2015-05-29 00:37:36.641
+!MESSAGE Bundle de.cookieapp.gui.register_1.0.0.201505290016.jar@start not found.
