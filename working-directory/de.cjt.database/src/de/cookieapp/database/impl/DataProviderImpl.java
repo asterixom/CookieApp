@@ -327,7 +327,7 @@ public class DataProviderImpl implements DataProvider {
 		Long id = 0L;
 		Query query = this.entityManager.createQuery("from "
 				+ IngredientImpl.class.getName() + " s where s.name='"
-				+ name + "' AND s.recipe='" + recipe.getName() + "'");
+				+ name + "' AND s.recipe='" + recipe.getId() + "'");
 		List<?> ingredientFromQuery = query.getResultList();
 		if (ingredientFromQuery.size() == 1	&& ingredientFromQuery.get(0) instanceof IngredientImpl) {
 			id = ((IngredientImpl) ingredientFromQuery.get(0)).getId();
