@@ -28,4 +28,7 @@ public interface ControlService {
 	public Recipe getRecipe(Long sessionId, Long recipeID) throws CookieAppException;
 	User getCurrentUser(Long sessionId) throws CookieAppException;
 	ArrayList<Recipe> getRecipeByName(Long sessionId, String name)	throws CookieAppException;
+	
+	public boolean saveRecipe(String recipeName, String recipeDescription, User user, ArrayList<String> ingredientNames, ArrayList<String> ingredientUnits, ArrayList<String> ingredientQuantity);
+
 }

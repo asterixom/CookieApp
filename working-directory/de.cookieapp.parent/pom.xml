@@ -16,12 +16,16 @@
   	<module>../de.cookieapp.gui.mainpage</module>
   	<module>../de.cookieapp.gui.recipesearch</module>
   	<module>../de.cookieapp.gui.register</module>
-  	<module>../de.cookieapp.dataimpl</module>
-  	<module>../de.cookieapp.gui.folderitem</module>
+  	
+  	
   	<module>../de.cookieapp.gui.home</module>
   	<module>../de.cookieapp.gui.profile</module>
   	<module>../de.cookieapp.gui.recipe</module>
-  	<module>../de.cookieapp.repository</module>
+  	
+  	
+  	<module>../de.cookieapp.gui.folderitem</module>
+  	<module>../de.cjt.database</module>
+  	<module>../de.cookieapp.gui.createrecipe</module>
   </modules>
   <dependencies>
   	<dependency>

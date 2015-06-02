@@ -4,5 +4,5 @@
    <service>
       <provide interface="de.cookieapp.control.ControlService"/>
    </service>
-   <reference bind="setRepository" cardinality="1..1" interface="de.cookieapp.repository.Repository" name="Repository" policy="static" unbind="unsetRepository"/>
+   <reference bind="setDataProvider" cardinality="1..1" interface="de.cookieapp.data.service.DataProvider" name="DataProvider" policy="static" unbind="unsetDataProvider"/>
 </scr:component>

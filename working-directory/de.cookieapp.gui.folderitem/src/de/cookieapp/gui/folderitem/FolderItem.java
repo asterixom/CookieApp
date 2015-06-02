@@ -3,6 +3,8 @@ package de.cookieapp.gui.folderitem;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
 
+import de.cookieapp.data.model.User;
+
 public interface FolderItem {
 
 	/**
@@ -24,4 +26,11 @@ public interface FolderItem {
 	public void setSpecificProperty(Object property);
 	
 	public void setSessionID(Long sessionID);
+	
+	/**
+	 * Sets that a specific user is logged in. Null if user is logged out or no user is logged in
+	 * @param user
+	 */
+	public void setLogedInUser(User user);
+	
 }

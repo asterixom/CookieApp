@@ -35,5 +35,10 @@
   		<artifactId>de.cookieapp.control</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>de.cookieapp.data</groupId>
+  		<artifactId>de.cookieapp.data</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>

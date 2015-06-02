@@ -15,26 +15,31 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 
+import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 
 public class Profile implements FolderItem {
-	
+
 	@SuppressWarnings("unused")
 	private Long sessionID;
 	private Display display;
 	private static final String PLACEHOLDER = "resources/platzhalter.png";
+	@SuppressWarnings("unused")
+	private User user;
+	
+	private Composite completeComposite;
 
 	@Override
 	public Composite getContent(CTabFolder tabFolder) {
-		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
+		completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
-		
-		createHeader(completeComposite);
-		createContent(completeComposite);
-
+		if (user != null) {
+			createHeader(completeComposite);
+			createContent(completeComposite);
+		}
 		return completeComposite;
 	}
-	
+
 	/**
 	 * Creates headline and log-off button
 	 * @param completeComposite
@@ -55,9 +60,9 @@ public class Profile implements FolderItem {
 			}
 		});
 		logOff.setText("Ausloggen");
-		
+
 	}
-	
+
 	/**
 	 * Creates contentComposite and fills it
 	 * @param completeComposite
@@ -65,7 +70,7 @@ public class Profile implements FolderItem {
 	private void createContent(Composite completeComposite) {
 		Composite content = new Composite(completeComposite, SWT.NONE);
 		content.setLayout(new GridLayout(2, false));
-		
+
 		Composite contentTL = new Composite(content, SWT.NONE);
 		contentTL.setLayout(new GridLayout(1, false));
 		//TODO Platzhalter für Bild einfügen [überprüfen, ob richtig]
@@ -75,29 +80,32 @@ public class Profile implements FolderItem {
 		Composite contentTR = new Composite(content, SWT.NONE);
 		contentTR.setLayout(new GridLayout(1, false));
 		Label username = new Label(contentTR, SWT.NONE);
-		username.setText("username"); //TODO Methode getUsername() einfügen
+
+		username.setText(user.getName()); //TODO Methode getUsername() einfügen
 		username.setFont(new Font( contentTR.getDisplay(), "Verdana", 24, SWT.BOLD )); //TODO ggf. CSS-Tag Headlie1 einfügen
-		
+
+
 		Composite contentBL = new Composite(content, SWT.NONE);
 		contentBL.setLayout(new GridLayout(2, false));
 		//TODO Nutzerdaten Labels und Buttons zum ändern einfügen
 		
+
 		Composite contentBR = new Composite(content, SWT.NONE);
 		contentBR.setLayout(new GridLayout(1, false));
 		Label myRecipes = new Label(contentBR, SWT.NONE);
 		myRecipes.setText("Meine Rezepte");
 		myRecipes.setFont(new Font( contentBR.getDisplay(), "Verdana", 18, SWT.BOLD ));
 		// MyRecipes einbinden
-		
-		
+
+
 	}
-	
+
 	@Override
 	public void setSpecificProperty(Object property) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void setSessionID(Long sessionID) {
 		this.sessionID = sessionID;
@@ -124,6 +132,14 @@ public class Profile implements FolderItem {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public void setLogedInUser(User user) {
+		if(user==null){
+			completeComposite.dispose();
+		}
+		this.user = user;
 	}
 
 }

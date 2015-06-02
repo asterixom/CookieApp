@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="de.cookieapp.gui.createrecipe">
+   <implementation class="de.cookieapp.gui.createrecipe.CreateRecipeTab"/>
+   <service>
+      <provide interface="de.cookieapp.gui.folderitem.FolderItem"/>
+   </service>
+   <reference bind="setControlService" cardinality="1..1" interface="de.cookieapp.control.ControlService" name="ControlService" policy="static" unbind="unsetControlService"/>
+</scr:component>
