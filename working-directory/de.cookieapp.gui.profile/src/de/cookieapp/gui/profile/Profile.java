@@ -1,13 +1,18 @@
 package de.cookieapp.gui.profile;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 
 import de.cookieapp.gui.folderitem.FolderItem;
@@ -16,6 +21,8 @@ public class Profile implements FolderItem {
 	
 	@SuppressWarnings("unused")
 	private Long sessionID;
+	private Display display;
+	private static final String PLACEHOLDER = "resources/platzhalter.png";
 
 	@Override
 	public Composite getContent(CTabFolder tabFolder) {
@@ -61,17 +68,19 @@ public class Profile implements FolderItem {
 		
 		Composite contentTL = new Composite(content, SWT.NONE);
 		contentTL.setLayout(new GridLayout(1, false));
-		//TODO Platzhalter fï¿½r Bild einfï¿½gen
+		//TODO Platzhalter für Bild einfügen [überprüfen, ob richtig]
+		Image profilePic = loadImage(PLACEHOLDER);
+		contentTL.setBackgroundImage(profilePic);
 		
 		Composite contentTR = new Composite(content, SWT.NONE);
 		contentTR.setLayout(new GridLayout(1, false));
 		Label username = new Label(contentTR, SWT.NONE);
-		username.setText("username"); //TODO Methode getUsername() einfï¿½gen
-		username.setFont(new Font( contentTR.getDisplay(), "Verdana", 24, SWT.BOLD )); //TODO ggf. CSS-Tag Headlie1 einfï¿½gen
+		username.setText("username"); //TODO Methode getUsername() einfügen
+		username.setFont(new Font( contentTR.getDisplay(), "Verdana", 24, SWT.BOLD )); //TODO ggf. CSS-Tag Headlie1 einfügen
 		
 		Composite contentBL = new Composite(content, SWT.NONE);
 		contentBL.setLayout(new GridLayout(2, false));
-		//TODO Nutzerdaten Labels und Buttons zum ï¿½ndern einfï¿½gen
+		//TODO Nutzerdaten Labels und Buttons zum ändern einfügen
 		
 		Composite contentBR = new Composite(content, SWT.NONE);
 		contentBR.setLayout(new GridLayout(1, false));
@@ -98,6 +107,23 @@ public class Profile implements FolderItem {
 	@Override
 	public String getTabItemName() {
 		return "Mein Profil";
+	}
+	
+	public Image loadImage(String name) {
+		Image result = null;
+		InputStream stream = Profile.class.getClassLoader().getResourceAsStream( name );
+		if( stream != null ) {
+			try {
+				result = new Image(display, stream);
+			} finally {
+				try {
+					stream.close();
+				} catch( IOException unexpected ) {
+					throw new RuntimeException( "Failed to close image input stream", unexpected );
+				}
+			}
+		}
+		return result;
 	}
 
 }

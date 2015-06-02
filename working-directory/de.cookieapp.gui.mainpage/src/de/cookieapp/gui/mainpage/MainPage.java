@@ -316,7 +316,7 @@ public class MainPage extends AbstractEntryPoint {
 								defaultTabNumber = i;
 								started = true;		
 							} 
-							//TODO set Profile inivible and after login to visible
+							//TODO set Profile invisible and after login to visible
 						}
 					}
 					tabFolder.setSelection(defaultTabNumber);

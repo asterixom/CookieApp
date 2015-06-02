@@ -50,7 +50,7 @@ public class Register implements FolderItem{
 		Composite header = new Composite(headerComposite, SWT.NONE);
 		header.setLayout(new FillLayout(SWT.NONE));
 		Label headline = new Label(header, SWT.NONE);
-		headline.setText("Registriere dich fuer CookieApp");		
+		headline.setText("Registriere dich fÜr CookieApp");		
 	}
 	
 	private void createContent(Composite contentComposite) {
@@ -60,7 +60,7 @@ public class Register implements FolderItem{
 		content.setLayout(new GridLayout(2, true));
 		
 		Label headline = new Label(content, SWT.NONE);
-		headline.setText("Registriere dich fuer CookieApp");
+		headline.setText("Registriere dich für CookieApp");
 
 		Label blankLabel = new Label(content, SWT.NONE);
 		blankLabel.setVisible(false);
