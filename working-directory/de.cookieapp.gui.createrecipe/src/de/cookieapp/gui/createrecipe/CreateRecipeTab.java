@@ -10,12 +10,10 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Text;
 
 import de.cookieapp.control.ControlService;
@@ -72,12 +70,6 @@ public class CreateRecipeTab implements FolderItem {
 		
 		ingredientsComposite = new Composite(scrolledComposite, SWT.NONE);
 		scrolledComposite.setContent(ingredientsComposite);
-		/*
-		FillLayout fillLayout = new FillLayout();
-		fillLayout.type = SWT.VERTICAL;
-		fillLayout.spacing = 5;
-		ingredientsComposite.setLayout(fillLayout);*/
-		//ingredientsComposite.setSize(500, 500);
 		scrolledComposite.setMinHeight(200);
 		
 		RowLayout rowLayout = new RowLayout();
@@ -91,12 +83,6 @@ public class CreateRecipeTab implements FolderItem {
 		rowLayout.marginBottom = 5;
 		rowLayout.spacing = 0;
 		ingredientsComposite.setLayout(rowLayout);
-		
-//		addIngredientRow();
-//		addIngredientRow();
-//		addIngredientRow();
-//		addIngredientRow();
-//		addIngredientRow();
 
 		Label recipeDescriptionLabel = new Label(informationArea, SWT.NONE);
 		recipeDescriptionLabel.setText("Rezept Anleitung:");
@@ -133,43 +119,6 @@ public class CreateRecipeTab implements FolderItem {
 		});
 		informationArea.setRedraw(true);
 		informationArea.redraw();
-	}
-	
-	public void addIngredientRow() {
-		Composite ingredientRowComposite = new Composite(ingredientsComposite, SWT.BORDER);
-		ingredientRowComposite.setSize(ingredientRowComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		ingredientRowComposite.setLayout(new GridLayout(6, true));
-		
-		/*
-		RowData rowData = new RowData();
-		rowData.
-		*/
-		
-		Label ingredientNameLabel = new Label(ingredientRowComposite, SWT.NONE);
-		ingredientNameLabel.setText("Zutatenname:");
-		ingredientNameLabel.setLayoutData(new GridData(SWT.NONE, SWT.NONE, false, false, 1, 1));
-
-		Text ingredientNameText = new Text(ingredientRowComposite, SWT.SINGLE | SWT.BORDER);
-		ingredientName.add(ingredientNameText);
-		ingredientNameText.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1));
-
-
-		Label ingredientQuantityLabel = new Label(ingredientRowComposite, SWT.NONE);
-		ingredientQuantityLabel.setText("Zutatenmenge:");
-		ingredientQuantityLabel.setLayoutData(new GridData(SWT.NONE, SWT.NONE, false, false, 1, 1));
-
-		Text ingredientQuantityText = new Text(ingredientRowComposite, SWT.SINGLE | SWT.BORDER);
-		ingredientQuantity.add(ingredientQuantityText);
-		ingredientQuantityText.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1));
-
-		Label ingredientUnitLabel = new Label(ingredientRowComposite, SWT.NONE);
-		ingredientUnitLabel.setText("Zutateneinheit:");
-		ingredientUnitLabel.setLayoutData(new GridData(SWT.NONE, SWT.NONE, false, false, 1, 1));
-
-		Text ingredientUnitText = new Text(ingredientRowComposite, SWT.SINGLE | SWT.BORDER);
-		ingredientUnit.add(ingredientUnitText);
-		ingredientUnitText.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1));
-		
 	}
 
 	private void addButtonListener(Button addIngredientButton) {
