@@ -36,6 +36,7 @@ import de.cookieapp.control.ControlService;
 import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
+import de.cookieapp.util.PictureLoader;
 
 public class MainPage extends AbstractEntryPoint {
 
@@ -141,9 +142,9 @@ public class MainPage extends AbstractEntryPoint {
 		homeControlComposite.setLayout(new GridLayout(2, true));
 		homeControlComposite.setLocation(CONTENT_SHIFT, 0);
 		homeControlComposite.setSize(CONTENT_WITH, HEADER_HEIGHT);
-		Image controlImage = loadImage(CONTROLBACKGROUNDIMAGE);
+		Image controlImage = PictureLoader.loadImageFromDatabase(CONTROLBACKGROUNDIMAGE);
 		homeControlComposite.setBackgroundImage(controlImage);
-		Image headerImage = loadImage(LOGO);
+		Image headerImage = PictureLoader.loadImageFromDatabase(LOGO);
 		final int width = headerImage.getBounds().width;
 		final int height = headerImage.getBounds().height;
 		headerImage = new Image(display, headerImage.getImageData().scaledTo((int) (width * 0.5), (int) (height * 0.5)));
@@ -371,36 +372,12 @@ public class MainPage extends AbstractEntryPoint {
 	 *            the Composite, which should have the default background image
 	 */
 	private void setBackgroundImage(Composite parent) {
-		Image backgroundImage = loadImage(BACKGROUNDIMAGE);
+		Image backgroundImage = PictureLoader.loadImageFromDatabase(BACKGROUNDIMAGE);
 		final int width = backgroundImage.getBounds().width;
 		final int height = backgroundImage.getBounds().height;
 		backgroundImage = new Image(display, backgroundImage.getImageData().scaledTo((int) (width * 0.7), (int) (height * 0.7)));
 		parent.setBackgroundImage(backgroundImage);
 		parent.setBackgroundMode(SWT.INHERIT_DEFAULT);
-	}
-
-	/**
-	 * Loads the Image at the given path, transforms it into an Image
-	 * 
-	 * @param name
-	 *            the full path of the image
-	 * @return the Image, which was located at the given path
-	 */
-	public Image loadImage(String name) {
-		Image result = null;
-		InputStream stream = MainPage.class.getClassLoader().getResourceAsStream(name);
-		if (stream != null) {
-			try {
-				result = new Image(display, stream);
-			} finally {
-				try {
-					stream.close();
-				} catch (IOException unexpected) {
-					throw new RuntimeException("Failed to close image input stream", unexpected);
-				}
-			}
-		}
-		return result;
 	}
 
 	/**

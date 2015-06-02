@@ -9,6 +9,7 @@ Import-Package: de.cookieapp.control,
  de.cookieapp.control.exceptions,
  de.cookieapp.data.model,
  de.cookieapp.gui.folderitem,
+ de.cookieapp.util,
  org.eclipse.osgi.framework.console;version="1.0.0",
  org.osgi.framework;version="1.3.0",
  org.osgi.util.tracker;version="1.3.1"

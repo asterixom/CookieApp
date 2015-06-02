@@ -9,7 +9,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -24,13 +23,12 @@ import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.database.impl.DataProviderImpl;
+import de.cookieapp.util.PictureLoader;
 
 public class RecipeTabImpl implements RecipeTab {
 	
 	private Recipe recipe;
 	private Display display;
-	private static final String PLACEHOLDER = "resources/platzhalter.png";
-	private static final String PIC = "resources/troll_face_small.png";
 	
 	@Override
 	public Composite getContent(Composite tabFolder, Recipe recipe) {
@@ -60,9 +58,9 @@ public class RecipeTabImpl implements RecipeTab {
 		Image trollFace = null;
 		if (recipe.getImage() != null) {
 			String temp = recipe.getImage();
-			trollFace = loadImage("resources/" + recipe.getImage());
+			trollFace = PictureLoader.loadImageFromDatabase(PictureLoader.RECIPEREPO + recipe.getImage());
 		} else {
-			trollFace = loadImage(PIC);
+			trollFace = PictureLoader.loadImageFromDatabase(PictureLoader.TROLLFACE);
 		}
 		final int width = trollFace.getBounds().width;
 		final int height = trollFace.getBounds().height;
@@ -86,21 +84,21 @@ public class RecipeTabImpl implements RecipeTab {
 		
 		Composite contentTL = new Composite(content, SWT.NONE);
 		contentTL.setLayout(new GridLayout(1, false));
-		//TODO Platzhalter für Bild einfügen oder Methode für getRecipeImage() einbinden [überprüfen, ob richtig]
-		Image recipePic = loadImage(PLACEHOLDER);
+		//TODO Platzhalter fï¿½r Bild einfï¿½gen oder Methode fï¿½r getRecipeImage() einbinden [ï¿½berprï¿½fen, ob richtig]
+		Image recipePic = PictureLoader.loadImageFromDatabase(PictureLoader.DEFAULTPIC);
 		contentTL.setBackgroundImage(recipePic);
 		
 		Composite contentTR = new Composite(content, SWT.NONE);
 		contentTR.setLayout(new GridLayout(2, false));
 		Label recipeName = new Label(contentTR, SWT.NONE);
-		recipeName.setText(recipe.getName()); //TODO Methode getRecipeName() einfügen
-		recipeName.setFont(new Font( completeComposite.getDisplay(), "Verdana", 18, SWT.BOLD ) ); //TODO ggf. CSS-Tag Headlie1 einfügen
+		recipeName.setText(recipe.getName()); //TODO Methode getRecipeName() einfï¿½gen
+		recipeName.setFont(new Font( completeComposite.getDisplay(), "Verdana", 18, SWT.BOLD ) ); //TODO ggf. CSS-Tag Headlie1 einfï¿½gen
 		
 		
 		
 		Composite contentBL = new Composite(content, SWT.NONE);
 		contentBL.setLayout(new GridLayout(2, false));
-		//Tabelle einfügen und dynamisch mit Zutaten und Mengenangaben füllen
+		//Tabelle einfï¿½gen und dynamisch mit Zutaten und Mengenangaben fï¿½llen
 		Table table = new Table(contentBL, SWT.NONE);
 		TableColumn col1 = new TableColumn(table, SWT.NONE);
 		col1.setText("Zutat");
@@ -119,7 +117,7 @@ public class RecipeTabImpl implements RecipeTab {
 		Text method = new Text(contentBR, SWT.BORDER);
 		method.setEditable(false);
 		method.setTouchEnabled(true);
-		method.setText(recipe.getDescription()); //TODO getMethod() einfügen
+		method.setText(recipe.getDescription()); //TODO getMethod() einfï¿½gen
 		
 	}
 
@@ -205,29 +203,4 @@ public class RecipeTabImpl implements RecipeTab {
 	public String getTabItemName() {
 		return recipe.getName();
 	}
-	
-	/**
-	 * Loads the Image at the given path, transforms it into an Image
-	 * 
-	 * @param name
-	 *            the full path of the image
-	 * @return the Image, which was located at the given path
-	 */
-	public Image loadImage(String name) {
-		Image result = null;
-		InputStream stream = DataProviderImpl.class.getClassLoader().getResourceAsStream(name);
-		if (stream != null) {
-			try {
-				result = new Image(display, stream);
-			} finally {
-				try {
-					stream.close();
-				} catch (IOException unexpected) {
-					throw new RuntimeException("Failed to close image input stream", unexpected);
-				}
-			}
-		}
-		return result;
-	}
-
 }

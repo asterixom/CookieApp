@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Label;
 
 import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
+import de.cookieapp.util.PictureLoader;
 
 public class Profile implements FolderItem {
 
@@ -73,21 +74,21 @@ public class Profile implements FolderItem {
 
 		Composite contentTL = new Composite(content, SWT.NONE);
 		contentTL.setLayout(new GridLayout(1, false));
-		//TODO Platzhalter für Bild einfügen [überprüfen, ob richtig]
-		Image profilePic = loadImage(PLACEHOLDER);
+		//TODO Platzhalter fï¿½r Bild einfï¿½gen [ï¿½berprï¿½fen, ob richtig]
+		Image profilePic = PictureLoader.loadImageFromDatabase(PictureLoader.DEFAULTPIC);
 		contentTL.setBackgroundImage(profilePic);
 		
 		Composite contentTR = new Composite(content, SWT.NONE);
 		contentTR.setLayout(new GridLayout(1, false));
 		Label username = new Label(contentTR, SWT.NONE);
 
-		username.setText(user.getName()); //TODO Methode getUsername() einfügen
-		username.setFont(new Font( contentTR.getDisplay(), "Verdana", 24, SWT.BOLD )); //TODO ggf. CSS-Tag Headlie1 einfügen
+		username.setText(user.getName()); //TODO Methode getUsername() einfï¿½gen
+		username.setFont(new Font( contentTR.getDisplay(), "Verdana", 24, SWT.BOLD )); //TODO ggf. CSS-Tag Headlie1 einfï¿½gen
 
 
 		Composite contentBL = new Composite(content, SWT.NONE);
 		contentBL.setLayout(new GridLayout(2, false));
-		//TODO Nutzerdaten Labels und Buttons zum ändern einfügen
+		//TODO Nutzerdaten Labels und Buttons zum ï¿½ndern einfï¿½gen
 		
 
 		Composite contentBR = new Composite(content, SWT.NONE);
@@ -115,23 +116,6 @@ public class Profile implements FolderItem {
 	@Override
 	public String getTabItemName() {
 		return "Mein Profil";
-	}
-	
-	public Image loadImage(String name) {
-		Image result = null;
-		InputStream stream = Profile.class.getClassLoader().getResourceAsStream( name );
-		if( stream != null ) {
-			try {
-				result = new Image(display, stream);
-			} finally {
-				try {
-					stream.close();
-				} catch( IOException unexpected ) {
-					throw new RuntimeException( "Failed to close image input stream", unexpected );
-				}
-			}
-		}
-		return result;
 	}
 
 	@Override

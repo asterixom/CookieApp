@@ -7,25 +7,18 @@
   <packaging>pom</packaging>
   <name>de.cookieapp.parent</name>
   <modules>
-  	<module>
-  		../de.cookieapp.control
-  	</module>
-  	<module>
-  		../de.cookieapp.data
-  	</module>
+  	<module>../de.cookieapp.control</module>
+  	<module>../de.cookieapp.data</module>
   	<module>../de.cookieapp.gui.mainpage</module>
   	<module>../de.cookieapp.gui.recipesearch</module>
   	<module>../de.cookieapp.gui.register</module>
-  	
-  	
   	<module>../de.cookieapp.gui.home</module>
   	<module>../de.cookieapp.gui.profile</module>
   	<module>../de.cookieapp.gui.recipe</module>
-  	
-  	
   	<module>../de.cookieapp.gui.folderitem</module>
   	<module>../de.cjt.database</module>
   	<module>../de.cookieapp.gui.createrecipe</module>
+  	<module>../de.cookieapp.util</module>
   </modules>
   <dependencies>
   	<dependency>
