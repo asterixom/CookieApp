@@ -5,7 +5,7 @@
 	<artifactId>de.cookieapp.parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>de.cookieapp.parent</name>
+	<name>CookieApp</name>
 	<modules>
 		<module>../de.cookieapp.control</module>
 		<module>../de.cookieapp.data</module>
