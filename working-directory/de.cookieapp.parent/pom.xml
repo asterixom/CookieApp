@@ -16,7 +16,7 @@
 		<module>../de.cookieapp.gui.profile</module>
 		<module>../de.cookieapp.gui.recipe</module>
 		<module>../de.cookieapp.gui.folderitem</module>
-		<module>../de.cjt.database</module>
+		<module>../de.cookieapp.database</module>
 		<module>../de.cookieapp.gui.createrecipe</module>
 		<module>../de.cookieapp.util</module>
 	</modules>
