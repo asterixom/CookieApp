@@ -5,18 +5,21 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.cookieapp.control.ControlService;
 import de.cookieapp.control.ControlServiceImpl;
 import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.data.model.SecurityClearance;
+import de.cookieapp.data.service.DataProvider;
+import de.cookieapp.database.impl.DataProviderImpl;
 
 public class TestControl {
 
-	private ControlService control;
+	private ControlServiceImpl control;
 	
 	@Before
 	public void setUp(){
 		control = new ControlServiceImpl();
+		DataProvider dataProvider = new DataProviderImpl();
+		control.setDataProvider(dataProvider);
 		assertFalse(control==null);
 	}
 	
