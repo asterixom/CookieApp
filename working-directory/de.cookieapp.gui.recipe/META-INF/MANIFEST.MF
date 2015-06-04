@@ -11,3 +11,4 @@ Import-Package: de.cookieapp.data.model,
  de.cookieapp.util
 Service-Component: OSGI-INF/component.xml
 Export-Package: de.cookieapp.gui.recipe
+Bundle-Vendor: de.cookieapp

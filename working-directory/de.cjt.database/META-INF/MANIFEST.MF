@@ -10,8 +10,8 @@ Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: hibernateh2osgi
 Import-Package: de.cookieapp.data.model,
  de.cookieapp.data.service,
- javax.persistence;version="2.1.0",
- javax.persistence.spi;version="2.1.0",
+ javax.persistence,
+ javax.persistence.spi,
  org.eclipse.core.runtime;version="3.4.0",
  org.h2;version="1.4.187",
  org.hibernate.annotations;version="4.3.10.Final",
@@ -19,3 +19,4 @@ Import-Package: de.cookieapp.data.model,
  org.osgi.framework;version="1.8.0"
 Service-Component: OSGI-INF/DataProvider.xml
 Export-Package: de.cookieapp.database.impl
+Bundle-Vendor: de.cookieapp

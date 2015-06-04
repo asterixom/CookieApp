@@ -6,5 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: de.cookieapp.database.impl,
  org.eclipse.swt.graphics,
- org.eclipse.swt.widgets;version="3.0.0"
+ org.eclipse.swt.widgets
 Export-Package: de.cookieapp.util
+Bundle-Vendor: de.cookieapp

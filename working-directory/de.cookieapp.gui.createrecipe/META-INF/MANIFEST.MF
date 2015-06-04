@@ -11,3 +11,4 @@ Import-Package: de.cookieapp.control,
  org.eclipse.swt.widgets
 Service-Component: OSGI-INF/component.xml
 Require-Bundle: org.eclipse.rap.rwt;bundle-version="3.0.0"
+Bundle-Vendor: de.cookieapp

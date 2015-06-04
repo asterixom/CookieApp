@@ -13,6 +13,7 @@ public class PictureLoader {
 	public static final String DEFAULTPIC = "resources/default_pic.png";
 	public static final String TROLLFACE = "resources/troll_face_small.png";
 	public static final String RECIPEREPO = "resources.recipes/";
+	private static Display display; 
 
 
 	
@@ -28,8 +29,7 @@ public class PictureLoader {
 		InputStream stream = DataProviderImpl.class.getClassLoader().getResourceAsStream(name);
 		if (stream != null) {
 			try {
-				Display display = Display.getDefault();
-				result = new Image(display, stream);
+				result = new Image(Display.getDefault(), stream);
 			} finally {
 				try {
 					stream.close();
@@ -39,6 +39,5 @@ public class PictureLoader {
 			}
 		}
 		return result;
-	}
-	
+	}	
 }

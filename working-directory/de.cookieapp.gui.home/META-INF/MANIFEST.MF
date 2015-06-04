@@ -9,3 +9,4 @@ Import-Package: de.cookieapp.data.model,
  de.cookieapp.gui.folderitem
 Require-Bundle: org.eclipse.rap.rwt
 Export-Package: de.cookieapp.gui.home
+Bundle-Vendor: de.cookieapp

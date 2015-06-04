@@ -11,3 +11,4 @@ Import-Package: de.cookieapp.control,
  de.cookieapp.gui.folderitem,
  de.cookieapp.gui.recipe
 Require-Bundle: org.eclipse.rap.rwt;bundle-version="2.3.1"
+Bundle-Vendor: de.cookieapp

@@ -6,3 +6,4 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: de.cookieapp.data.model,
  de.cookieapp.data.service
+Bundle-Vendor: de.cookieapp

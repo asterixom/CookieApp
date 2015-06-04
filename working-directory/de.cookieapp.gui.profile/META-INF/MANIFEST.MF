@@ -9,3 +9,4 @@ Import-Package: de.cookieapp.data.model,
  de.cookieapp.gui.folderitem,
  de.cookieapp.util
 Service-Component: OSGI-INF/component.xml
+Bundle-Vendor: de.cookieapp

@@ -7,3 +7,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.rap.rwt;bundle-version="2.3.1"
 Export-Package: de.cookieapp.gui.folderitem
 Import-Package: de.cookieapp.data.model
+Bundle-Vendor: de.cookieapp

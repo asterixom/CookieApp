@@ -43,4 +43,5 @@
 		<artifactId>de.cookieapp.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+	<name>CreateRecipe</name>
 </project>

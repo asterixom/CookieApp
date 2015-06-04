@@ -33,4 +33,5 @@
   	<version>0.0.1-SNAPSHOT</version>
   	<relativePath>../../../../git/CookieApp/working-directory/de.cookieapp.parent</relativePath>
   </parent>
+  <name>Utilities</name>
 </project>
