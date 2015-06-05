@@ -17,6 +17,7 @@ public class Activator implements BundleActivator {
 	 */
 	public void start(BundleContext bundleContext) throws Exception {
 		Activator.context = bundleContext;
+		System.out.println("Debug: Database Activated");
 
 		// this activator only contains this for testing!
 		DataProviderImpl provider = new DataProviderImpl();

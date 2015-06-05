@@ -1,6 +1,8 @@
-package test.java;
+package de.cookieapp.control.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,17 +10,17 @@ import org.junit.Test;
 import de.cookieapp.control.ControlServiceImpl;
 import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.data.model.SecurityClearance;
-import de.cookieapp.data.service.DataProvider;
 import de.cookieapp.database.impl.DataProviderImpl;
 
-public class TestControl {
+public class ControlTest {
 
-	private ControlServiceImpl control;
 	
+	private ControlServiceImpl control;
+
 	@Before
-	public void setUp(){
+	public void setUp() throws InstantiationException, IllegalAccessException{
 		control = new ControlServiceImpl();
-		DataProvider dataProvider = new DataProviderImpl();
+		DataProviderImpl dataProvider = new DataProviderImpl();
 		control.setDataProvider(dataProvider);
 		assertFalse(control==null);
 	}
@@ -50,5 +52,4 @@ public class TestControl {
 			fail(e.toString());
 		}
 	}
-
 }
