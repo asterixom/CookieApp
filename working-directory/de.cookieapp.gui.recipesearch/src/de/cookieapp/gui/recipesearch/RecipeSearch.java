@@ -1,6 +1,7 @@
 package de.cookieapp.gui.recipesearch;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -23,6 +24,7 @@ import de.cookieapp.control.exceptions.CookieAppException;
 import de.cookieapp.data.model.User;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.gui.folderitem.FolderItem;
+import de.cookieapp.gui.recipe.RecipeTab;
 import de.cookieapp.gui.recipe.RecipeTabImpl;
 
 public class RecipeSearch implements FolderItem {
@@ -30,10 +32,12 @@ public class RecipeSearch implements FolderItem {
 	private ControlService controlService;
 	private CTabFolder tabFolder;
 	private Long sessionID;
+	private User user;
 	private Text recipeNameT;
 	private Composite content;
 	private Composite resultComposite;
 	private ArrayList<Label> results = new ArrayList<Label>();
+	private ArrayList<RecipeTab> recipeTabs = new ArrayList<RecipeTab>();
 
 	@Override
 	public Composite getContent(CTabFolder tabFolder) {
@@ -81,7 +85,7 @@ public class RecipeSearch implements FolderItem {
 					}
 					results.clear();
 					try {
-						ArrayList<Recipe> recipes = controlService.getRecipeByName(sessionID, recipeNameT.getText());
+						List<Recipe> recipes = controlService.getRecipeByName(sessionID, recipeNameT.getText());
 						showResults(content, recipes);
 						resultComposite.setVisible(true);
 					} catch (CookieAppException exception) {
@@ -120,7 +124,7 @@ public class RecipeSearch implements FolderItem {
 
 	}
 
-	public Composite showResults(final Composite parent, final ArrayList<Recipe> recipes) {
+	public Composite showResults(final Composite parent, final List<Recipe> recipes) {
 		//		Composite resultComposite = new Composite(parent, SWT.NONE);
 		//		resultComposite.setLayout(new GridLayout(1, true));
 		for(Control control : resultComposite.getChildren()){
@@ -175,6 +179,11 @@ public class RecipeSearch implements FolderItem {
 		}
 		if (!flag)  {
 			RecipeTabImpl recipeTab = new RecipeTabImpl();
+			recipeTabs.add(recipeTab);
+			recipeTab.setControlService(controlService);
+			if (user != null) {
+				recipeTab.setUser(user);
+			}
 			Composite recipeComp = recipeTab.getContent(tabFolder, recipe);
 			CTabItem recipeTabItem = new CTabItem(tabFolder, SWT.CLOSE);
 			recipeTabItem.setText(recipe.getName());
@@ -220,5 +229,11 @@ public class RecipeSearch implements FolderItem {
 
 	@Override
 	public void setLogedInUser(User user) {
+		if (user != null) {
+			this.user = user;
+			for (RecipeTab recipeTab : recipeTabs) {
+				recipeTab.setUser(user);
+			}
+		}
 	}
 }

@@ -5,12 +5,15 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -19,32 +22,40 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
+import de.cookieapp.control.ControlService;
 import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
+import de.cookieapp.database.impl.CommentImpl;
 import de.cookieapp.database.impl.DataProviderImpl;
 import de.cookieapp.util.PictureLoader;
 
 public class RecipeTabImpl implements RecipeTab {
-	
+
 	private Recipe recipe;
 	private Display display;
-	
+	private User user;
+	private Composite completeComposite;
+	private Composite createCommentArea;
+	private ControlService controlService;
+
 	@Override
 	public Composite getContent(Composite tabFolder, Recipe recipe) {
-		Composite completeComposite = new Composite(tabFolder, SWT.NONE);
+		completeComposite = new Composite(tabFolder, SWT.NONE);
 		completeComposite.setLayout(new GridLayout(1,false));
 		this.recipe = recipe;
 		createHeader(completeComposite);
-		
+
 		createIngredientsArea(completeComposite);
 		createDescriptionArea(completeComposite);
 		//createContent(completeComposite);
 		createCommentArea(completeComposite);
-		
+		createCreateCommentArea(completeComposite);
+
 		return completeComposite;
 	}
-	
+
 	/**
 	 * Creates Header. This contains the Picture and the InformationArea
 	 * @param completeComposite
@@ -52,7 +63,7 @@ public class RecipeTabImpl implements RecipeTab {
 	private void createHeader(Composite completeComposite) {
 		Composite header = new Composite(completeComposite, SWT.NONE);
 		header.setLayout(new FillLayout(SWT.HORIZONTAL));
-		
+
 		//Composite imageComposite = new Composite(header, SWT.NONE);
 		recipe.debugDumpExtended();
 		Image trollFace = null;
@@ -70,10 +81,10 @@ public class RecipeTabImpl implements RecipeTab {
 		imageLabel.setImage(trollFace);
 
 		createInformationArea(header);
-		
-		
+
+
 	}
-	
+
 	/**
 	 * Creates contentComposite and fills it
 	 * @param completeComposite
@@ -81,21 +92,21 @@ public class RecipeTabImpl implements RecipeTab {
 	private void createContent(Composite completeComposite) {
 		Composite content = new Composite(completeComposite, SWT.NONE);
 		content.setLayout(new GridLayout(2, false));
-		
+
 		Composite contentTL = new Composite(content, SWT.NONE);
 		contentTL.setLayout(new GridLayout(1, false));
 		//TODO Platzhalter f�r Bild einf�gen oder Methode f�r getRecipeImage() einbinden [�berpr�fen, ob richtig]
 		Image recipePic = PictureLoader.loadImageFromDatabase(PictureLoader.DEFAULTPIC);
 		contentTL.setBackgroundImage(recipePic);
-		
+
 		Composite contentTR = new Composite(content, SWT.NONE);
 		contentTR.setLayout(new GridLayout(2, false));
 		Label recipeName = new Label(contentTR, SWT.NONE);
 		recipeName.setText(recipe.getName()); //TODO Methode getRecipeName() einf�gen
 		recipeName.setFont(new Font( completeComposite.getDisplay(), "Verdana", 18, SWT.BOLD ) ); //TODO ggf. CSS-Tag Headlie1 einf�gen
-		
-		
-		
+
+
+
 		Composite contentBL = new Composite(content, SWT.NONE);
 		contentBL.setLayout(new GridLayout(2, false));
 		//Tabelle einf�gen und dynamisch mit Zutaten und Mengenangaben f�llen
@@ -111,14 +122,14 @@ public class RecipeTabImpl implements RecipeTab {
 			ti.setText(0, ingredient.getNameId()+"");
 			ti.setText(1,ingredient.getQuantity()+" "+ingredient.getUnit().name());
 		}
-		*/
+		 */
 		Composite contentBR = new Composite(content, SWT.NONE);
 		contentBR.setLayout(new GridLayout(1, false));
 		Text method = new Text(contentBR, SWT.BORDER);
 		method.setEditable(false);
 		method.setTouchEnabled(true);
 		method.setText(recipe.getDescription()); //TODO getMethod() einf�gen
-		
+
 	}
 
 	/**
@@ -147,20 +158,20 @@ public class RecipeTabImpl implements RecipeTab {
 		});
 		favorite.setText("Zu Favoriten hinzufuegen");
 	}
-	
+
 	private void createInformationArea(Composite headerComposite) {
 		Composite informationArea = new Composite(headerComposite, SWT.NONE);
 		informationArea.setLayout(new FillLayout(SWT.VERTICAL));
 		Label recipeName = new Label(informationArea, SWT.NONE);
 		recipeName.setText(recipe.getName());
-		
+
 		Label recipeCreator = new Label(informationArea, SWT.NONE);
 		recipeCreator.setText(recipe.getCreator().getName());
-		
+
 		Label recipeCreated = new Label(informationArea, SWT.NONE);
 		recipeCreated.setText(recipe.getCreated().toString());		
 	}
-	
+
 	private void createIngredientsArea(Composite contentComposite) {
 		Composite ingredientArea = new Composite(contentComposite, SWT.NONE);
 		ingredientArea.setLayout(new FillLayout(SWT.VERTICAL));
@@ -176,14 +187,14 @@ public class RecipeTabImpl implements RecipeTab {
 		}
 		recipe.debugDumpExtended();
 	}
-	
+
 	private void createDescriptionArea(Composite contentComposite) {
 		Composite descriptionArea = new Composite(contentComposite, SWT.NONE);
 		descriptionArea.setLayout(new FillLayout(SWT.VERTICAL));
 		Label ingredientsText = new Label(descriptionArea, SWT.NONE);
 		ingredientsText.setText("Anleitung: \n" + recipe.getDescription());
 	}
-	
+
 	private void createCommentArea(Composite contentComposite) {
 		Composite commentArea = new Composite(contentComposite, SWT.NONE);
 		commentArea.setLayout(new FillLayout(SWT.VERTICAL));		
@@ -199,8 +210,72 @@ public class RecipeTabImpl implements RecipeTab {
 		}
 	}
 
+	public void createCreateCommentArea(Composite contentComposite) {
+		if (createCommentArea != null) {
+			createCommentArea.dispose();
+		}
+		createCommentArea = new Composite(contentComposite, SWT.NONE);
+		createCommentArea.setLayout(new RowLayout(SWT.VERTICAL));
+		if (user == null) {
+			Label pleaseLoginLabel = new Label(createCommentArea, SWT.NONE);
+			pleaseLoginLabel.setText("Um die Kommentarfunktion nutzen zu können ist es nötig sich einzuloggen!");
+			// TODO Create Label, so user knows, if he logs in, he can write a comment
+		} else {
+
+			final Text commentaryLabel = new Text(createCommentArea, SWT.BORDER | SWT.MULTI);
+			Button createCommentaryButton = new Button(createCommentArea, SWT.PUSH | SWT.RIGHT);
+			createCommentaryButton.setText("Kommentar abschicken");
+			createCommentaryButton.addMouseListener(new MouseListener() {
+				private static final long serialVersionUID = 6119469308002757061L;
+				@Override
+				public void mouseUp(MouseEvent e) {
+					// TODO Auto-generated method stub
+					if (commentaryLabel != null && commentaryLabel.getText() != null && user != null) {
+						System.out.println(controlService.saveComment(commentaryLabel.getText(), user, recipe));
+					}
+				}
+
+				@Override
+				public void mouseDown(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseDoubleClick(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+			});;
+
+			// TODO dispose the Composite, so new content can be written
+			// TODO implement, so user can create a comment
+		}
+	}
+
 	@Override
 	public String getTabItemName() {
 		return recipe.getName();
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+		if (completeComposite != null) {
+			createCreateCommentArea(completeComposite);
+		}
+	}
+
+
+	public void setControlService(ControlService controlService) {
+		if (controlService != null) {
+			this.controlService = controlService;
+			System.out.println("DEBUG: RecipeTab added ControlService");
+		}
+	}
+
+	public void unsetControlService(ControlService controlService) {
+		if (this.controlService.equals(controlService)) {
+			this.controlService = null;
+		}
 	}
 }

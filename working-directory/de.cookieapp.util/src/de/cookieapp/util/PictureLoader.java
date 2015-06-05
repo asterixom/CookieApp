@@ -12,7 +12,7 @@ public class PictureLoader {
 	
 	public static final String DEFAULTPIC = "resources/default_pic.png";
 	public static final String TROLLFACE = "resources/troll_face_small.png";
-	public static final String RECIPEREPO = "resources.recipes/";
+	public static final String RECIPEREPO = "resources/recipes/";
 	private static Display display; 
 
 

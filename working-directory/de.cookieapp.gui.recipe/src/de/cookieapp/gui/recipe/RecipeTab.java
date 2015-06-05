@@ -3,6 +3,7 @@ package de.cookieapp.gui.recipe;
 import org.eclipse.swt.widgets.Composite;
 
 import de.cookieapp.data.model.Recipe;
+import de.cookieapp.data.model.User;
 
 public interface RecipeTab {
 
@@ -10,4 +11,5 @@ public interface RecipeTab {
 
 	String getTabItemName();
 
+	void setUser(User user);
 }
