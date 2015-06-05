@@ -4,14 +4,17 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.DatatypeConverter;
 
+import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 import de.cookieapp.data.service.DataProvider;
+import de.cookieapp.database.impl.CommentImpl;
 import de.cookieapp.database.impl.IngredientImpl;
 import de.cookieapp.database.impl.RecipeImpl;
 import de.cookieapp.database.impl.UserImpl;
@@ -71,7 +74,7 @@ public class DataService {
 		return dataProvider.getRecipe(recipeId);
 	}
 
-	public ArrayList<Recipe> getRecipesWithName(String name) {
+	public List<Recipe> getRecipesWithName(String name) {
 		return dataProvider.compareToRecipeName(name);
 	}
 
@@ -99,4 +102,10 @@ public class DataService {
 		}
 		return flag;
 	}
+	
+	public boolean saveComment(String commentContent, User user, Recipe recipe) {
+		return dataProvider.saveComment(commentContent, dataProvider.getUserID(user.geteMail()), dataProvider.getRecipeID(recipe.getName()));
+	}
+	
+	
 }

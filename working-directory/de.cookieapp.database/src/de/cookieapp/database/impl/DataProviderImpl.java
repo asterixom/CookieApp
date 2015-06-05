@@ -17,7 +17,7 @@ public class DataProviderImpl implements DataProvider {
 
 	private EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
-	public void main() {
+	public void createDummyData() {
 
 		DummyDataCreator dataCreator = new DummyDataCreator(this);
 		dataCreator.createDummyData();
@@ -26,14 +26,8 @@ public class DataProviderImpl implements DataProvider {
 
 	public List<User> getUsers() {
 		entityManager.getTransaction().begin();
-		List<?> obj = entityManager.createQuery(
-				"from " + UserImpl.class.getName()).getResultList();
-		List<User> users = new ArrayList<User>();
-		for (Object object : obj) {
-			if (object instanceof User) {
-				users.add((User) object);
-			}
-		}
+		List<?> obj = entityManager.createQuery("from " + UserImpl.class.getName()).getResultList();
+		List<User> users = extractUsers(obj);
 		entityManager.getTransaction().commit();
 		return users;
 	}
@@ -63,19 +57,6 @@ public class DataProviderImpl implements DataProvider {
 		Query query = this.entityManager.createQuery("from " + UserImpl.class.getName() + " s where lower(s.eMail)='" + mailOrNameLowerCase + "' OR lower(s.name)='" + mailOrNameLowerCase + "'");
 		List<?> usersFromQuery = query.getResultList();
 		if (usersFromQuery.size() == 1	&& usersFromQuery.get(0) instanceof UserImpl) {
-			id = ((UserImpl) usersFromQuery.get(0)).getId();
-		}
-		return id;
-	}
-
-	public long getUserIDFromName(String name) {
-		long id = 0;
-		Query query = this.entityManager
-				.createQuery("from " + UserImpl.class.getName()
-						+ " s where s.name='" + name + "'");
-		List<?> usersFromQuery = query.getResultList();
-		if (usersFromQuery.size() == 1
-				&& usersFromQuery.get(0) instanceof UserImpl) {
 			id = ((UserImpl) usersFromQuery.get(0)).getId();
 		}
 		return id;
@@ -123,12 +104,7 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().begin();
 		List<?> obj = entityManager.createQuery(
 				"from " + RecipeImpl.class.getName()).getResultList();
-		List<Recipe> recipes = new ArrayList<Recipe>();
-		for (Object object : obj) {
-			if (object instanceof Recipe) {
-				recipes.add((Recipe) object);
-			}
-		}
+		List<Recipe> recipes = extractRecipes(obj);
 		entityManager.getTransaction().commit();
 		return recipes;
 	}
@@ -141,9 +117,7 @@ public class DataProviderImpl implements DataProvider {
 	 * @return true, if it is already in the Database, otherwise false
 	 */
 	public boolean contains(Recipe recipe) {
-		List<?> recipeList = entityManager.createQuery(
-				"from " + RecipeImpl.class.getName() + " s where s.name='"
-						+ recipe.getName() + "'").getResultList();
+		List<?> recipeList = entityManager.createQuery("from " + RecipeImpl.class.getName() + " s where s.name='" + recipe.getName() + "'").getResultList();
 		return !recipeList.isEmpty();
 	}
 
@@ -155,13 +129,21 @@ public class DataProviderImpl implements DataProvider {
 	 * @return true, if it is already in the Database, otherwise false
 	 */
 	public boolean contains(User user) {
-		List<?> userList = entityManager.createQuery(
-				"from " + UserImpl.class.getName() + " s where s.eMail='"
-						+ user.geteMail() + "'").getResultList();
-		List<?> userList2 = entityManager.createQuery(
-				"from " + UserImpl.class.getName() + " s where s.name='"
-						+ user.getName() + "'").getResultList();
+		List<?> userList = entityManager.createQuery("from " + UserImpl.class.getName() + " s where s.eMail='" + user.geteMail() + "'").getResultList();
+		List<?> userList2 = entityManager.createQuery( "from " + UserImpl.class.getName() + " s where s.name='"	+ user.getName() + "'").getResultList();
 		return !(userList.isEmpty() && userList2.isEmpty());
+	}
+	
+	/**
+	 * Returns true, if the Database contains the Comment
+	 * @param commentContent the Commentary as String
+	 * @param user the user to look for
+	 * @param recipe the Recipe, that contains the recipe
+	 * @return true, if it is already in the Database, otherwise false
+	 */
+	public boolean contains(String commentContent, Long userID, Long recipeID) {
+		List<?> commentList = entityManager.createQuery("from " + CommentImpl.class.getName() + " s where s.content='" + commentContent + "' AND s.recipeid='" + recipeID + "' AND s.userid='" + userID + "'").getResultList();
+		return !commentList.isEmpty();
 	}
 
 	public boolean saveRecipe(Recipe recipe, User user) {
@@ -201,7 +183,6 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().begin();
 		UserImpl user = entityManager.find(UserImpl.class, getUserID(eMailorName));
 		entityManager.getTransaction().commit();
-		// TODO NullPointer, if user not found!!!
 		if (user != null && user.getPassword() != null) {
 			return user.getPassword().equals(password);
 		} else {
@@ -219,23 +200,26 @@ public class DataProviderImpl implements DataProvider {
 
 	}
 
-	public void saveComment(String content, Long userID, Long recipeID) {
-		entityManager.getTransaction().begin();
-		User user = getUser(userID);
-		Recipe recipe = getRecipe(recipeID);
-		Comment comment;
-		comment = CommentImpl.createComment(content, user, recipe);
-		entityManager.persist(comment);
-		recipe.addComment(comment);
-		entityManager.merge(recipe);
-		entityManager.getTransaction().commit();
+	public boolean saveComment(String content, Long userID, Long recipeID) {
+		boolean flag = false;
+		if (!contains(content, userID, recipeID)) {
+			entityManager.getTransaction().begin();
+			User user = getUser(userID);
+			Recipe recipe = getRecipe(recipeID);
+			Comment comment;
+			comment = CommentImpl.createComment(content, user, recipe);
+			entityManager.persist(comment);
+			recipe.addComment(comment);
+			entityManager.merge(recipe);
+			entityManager.getTransaction().commit();
+			flag = true;
+		}
+		return flag;
 	}
 
 	public long getCommentID(String content) {
 		long id = 0;
-		Query query = this.entityManager.createQuery("from "
-				+ CommentImpl.class.getName() + " s where s.content='"
-				+ content + "'");
+		Query query = this.entityManager.createQuery("from " + CommentImpl.class.getName() + " s where s.content='"	+ content + "'");
 		List<?> commentFromQuery = query.getResultList();
 		if (commentFromQuery.size() == 1 && commentFromQuery.get(0) instanceof CommentImpl) {
 			id = ((CommentImpl) commentFromQuery.get(0)).getId();
@@ -293,17 +277,12 @@ public class DataProviderImpl implements DataProvider {
 		entityManager.getTransaction().commit();
 	}
 
-	public ArrayList<Recipe> compareToRecipeName(String string) {
+	public List<Recipe> compareToRecipeName(String string) {
 		entityManager.getTransaction().begin();
 		// replace whitespace with wildcard
 		string = string.replace(" ", "%");
 		List<?> recipeList = entityManager.createQuery("from " + RecipeImpl.class.getName() + " s where lower(s.name) like '%" + string + "%'").getResultList();
-		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		for (Object object : recipeList) {
-			if (object instanceof Recipe) {
-				recipes.add((Recipe) object);
-			}
-		}
+		List<Recipe> recipes = extractRecipes(recipeList);
 		entityManager.getTransaction().commit();
 		return recipes;
 	}
@@ -344,6 +323,26 @@ public class DataProviderImpl implements DataProvider {
 		recipe.removeIngredient(ing);
 		entityManager.merge(recipe);
 		entityManager.getTransaction().commit();
+	}
+
+	private List<User> extractUsers(List<?> obj) {
+		List<User> users = new ArrayList<User>();
+		for (Object object : obj) {
+			if (object instanceof User) {
+				users.add((User) object);
+			}
+		}
+		return users;
+	}
+
+	private List<Recipe> extractRecipes(List<?> obj) {
+		List<Recipe> recipes = new ArrayList<Recipe>();
+		for (Object object : obj) {
+			if (object instanceof Recipe) {
+				recipes.add((Recipe) object);
+			}
+		}
+		return recipes;
 	}
 
 	// TODO Rezepte Strings speichern(Zutaten)

@@ -2,6 +2,7 @@ package de.cookieapp.control;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 
@@ -164,14 +165,14 @@ public class ControlServiceImpl implements ControlService {
 	}
 	
 	@Override
-	public ArrayList<Recipe> getRecipeByName(Long sessionId, String name)
+	public List<Recipe> getRecipeByName(Long sessionId, String name)
 			throws CookieAppException {
 		
 		if (!sessionMap.containsKey(sessionId)) {
 			throw new NoSessionException();
 		}
 		name = name.toLowerCase();
-		ArrayList<Recipe> recipe = dataService.getRecipesWithName(name);
+		List<Recipe> recipe = dataService.getRecipesWithName(name);
 		//ArrayList<Recipe> recipe = new ArrayList<>();		
 		//recipe.add(dataProvider.getRecipe(dataProvider.getRecipeID(name)));
 		if (recipe == null || recipe.size() < 1) {
@@ -202,6 +203,10 @@ public class ControlServiceImpl implements ControlService {
 	
 	public boolean saveRecipe(String recipeName, String recipeDescription, User user, ArrayList<String> ingredientNames, ArrayList<String> ingredientUnits, ArrayList<String> ingredientQuantity) {
 		return dataService.saveRecipe(recipeName, recipeDescription, user, ingredientNames, ingredientUnits, ingredientQuantity);
+	}
+	
+	public boolean saveComment(String commentContent, User user, Recipe recipe) {
+		return dataService.saveComment(commentContent, user, recipe);
 	}
 	
 	public void setDataProvider(DataProvider dataProvider) {

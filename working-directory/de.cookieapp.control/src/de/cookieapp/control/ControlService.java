@@ -1,6 +1,7 @@
 package de.cookieapp.control;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import de.cookieapp.control.exceptions.CookieAppException;
@@ -26,9 +27,10 @@ public interface ControlService {
 	public TreeMap<Long, String> getFavorites(Long sessionId) throws CookieAppException;
 	
 	public Recipe getRecipe(Long sessionId, Long recipeID) throws CookieAppException;
-	User getCurrentUser(Long sessionId) throws CookieAppException;
-	ArrayList<Recipe> getRecipeByName(Long sessionId, String name)	throws CookieAppException;
+	public User getCurrentUser(Long sessionId) throws CookieAppException;
+	public List<Recipe> getRecipeByName(Long sessionId, String name)	throws CookieAppException;
 	
 	public boolean saveRecipe(String recipeName, String recipeDescription, User user, ArrayList<String> ingredientNames, ArrayList<String> ingredientUnits, ArrayList<String> ingredientQuantity);
-
+	public boolean saveComment(String commentContent, User user, Recipe recipe);
+	
 }

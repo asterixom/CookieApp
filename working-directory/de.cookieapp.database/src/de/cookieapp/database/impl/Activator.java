@@ -21,7 +21,7 @@ public class Activator implements BundleActivator {
 
 		// this activator only contains this for testing!
 		DataProviderImpl provider = new DataProviderImpl();
-		provider.main();
+		provider.createDummyData();
 	}
 
 	/*

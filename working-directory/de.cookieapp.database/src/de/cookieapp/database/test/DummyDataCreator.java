@@ -48,8 +48,7 @@ public class DummyDataCreator {
 	private void printExtendedUserData() {
 		User user;
 		for (int i = 0; i < mailAdresses.size(); i = i + 1) {
-			user = dataProvider.getUser(dataProvider.getUserID(mailAdresses
-					.get(i)));
+			user = dataProvider.getUser(dataProvider.getUserID(mailAdresses.get(i)));
 			System.out.println();
 			user.debugDumpExtended();
 		}
@@ -58,8 +57,7 @@ public class DummyDataCreator {
 	private void printExtendedRecipeData() {
 		Recipe recipe;
 		for (int i = 0; i < recipeNames.size(); i = i + 1) {
-			recipe = dataProvider.getRecipe(dataProvider
-					.getRecipeID(recipeNames.get(i)));
+			recipe = dataProvider.getRecipe(dataProvider.getRecipeID(recipeNames.get(i)));
 			System.out.println();
 			recipe.debugDumpExtended();
 		}
@@ -68,8 +66,7 @@ public class DummyDataCreator {
 	private void createDummyUser() {
 		User user;
 		for (int i = 0; i < mailAdresses.size(); i = i + 1) {
-			user = UserImpl.createUser(userNames.get(i), passwords.get(i),
-					mailAdresses.get(i), null, null, null);
+			user = UserImpl.createUser(userNames.get(i), passwords.get(i), mailAdresses.get(i), null, null, null);
 			dataProvider.saveUser(user);
 			if (debug) {
 				user.debugDump();
@@ -82,8 +79,7 @@ public class DummyDataCreator {
 			Recipe recipe;
 			User user;
 			for (int i = 0; i < userNames.size(); i = i + 1) {
-				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses
-						.get(i)));
+				user = dataProvider.getUser(dataProvider.getUserID(mailAdresses.get(i)));
 				for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
 					recipe = RecipeImpl.createRecipe(recipeNames.get(j), recipeDescription.get(j), user, recipeImage.get(j), null);
 					dataProvider.saveRecipe(recipe, user);
@@ -128,8 +124,8 @@ public class DummyDataCreator {
 			for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
 				comment = CommentImpl.createComment(commentContents.get(j),
 						dataProvider.getUser(user), dataProvider
-								.getRecipe(dataProvider.getRecipeID(recipeNames
-										.get(i))));
+						.getRecipe(dataProvider.getRecipeID(recipeNames
+								.get(i))));
 				dataProvider.saveComment(commentContents.get(j), user,
 						dataProvider.getRecipeID(recipeNames.get(i)));
 				if (debug) {
@@ -169,7 +165,7 @@ public class DummyDataCreator {
 		recipeDescription.add("Flour, Salami and Cheese");
 		recipeDescription.add("French, Potatos and Fat");
 		recipeDescription.add("Monster Flesh Muhaahaa");
-		
+
 		recipeImage.add("burger.jpg");
 		recipeImage.add(null);
 		recipeImage.add("lasagne.jpg");
@@ -194,8 +190,8 @@ public class DummyDataCreator {
 
 		commentContents.add("Bullshit, ich kann nichts hörn!!!");
 		commentContents.add("Eat that Shit");
-		
-		
+
+
 		ingredientNames.add("Salami");
 		ingredientNames.add("Cheese");
 		ingredientNames.add("Fries");
