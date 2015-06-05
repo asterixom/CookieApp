@@ -142,7 +142,7 @@ public class DataProviderImpl implements DataProvider {
 	 * @return true, if it is already in the Database, otherwise false
 	 */
 	public boolean contains(String commentContent, Long userID, Long recipeID) {
-		List<?> commentList = entityManager.createQuery("from " + CommentImpl.class.getName() + " s where s.content='" + commentContent + "' AND s.recipeid='" + recipeID + "' AND s.userid='" + userID + "'").getResultList();
+		List<?> commentList = entityManager.createQuery("from " + CommentImpl.class.getName() + " s where s.content='" + commentContent + "' AND s.recipeComment='" + recipeID + "' AND s.commentCreator='" + userID + "'").getResultList();
 		return !commentList.isEmpty();
 	}
 
