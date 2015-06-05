@@ -47,31 +47,31 @@ public class CreateRecipeTab implements FolderItem {
 		Composite informationArea = new Composite(contentComposite, SWT.NONE);
 		GridLayout gridLayout = new GridLayout(1, false);
 		informationArea.setLayout(gridLayout);
-		
+
 		Label recipeName = new Label(informationArea, SWT.NONE);
 		recipeName.setText("Rezept Name:");
 		recipeName.setSize(recipeName.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 		recipeNameText = new Text(informationArea, SWT.SINGLE | SWT.BORDER);
-		recipeNameText.setText("Hier steht der Rezept Name");
+		recipeNameText.setMessage("Hier steht der Rezept Name");
 		recipeNameText.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1));
 		recipeNameText.setSize(recipeNameText.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		
+
 		Button addIngredientButton = new Button(informationArea, SWT.PUSH);
 		addIngredientButton.setText("Füge Zutatenfeld hinzu!");
 		addButtonListener(addIngredientButton);
-		
+
 		scrolledComposite = new ScrolledComposite(informationArea, SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
 		scrolledComposite.setLayout(new FillLayout(SWT.HORIZONTAL));
 		scrolledComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 		//scrolledComposite.setAlwaysShowScrollBars(true);
-		
+
 		ingredientsComposite = new Composite(scrolledComposite, SWT.NONE);
 		scrolledComposite.setContent(ingredientsComposite);
 		scrolledComposite.setMinHeight(200);
-		
+
 		RowLayout rowLayout = new RowLayout();
 		rowLayout.wrap = false;
 		rowLayout.pack = false;
@@ -88,7 +88,7 @@ public class CreateRecipeTab implements FolderItem {
 		recipeDescriptionLabel.setText("Rezept Anleitung:");
 
 		recipeDescriptionText = new Text(informationArea, SWT.BORDER | SWT.MULTI);
-		recipeDescriptionText.setText("Hier steht die Anleitung was zu machen ist");
+		recipeDescriptionText.setMessage("Hier steht die Anleitung was zu machen ist");
 		recipeDescriptionText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
 		Button saveButton = new Button(informationArea, SWT.PUSH);
@@ -97,19 +97,21 @@ public class CreateRecipeTab implements FolderItem {
 			private static final long serialVersionUID = -3777723625406460035L;
 			@Override
 			public void mouseUp(MouseEvent e) {
-				String recipeName = recipeNameText.getText();
-				String recipeDescription = recipeDescriptionText.getText();
-				ArrayList<String> ingredientNames = new ArrayList<String>();
-				ArrayList<String> ingredientUnits = new ArrayList<String>();
-				ArrayList<String> ingredientQuantities = new ArrayList<String>();
-				for (int i = 0; i < ingredientName.size(); i = i + 1) {
-					ingredientNames.add(ingredientName.get(i).getText());
-					ingredientUnits.add(ingredientUnit.get(i).getText());
-					ingredientQuantities.add(ingredientQuantity.get(i).getText());
+				if (recipeNameText.getText() != null && recipeDescriptionText.getText() != null) {
+					String recipeName = recipeNameText.getText();
+					String recipeDescription = recipeDescriptionText.getText();
+					ArrayList<String> ingredientNames = new ArrayList<String>();
+					ArrayList<String> ingredientUnits = new ArrayList<String>();
+					ArrayList<String> ingredientQuantities = new ArrayList<String>();
+					for (int i = 0; i < ingredientName.size(); i = i + 1) {
+						ingredientNames.add(ingredientName.get(i).getText());
+						ingredientUnits.add(ingredientUnit.get(i).getText());
+						ingredientQuantities.add(ingredientQuantity.get(i).getText());
+					}
+					controlService.saveRecipe(recipeName, recipeDescription, user, ingredientNames, ingredientUnits, ingredientQuantities);
 				}
-				controlService.saveRecipe(recipeName, recipeDescription, user, ingredientNames, ingredientUnits, ingredientQuantities);
 			}
-			
+
 			@Override
 			public void mouseDown(MouseEvent e) {
 			}
@@ -158,10 +160,10 @@ public class CreateRecipeTab implements FolderItem {
 				Text ingredientUnitText = new Text(ingredientRowComposite, SWT.SINGLE | SWT.BORDER);
 				ingredientUnit.add(ingredientUnitText);
 				ingredientUnitText.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1));
-				
+
 				//ingredientsComposite.setSize(ingredientsComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 				scrolledComposite.setMinHeight(scrolledComposite.getMinHeight() + 20);
-				
+
 				ingredientsComposite.pack();
 			}
 			@Override
