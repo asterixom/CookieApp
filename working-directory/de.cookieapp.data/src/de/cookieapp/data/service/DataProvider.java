@@ -1,6 +1,6 @@
 package de.cookieapp.data.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
@@ -24,7 +24,7 @@ public interface DataProvider {
 	
 	public void saveFavorite(Long recipeID, Long userID);
 	
-	public void saveComment(String content, Long userID, Long recipeID);
+	public boolean saveComment(String content, Long userID, Long recipeID);
 	
 	public boolean changePassword(long userID, String oldPassword, String newPassword);
 	
@@ -34,5 +34,5 @@ public interface DataProvider {
 	
 	public Long getIngredientID(String name, Recipe recipe);
 	
-	public ArrayList<Recipe> compareToRecipeName(String string);
+	public List<Recipe> compareToRecipeName(String string);
 }
