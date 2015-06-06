@@ -13,7 +13,6 @@ import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.database.impl.DataProviderImpl;
 
 public class ControlTest {
-
 	
 	private ControlServiceImpl control;
 
