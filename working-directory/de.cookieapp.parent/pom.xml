@@ -8,7 +8,10 @@
 	<name>CookieApp</name>
 	<modules>
 		<module>../de.cookieapp.control</module>
+		<module>../de.cookieapp.control.test</module>
 		<module>../de.cookieapp.data</module>
+		<module>../de.cookieapp.database</module>
+		<module>../de.cookieapp.database.test</module>
 		<module>../de.cookieapp.gui.mainpage</module>
 		<module>../de.cookieapp.gui.recipesearch</module>
 		<module>../de.cookieapp.gui.register</module>
@@ -16,11 +19,8 @@
 		<module>../de.cookieapp.gui.profile</module>
 		<module>../de.cookieapp.gui.recipe</module>
 		<module>../de.cookieapp.gui.folderitem</module>
-		<module>../de.cookieapp.database</module>
 		<module>../de.cookieapp.gui.createrecipe</module>
 		<module>../de.cookieapp.util</module>
-		
-		<module>../de.cookieapp.control.test</module>
 	</modules>
 	<dependencies>
 		<dependency>

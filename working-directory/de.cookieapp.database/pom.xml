@@ -41,12 +41,11 @@
 			<artifactId>hibernate-osgi</artifactId>
 			<version>4.3.10.Final</version>
 		</dependency>
-<dependency>
-	<groupId>org.hibernate.common</groupId>
-	<artifactId>hibernate-commons-annotations</artifactId>
-	<version>4.0.5.Final</version>
-</dependency>
-
+		<dependency>
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>4.0.5.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
@@ -73,11 +72,20 @@
 			<version>4.3.10.Final</version>
 		</dependency>
 		<dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-api</artifactId>
-	<version>1.7.12</version>
-</dependency>
-		
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.2.1.Final</version>
+		</dependency>
 	</dependencies>
 	<name>Database</name>
 </project>

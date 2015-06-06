@@ -34,9 +34,7 @@ public class DataProviderImpl implements DataProvider {
 
 	public void saveUser(User user) {
 		entityManager.getTransaction().begin();
-		if (contains(user)) {
-			System.err.println("User gibt es schon");
-		} else {
+		if (!contains(user)) {
 			entityManager.persist(user);
 		}
 		entityManager.getTransaction().commit();
