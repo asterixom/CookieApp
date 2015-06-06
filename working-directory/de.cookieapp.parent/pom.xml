@@ -19,6 +19,8 @@
 		<module>../de.cookieapp.database</module>
 		<module>../de.cookieapp.gui.createrecipe</module>
 		<module>../de.cookieapp.util</module>
+		
+		<module>../de.cookieapp.control.test</module>
 	</modules>
 	<dependencies>
 		<dependency>
