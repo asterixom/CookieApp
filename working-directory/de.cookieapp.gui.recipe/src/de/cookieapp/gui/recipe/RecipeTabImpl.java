@@ -1,7 +1,5 @@
 package de.cookieapp.gui.recipe;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 
 import org.eclipse.swt.SWT;
@@ -9,6 +7,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
@@ -27,8 +26,6 @@ import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Ingredient;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
-import de.cookieapp.database.impl.CommentImpl;
-import de.cookieapp.database.impl.DataProviderImpl;
 import de.cookieapp.util.PictureLoader;
 
 public class RecipeTabImpl implements RecipeTab {
@@ -39,6 +36,7 @@ public class RecipeTabImpl implements RecipeTab {
 	private Composite completeComposite;
 	private Composite createCommentArea;
 	private ControlService controlService;
+	private Composite commentArea;
 
 	@Override
 	public Composite getContent(Composite tabFolder, Recipe recipe) {
@@ -64,11 +62,9 @@ public class RecipeTabImpl implements RecipeTab {
 		Composite header = new Composite(completeComposite, SWT.NONE);
 		header.setLayout(new FillLayout(SWT.HORIZONTAL));
 
-		//Composite imageComposite = new Composite(header, SWT.NONE);
 		recipe.debugDumpExtended();
 		Image trollFace = null;
 		if (recipe.getImage() != null) {
-			String temp = recipe.getImage();
 			trollFace = PictureLoader.loadImageFromDatabase(PictureLoader.RECIPEREPO + recipe.getImage());
 		} else {
 			trollFace = PictureLoader.loadImageFromDatabase(PictureLoader.TROLLFACE);
@@ -76,87 +72,11 @@ public class RecipeTabImpl implements RecipeTab {
 		final int width = trollFace.getBounds().width;
 		final int height = trollFace.getBounds().height;
 		trollFace = new Image(display, trollFace.getImageData().scaledTo((int) (width * 0.3), (int) (height * 0.3)));
-		//imageComposite.setBackgroundImage(trollFace);
 		Label imageLabel = new Label(header, SWT.NONE);
 		imageLabel.setImage(trollFace);
 
 		createInformationArea(header);
 
-
-	}
-
-	/**
-	 * Creates contentComposite and fills it
-	 * @param completeComposite
-	 */
-	private void createContent(Composite completeComposite) {
-		Composite content = new Composite(completeComposite, SWT.NONE);
-		content.setLayout(new GridLayout(2, false));
-
-		Composite contentTL = new Composite(content, SWT.NONE);
-		contentTL.setLayout(new GridLayout(1, false));
-		//TODO Platzhalter f�r Bild einf�gen oder Methode f�r getRecipeImage() einbinden [�berpr�fen, ob richtig]
-		Image recipePic = PictureLoader.loadImageFromDatabase(PictureLoader.DEFAULTPIC);
-		contentTL.setBackgroundImage(recipePic);
-
-		Composite contentTR = new Composite(content, SWT.NONE);
-		contentTR.setLayout(new GridLayout(2, false));
-		Label recipeName = new Label(contentTR, SWT.NONE);
-		recipeName.setText(recipe.getName()); //TODO Methode getRecipeName() einf�gen
-		recipeName.setFont(new Font( completeComposite.getDisplay(), "Verdana", 18, SWT.BOLD ) ); //TODO ggf. CSS-Tag Headlie1 einf�gen
-
-
-
-		Composite contentBL = new Composite(content, SWT.NONE);
-		contentBL.setLayout(new GridLayout(2, false));
-		//Tabelle einf�gen und dynamisch mit Zutaten und Mengenangaben f�llen
-		Table table = new Table(contentBL, SWT.NONE);
-		TableColumn col1 = new TableColumn(table, SWT.NONE);
-		col1.setText("Zutat");
-		TableColumn col2 = new TableColumn(table, SWT.NONE);
-		col2.setText("Menge");
-		// TODO implement this
-		/*
-		for(Ingredient ingredient : recipe.getIngredients()){
-			TableItem ti = new TableItem(table, SWT.NONE);
-			ti.setText(0, ingredient.getNameId()+"");
-			ti.setText(1,ingredient.getQuantity()+" "+ingredient.getUnit().name());
-		}
-		 */
-		Composite contentBR = new Composite(content, SWT.NONE);
-		contentBR.setLayout(new GridLayout(1, false));
-		Text method = new Text(contentBR, SWT.BORDER);
-		method.setEditable(false);
-		method.setTouchEnabled(true);
-		method.setText(recipe.getDescription()); //TODO getMethod() einf�gen
-
-	}
-
-	/**
-	 * Creates the Footer, here is Comment and a Favorite Button
-	 * @param completeComposite
-	 */
-	private void createFooter(Composite completeComposite) {
-		Composite footerComposite = new Composite(completeComposite, SWT.NONE);
-		footerComposite.setLayout(new GridLayout(2, false));
-		Label owner = new Label(footerComposite, SWT.NONE);
-		owner.setText("Dieses Rezept ist von " + recipe.getCreator().getName()); //TODO noch dynamisch anpassen
-		Button favorite = new Button(footerComposite, SWT.NONE);
-		//TODO ggf. ueberpruefen, ob schon Favorit und noch if-selection fuer unterschiedliche Buttons
-		favorite.addSelectionListener(new SelectionAdapter() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1546174202494990071L;
-
-			/**
-			 * Actionlistener for favorite-button
-			 */
-			public void widgetSelected(SelectionEvent e) {
-				//TODO Favoriten implementieren
-			}
-		});
-		favorite.setText("Zu Favoriten hinzufuegen");
 	}
 
 	private void createInformationArea(Composite headerComposite) {
@@ -174,7 +94,7 @@ public class RecipeTabImpl implements RecipeTab {
 
 	private void createIngredientsArea(Composite contentComposite) {
 		Composite ingredientArea = new Composite(contentComposite, SWT.NONE);
-		ingredientArea.setLayout(new FillLayout(SWT.VERTICAL));
+		ingredientArea.setLayout(new RowLayout(SWT.VERTICAL));
 		Iterator<Ingredient> ingredients = recipe.getIngredients().iterator();
 		if (ingredients.hasNext()) {
 			Label ingredientsText = new Label(ingredientArea, SWT.NONE);
@@ -196,7 +116,10 @@ public class RecipeTabImpl implements RecipeTab {
 	}
 
 	private void createCommentArea(Composite contentComposite) {
-		Composite commentArea = new Composite(contentComposite, SWT.NONE);
+		if (commentArea != null) {
+			commentArea.dispose();
+		}
+		commentArea = new Composite(contentComposite, SWT.BORDER);
 		commentArea.setLayout(new FillLayout(SWT.VERTICAL));		
 		Iterator<Comment> comments = recipe.getComments().iterator();
 		if (comments.hasNext()) {
@@ -210,47 +133,51 @@ public class RecipeTabImpl implements RecipeTab {
 		}
 	}
 
-	public void createCreateCommentArea(Composite contentComposite) {
+	public void createCreateCommentArea(final Composite contentComposite) {
 		if (createCommentArea != null) {
 			createCommentArea.dispose();
 		}
-		createCommentArea = new Composite(contentComposite, SWT.NONE);
+		createCommentArea = new Composite(contentComposite, SWT.BORDER);
 		createCommentArea.setLayout(new RowLayout(SWT.VERTICAL));
 		if (user == null) {
 			Label pleaseLoginLabel = new Label(createCommentArea, SWT.NONE);
 			pleaseLoginLabel.setText("Um die Kommentarfunktion nutzen zu können ist es nötig sich einzuloggen!");
-			// TODO Create Label, so user knows, if he logs in, he can write a comment
 		} else {
-
 			final Text commentaryLabel = new Text(createCommentArea, SWT.BORDER | SWT.MULTI);
 			Button createCommentaryButton = new Button(createCommentArea, SWT.PUSH | SWT.RIGHT);
 			createCommentaryButton.setText("Kommentar abschicken");
-			createCommentaryButton.addMouseListener(new MouseListener() {
-				private static final long serialVersionUID = 6119469308002757061L;
-				@Override
-				public void mouseUp(MouseEvent e) {
-					// TODO Auto-generated method stub
-					if (commentaryLabel != null && commentaryLabel.getText() != null && user != null) {
-						System.out.println(controlService.saveComment(commentaryLabel.getText(), user, recipe));
-					}
-				}
-
-				@Override
-				public void mouseDown(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseDoubleClick(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-			});;
-
-			// TODO dispose the Composite, so new content can be written
-			// TODO implement, so user can create a comment
+			createCommentButton(contentComposite, commentaryLabel, createCommentaryButton);
 		}
+	}
+
+	private void createCommentButton(final Composite contentComposite,
+			final Text commentaryLabel, Button createCommentaryButton) {
+		createCommentaryButton.addMouseListener(new MouseListener() {
+			private static final long serialVersionUID = 6119469308002757061L;
+			@Override
+			public void mouseUp(MouseEvent e) {
+				if (commentaryLabel != null && commentaryLabel.getText() != null && user != null) {
+					controlService.saveComment(commentaryLabel.getText(), user, recipe);
+					
+					createCommentArea.dispose();
+					createCommentArea(contentComposite);
+
+					createCommentArea = new Composite(contentComposite, SWT.NONE);
+					createCommentArea.setLayout(new RowLayout(SWT.VERTICAL));
+					Label commentCreatedLabel = new Label(createCommentArea, SWT.NONE);
+					// set FontColor to Green
+					commentCreatedLabel.setForeground(new Color(Display.getCurrent(),51, 255,0));
+					commentCreatedLabel.setText("Rezept erfolgreich Hinzugefügt!");
+					completeComposite.pack();
+				}
+			}
+			@Override
+			public void mouseDown(MouseEvent e) {
+			}
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+			}
+		});
 	}
 
 	@Override
@@ -269,7 +196,6 @@ public class RecipeTabImpl implements RecipeTab {
 	public void setControlService(ControlService controlService) {
 		if (controlService != null) {
 			this.controlService = controlService;
-			System.out.println("DEBUG: RecipeTab added ControlService");
 		}
 	}
 
