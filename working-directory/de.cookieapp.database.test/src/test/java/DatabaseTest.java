@@ -26,7 +26,7 @@ public class DatabaseTest {
 	@Test
 	public void fillDatabaseWithDummyData() {
 		System.out.println("Testing 'Fill Database With DummyData'");
-		assertFalse(dataProvider==null);
+		assertFalse(dataProvider == null);
 		assertTrue(dataProvider.getUsers().isEmpty());		
 		assertTrue(dataProvider.getRecipes().isEmpty());
 		dataProvider.createDummyData();
@@ -39,6 +39,7 @@ public class DatabaseTest {
 		System.out.println("Testing 'create User'");
 		assertFalse(dataProvider==null);
 		User user = UserImpl.createUser(testUserName, testUserPassword, testUserMail, null, null, null);
+		assertTrue(user != null);
 		dataProvider.saveUser(user);
 		assertTrue(dataProvider.getUserID(testUserMail) > 0);
 		assertTrue(dataProvider.getUserID(testUserName) > 0);
@@ -68,6 +69,7 @@ public class DatabaseTest {
 		}
 		assertFalse(dataProvider==null);
 		User user = dataProvider.getUser(dataProvider.getUserID(testUserMail));
+		assertTrue(user != null);
 		assertTrue(dataProvider.getUserID(testUserMail) > 0);
 		assertTrue(dataProvider.getUserID(testUserName) > 0);
 		dataProvider.deleteUser(user.getId());
