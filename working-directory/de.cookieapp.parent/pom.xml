@@ -46,15 +46,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
 			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.6-SNAPSHOT</version>
-				<configuration>
-					<destfile>${basedir}/target/jacoco-unit.exec</destfile>
-					<datafile>${basedir}/target/jacoco-unit.exec</datafile>
-				</configuration>
-			</plugin>
 		</plugins>
 	</reporting>
 </project>
