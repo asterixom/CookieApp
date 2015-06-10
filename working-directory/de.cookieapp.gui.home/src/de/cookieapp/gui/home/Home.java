@@ -69,10 +69,4 @@ public class Home implements FolderItem {
 		// if user is null, no user is logged in!
 	}
 
-	@Override
-	public void setLogedInUsera(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

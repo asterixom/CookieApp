@@ -32,7 +32,6 @@ public interface FolderItem {
 	 * @param user
 	 */
 	public void setLogedInUser(User user);
-	
-	public void setLogedInUsera(User user);
+
 	
 }
