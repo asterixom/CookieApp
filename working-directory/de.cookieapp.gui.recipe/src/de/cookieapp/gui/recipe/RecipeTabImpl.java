@@ -191,6 +191,13 @@ public class RecipeTabImpl implements RecipeTab {
 			createCreateCommentArea(completeComposite);
 		}
 	}
+	
+	public void setUsera(User user) {
+		this.user = user;
+		if (completeComposite != null) {
+			createCreateCommentArea(completeComposite);
+		}
+	}
 
 
 	public void setControlService(ControlService controlService) {

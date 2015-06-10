@@ -184,6 +184,10 @@ public class CreateRecipeTab implements FolderItem {
 	public void setSessionID(Long sessionID) {
 		this.sessionID = sessionID;		
 	}
+	
+	public void setSessionIDa(Long sessionID) {
+		this.sessionID = sessionID;		
+	}
 
 	@Override
 	public void setLogedInUser(User user) {
@@ -206,6 +210,7 @@ public class CreateRecipeTab implements FolderItem {
 			this.controlService = null;
 		}
 	}
+	
 
 
 }
