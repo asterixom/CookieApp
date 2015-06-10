@@ -126,4 +126,10 @@ public class Profile implements FolderItem {
 		this.user = user;
 	}
 
+	@Override
+	public void setLogedInUsera(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

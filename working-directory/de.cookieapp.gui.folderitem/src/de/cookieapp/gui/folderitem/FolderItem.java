@@ -33,4 +33,6 @@ public interface FolderItem {
 	 */
 	public void setLogedInUser(User user);
 	
+	public void setLogedInUsera(User user);
+	
 }
