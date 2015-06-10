@@ -51,7 +51,7 @@ public class Register implements FolderItem{
 		Composite header = new Composite(headerComposite, SWT.NONE);
 		header.setLayout(new FillLayout(SWT.NONE));
 		Label headline = new Label(header, SWT.NONE);
-		headline.setText("Registriere dich fÜr CookieApp");		
+		headline.setText("Registriere dich fï¿½r CookieApp");		
 	}
 	
 	private void createContent(Composite contentComposite) {
@@ -61,7 +61,7 @@ public class Register implements FolderItem{
 		content.setLayout(new GridLayout(2, true));
 		
 		Label headline = new Label(content, SWT.NONE);
-		headline.setText("Registriere dich für CookieApp");
+		headline.setText("Registriere dich fï¿½r CookieApp");
 
 		Label blankLabel = new Label(content, SWT.NONE);
 		blankLabel.setVisible(false);
@@ -137,6 +137,13 @@ public class Register implements FolderItem{
 
 	@Override
 	public void setLogedInUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setLogedInUsera(User user) {
 		// TODO Auto-generated method stub
 		
 	}

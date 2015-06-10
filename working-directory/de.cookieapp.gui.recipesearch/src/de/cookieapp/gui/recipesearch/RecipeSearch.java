@@ -236,4 +236,10 @@ public class RecipeSearch implements FolderItem {
 			}
 		}
 	}
+
+	@Override
+	public void setLogedInUsera(User user) {
+		// TODO Auto-generated method stub
+		
+	}
 }
