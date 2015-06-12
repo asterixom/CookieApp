@@ -214,28 +214,4 @@ public class RecipeTabImpl implements RecipeTab {
 			this.controlService = null;
 		}
 	}
-	
-	/**
-	 * Loads the Image at the given path, transforms it into an Image
-	 * 
-	 * @param name
-	 *            the full path of the image
-	 * @return the Image, which was located at the given path
-	 */
-	public static Image loadImageFromDatabase(String name) {
-		Image result = null;
-		InputStream stream = DataProviderImpl.class.getClassLoader().getResourceAsStream(name);
-		if (stream != null) {
-			try {
-				result = new Image(Display.getDefault(), stream);
-			} finally {
-				try {
-					stream.close();
-				} catch (IOException unexpected) {
-					throw new RuntimeException("Failed to close image input stream", unexpected);
-				}
-			}
-		}
-		return result;
-	}	
 }
