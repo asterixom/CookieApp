@@ -343,6 +343,12 @@ public class DataProviderImpl implements DataProvider {
 		}
 		return recipes;
 	}
+	
+	public boolean isFavorite(Long recipeID, Long userID) {
+		User user = getUser(userID);
+		Recipe recipe = getRecipe(recipeID);
+		return user.getFavorites().contains(recipe);
+	}
 
 	// TODO Rezepte Strings speichern(Zutaten)
 }

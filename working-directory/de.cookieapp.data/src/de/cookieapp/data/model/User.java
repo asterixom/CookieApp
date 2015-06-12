@@ -6,10 +6,12 @@ import java.util.Set;
 public interface User {
 	
 	public void setRecipes(Set<Recipe> recipes);
+	public Set<Recipe> getRecipes();
 	public void addRecipe(Recipe recipe);
 	public void deleteRecipe(Recipe recipe);
 
 	public void setFavorites(Set<Recipe> favorite);
+	public Set<Recipe> getFavorites();
 	public void addFavoriteRecipe(Recipe recipe);
 	public void deleteFavoriteRecipe(Recipe recipe);
 	

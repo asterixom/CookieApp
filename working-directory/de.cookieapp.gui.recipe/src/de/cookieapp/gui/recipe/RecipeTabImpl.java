@@ -93,7 +93,48 @@ public class RecipeTabImpl implements RecipeTab {
 		recipeCreator.setText(recipe.getCreator().getName());
 
 		Label recipeCreated = new Label(informationArea, SWT.NONE);
-		recipeCreated.setText(recipe.getCreated().toString());		
+		recipeCreated.setText(recipe.getCreated().toString());	
+		
+		createFavoriteArea(informationArea);
+
+	}
+
+	private void createFavoriteArea(Composite informationArea) {
+		Image favoriteImgage = null;
+		if (user != null && controlService.isFavorite(user.getId(), recipe.getId())) {
+			favoriteImgage = PictureLoader.loadImageFromDatabase(PictureLoader.BOOKMARKPIC);
+		} else {
+			favoriteImgage = PictureLoader.loadImageFromDatabase(PictureLoader.NOBOOKMARKTPIC);
+		}
+		final int width = favoriteImgage.getBounds().width;
+		final int height = favoriteImgage.getBounds().height;
+		favoriteImgage = new Image(display,favoriteImgage.getImageData().scaledTo(50, 50));
+		Label imageLabel = new Label(informationArea, SWT.NONE);
+		imageLabel.setImage(favoriteImgage);
+		imageLabel.addMouseListener(new MouseListener() {
+			private static final long serialVersionUID = 4736903562041234338L;
+			@Override
+			public void mouseUp(MouseEvent e) {
+				// TODO Add to Bookmark
+				if (user != null && !controlService.isFavorite(user.getId(), recipe.getId())) {
+					System.out.println("User is logged in, can save bookmark");
+					controlService.saveFavorite(user.getId(), recipe.getId());
+				} else if (user != null && controlService.isFavorite(user.getId(), recipe.getId())) {
+					System.out.println("User is logged in, wants to delete bookmark");
+					controlService.removeFavorite(user.getId(), recipe.getId());
+				} else {
+					System.out.println("Debug: User not logged in, cant save Bookmark");
+
+				}
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent e) {			
+			}		
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {			
+			}
+		});
 	}
 
 	private void createIngredientsArea(Composite contentComposite) {

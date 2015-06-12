@@ -107,5 +107,16 @@ public class DataService {
 		return dataProvider.saveComment(commentContent, dataProvider.getUserID(user.geteMail()), dataProvider.getRecipeID(recipe.getName()));
 	}
 	
+	public boolean isFavorite(Long userID, Long recipeID) {
+		return dataProvider.isFavorite(recipeID, userID);
+	}
+	
+	public void saveFavorite(Long userID, Long recipeID) {
+		dataProvider.saveFavorite(recipeID, userID);
+	}
+	
+	public void removeFavorite(Long userID, Long recipeID) {
+		dataProvider.deleteFavorite(recipeID, userID);
+	}
 	
 }

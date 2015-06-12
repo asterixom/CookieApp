@@ -35,4 +35,9 @@ public interface DataProvider {
 	public Long getIngredientID(String name, Recipe recipe);
 	
 	public List<Recipe> compareToRecipeName(String string);
+	
+	public boolean isFavorite(Long recipeID, Long userID);
+	
+	public void deleteFavorite(Long recipeID, Long userID);
+
 }

@@ -227,4 +227,18 @@ public class ControlServiceImpl implements ControlService {
 			this.dataProvider = null;
 		}
 	}	
+	
+	public boolean isFavorite(Long userID, Long recipeID) {
+		return 	dataService.isFavorite(userID, recipeID);
+	}
+	
+	public void saveFavorite(Long userID, Long recipeID) {
+		dataService.saveFavorite(userID, recipeID);
+	}
+	
+	public void removeFavorite(Long userID, Long recipeID) {
+		dataService.removeFavorite(userID, recipeID);
+	}
+
+
 }

@@ -33,4 +33,8 @@ public interface ControlService {
 	public boolean saveRecipe(String recipeName, String recipeDescription, User user, ArrayList<String> ingredientNames, ArrayList<String> ingredientUnits, ArrayList<String> ingredientQuantity);
 	public boolean saveComment(String commentContent, User user, Recipe recipe);
 	
+	public boolean isFavorite(Long userID, Long recipeID);
+	public void saveFavorite(Long userID, Long recipeID);
+	public void removeFavorite(Long userID, Long recipeID);
+
 }
