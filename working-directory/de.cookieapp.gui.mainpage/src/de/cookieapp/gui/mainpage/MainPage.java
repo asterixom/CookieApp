@@ -70,6 +70,7 @@ public class MainPage extends AbstractEntryPoint {
 	private Label nameLabel;
 	private Label passwordLabel;
 	private Button loginButton;
+	private User user;
 
 	/**
 	 * Method, that will be executed, when the Page gets loaded. Everything for
@@ -280,11 +281,10 @@ public class MainPage extends AbstractEntryPoint {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
 					System.out.println(sessionID);
-					try {
-						controlService.getCurrentUser(sessionID);
-						logout();
-					} catch (CookieAppException e2) {
+					if (user == null) {
 						login();
+					} else {
+						logout();
 					}
 				}
 
@@ -317,6 +317,7 @@ public class MainPage extends AbstractEntryPoint {
 				System.err.println("Login Exception");
 			}
 		}
+		user = null;
 	}
 
 	/**
@@ -335,7 +336,7 @@ public class MainPage extends AbstractEntryPoint {
 				System.out.println("logged in as " + controlService.getCurrentUserName(sessionID));
 				if (nameText.getText().equalsIgnoreCase(controlService.getCurrentUserName(sessionID)) || nameText.getText().equalsIgnoreCase(controlService.getCurrentUser(sessionID).geteMail())) {
 					loggedinHeader(controlService.getCurrentUserName(sessionID));
-					User user = controlService.getCurrentUser(sessionID);
+					user = controlService.getCurrentUser(sessionID);
 					for (FolderItem folderitem : folderItems) {
 						folderitem.setLogedInUser(user);
 						if (folderitem.getTabItemName().equals(profileTab)) {

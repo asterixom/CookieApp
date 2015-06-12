@@ -120,7 +120,7 @@ public class Profile implements FolderItem {
 
 	@Override
 	public void setLogedInUser(User user) {
-		if(user==null){
+		if(user==null && completeComposite != null){
 			completeComposite.dispose();
 		}
 		this.user = user;
