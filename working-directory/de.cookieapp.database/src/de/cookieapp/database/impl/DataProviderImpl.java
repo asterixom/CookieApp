@@ -287,7 +287,8 @@ public class DataProviderImpl implements DataProvider {
 
 	public boolean saveIngredient(Ingredient ingredient, Long recipeID) {
 		boolean flag = false;
-		if (0 != getIngredientID(ingredient.getName(), getRecipe(recipeID))) {
+		Long ingredientID = getIngredientID(ingredient.getName(), getRecipe(recipeID));
+		if (0L == ingredientID) {
 			entityManager.getTransaction().begin();
 			Recipe recipe = getRecipe(recipeID);
 			ingredient.setRecipe(recipe);
