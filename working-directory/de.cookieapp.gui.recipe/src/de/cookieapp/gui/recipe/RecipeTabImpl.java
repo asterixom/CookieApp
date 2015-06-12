@@ -13,6 +13,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
@@ -123,15 +124,35 @@ public class RecipeTabImpl implements RecipeTab {
 			commentArea.dispose();
 		}
 		commentArea = new Composite(contentComposite, SWT.BORDER);
-		commentArea.setLayout(new FillLayout(SWT.VERTICAL));		
+		RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
+		commentArea.setLayout(rowLayout);		
 		Iterator<Comment> comments = recipe.getComments().iterator();
 		if (comments.hasNext()) {
 			Label commentsText = new Label(commentArea, SWT.NONE);
 			commentsText.setText("Kommentare:");
+			
 			while(comments.hasNext()) {
-				commentsText = new Label(commentArea, SWT.NONE);
+				Composite comentComposite = new Composite(commentArea, SWT.BORDER);
+				GridLayout gridLayout = new GridLayout(2, true);
+				comentComposite.setLayout(gridLayout);
+				
 				Comment comment = comments.next();
-				commentsText.setText(comment.getCreator().getName() + "\n" + comment.getContent());
+				
+				commentsText = new Label(comentComposite, SWT.NONE);
+				commentsText.setText(comment.getCreator().getName());
+				GridData griddata = new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1);
+				commentsText.setLayoutData(griddata);
+				
+				commentsText = new Label(comentComposite, SWT.NONE);
+				commentsText.setText(comment.getCreated().toString());
+				griddata = new GridData(SWT.RIGHT, SWT.CENTER, true, true, 1, 1);
+				commentsText.setLayoutData(griddata);
+
+				commentsText = new Label(comentComposite, SWT.NONE);
+				commentsText.setText(comment.getContent());
+				griddata = new GridData(SWT.LEFT, SWT.CENTER, true, true, 2, 1);
+				commentsText.setLayoutData(griddata);
+
 			}
 		}
 	}
