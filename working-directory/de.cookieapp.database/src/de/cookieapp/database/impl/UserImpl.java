@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
 
+import de.cookieapp.data.model.Comment;
 import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.SecurityClearance;
 import de.cookieapp.data.model.User;
@@ -51,7 +52,7 @@ public class UserImpl implements java.io.Serializable, User {
 	private Set<Recipe> recipes;
 	
 	@OneToMany(targetEntity = CommentImpl.class, mappedBy="commentCreator")
-	private Set<CommentImpl> comments;
+	private Set<Comment> comments;
 
 	
 	@ManyToMany(targetEntity = RecipeImpl.class, cascade=CascadeType.ALL)
