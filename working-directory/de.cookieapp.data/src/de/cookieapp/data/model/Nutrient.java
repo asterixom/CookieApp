@@ -1,11 +1,6 @@
 package de.cookieapp.data.model;
 
-import java.util.HashMap;
-
 public interface Nutrient {
-	
-	public Long addName(String name);
-	public void removeName(Long id);
 	
 	public double getCarbon();
 	public void setCarbon(double carbon);

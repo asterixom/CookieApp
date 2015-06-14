@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="de.cookieapp.database.impl.IngredientImpl" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/IngredientImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="422" width="312" x="82" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="de.cookieapp.database.impl.CommentImpl" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/CommentImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="440" width="280" x="434" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="de.cookieapp.database.impl.Activator" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/Activator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="152" width="177" x="754" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="de.cookieapp.database.impl.NutrientImpl" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/NutrientImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="458" width="310" x="971" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="de.cookieapp.database.impl.RecipeImpl" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/RecipeImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="728" width="370" x="1331" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="de.cookieapp.database.impl.UserImpl" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/UserImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="710" width="402" x="1741" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="de.cookieapp.database.impl.EntityManagerUtil" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/EntityManagerUtil.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="152" width="292" x="2183" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="de.cookieapp.database.impl.DataProviderImpl" project="de.cookieapp.database" 
+    file="/de.cookieapp.database/src/de/cookieapp/database/impl/DataProviderImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="674" width="288" x="2515" y="-168"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="9">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="10" name="nutrient"/>      
+      <multiplicity id="11" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

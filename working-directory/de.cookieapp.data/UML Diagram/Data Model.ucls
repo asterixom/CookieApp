@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <interface id="1" language="java" name="de.cookieapp.data.model.Recipe" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/Recipe.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="458" width="220" x="14" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="2" language="java" name="de.cookieapp.data.model.User" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/User.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="494" width="278" x="274" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="3" language="java" name="de.cookieapp.data.model.Nutrient" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/Nutrient.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="296" width="223" x="592" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="de.cookieapp.data.model.Recommendation" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/Recommendation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="62" width="144" x="855" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="5" language="java" name="de.cookieapp.data.model.SecurityClearance" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/SecurityClearance.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="134" width="174" x="1039" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <interface id="6" language="java" name="de.cookieapp.data.model.Comment" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/Comment.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="296" width="207" x="1253" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="7" language="java" name="de.cookieapp.data.model.Units" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/Units.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="224" width="153" x="1500" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <interface id="8" language="java" name="de.cookieapp.data.model.Ingredient" project="de.cookieapp.data" 
+    file="/de.cookieapp.data/src/de/cookieapp/data/model/Ingredient.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="260" width="159" x="1693" y="5"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import de.cookieapp.data.model.Nutrient;
@@ -32,12 +31,7 @@ public class NutrientImpl implements Nutrient {
 	private double protein;
 
 	@Column(name = "FAT")
-	private double fat;
-	
-	@ManyToOne
-	private NutrientImpl nutrient;
-	
-	
+	private double fat;	
 
 	public Long getId() {
 		return id;
@@ -46,15 +40,7 @@ public class NutrientImpl implements Nutrient {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public NutrientImpl getNutrient() {
-		return nutrient;
-	}
-
-	public void setNutrient(NutrientImpl nutrient) {
-		this.nutrient = nutrient;
-	}
-
+	
 	public double getCalorificValue() {
 		return calorificValue;
 	}
@@ -105,21 +91,6 @@ public class NutrientImpl implements Nutrient {
 		this.fat = fat;
 	}
 
-	public NutrientImpl() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public Long addName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removeName(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public double getCarbon() {
