@@ -303,15 +303,22 @@ public class MainPage extends AbstractEntryPoint {
 	private void logout() {
 		if (controlService != null) {
 			try {
-				// System.out.println(sessionID);
 				controlService.logout(sessionID);
 				System.out.println("logged out!");
 				loggedinHeader("");
 				for (FolderItem folderitem : folderItems) {
 					folderitem.setLogedInUser(null);
 				}
+				for (CTabItem tabItem : tabItems) {
+					for (String loggedInTab : loggedInTabs) {
+						if (!tabItem.isDisposed() && tabItem.getText().equals(loggedInTab)) {
+							tabItem.dispose();
+						}
+					}
+				}
+				nameText.setText("");
+				passwortText.setText("");
 				addSessionIDToTabs(sessionID);
-				// TODO implement real database with user
 			} catch (CookieAppException e1) {
 				e1.printStackTrace();
 				System.err.println("Login Exception");
@@ -339,6 +346,8 @@ public class MainPage extends AbstractEntryPoint {
 					user = controlService.getCurrentUser(sessionID);
 					for (FolderItem folderitem : folderItems) {
 						folderitem.setLogedInUser(user);
+						nameText.setText("");
+						passwortText.setText("");
 						for (String loggedInTab : loggedInTabs) {
 							if (folderitem.getTabItemName().equals(loggedInTab)) {
 								// General Composite for the Tab and the NumberArea

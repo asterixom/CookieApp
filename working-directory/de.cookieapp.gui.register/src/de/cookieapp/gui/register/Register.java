@@ -5,6 +5,7 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -25,7 +26,8 @@ public class Register implements FolderItem{
 	private Text mailT;
 	private Long sessionID;
 	Composite tabFolder;
-	Composite completeComposite; 
+	Composite completeComposite;
+	private Text passwordT2; 
 	
 
 	@Override
@@ -49,16 +51,32 @@ public class Register implements FolderItem{
 
 		Label blankLabel = new Label(content, SWT.NONE);
 		blankLabel.setVisible(false);
-
+		
+		//GridData gridData = new GridData(SWT.NONE, SWT.NONE, true, false, 2, 1);
 		Label usernameL = new Label(content, SWT.NONE);
 		usernameL.setText("Username");
+//		usernameL.setLayoutData(gridData);
 		usernameT = new Text(content, SWT.BORDER);
+		usernameT.setMessage("Benutzername eingeben");
+//		usernameT.setLayoutData(gridData);
 		Label passwordL = new Label(content, SWT.NONE);
 		passwordL.setText("Passwort");
+//		passwordL.setLayoutData(gridData);
 		passwordT = new Text(content, SWT.BORDER | SWT.PASSWORD);
+		passwordT.setMessage("Passwort eingeben");
+//		passwordT.setLayoutData(gridData);
+		Label passwordL2 = new Label(content, SWT.NONE);
+		passwordL2.setText("Passwort wiederholen");
+//		passwordL2.setLayoutData(gridData);
+		passwordT2 = new Text(content, SWT.BORDER | SWT.PASSWORD);
+		passwordT2.setMessage("Passwort wiederholen");
+//		passwordT2.setLayoutData(gridData);
 		Label mailL = new Label(content, SWT.NONE);
 		mailL.setText("eMail Adresse");
+//		mailL.setLayoutData(gridData);
 		mailT = new Text(content, SWT.BORDER);
+		mailT.setMessage("Mail Adresse eingeben");
+//		mailT.setLayoutData(gridData);
 		
 		Button register = new Button(content, SWT.NONE);
 		register.addSelectionListener(new SelectionAdapter() {
@@ -67,7 +85,7 @@ public class Register implements FolderItem{
 			 * Actionlistener for register button
 			 */
 			public void widgetSelected(SelectionEvent e) {
-				if(controlService != null) {
+				if(controlService != null && passwordT.getText().equals(passwordT2.getText())) {
 					String userName = usernameT.getText();
 					String password = passwordT.getText();
 					String eMail = mailT.getText();

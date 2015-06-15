@@ -75,7 +75,7 @@ public class RecipeTabImpl implements RecipeTab {
 		}
 		final int width = trollFace.getBounds().width;
 		final int height = trollFace.getBounds().height;
-		trollFace = new Image(display, trollFace.getImageData().scaledTo(500, 300));
+		trollFace = new Image(display, trollFace.getImageData().scaledTo(250, 150));
 		Label imageLabel = new Label(header, SWT.NONE);
 		imageLabel.setImage(trollFace);
 

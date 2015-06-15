@@ -87,7 +87,7 @@ public class DummyDataCreator {
 					int numberOfIngredients = (int) ((Math.random() * 10) + 1);
 					Ingredient ingredient;
 					for (int k = 0; k < numberOfIngredients; k = k + 1) {
-						ingredient = IngredientImpl.createIngredient((Math.random() * 1000), ingredientUnits.get((int) (Math.random() * 2)), ingredientNames.get((int) (Math.random() * 1)));
+						ingredient = IngredientImpl.createIngredient((int) (Math.random() * 1000), ingredientUnits.get((int) (Math.random() * 2)), ingredientNames.get((int) (Math.random() * 1)));
 						dataProvider.saveIngredient(ingredient, id);
 					}
 					if (debug) {
