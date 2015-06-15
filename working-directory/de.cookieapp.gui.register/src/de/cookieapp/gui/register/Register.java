@@ -23,7 +23,6 @@ public class Register implements FolderItem{
 	private Text usernameT;
 	private Text passwordT;
 	private Text mailT;
-//	private final int padding = 20;
 	private Long sessionID;
 	Composite tabFolder;
 	Composite completeComposite; 
@@ -36,32 +35,17 @@ public class Register implements FolderItem{
 		FillLayout verticalLayout = new FillLayout(SWT.VERTICAL);
 		completeComposite.setLayout(verticalLayout);
 		this.completeComposite = completeComposite;
-//		completeComposite.setLocation(padding, padding);
-//		Composite headerComposite = new Composite(completeComposite, SWT.NONE);		
-//		createHeader(completeComposite);
-		
-//		Composite contentComposite = new Composite(completeComposite, SWT.NONE);
 		createContent(completeComposite);
 		
 		return completeComposite;
 	}
-
-
-	private void createHeader(Composite headerComposite) {
-		Composite header = new Composite(headerComposite, SWT.NONE);
-		header.setLayout(new FillLayout(SWT.NONE));
-		Label headline = new Label(header, SWT.NONE);
-		headline.setText("Registriere dich f�r CookieApp");		
-	}
 	
 	private void createContent(Composite contentComposite) {
-//		Composite header = new Composite(contentComposite, SWT.NONE);
-//		header.setLayout(new FillLayout(SWT.NONE));
 		Composite content = new Composite(contentComposite, SWT.NONE);
 		content.setLayout(new GridLayout(2, true));
 		
 		Label headline = new Label(content, SWT.NONE);
-		headline.setText("Registriere dich f�r CookieApp");
+		headline.setText("Registriere dich für CookieApp");
 
 		Label blankLabel = new Label(content, SWT.NONE);
 		blankLabel.setVisible(false);
@@ -88,7 +72,6 @@ public class Register implements FolderItem{
 					String password = passwordT.getText();
 					String eMail = mailT.getText();
 					try {
-						//TODO check if registering worked
 						controlService.register(sessionID, userName, password, eMail);
 						if (controlService.getCurrentUserName(sessionID) != null && controlService.getCurrentUserName(sessionID).equalsIgnoreCase(userName)) {
 							System.out.println(controlService.getCurrentUserName(sessionID));
@@ -130,15 +113,11 @@ public class Register implements FolderItem{
 	
 	@Override
 	public void setSpecificProperty(Object property) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
 	@Override
 	public void setLogedInUser(User user) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
