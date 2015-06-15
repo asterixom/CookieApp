@@ -55,7 +55,7 @@ public class MainPage extends AbstractEntryPoint {
 	private ServiceTracker<ControlService, ControlService> serviceTrackerControlService;
 	private boolean started = false;
 	final String defaultTab = "Home";
-	final String profileTab = "Mein Profil";
+	final String[] loggedInTabs = {"Mein Profil", "Neues Rezept erstellen"};
 	private static final int HEADER_HEIGHT = 140;
 	private static final int CONTENT_SHIFT = 300;
 	private static final int CONTENT_WITH = 450;
@@ -339,18 +339,20 @@ public class MainPage extends AbstractEntryPoint {
 					user = controlService.getCurrentUser(sessionID);
 					for (FolderItem folderitem : folderItems) {
 						folderitem.setLogedInUser(user);
-						if (folderitem.getTabItemName().equals(profileTab)) {
-							// General Composite for the Tab and the NumberArea
-							Composite folderItemComposite = folderitem.getContent(tabFolder);
-							// folderItemComposite.setParent(tabFolder);
-							folderItemComposites.add(folderItemComposite);
-							// The New Tab for the Composite
-							CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
-							tabItem.setText(folderitem.getTabItemName());
-							tabItem.setControl(folderItemComposite);
-							tabItems.add(tabItem);
-							if (sessionID != null) {
-								folderitem.setSessionID(sessionID);
+						for (String loggedInTab : loggedInTabs) {
+							if (folderitem.getTabItemName().equals(loggedInTab)) {
+								// General Composite for the Tab and the NumberArea
+								Composite folderItemComposite = folderitem.getContent(tabFolder);
+								// folderItemComposite.setParent(tabFolder);
+								folderItemComposites.add(folderItemComposite);
+								// The New Tab for the Composite
+								CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
+								tabItem.setText(folderitem.getTabItemName());
+								tabItem.setControl(folderItemComposite);
+								tabItems.add(tabItem);
+								if (sessionID != null) {
+									folderitem.setSessionID(sessionID);
+								}
 							}
 						}
 					}
@@ -403,8 +405,13 @@ public class MainPage extends AbstractEntryPoint {
 				public void run() {
 					folderItems.add(folderItem);
 					System.out.println("added " + folderItem.getTabItemName());
-
-					if (!folderItem.getTabItemName().equals(profileTab)) {
+					boolean hidden = false;
+					for (String loggedInTab : loggedInTabs) {
+						if (folderItem.getTabItemName().equals(loggedInTab)) {
+							hidden = true;
+						}
+					}
+					if (!hidden) {
 						// General Composite for the Tab and the NumberArea
 						Composite folderItemComposite = folderItem.getContent(tabFolder);
 						// folderItemComposite.setParent(tabFolder);
