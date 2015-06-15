@@ -5,8 +5,10 @@ Bundle-SymbolicName: de.cookieapp.gui.profile
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.rap.rwt;bundle-version="2.3.1"
-Import-Package: de.cookieapp.data.model,
+Import-Package: de.cookieapp.control,
+ de.cookieapp.data.model,
  de.cookieapp.gui.folderitem,
+ de.cookieapp.gui.recipe,
  de.cookieapp.util
 Service-Component: OSGI-INF/component.xml
 Bundle-Vendor: de.cookieapp
