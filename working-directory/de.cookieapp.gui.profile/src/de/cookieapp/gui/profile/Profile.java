@@ -2,6 +2,8 @@ package de.cookieapp.gui.profile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -9,12 +11,17 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Widget;
 
+import de.cookieapp.data.model.Comment;
+import de.cookieapp.data.model.Recipe;
 import de.cookieapp.data.model.User;
 import de.cookieapp.gui.folderitem.FolderItem;
 import de.cookieapp.util.PictureLoader;
@@ -29,6 +36,8 @@ public class Profile implements FolderItem {
 	private User user;
 	
 	private Composite completeComposite;
+	private Composite favoriteArea;
+	private Composite ownRecipeArea;
 
 	@Override
 	public Composite getContent(CTabFolder tabFolder) {
@@ -72,33 +81,91 @@ public class Profile implements FolderItem {
 		Composite content = new Composite(completeComposite, SWT.NONE);
 		content.setLayout(new GridLayout(2, false));
 
-		Composite contentTL = new Composite(content, SWT.NONE);
-		contentTL.setLayout(new GridLayout(1, false));
-		//TODO Platzhalter f�r Bild einf�gen [�berpr�fen, ob richtig]
-		Image profilePic = PictureLoader.loadImageFromDatabase(PictureLoader.DEFAULTPIC);
-		contentTL.setBackgroundImage(profilePic);
+		Composite pictureComposite = new Composite(content, SWT.RIGHT);
+		pictureComposite.setLayout(new GridLayout(1, false));
+		Image profilePic = PictureLoader.loadImageFromDatabase(PictureLoader.NOUSERPIC);
+		profilePic = new Image(display, profilePic.getImageData().scaledTo(100, 100));
+		Label imageLabel = new Label(pictureComposite, SWT.NONE);
+		imageLabel.setImage(profilePic);
+		pictureComposite.setBackgroundImage(profilePic);
 		
 		Composite contentTR = new Composite(content, SWT.NONE);
 		contentTR.setLayout(new GridLayout(1, false));
 		Label username = new Label(contentTR, SWT.NONE);
 
-		username.setText(user.getName()); //TODO Methode getUsername() einf�gen
-		username.setFont(new Font( contentTR.getDisplay(), "Verdana", 24, SWT.BOLD )); //TODO ggf. CSS-Tag Headlie1 einf�gen
+		username.setText(user.getName());
+		username.setFont(new Font(contentTR.getDisplay(), "Verdana", 24, SWT.BOLD )); 
 
+		createOwnRecipeArea(content);
+		createFavoriteArea(content);
 
-		Composite contentBL = new Composite(content, SWT.NONE);
-		contentBL.setLayout(new GridLayout(2, false));
-		//TODO Nutzerdaten Labels und Buttons zum �ndern einf�gen
 		
 
-		Composite contentBR = new Composite(content, SWT.NONE);
-		contentBR.setLayout(new GridLayout(1, false));
-		Label myRecipes = new Label(contentBR, SWT.NONE);
-		myRecipes.setText("Meine Rezepte");
-		myRecipes.setFont(new Font( contentBR.getDisplay(), "Verdana", 18, SWT.BOLD ));
-		// MyRecipes einbinden
-
-
+	}
+	
+	private void createOwnRecipeArea(Composite contentComposite) {
+		if (ownRecipeArea != null) {
+			ownRecipeArea.dispose();
+		}
+		ownRecipeArea = new Composite(contentComposite, SWT.BORDER);
+		RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
+		ownRecipeArea.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true, 2, 1));
+		ownRecipeArea.setLayout(rowLayout);		
+		Set<Recipe> recipeSet = user.getRecipes();
+		if (recipeSet != null && recipeSet.iterator().hasNext()) {
+			Iterator<Recipe> recipes = user.getRecipes().iterator();
+			Label recipeLabel = new Label(ownRecipeArea, SWT.NONE);
+			recipeLabel.setText("Meine Rezepte:");
+			
+			while(recipes.hasNext()) {
+				Composite comentComposite = new Composite(ownRecipeArea, SWT.NONE);
+				GridLayout gridLayout = new GridLayout(2, true);
+				comentComposite.setLayout(gridLayout);
+				
+				Recipe recipe = recipes.next();
+				
+				recipeLabel = new Label(comentComposite, SWT.NONE);
+				recipeLabel.setText(recipe.getName());
+				GridData griddata = new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1);
+				recipeLabel.setLayoutData(griddata);
+			
+			}
+		} else {
+			Label recipeLabel = new Label(ownRecipeArea, SWT.NONE);
+			recipeLabel.setText("Noch keine Rezepte erstellt!");
+		}
+	}
+	
+	private void createFavoriteArea(Composite contentComposite) {
+		if (favoriteArea != null) {
+			favoriteArea.dispose();
+		}
+		favoriteArea = new Composite(contentComposite, SWT.BORDER);
+		RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
+		favoriteArea.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true, 2, 1));
+		favoriteArea.setLayout(rowLayout);		
+		Set<Recipe> recipeSet = user.getFavorites();
+		if (recipeSet != null && recipeSet.iterator().hasNext()) {
+			Iterator<Recipe> recipes = recipeSet.iterator();
+			Label recipeLabel = new Label(favoriteArea, SWT.NONE);
+			recipeLabel.setText("Meine Favoriten:");
+			
+			while(recipes.hasNext()) {
+				Composite comentComposite = new Composite(favoriteArea, SWT.NONE);
+				GridLayout gridLayout = new GridLayout(2, true);
+				comentComposite.setLayout(gridLayout);
+				
+				Recipe recipe = recipes.next();
+				
+				recipeLabel = new Label(comentComposite, SWT.NONE);
+				recipeLabel.setText(recipe.getName());
+				GridData griddata = new GridData(SWT.LEFT, SWT.CENTER, true, true, 1, 1);
+				recipeLabel.setLayoutData(griddata);
+			}
+		} else {
+			Label recipeLabel = new Label(favoriteArea, SWT.NONE);
+			recipeLabel.setText("Noch keine Favoriten Ausgewählt!");
+		}
 	}
 
 	@Override

@@ -16,6 +16,8 @@ public class PictureLoader {
 
 	public static final String TROLLFACE = "resources/troll_face_small.png";
 	public static final String RECIPEREPO = "resources/recipes/";
+	
+	public static final String NOUSERPIC = "resources/user/no_user_pic.jpg";
 	private static Display display; 
 
 
