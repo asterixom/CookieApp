@@ -231,8 +231,8 @@ public class RecipeTabImpl implements RecipeTab {
 					createCommentArea.setLayout(new RowLayout(SWT.VERTICAL));
 					Label commentCreatedLabel = new Label(createCommentArea, SWT.NONE);
 					// set FontColor to Green
-					commentCreatedLabel.setForeground(new Color(Display.getCurrent(),51, 255,0));
-					commentCreatedLabel.setText("Rezept erfolgreich Hinzugefügt!");
+					commentCreatedLabel.setForeground(new Color(Display.getCurrent(),34, 139, 34));
+					commentCreatedLabel.setText("Kommentar erfolgreich hinzugefügt!");
 					completeComposite.pack();
 				}
 			}
