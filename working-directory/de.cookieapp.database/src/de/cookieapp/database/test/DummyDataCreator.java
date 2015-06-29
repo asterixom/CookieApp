@@ -87,7 +87,7 @@ public class DummyDataCreator {
 					int numberOfIngredients = (int) ((Math.random() * 10) + 1);
 					Ingredient ingredient;
 					for (int k = 0; k < numberOfIngredients; k = k + 1) {
-						ingredient = IngredientImpl.createIngredient((int) (Math.random() * 1000), ingredientUnits.get((int) (Math.random() * 2)), ingredientNames.get((int) (Math.random() * 1)));
+						ingredient = IngredientImpl.createIngredient((int) (Math.random() * 1000), ingredientUnits.get((int) (Math.random() * ingredientUnits.size())), ingredientNames.get((int) (Math.random() * ingredientNames.size())));
 						dataProvider.saveIngredient(ingredient, id);
 					}
 					if (debug) {
@@ -111,17 +111,12 @@ public class DummyDataCreator {
 	}
 
 	private void createDummyComment() {
-		/*
-		 * ArrayList<String> reverseMailAdresses = new ArrayList<String>(); for
-		 * (int i = mailAdresses.size(); i >= 0 ; i = i - 1) {
-		 * reverseMailAdresses.add(mailAdresses.get(i)); }
-		 */
 		Comment comment;
 		long user;
 		for (int i = 0; i < recipeNames.size(); i = i + 1) {
-			int randomUser = (int) (Math.random() * mailAdresses.size());
-			user = dataProvider.getUserID(mailAdresses.get(randomUser));
 			for (int j = i * 2; j < (i * 2) + 2; j = j + 1) {
+				int randomUser = (int) (Math.random() * mailAdresses.size());
+				user = dataProvider.getUserID(mailAdresses.get(randomUser));
 				comment = CommentImpl.createComment(commentContents.get(j),
 						dataProvider.getUser(user), dataProvider
 						.getRecipe(dataProvider.getRecipeID(recipeNames
@@ -195,6 +190,7 @@ public class DummyDataCreator {
 		ingredientNames.add("Salami");
 		ingredientNames.add("Cheese");
 		ingredientNames.add("Fries");
+		ingredientNames.add("Spider Legs");
 
 		ingredientUnits.add("ml");
 		ingredientUnits.add("g");
