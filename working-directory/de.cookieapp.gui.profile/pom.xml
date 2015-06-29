@@ -44,5 +44,10 @@
 	<artifactId>sonar-maven-plugin</artifactId>
 	<version>5.1</version>
 </dependency>
+		<dependency>
+			<groupId>de.cookieapp.control</groupId>
+			<artifactId>de.cookieapp.control</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
